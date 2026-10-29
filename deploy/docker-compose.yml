@@ -1,0 +1,88 @@
+# Local / smoke-test stack for the Deal Intelligence self-hosted build.
+# Production runs the same images on ECS Fargate (see deploy/aws/).
+#
+#   docker compose -f deploy/docker-compose.yml --env-file deploy/.env.local up --build
+#
+# Hosts: app http://localhost:3000, api http://localhost:3333, portal http://localhost:3002
+x-build: &build
+  context: ..
+  dockerfile: deploy/Dockerfile
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: comp
+      POSTGRES_PASSWORD: comp
+      POSTGRES_DB: comp
+    ports: ['5432:5432']
+    volumes: ['pgdata:/var/lib/postgresql/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U comp']
+      interval: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ':9001'
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio12345
+    ports: ['9000:9000', '9001:9001']
+    volumes: ['minio:/data']
+
+  migrator:
+    build: { <<: *build, target: migrator }
+    environment:
+      DATABASE_URL: postgresql://comp:comp@postgres:5432/comp
+      SEED: 'true'
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  api:
+    build: { <<: *build, target: api }
+    env_file: [.env.api]
+    environment:
+      DATABASE_URL: postgresql://comp:comp@postgres:5432/comp
+      PORT: '3333'
+    ports: ['3333:3333']
+    depends_on:
+      migrator: { condition: service_completed_successfully }
+    restart: unless-stopped
+
+  app:
+    build:
+      <<: *build
+      target: app
+      args:
+        NEXT_PUBLIC_BETTER_AUTH_URL: http://localhost:3000
+        NEXT_PUBLIC_APP_URL: http://localhost:3000
+        NEXT_PUBLIC_PORTAL_URL: http://localhost:3002
+        NEXT_PUBLIC_API_URL: http://localhost:3333
+        NEXT_PUBLIC_TRUST_URL: http://localhost:3008
+    env_file: [.env.app]
+    environment:
+      DATABASE_URL: postgresql://comp:comp@postgres:5432/comp
+    ports: ['3000:3000']
+    depends_on: [api]
+    restart: unless-stopped
+
+  portal:
+    build:
+      <<: *build
+      target: portal
+      args:
+        NEXT_PUBLIC_BETTER_AUTH_URL: http://localhost:3002
+        NEXT_PUBLIC_API_URL: http://localhost:3333
+        NEXT_PUBLIC_APP_URL: http://localhost:3000
+        NEXT_PUBLIC_PORTAL_URL: http://localhost:3002
+    env_file: [.env.portal]
+    environment:
+      DATABASE_URL: postgresql://comp:comp@postgres:5432/comp
+    ports: ['3002:3000']
+    depends_on: [api]
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  minio:

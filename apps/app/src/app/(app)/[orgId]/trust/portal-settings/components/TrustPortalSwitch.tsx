@@ -7,6 +7,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@trycompai/design-system';
 import { Form } from '@trycompai/ui/form';
+import { brand } from '@trycompai/utils/brand';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -377,7 +378,7 @@ export function TrustPortalSwitch({
     [updateToggleSettings],
   );
 
-  const portalUrl = domainVerified ? `https://${domain}` : `https://trust.inc/${slug}`;
+  const portalUrl = domainVerified ? `https://${domain}` : `${brand.trustUrl}/${slug}`;
 
   const lastSaved = useRef<{ [key: string]: string | boolean | null }>({
     contactEmail: contactEmail ?? '',

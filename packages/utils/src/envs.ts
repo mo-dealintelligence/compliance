@@ -11,7 +11,11 @@ function fromEnv(...keys: string[]): string | undefined {
 }
 
 export function getAppUrl() {
-  const configured = fromEnv('NEXT_PUBLIC_APP_URL', 'NEXT_PUBLIC_BETTER_AUTH_URL', 'BETTER_AUTH_URL');
+  const configured = fromEnv(
+    'NEXT_PUBLIC_APP_URL',
+    'NEXT_PUBLIC_BETTER_AUTH_URL',
+    'BETTER_AUTH_URL',
+  );
   if (configured) return configured;
 
   if (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL) {

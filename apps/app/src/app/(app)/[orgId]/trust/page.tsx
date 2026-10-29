@@ -1,6 +1,7 @@
 import { serverApi } from '@/lib/api-server';
 import { Button, PageHeader, PageLayout } from '@trycompai/design-system';
 import { Launch } from '@trycompai/design-system/icons';
+import { brand } from '@trycompai/utils/brand';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { TrustPortalGettingStarted } from './components/TrustPortalGettingStarted';
@@ -79,7 +80,7 @@ export default async function TrustPage({ params }: { params: Promise<{ orgId: s
   const portalUrl =
     settings?.domainVerified && settings.domain
       ? `https://${settings.domain}`
-      : `https://trust.inc/${settings?.friendlyUrl ?? orgId}`;
+      : `${brand.trustUrl}/${settings?.friendlyUrl ?? orgId}`;
 
   return (
     <PageLayout
