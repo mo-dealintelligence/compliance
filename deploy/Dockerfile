@@ -51,6 +51,7 @@ COPY apps/app ./apps/app
 COPY apps/portal ./apps/portal
 RUN cd packages/db && bun run build
 RUN cd packages/auth && bun run build \
+ && cd ../kv && bun run build \
  && cd ../integration-platform && bun run build \
  && cd ../email && bun run build \
  && cd ../company && bun run build \

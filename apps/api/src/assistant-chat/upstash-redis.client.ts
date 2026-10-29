@@ -1,4 +1,5 @@
 import { Redis } from '@upstash/redis';
+import { pgKv } from '@trycompai/kv/pg';
 
 /**
  * Upstash Redis client wrapper for the NestJS API.
@@ -45,4 +46,6 @@ export const assistantChatRedisClient: Pick<Redis, 'get' | 'set' | 'del'> =
         url: process.env.UPSTASH_REDIS_REST_URL!,
         token: process.env.UPSTASH_REDIS_REST_TOKEN!,
       })
-    : (new InMemoryRedis() as unknown as Pick<Redis, 'get' | 'set' | 'del'>);
+    : process.env.DATABASE_URL
+      ? (pgKv as unknown as Pick<Redis, 'get' | 'set' | 'del'>)
+      : (new InMemoryRedis() as unknown as Pick<Redis, 'get' | 'set' | 'del'>);

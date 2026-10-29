@@ -1,0 +1,11 @@
+/// Generic key-value store with TTL. Replaces Upstash Redis for the few
+/// cache/session uses in a self-hosted deployment (see packages/kv).
+model KvStore {
+  key       String    @id
+  value     Json
+  expiresAt DateTime? @map("expires_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@index([expiresAt])
+  @@map("kv_store")
+}

@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { Redis } from '@upstash/redis';
+import { pgKv } from './pg-kv';
 
 // Mock Redis client for E2E tests
 class MockRedis {
@@ -54,13 +55,22 @@ class MockRedis {
 const isE2ETest = process.env.E2E_TEST_MODE === 'true' && process.env.CI === 'true';
 const isMockRequired = process.env.MOCK_REDIS === 'true';
 
+// Self-hosted deployments default to the Postgres-backed store (no Upstash).
+const hasUpstash = !!process.env.UPSTASH_REDIS_REST_URL && !!process.env.UPSTASH_REDIS_REST_TOKEN;
+const usePostgres =
+  process.env.KV_BACKEND === 'postgres' || (!hasUpstash && !!process.env.DATABASE_URL);
+
 export const client =
   isE2ETest || isMockRequired
     ? (new MockRedis() as any as Redis)
-    : new Redis({
-        url: process.env.UPSTASH_REDIS_REST_URL!,
-        token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-      });
+    : usePostgres
+      ? (pgKv as unknown as Redis)
+      : new Redis({
+          url: process.env.UPSTASH_REDIS_REST_URL!,
+          token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+        });
+
+export { pgKv, PgKv } from './pg-kv';
 
 // Re-export Redis types for convenience
 export type { Redis } from '@upstash/redis';

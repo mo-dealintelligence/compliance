@@ -1,4 +1,5 @@
 import { Redis } from '@upstash/redis';
+import { pgKv } from '@trycompai/kv/pg';
 
 class InMemoryRedis {
   private storage = new Map<string, { value: unknown; expiresAt?: number }>();
@@ -49,7 +50,9 @@ export const deviceAgentRedisClient: Pick<
       url: process.env.UPSTASH_REDIS_REST_URL!,
       token: process.env.UPSTASH_REDIS_REST_TOKEN!,
     })
-  : (new InMemoryRedis() as unknown as Pick<
-      Redis,
-      'get' | 'set' | 'getdel' | 'del'
-    >);
+  : process.env.DATABASE_URL
+    ? (pgKv as unknown as Pick<Redis, 'get' | 'set' | 'getdel' | 'del'>)
+    : (new InMemoryRedis() as unknown as Pick<
+        Redis,
+        'get' | 'set' | 'getdel' | 'del'
+      >);
