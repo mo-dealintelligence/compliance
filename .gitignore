@@ -110,3 +110,9 @@ apps/mcp-server/.github/
 # These must never be committed. Unanchored so nested paths are covered too.
 dbq_*.js
 *.csv
+
+# Deal Intelligence deploy
+deploy/aws/node_modules
+deploy/aws/.serverless
+deploy/aws/*/.serverless
+deploy/.env.*
