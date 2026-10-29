@@ -11,7 +11,7 @@ env:
     IMAGE_TAG: latest
     RUN_MIGRATIONS: 'false'
     SEED: 'false'
-    TARGETS: 'migrator api app portal'
+    TARGETS: 'migrator api api-worker app app-worker portal'
     DOCKER_BUILDKIT: '1'
 
 phases:

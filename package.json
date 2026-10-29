@@ -167,6 +167,8 @@
     "@tiptap/pm": "3.22.1",
     "@tiptap/react": "3.22.1",
     "@tiptap/starter-kit": "3.22.1",
-    "@tiptap/suggestion": "3.22.1"
+    "@tiptap/suggestion": "3.22.1",
+    "@trigger.dev/sdk": "workspace:*",
+    "@trigger.dev/react-hooks": "workspace:*"
   }
 }

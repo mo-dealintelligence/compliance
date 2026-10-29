@@ -1,0 +1,32 @@
+[
+  {
+    "id": "flag-stale-devices",
+    "cron": "0 6 * * *",
+    "file": "device/flag-stale-devices.ts"
+  },
+  {
+    "id": "integration-schedule",
+    "cron": "0 5 * * *",
+    "file": "integration/integration-schedule.ts"
+  },
+  {
+    "id": "policy-acknowledgment-digest",
+    "cron": "0 14 * * 2",
+    "file": "task/policy-acknowledgment-digest.ts"
+  },
+  {
+    "id": "policy-schedule",
+    "cron": "0 */12 * * *",
+    "file": "task/policy-schedule.ts"
+  },
+  {
+    "id": "task-schedule",
+    "cron": "0 */12 * * *",
+    "file": "task/task-schedule.ts"
+  },
+  {
+    "id": "weekly-task-reminder",
+    "cron": "0 9 * * 1",
+    "file": "task/weekly-task-reminder.ts"
+  }
+]

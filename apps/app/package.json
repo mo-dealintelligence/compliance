@@ -195,7 +195,7 @@
         "db:getschema": "find prisma/schema -name '*.prisma' ! -name 'schema.prisma' -delete && find ../../packages/db/prisma/schema -name '*.prisma' ! -name 'schema.prisma' -exec cp {} prisma/schema/ \\;",
         "db:migrate": "cd ../../packages/db && bunx prisma migrate dev && cd ../../apps/app",
         "deploy:trigger-prod": "npx trigger.dev@4.4.3 deploy",
-        "dev": "bunx concurrently --kill-others --names \"next,trigger\" --prefix-colors \"yellow,blue\" \"NODE_OPTIONS='--no-deprecation' next dev --turbo -p 3000\" \"NODE_OPTIONS='--no-deprecation' trigger dev\"",
+        "dev": "NODE_OPTIONS='--no-deprecation' next dev --turbo -p 3000",
         "dev:no-trigger": "NODE_OPTIONS='--no-deprecation' next dev --turbo -p 3000",
         "lint": "eslint . && prettier --check .",
         "prebuild": "bun run db:generate",
@@ -213,6 +213,7 @@
         "test:e2e:ui": "playwright test --ui",
         "test:ui": "vitest --ui",
         "test:watch": "vitest --watch",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "build:worker": "node scripts/build-worker.mjs"
     }
 }

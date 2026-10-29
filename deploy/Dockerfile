@@ -33,6 +33,8 @@ COPY packages/email/package.json ./packages/email/
 COPY packages/integration-platform/package.json ./packages/integration-platform/
 COPY packages/integrations/package.json ./packages/integrations/
 COPY packages/kv/package.json ./packages/kv/
+COPY packages/trigger-shim/package.json ./packages/trigger-shim/
+COPY packages/trigger-react-hooks-shim/package.json ./packages/trigger-react-hooks-shim/
 COPY packages/tsconfig/package.json ./packages/tsconfig/
 COPY packages/ui/package.json ./packages/ui/
 COPY packages/utils/package.json ./packages/utils/
@@ -52,6 +54,7 @@ COPY apps/portal ./apps/portal
 RUN cd packages/db && bun run build
 RUN cd packages/auth && bun run build \
  && cd ../kv && bun run build \
+ && cd ../trigger-shim && bun run build \
  && cd ../integration-platform && bun run build \
  && cd ../email && bun run build \
  && cd ../company && bun run build \
@@ -99,6 +102,18 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
 CMD ["node", "--report-on-fatalerror", "--report-compact", "dist/src/main.js"]
 
 # -----------------------------------------------------------------------------
+# api-worker: background tasks (replaces Trigger.dev) on the Lambda Node base
+# -----------------------------------------------------------------------------
+FROM public.ecr.aws/lambda/nodejs:22 AS api-worker
+WORKDIR ${LAMBDA_TASK_ROOT}
+COPY --from=api-builder /app/apps/api/dist ./dist
+COPY --from=api-builder /app/apps/api/package.json ./package.json
+COPY --from=api-builder /app/packages ./packages
+COPY --from=api-builder /app/node_modules ./node_modules
+ENV NODE_ENV=production
+CMD ["dist/src/trigger-worker.handler"]
+
+# -----------------------------------------------------------------------------
 # app (Next.js admin)
 # -----------------------------------------------------------------------------
 FROM workspace AS app-builder
@@ -142,7 +157,8 @@ ENV NEXT_PUBLIC_BETTER_AUTH_URL=$NEXT_PUBLIC_BETTER_AUTH_URL \
     NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production \
     NEXT_OUTPUT_STANDALONE=true \
     NODE_OPTIONS=--max_old_space_size=8192
-RUN cd apps/app && SKIP_ENV_VALIDATION=true bun run build:docker
+RUN cd apps/app && SKIP_ENV_VALIDATION=true bun run build:docker \
+ && node scripts/build-worker.mjs
 
 FROM node:${NODE_VERSION}-alpine AS app
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 /lambda-adapter /opt/extensions/lambda-adapter
@@ -161,6 +177,22 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
   CMD curl -f http://localhost:3000/api/health || exit 1
 CMD ["/usr/local/bin/next-entrypoint.sh"]
+
+# -----------------------------------------------------------------------------
+# app-worker: the app's background tasks on the Lambda Node base
+# -----------------------------------------------------------------------------
+FROM public.ecr.aws/lambda/nodejs:22 AS app-worker
+WORKDIR ${LAMBDA_TASK_ROOT}
+COPY --from=app-builder /app/package.json ./package.json
+COPY --from=app-builder /app/node_modules ./node_modules
+COPY --from=app-builder /app/packages ./packages
+COPY --from=app-builder /app/apps/app/package.json ./apps/app/package.json
+COPY --from=app-builder /app/apps/app/node_modules ./apps/app/node_modules
+COPY --from=app-builder /app/apps/app/worker ./apps/app/worker
+COPY --from=app-builder /app/apps/app/worker-entry.cjs /app/apps/app/worker-hooks.mjs /app/apps/app/worker-register.mjs ./apps/app/
+ENV NODE_ENV=production \
+    NODE_OPTIONS="--import /var/task/apps/app/worker-register.mjs"
+CMD ["apps/app/worker-entry.handler"]
 
 # -----------------------------------------------------------------------------
 # portal (Next.js employee portal)

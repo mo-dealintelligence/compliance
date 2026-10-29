@@ -1,7 +1,18 @@
 service: comp-portal
 frameworkVersion: '3'
 
-provider: ${file(../common.yml):provider}
+provider:
+  name: aws
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'prod'}
+  architecture: x86_64
+  deploymentMethod: direct
+  versionFunctions: false
+  logRetentionInDays: 90
+  tags:
+    Project: comp
+    Owner: dealintelligence
+    Purpose: grc-tooling
 
 custom:
   project: comp

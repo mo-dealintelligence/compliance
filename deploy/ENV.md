@@ -34,9 +34,6 @@ never commit real values. Build-time `NEXT_PUBLIC_*` values are baked into the
 | `SECRET_KEY`                           | ≥16 chars, `openssl rand -base64 32`                        |
 | `AUTH_SECRET`                          | `openssl rand -base64 32`                                   |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | Google OAuth client (Workspace)                             |
-| `TRIGGER_SECRET_KEY`                   | API Trigger project prod key                                |
-| `TRIGGER_APP_SECRET_KEY`               | App Trigger project prod key                                |
-| `TRIGGER_PROJECT_REF`                  | API Trigger project ref (used only by `trigger.dev deploy`) |
 | `MACED_API_KEY`                        | unset (pentest module inert when `SELF_HOSTED=true`)        |
 | `STRIPE_SECRET_KEY`                    | unset                                                       |
 
@@ -51,8 +48,6 @@ never commit real values. Build-time `NEXT_PUBLIC_*` values are baked into the
 | `NEXT_PUBLIC_PORTAL_URL` (build+run)               | `https://compliance-portal.dealintelligence.io` |
 | `NEXT_PUBLIC_TRUST_URL` (build)                    | `https://trust.dealintelligence.io`  |
 | `NEXT_PUBLIC_SELF_HOSTED` (build)                  | `true`                               |
-| `TRIGGER_SECRET_KEY`                               | App Trigger project prod key         |
-| `TRIGGER_PROJECT_REF`                              | App Trigger project ref              |
 | `NEXT_PUBLIC_LOGO_DEV_TOKEN` (build)               | logo.dev publishable key (optional)  |
 
 ## portal
@@ -63,13 +58,11 @@ never commit real values. Build-time `NEXT_PUBLIC_*` values are baked into the
 | `NEXT_PUBLIC_BETTER_AUTH_URL`, `NEXT_PUBLIC_API_URL` (build) | portal / api URLs                            |
 | `INTERNAL_API_TOKEN`                                         | same as api                                  |
 
-## Trigger.dev (cloud)
+## Background tasks (no Trigger.dev)
 
-Two projects: `comp-app` and `comp-api`. Deploy from CI or a workstation:
-
-```
-cd apps/app && TRIGGER_PROJECT_REF=proj_xxx bunx trigger.dev@latest deploy
-cd apps/api && TRIGGER_PROJECT_REF=proj_yyy bunx trigger.dev@latest deploy
-```
-
-Each project needs the same runtime env as its app (DATABASE_URL, RESEND_*, API URL, service token) set in the Trigger dashboard.
+`@trigger.dev/sdk` resolves to `packages/trigger-shim`: `tasks.trigger()` does
+an async `lambda:Invoke` of the service's `worker` function (`TASK_WORKER_FUNCTION`,
+set by `deploy/aws/env.js`), runs are stored in the Postgres `kv_store`, and the
+cron tasks are EventBridge schedules generated into `deploy/aws/{api,app}/schedules.yml`
+by `node deploy/aws/gen-schedules.mjs <registry _schedules.json>` after
+`node packages/trigger-shim/bin/gen-registry.mjs <trigger dir>`.

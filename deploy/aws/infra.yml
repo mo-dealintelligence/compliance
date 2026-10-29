@@ -46,6 +46,20 @@ Resources:
       ImageScanningConfiguration: { ScanOnPush: true }
       LifecyclePolicy:
         LifecyclePolicyText: '{"rules":[{"rulePriority":1,"selection":{"tagStatus":"any","countType":"imageCountMoreThan","countNumber":10},"action":{"type":"expire"}}]}'
+  EcrApiWorker:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Sub '${Project}-api-worker'
+      ImageScanningConfiguration: { ScanOnPush: true }
+      LifecyclePolicy:
+        LifecyclePolicyText: '{"rules":[{"rulePriority":1,"selection":{"tagStatus":"any","countType":"imageCountMoreThan","countNumber":5},"action":{"type":"expire"}}]}'
+  EcrAppWorker:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Sub '${Project}-app-worker'
+      ImageScanningConfiguration: { ScanOnPush: true }
+      LifecyclePolicy:
+        LifecyclePolicyText: '{"rules":[{"rulePriority":1,"selection":{"tagStatus":"any","countType":"imageCountMoreThan","countNumber":5},"action":{"type":"expire"}}]}'
   EcrMigrator:
     Type: AWS::ECR::Repository
     Properties:
@@ -237,6 +251,8 @@ Resources:
                   - !GetAtt EcrApp.Arn
                   - !GetAtt EcrPortal.Arn
                   - !GetAtt EcrMigrator.Arn
+                  - !GetAtt EcrApiWorker.Arn
+                  - !GetAtt EcrAppWorker.Arn
               - Effect: Allow
                 Action: [secretsmanager:GetSecretValue]
                 Resource:

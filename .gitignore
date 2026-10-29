@@ -119,3 +119,6 @@ deploy/.env.*
 
 # Internal compliance source material (never commit)
 scripts/di-migration/data/
+
+# app worker bundle (built in Docker)
+apps/app/worker/

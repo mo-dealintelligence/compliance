@@ -31,6 +31,14 @@ async function load(name) {
   return out;
 }
 
-module.exports.api = () => load('api');
-module.exports.app = () => load('app');
+// Web functions dispatch background work to their worker Lambda by name.
+const withWorker = async (name) => ({
+  ...(await load(name)),
+  TASK_WORKER_FUNCTION: `comp-${name}-${process.env.SLS_STAGE || 'prod'}-worker`,
+});
+
+module.exports.api = () => withWorker('api');
+module.exports.app = () => withWorker('app');
 module.exports.portal = () => load('portal');
+module.exports.apiWorker = () => load('api');
+module.exports.appWorker = () => load('app');

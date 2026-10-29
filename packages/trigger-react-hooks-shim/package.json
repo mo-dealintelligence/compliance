@@ -1,0 +1,11 @@
+{
+  "name": "@trigger.dev/react-hooks",
+  "version": "4.999.0-shim",
+  "description": "Drop-in replacement for @trigger.dev/react-hooks: polls the app's /api/trigger/runs/:id route instead of Trigger.dev realtime.",
+  "private": true,
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "exports": { ".": "./src/index.tsx" },
+  "peerDependencies": { "react": "*" },
+  "devDependencies": { "typescript": "^5.9.3", "@types/react": "^19.2.17" }
+}

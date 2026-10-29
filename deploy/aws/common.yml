@@ -5,22 +5,6 @@
 # Adapter, one HTTP API per app with its own custom domain + ACM cert, Route 53
 # alias records. No VPC, no ALB, scales to zero.
 
-provider:
-  name: aws
-  region: ${opt:region, 'us-east-1'}
-  stage: ${opt:stage, 'prod'}
-  architecture: x86_64
-  deploymentMethod: direct
-  versionFunctions: false
-  logRetentionInDays: 90
-  httpApi:
-    cors: false
-    disableDefaultEndpoint: false
-  tags:
-    Project: comp
-    Owner: dealintelligence
-    Purpose: grc-tooling
-
 # Custom domain + cert + DNS for the service's HttpApi. Service files include
 # this under `resources:` and set `${self:custom.hostname}`.
 domainResources:

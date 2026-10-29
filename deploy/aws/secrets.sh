@@ -7,9 +7,8 @@
 #   deploy/aws/secrets.sh show api            # print keys (values masked)
 #
 # SECRETS_INPUT is a JSON file you keep OUTSIDE the repo with third-party
-# values: RESEND_API_KEY, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN,
-# TRIGGER_SECRET_KEY_API, TRIGGER_SECRET_KEY_APP, TRIGGER_PROJECT_REF_API,
-# TRIGGER_PROJECT_REF_APP, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, OPENAI_API_KEY.
+# values: RESEND_API_KEY, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, OPENAI_API_KEY,
+# LOGO_DEV_TOKEN (optional).
 set -euo pipefail
 export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
 PROJECT="${PROJECT:-comp}"; STACK="${PROJECT}-infra"
@@ -75,9 +74,6 @@ api = {**shared,
   "TRUST_APP_URL": trust_url, "SECRET_KEY": secret_key, "AUTH_SECRET": auth_secret,
   "AUTH_GOOGLE_ID": ext.get("AUTH_GOOGLE_ID",""), "AUTH_GOOGLE_SECRET": ext.get("AUTH_GOOGLE_SECRET",""),
   "SERVICE_TOKEN_TRIGGER": svc_trigger, "SERVICE_TOKEN_PORTAL": svc_portal,
-  "TRIGGER_SECRET_KEY": ext.get("TRIGGER_SECRET_KEY_API",""),
-  "TRIGGER_APP_SECRET_KEY": ext.get("TRIGGER_SECRET_KEY_APP",""),
-  "TRIGGER_PROJECT_REF": ext.get("TRIGGER_PROJECT_REF_API",""),
   "NODE_EXTRA_CA_CERTS": "/usr/local/share/aws-rds-ca-bundle.pem",
 }
 app = {**shared,
@@ -85,8 +81,6 @@ app = {**shared,
   "BETTER_AUTH_URL": app_url, "NEXT_PUBLIC_BETTER_AUTH_URL": app_url,
   "NEXT_PUBLIC_SELF_HOSTED": "true", "NEXT_PUBLIC_APP_ENV": "production",
   "SERVICE_TOKEN_TRIGGER": svc_trigger,
-  "TRIGGER_SECRET_KEY": ext.get("TRIGGER_SECRET_KEY_APP",""),
-  "TRIGGER_PROJECT_REF": ext.get("TRIGGER_PROJECT_REF_APP",""),
   "NEXT_PUBLIC_LOGO_DEV_TOKEN": ext.get("LOGO_DEV_TOKEN",""),
   "NEXT_OUTPUT_STANDALONE": "true",
 }

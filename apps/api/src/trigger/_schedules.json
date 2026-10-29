@@ -1,0 +1,42 @@
+[
+  {
+    "id": "reconcile-background-checks-schedule",
+    "cron": "0 * * * *",
+    "file": "background-checks/reconcile-background-checks-schedule.ts"
+  },
+  {
+    "id": "browser-automations-schedule",
+    "cron": "0 5 * * *",
+    "file": "browser-automation/run-browser-automations-schedule.ts"
+  },
+  {
+    "id": "cloud-security-schedule",
+    "cron": "0 5 * * *",
+    "file": "cloud-security/cloud-security-schedule.ts"
+  },
+  {
+    "id": "refresh-expiring-tokens-schedule",
+    "cron": "0 5 * * *",
+    "file": "integration-platform/refresh-expiring-tokens-schedule.ts"
+  },
+  {
+    "id": "integration-checks-schedule",
+    "cron": "0 6 * * *",
+    "file": "integration-platform/run-integration-checks-schedule.ts"
+  },
+  {
+    "id": "sync-employees-schedule",
+    "cron": "0 7 * * *",
+    "file": "integration-platform/sync-employees-schedule.ts"
+  },
+  {
+    "id": "trust-portal-check-domain-health",
+    "cron": "0 6 * * *",
+    "file": "trust-portal/check-domain-health-schedule.ts"
+  },
+  {
+    "id": "vendor-risk-assessment-monthly-schedule",
+    "cron": "0 2 1 * *",
+    "file": "vendor/vendor-risk-assessment-monthly-schedule.ts"
+  }
+]

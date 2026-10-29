@@ -1,8 +1,6 @@
 service: comp-api
 frameworkVersion: '3'
 
-provider: ${file(../common.yml):provider}
-
 custom:
   project: comp
   registry: ${aws:accountId}.dkr.ecr.${self:provider.region}.amazonaws.com
@@ -10,6 +8,25 @@ custom:
   hostedZoneId: ${param:hostedZoneId}
   rootDomain: dealintelligence.io
   hostname: compliance-api.${self:custom.rootDomain}
+
+provider:
+  name: aws
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'prod'}
+  architecture: x86_64
+  deploymentMethod: direct
+  versionFunctions: false
+  logRetentionInDays: 90
+  tags:
+    Project: comp
+    Owner: dealintelligence
+    Purpose: grc-tooling
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: [lambda:InvokeFunction]
+          Resource: arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${self:provider.stage}-worker
 
 functions:
   api:
@@ -20,6 +37,15 @@ functions:
     environment: ${file(../env.js):api}
     events:
       - httpApi: '*'
+
+  worker:
+    image: ${self:custom.registry}/${self:custom.project}-api-worker:${self:custom.imageTag}
+    memorySize: 2048
+    timeout: 900
+    ephemeralStorageSize: 2048
+    maximumRetryAttempts: 0
+    environment: ${file(../env.js):apiWorker}
+    events: ${file(./schedules.yml):events}
 
 resources:
   Resources: ${file(../common.yml):domainResources}

@@ -1,0 +1,42 @@
+{
+  "name": "@trigger.dev/sdk",
+  "version": "4.999.0-shim",
+  "description": "Drop-in replacement for @trigger.dev/sdk that runs tasks on AWS Lambda (async invoke) with EventBridge crons. Deal Intelligence self-hosted build.",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./v3": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./worker": {
+      "types": "./dist/worker.d.ts",
+      "import": "./dist/worker.mjs",
+      "require": "./dist/worker.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/worker.ts --format cjs,esm --dts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-sdk/client-lambda": "^3.948.0",
+    "@trycompai/kv": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "zod": "*"
+  }
+}
