@@ -1,0 +1,28 @@
+service: comp-portal
+frameworkVersion: '3'
+
+provider: ${file(../common.yml):provider}
+
+custom:
+  project: comp
+  registry: ${aws:accountId}.dkr.ecr.${self:provider.region}.amazonaws.com
+  imageTag: ${param:imageTag, 'latest'}
+  hostedZoneId: ${param:hostedZoneId}
+  rootDomain: dealintelligence.io
+  hostname: portal.${self:custom.rootDomain}
+
+functions:
+  portal:
+    image: ${self:custom.registry}/${self:custom.project}-portal:${self:custom.imageTag}
+    memorySize: 2048
+    timeout: 29
+    ephemeralStorageSize: 1024
+    environment: ${file(../env.js):portal}
+    events:
+      - httpApi: '*'
+
+resources:
+  Resources: ${file(../common.yml):domainResources}
+  Outputs:
+    Url:
+      Value: https://${self:custom.hostname}

@@ -15,6 +15,8 @@
 
 ARG BUN_VERSION=1.4.4
 ARG NODE_VERSION=22.23.4
+# AWS Lambda Web Adapter lets the unmodified HTTP servers run on Lambda.
+ARG LWA_VERSION=0.9.1
 
 # -----------------------------------------------------------------------------
 # deps: install the whole workspace once (cached by lockfile)
@@ -72,6 +74,8 @@ RUN find /app/packages/db/prisma/schema -name '*.prisma' ! -name 'schema.prisma'
  && cd /app/apps/api && bunx nest build
 
 FROM node:${NODE_VERSION}-slim AS api
+ARG LWA_VERSION
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 /lambda-adapter /opt/extensions/lambda-adapter
 RUN groupadd --system nestjs && useradd --system --gid nestjs --create-home nestjs
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -85,7 +89,8 @@ COPY --from=api-builder --chown=nestjs:nestjs /app/apps/api/prisma ./prisma
 COPY --from=api-builder --chown=nestjs:nestjs /app/apps/api/package.json ./package.json
 COPY --from=api-builder --chown=nestjs:nestjs /app/packages ./packages
 COPY --from=api-builder --chown=nestjs:nestjs /app/node_modules ./node_modules
-ENV NODE_ENV=production PORT=3333
+ENV NODE_ENV=production PORT=3333 \
+    AWS_LWA_PORT=3333 AWS_LWA_READINESS_CHECK_PATH=/v1/health AWS_LWA_ASYNC_INIT=true
 USER nestjs
 EXPOSE 3333
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
@@ -139,16 +144,22 @@ ENV NEXT_PUBLIC_BETTER_AUTH_URL=$NEXT_PUBLIC_BETTER_AUTH_URL \
 RUN cd apps/app && SKIP_ENV_VALIDATION=true bun run build:docker
 
 FROM node:${NODE_VERSION}-alpine AS app
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 /lambda-adapter /opt/extensions/lambda-adapter
 WORKDIR /app
 RUN apk add --no-cache curl
 COPY --from=app-builder /app/apps/app/.next/standalone ./
 COPY --from=app-builder /app/apps/app/.next/static ./apps/app/.next/static
 COPY --from=app-builder /app/apps/app/public ./apps/app/public
-ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
+COPY deploy/next-entrypoint.sh /usr/local/bin/next-entrypoint.sh
+# Lambda's filesystem is read-only except /tmp; Next writes its runtime cache there.
+RUN chmod +x /usr/local/bin/next-entrypoint.sh \
+ && rm -rf apps/app/.next/cache && ln -s /tmp/next-cache apps/app/.next/cache
+ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 NEXT_APP_DIR=apps/app \
+    AWS_LWA_PORT=3000 AWS_LWA_READINESS_CHECK_PATH=/api/health AWS_LWA_ASYNC_INIT=true
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
   CMD curl -f http://localhost:3000/api/health || exit 1
-CMD ["node", "apps/app/server.js"]
+CMD ["/usr/local/bin/next-entrypoint.sh"]
 
 # -----------------------------------------------------------------------------
 # portal (Next.js employee portal)
@@ -179,13 +190,18 @@ RUN cp packages/db/dist/schema.prisma apps/portal/prisma/schema.prisma \
  && cd apps/portal && SKIP_ENV_VALIDATION=true bun run build:docker
 
 FROM node:${NODE_VERSION}-alpine AS portal
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 /lambda-adapter /opt/extensions/lambda-adapter
 WORKDIR /app
 RUN apk add --no-cache curl
 COPY --from=portal-builder /app/apps/portal/.next/standalone ./
 COPY --from=portal-builder /app/apps/portal/.next/static ./apps/portal/.next/static
 COPY --from=portal-builder /app/apps/portal/public ./apps/portal/public
-ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
+COPY deploy/next-entrypoint.sh /usr/local/bin/next-entrypoint.sh
+RUN chmod +x /usr/local/bin/next-entrypoint.sh \
+ && rm -rf apps/portal/.next/cache && ln -s /tmp/next-cache apps/portal/.next/cache
+ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 NEXT_APP_DIR=apps/portal \
+    AWS_LWA_PORT=3000 AWS_LWA_READINESS_CHECK_PATH=/ AWS_LWA_ASYNC_INIT=true
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
   CMD curl -f http://localhost:3000/ || exit 1
-CMD ["node", "apps/portal/server.js"]
+CMD ["/usr/local/bin/next-entrypoint.sh"]

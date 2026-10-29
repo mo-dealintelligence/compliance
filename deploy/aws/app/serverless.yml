@@ -1,0 +1,28 @@
+service: comp-app
+frameworkVersion: '3'
+
+provider: ${file(../common.yml):provider}
+
+custom:
+  project: comp
+  registry: ${aws:accountId}.dkr.ecr.${self:provider.region}.amazonaws.com
+  imageTag: ${param:imageTag, 'latest'}
+  hostedZoneId: ${param:hostedZoneId}
+  rootDomain: dealintelligence.io
+  hostname: app.${self:custom.rootDomain}
+
+functions:
+  app:
+    image: ${self:custom.registry}/${self:custom.project}-app:${self:custom.imageTag}
+    memorySize: 3008
+    timeout: 29
+    ephemeralStorageSize: 2048
+    environment: ${file(../env.js):app}
+    events:
+      - httpApi: '*'
+
+resources:
+  Resources: ${file(../common.yml):domainResources}
+  Outputs:
+    Url:
+      Value: https://${self:custom.hostname}

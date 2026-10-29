@@ -1,0 +1,58 @@
+# Shared fragment for the three Serverless Framework services (api, app, portal).
+# Each service file pulls pieces from here with ${file(../common.yml):key}.
+#
+# Design: one Lambda per app running the container image via the Lambda Web
+# Adapter, one HTTP API per app with its own custom domain + ACM cert, Route 53
+# alias records. No VPC, no ALB, scales to zero.
+
+provider:
+  name: aws
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'prod'}
+  architecture: x86_64
+  deploymentMethod: direct
+  versionFunctions: false
+  logRetentionInDays: 90
+  httpApi:
+    cors: false
+    disableDefaultEndpoint: false
+  tags:
+    Project: comp
+    Owner: dealintelligence
+    Purpose: grc-tooling
+
+# Custom domain + cert + DNS for the service's HttpApi. Service files include
+# this under `resources:` and set `${self:custom.hostname}`.
+domainResources:
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: ${self:custom.hostname}
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: ${self:custom.hostname}
+          HostedZoneId: ${self:custom.hostedZoneId}
+  ApiDomain:
+    Type: AWS::ApiGatewayV2::DomainName
+    Properties:
+      DomainName: ${self:custom.hostname}
+      DomainNameConfigurations:
+        - CertificateArn: !Ref Certificate
+          EndpointType: REGIONAL
+          SecurityPolicy: TLS_1_2
+  ApiMapping:
+    Type: AWS::ApiGatewayV2::ApiMapping
+    DependsOn: [HttpApiStage]
+    Properties:
+      ApiId: !Ref HttpApi
+      DomainName: !Ref ApiDomain
+      Stage: !Ref HttpApiStage
+  DnsRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: ${self:custom.hostedZoneId}
+      Name: ${self:custom.hostname}
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt ApiDomain.RegionalDomainName
+        HostedZoneId: !GetAtt ApiDomain.RegionalHostedZoneId

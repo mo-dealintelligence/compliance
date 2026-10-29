@@ -55,7 +55,7 @@ export async function identify(distinctId: string, properties?: Properties) {
  */
 const SELF_HOSTED_DEFAULT_FLAGS: Record<string, boolean> = {
   'ai-vendor-questionnaire': true,
-  'is-trust-nda-enabled': true,
+  'is-trust-nda-enabled': false, // DI keeps its existing trust center (trust.dealintelligence.io)
   'is-web-automations-enabled': false, // needs Browserbase + enterprise API
   'is-timeline-enabled': true,
   'is-isms-enabled': true,

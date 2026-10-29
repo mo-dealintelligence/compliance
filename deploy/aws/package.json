@@ -1,0 +1,9 @@
+{
+  "name": "comp-deploy-aws",
+  "private": true,
+  "description": "Serverless Framework deployment of the Deal Intelligence self-hosted Comp instance",
+  "devDependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.700.0",
+    "serverless": "^3.40.0"
+  }
+}
