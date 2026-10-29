@@ -126,7 +126,7 @@ Resources:
     Properties:
       DBClusterIdentifier: !Sub '${Project}-db'
       Engine: aurora-postgresql
-      EngineVersion: '16.6'
+      EngineVersion: '16.11'
       EngineMode: provisioned
       DatabaseName: comp
       MasterUsername: comp
