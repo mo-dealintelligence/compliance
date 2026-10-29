@@ -2,9 +2,6 @@
 
 import { useOrganizationMutations } from '@/hooks/use-organization-mutations';
 import { usePermissions } from '@/hooks/use-permissions';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@trycompai/ui/card';
-import { Input } from '@trycompai/ui/input';
-import { Label } from '@trycompai/ui/label';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +14,10 @@ import {
   AlertDialogTrigger,
   Button,
 } from '@trycompai/design-system';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@trycompai/ui/card';
+import { Input } from '@trycompai/ui/input';
+import { Label } from '@trycompai/ui/label';
+import { brand } from '@trycompai/utils/brand';
 import { Loader2 } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
@@ -60,9 +61,7 @@ export function DeleteOrganization({
             <CardTitle>{'Delete organization'}</CardTitle>
             <CardDescription>
               <div className="max-w-[600px]">
-                {
-                  'Permanently remove your organization and all of its contents from the Comp AI platform. This action is not reversible - please continue with caution.'
-                }
+                {`Permanently remove your organization and all of its contents from the ${brand.name} platform. This action is not reversible - please continue with caution.`}
               </div>
             </CardDescription>
           </div>
@@ -94,9 +93,7 @@ export function DeleteOrganization({
                   disabled={value !== 'delete' || isSubmitting}
                   variant="destructive"
                 >
-                  {isSubmitting ? (
-                    <Loader2 className="mr-1 h-4 w-4 animate-spin" />
-                  ) : null}
+                  {isSubmitting ? <Loader2 className="mr-1 h-4 w-4 animate-spin" /> : null}
                   {'Delete'}
                 </AlertDialogAction>
               </AlertDialogFooter>

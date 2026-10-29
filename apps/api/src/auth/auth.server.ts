@@ -31,6 +31,7 @@ import {
   getBetterAuthTrustedOrigins,
   isStaticTrustedOrigin,
 } from './origin-policy';
+import { brand } from '@trycompai/utils/brand';
 
 export {
   getBetterAuthTrustedOrigins,
@@ -194,7 +195,7 @@ const gramMcpClient =
     ? {
         clientId: process.env.GRAM_OAUTH_CLIENT_ID,
         clientSecret: process.env.GRAM_OAUTH_CLIENT_SECRET,
-        name: 'Comp AI MCP (Gram)',
+        name: `${brand.name} MCP (Gram)`,
         type: 'web' as const,
         disabled: false,
         redirectUrls: [process.env.GRAM_OAUTH_REDIRECT_URI],
@@ -204,11 +205,9 @@ const gramMcpClient =
 
 // Where better-auth sends the user to authenticate during the OAuth flow.
 // Must point at the app's sign-in page. Override per environment via env.
-const mcpLoginPage =
-  process.env.MCP_OAUTH_LOGIN_PAGE ||
-  `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.trycomp.ai'}/auth`;
+const mcpLoginPage = process.env.MCP_OAUTH_LOGIN_PAGE || `${brand.appUrl}/auth`;
 
-const mcpConsentPage = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.trycomp.ai'}/oauth/consent`;
+const mcpConsentPage = `${brand.appUrl}/oauth/consent`;
 
 // =============================================================================
 // Security Validation
@@ -278,7 +277,7 @@ export const auth = betterAuth({
       }
       await triggerEmail({
         to: user.email,
-        subject: 'Verify your email for Comp AI',
+        subject: `Verify your email for ${brand.name}`,
         react: VerifyEmail({ email: user.email, url }),
       });
     },
@@ -463,11 +462,11 @@ export const auth = betterAuth({
         const appUrl =
           process.env.NEXT_PUBLIC_APP_URL ??
           process.env.BETTER_AUTH_URL ??
-          'https://app.trycomp.ai';
+          brand.appUrl;
         const inviteLink = `${appUrl}/invite/${data.invitation.id}`;
         await triggerEmail({
           to: data.email,
-          subject: `You've been invited to join ${data.organization.name} on Comp AI`,
+          subject: `You've been invited to join ${data.organization.name} on ${brand.name}`,
           react: InviteEmail({
             organizationName: data.organization.name,
             inviteLink,
@@ -512,7 +511,7 @@ export const auth = betterAuth({
         }
         await triggerEmail({
           to: email,
-          subject: 'Login to Comp AI',
+          subject: `Login to ${brand.name}`,
           react: MagicLinkEmail({ email, url }),
         });
       },
@@ -526,7 +525,7 @@ export const auth = betterAuth({
         }
         await triggerEmail({
           to: email,
-          subject: 'One-Time Password for Comp AI',
+          subject: `One-Time Password for ${brand.name}`,
           react: OTPVerificationEmail({ email, otp }),
         });
       },
@@ -564,7 +563,7 @@ export const auth = betterAuth({
       sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
         await triggerEmail({
           to: user.email,
-          subject: 'Confirm your email change for Comp AI',
+          subject: `Confirm your email change for ${brand.name}`,
           react: ChangeEmailConfirmationEmail({
             currentEmail: user.email,
             newEmail,

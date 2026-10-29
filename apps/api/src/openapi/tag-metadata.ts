@@ -1,4 +1,5 @@
 import type { PublicTagMetadata } from './types';
+import { brand } from '@trycompai/utils/brand';
 
 export const PUBLIC_TAG_METADATA: Record<string, PublicTagMetadata> = {
   'Assistant Chat': {
@@ -15,8 +16,7 @@ export const PUBLIC_TAG_METADATA: Record<string, PublicTagMetadata> = {
       'Retrieve audit trails for compliance activity, evidence changes, access decisions, and customer-facing security review workflows.',
   },
   'Background Check Billing': {
-    description:
-      'Manage Stripe setup and billing sessions for background check purchases inside the Comp AI app.',
+    description: `Manage Stripe setup and billing sessions for background check purchases inside the ${brand.name} app.`,
     visibility: 'excluded',
   },
   'Background Checks': {
@@ -44,8 +44,7 @@ export const PUBLIC_TAG_METADATA: Record<string, PublicTagMetadata> = {
       'Create and manage collaboration comments on compliance entities such as tasks, policies, risks, vendors, and findings.',
   },
   Context: {
-    description:
-      'Manage organization context that helps Comp AI tailor policies, assessments, and compliance automation to the business.',
+    description: `Manage organization context that helps ${brand.name} tailor policies, assessments, and compliance automation to the business.`,
   },
   Controls: {
     description:
@@ -114,8 +113,7 @@ export const PUBLIC_TAG_METADATA: Record<string, PublicTagMetadata> = {
       'Invite and manage workforce members, training status, device compliance, email preferences, and employee evidence records.',
   },
   'Pentest Credits': {
-    description:
-      'Read penetration-test credit balances used by the Comp AI purchasing flow.',
+    description: `Read penetration-test credit balances used by the ${brand.name} purchasing flow.`,
     visibility: 'excluded',
   },
   Policies: {

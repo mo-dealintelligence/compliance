@@ -1,4 +1,5 @@
 import { Hr, Link, Section, Text } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 
 export function Footer() {
   return (
@@ -6,13 +7,10 @@ export function Footer() {
       <Hr />
 
       <Text className="font-regular text-[14px]">
-        AI that handles compliance for you -{' '}
-        <Link href="https://trycomp.ai?utm_source=email&utm_medium=footer">Comp AI</Link>.
+        Sent by <Link href={brand.websiteUrl}>{brand.name}</Link>.
       </Text>
 
-      <Text className="text-xs text-[#B8B8B8]">
-        Comp AI | 2261 Market Street, San Francisco, CA 94114
-      </Text>
+      <Text className="text-xs text-[#B8B8B8]">{brand.postalAddress}</Text>
     </Section>
   );
 }

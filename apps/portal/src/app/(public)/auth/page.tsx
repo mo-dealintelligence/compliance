@@ -1,5 +1,6 @@
 import { LoginForm } from '@/app/components/login-form';
 import { OtpSignIn } from '@/app/components/otp';
+import { ArrowRight } from '@trycompai/design-system/icons';
 import { Button } from '@trycompai/ui/button';
 import {
   Card,
@@ -10,12 +11,12 @@ import {
   CardTitle,
 } from '@trycompai/ui/card';
 import { Icons } from '@trycompai/ui/icons';
-import { ArrowRight } from '@trycompai/design-system/icons';
+import { brand } from '@trycompai/utils/brand';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Login | Comp AI',
+  title: `Login | ${brand.name}`,
 };
 
 export default async function Page({
@@ -63,16 +64,13 @@ export default async function Page({
           </CardContent>
           <CardFooter className="pb-10">
             <div className="from-primary/10 via-primary/5 to-primary/5 rounded-sm bg-gradient-to-r p-4">
-              <h3 className="text-sm font-medium">
-                Comp AI - AI that handles compliance for you in hours.
-              </h3>
+              <h3 className="text-sm font-medium">{brand.name} Employee Portal</h3>
               <p className="text-muted-foreground mt-1 text-xs">
-                Comp AI makes SOC 2, ISO 27001, HIPAA and GDPR effortless. Eliminate compliance
-                busywork, win more deals and accelerate growth.
+                Sign in to acknowledge policies and complete training.
               </p>
               <Button variant="link" className="mt-2 p-0" asChild>
                 <Link
-                  href="https://trycomp.ai"
+                  href={brand.websiteUrl}
                   target="_blank"
                   className="hover:underline hover:underline-offset-2"
                 >

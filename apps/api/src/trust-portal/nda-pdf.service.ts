@@ -7,6 +7,7 @@ import {
   EncryptedPDFError,
 } from 'pdf-lib';
 import { AttachmentsService } from '../attachments/attachments.service';
+import { brand } from '@trycompai/utils/brand';
 
 @Injectable()
 export class NdaPdfService {
@@ -149,7 +150,7 @@ By signing below, the Receiving Party agrees to be bound by the terms of this Ag
     const fontRegular = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const pages = pdfDoc.getPages();
 
-    const watermarkText = 'CompAI';
+    const watermarkText = brand.name;
     const requestedByText = `Requested by: ${email}`;
     const fontSize = 48;
     const subTextSize = 12;

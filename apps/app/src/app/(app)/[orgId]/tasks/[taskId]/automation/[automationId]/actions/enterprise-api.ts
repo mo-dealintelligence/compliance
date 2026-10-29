@@ -15,9 +15,7 @@ export function getEnterpriseConfig() {
   const enterpriseApiUrl = process.env.NEXT_PUBLIC_ENTERPRISE_API_URL || 'http://localhost:3006';
   const enterpriseApiKey = process.env.ENTERPRISE_API_SECRET;
   if (!enterpriseApiKey) {
-    throw new EnterpriseApiError(
-      'Task automations require an enterprise license. Please contact sales@trycomp.ai to learn more.',
-    );
+    throw new EnterpriseApiError('Browser automations are not enabled on this instance.');
   }
   return { enterpriseApiUrl, enterpriseApiKey };
 }

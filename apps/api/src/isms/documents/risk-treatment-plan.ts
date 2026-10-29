@@ -4,6 +4,7 @@ import type {
   RiskTreatmentExportRow,
   VendorTreatmentExportRow,
 } from './types';
+import { brand } from '@trycompai/utils/brand';
 
 /**
  * Clause-6.1.3 readiness check, shared by the submit-for-approval server gate
@@ -134,7 +135,7 @@ export function buildRiskTreatmentPlanSections(
           text: 'This document is the Risk Treatment Plan required by ISO/IEC 27001:2022, Clause 6.1.3. It records, for each identified risk, the selected treatment option, the controls and actions applied to implement it, the risk owner, and the residual risk state, with the risk-owner acceptance of residual risk where recorded (Clause 6.1.3(f)).',
         },
         {
-          text: 'The plan is rendered from the Risk Register and the Vendors module in Comp AI and reflects the state of the register at the time of rendering. It is regenerated on demand; any material change to the register after this document was approved is flagged in Comp AI so the plan can be refreshed.',
+          text: `The plan is rendered from the Risk Register and the Vendors module in ${brand.name} and reflects the state of the register at the time of rendering. It is regenerated on demand; any material change to the register after this document was approved is flagged in ${brand.name} so the plan can be refreshed.`,
         },
       ],
     },

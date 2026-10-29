@@ -1,4 +1,5 @@
 import { PDFDocument, PDFFont, rgb, StandardFonts } from 'pdf-lib';
+import { brand } from '@trycompai/utils/brand';
 
 /**
  * Renders the customer's finding-context notes as a clearly attributed
@@ -16,7 +17,7 @@ export interface ReportContextNote {
 
 const APPENDIX_TITLE = 'Appendix: Customer context & management responses';
 const APPENDIX_DISCLAIMER =
-  'The notes below were provided by the customer in Comp AI after testing. ' +
+  `The notes below were provided by the customer in ${brand.name} after testing. ` +
   'They are customer statements, not findings or conclusions of the testing team.';
 
 function formatDate(date: Date): string {

@@ -7,10 +7,10 @@ interface RunRow {
 }
 
 const ROWS: RunRow[] = [
-  { id: 'PT-0042', target: 'app.staging.trycomp.ai', when: '2 min ago', state: 'running', count: 7 },
-  { id: 'PT-0041', target: 'app.trycomp.ai', when: 'Apr 22', state: 'completed', count: 6 },
-  { id: 'PT-0040', target: 'api.trycomp.ai', when: 'Apr 20', state: 'completed', count: 3 },
-  { id: 'PT-0038', target: 'app.trycomp.ai', when: 'Apr 17', state: 'clean', count: 0 },
+  { id: 'PT-0042', target: 'staging.example.com', when: '2 min ago', state: 'running', count: 7 },
+  { id: 'PT-0041', target: 'app.example.com', when: 'Apr 22', state: 'completed', count: 6 },
+  { id: 'PT-0040', target: 'api.example.com', when: 'Apr 20', state: 'completed', count: 3 },
+  { id: 'PT-0038', target: 'app.example.com', when: 'Apr 17', state: 'clean', count: 0 },
 ];
 
 /**
@@ -38,8 +38,7 @@ export function MiniRunList() {
           className="grid grid-cols-[64px_minmax(0,1fr)_auto_auto] items-center gap-2.5 px-3 py-2.5 sm:grid-cols-[76px_minmax(0,1fr)_auto_auto] sm:gap-3 sm:px-3.5 sm:py-3"
           style={{
             borderBottom: i === ROWS.length - 1 ? undefined : '1px solid var(--border)',
-            background:
-              i === 0 ? 'color-mix(in oklab, var(--primary) 4%, transparent)' : undefined,
+            background: i === 0 ? 'color-mix(in oklab, var(--primary) 4%, transparent)' : undefined,
           }}
         >
           <span className="font-mono text-[11px] text-muted-foreground">{r.id}</span>

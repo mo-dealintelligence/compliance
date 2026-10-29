@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 import { Footer } from '../components/footer';
 import { Logo } from '../components/logo';
 import { UnsubscribeLink } from '../components/unsubscribe-link';
@@ -28,7 +29,7 @@ export const AllPolicyNotificationEmail = ({
   organizationName,
   organizationId,
 }: Props) => {
-  const link = `${process.env.NEXT_PUBLIC_PORTAL_URL ?? 'https://portal.trycomp.ai'}/${organizationId}`;
+  const link = `${brand.portalUrl}/${organizationId}`;
   const subjectText = 'Please review and accept the policies';
 
   return (

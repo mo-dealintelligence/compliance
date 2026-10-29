@@ -2,6 +2,7 @@
 
 import { Text } from '@trycompai/design-system';
 import { Attachment, Flash, Security } from '@trycompai/design-system/icons';
+import { brand } from '@trycompai/utils/brand';
 import { useState } from 'react';
 import { BackgroundCheckAttachForm, type AttachFormValues } from './BackgroundCheckAttachForm';
 import { BackgroundCheckExemptForm, type ExemptFormValues } from './BackgroundCheckExemptForm';
@@ -92,7 +93,7 @@ export function BackgroundCheckV1Page(props: V1PageProps) {
           onNavigate={navigateRelative}
           icon={Flash}
           title="Order a new check"
-          description="Comp AI runs the check end-to-end via our vendor."
+          description={`${brand.name} runs the check end-to-end via our vendor.`}
           meta={<span className="text-muted-foreground">1 credit · 3–5 business days</span>}
         />
         <BackgroundCheckPathCard

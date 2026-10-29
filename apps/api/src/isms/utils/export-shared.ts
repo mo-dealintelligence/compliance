@@ -1,4 +1,5 @@
 import type { IsmsContextIssueKind } from '@db';
+import { brand } from '@trycompai/utils/brand';
 
 export type IsmsExportFormat = 'pdf' | 'docx';
 
@@ -158,7 +159,10 @@ export function metadataRows(metadata: IsmsExportMetadata): IsmsKeyValue[] {
     },
     { label: 'Version', value: versionLabel(metadata) },
     { label: 'Issue date', value: formatExportDate(metadata.issueDate) },
-    { label: 'Owner', value: metadata.owner || metadata.preparedBy || 'Comp AI' },
+    {
+      label: 'Owner',
+      value: metadata.owner || metadata.preparedBy || brand.name,
+    },
     { label: 'Approver', value: metadata.approverName || '—' },
     { label: 'Approval status', value: approvalLine(metadata) },
     { label: 'Classification', value: metadata.classification },

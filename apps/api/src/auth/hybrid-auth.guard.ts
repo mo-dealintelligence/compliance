@@ -16,6 +16,7 @@ import { IS_PUBLIC_KEY } from './public.decorator';
 import { SKIP_ORG_CHECK_KEY } from './skip-org-check.decorator';
 import { resolveServiceByToken } from './service-token.config';
 import { AuthenticatedRequest } from './types';
+import { brand } from '@trycompai/utils/brand';
 
 @Injectable()
 export class HybridAuthGuard implements CanActivate {
@@ -359,7 +360,7 @@ export class HybridAuthGuard implements CanActivate {
         // org. A 401 would make the MCP client re-run sign-in in a loop.
         throw new ForbiddenException(
           'This account belongs to multiple organizations. Choose your ' +
-            'organization for AI/MCP access in Comp AI settings, then try again.',
+            `organization for AI/MCP access in ${brand.name} settings, then try again.`,
         );
       }
       member = chosen;

@@ -1,3 +1,5 @@
+import { brand } from '@trycompai/utils/brand';
+
 // Shared contract between the write path (storing a login into 1Password) and the
 // read path (resolving it at run time). Both sides MUST use the same field titles
 // and reference format, so they live here as the single source of truth.
@@ -11,7 +13,7 @@ export const PASSWORD_FIELD_TITLE = 'password';
 export const TOTP_FIELD_TITLE = 'one-time password';
 
 export function buildOrgVaultTitle(organizationId: string): string {
-  return `Comp AI Browser Automations — ${organizationId}`;
+  return `${brand.name} Browser Automations — ${organizationId}`;
 }
 
 export function buildItemReference(vaultId: string, itemId: string): string {

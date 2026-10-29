@@ -5,6 +5,7 @@ import { isUserUnsubscribed } from '@trycompai/email';
 import { triggerEmail } from '../email/trigger-email';
 import { TaskItemAssignedEmail } from '../email/templates/task-item-assigned';
 import { NovuService } from '../notifications/novu.service';
+import { brand } from '@trycompai/utils/brand';
 
 type TaskItemEntityType = 'vendor' | 'risk';
 
@@ -113,7 +114,7 @@ export class TaskItemAssignmentNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const taskUrlBase = `${appUrl}${getEntityUrlPath({
         organizationId,
         entityType,

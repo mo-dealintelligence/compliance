@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from '@trycompai/design-system';
 import { Information, InformationFilled } from '@trycompai/design-system/icons';
+import { brand } from '@trycompai/utils/brand';
 import { PolicyItem } from '../../devices/components/PolicyItem';
 import type { DeviceWithChecks, FleetPolicy, Host } from '../../devices/types';
 
@@ -45,7 +46,7 @@ function staleLabel(daysSinceLastCheckIn: number | null): string {
 function staleTooltipCopy(daysSinceLastCheckIn: number | null): string {
   return daysSinceLastCheckIn === null
     ? "This device was registered but hasn't sent a compliance check yet. If it's not new, the agent may not be running or the device may be offline."
-    : "This device hasn't reported to CompAI in over 7 days, so we can't verify its current compliance. It may be offline, the agent may need to be updated, or the device may no longer be in use. Check with the employee.";
+    : `This device hasn't reported to ${brand.name} in over 7 days, so we can't verify its current compliance. It may be offline, the agent may need to be updated, or the device may no longer be in use. Check with the employee.`;
 }
 
 function DeviceComplianceBadge({ device }: { device: DeviceWithChecks }) {
@@ -63,7 +64,7 @@ function DeviceComplianceBadge({ device }: { device: DeviceWithChecks }) {
               <Information size={14} />
             </TooltipTrigger>
             <TooltipContent>
-              {`This device was imported from ${provider}. CompAI doesn't collect compliance checks for imported devices — install the CompAI agent to track its security posture.`}
+              {`This device was imported from ${provider}. ${brand.name} doesn't collect compliance checks for imported devices — install the ${brand.name} agent to track its security posture.`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -108,7 +109,7 @@ export function EmployeeDevice({
             <InformationFilled size={20} />
           </span>
           <div>
-            <Text weight="medium">Device agent is managed outside of Comp AI</Text>
+            <Text weight="medium">Device agent is managed outside of {brand.name}</Text>
             <Text size="sm" variant="muted">
               Evidence for device compliance can be logged in the Secure Device and Device List
               evidence tasks.
@@ -147,7 +148,10 @@ export function EmployeeDevice({
                   const passed = memberDevice[key];
                   const details = memberDevice.checkDetails?.[dbKey];
                   return (
-                    <div key={key} className="flex items-center justify-between rounded-lg border p-3">
+                    <div
+                      key={key}
+                      className="flex items-center justify-between rounded-lg border p-3"
+                    >
                       <div>
                         <span className="text-sm font-medium">{label}</span>
                         {!isUntracked && !isStale && details?.message && (

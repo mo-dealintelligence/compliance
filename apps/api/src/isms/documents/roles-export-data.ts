@@ -2,6 +2,7 @@ import { db } from '@db';
 import type { Prisma } from '@db';
 import type { IsmsTeamSizeBand, OperationalOwnershipRow } from './types';
 import { teamSizeBand } from './roles';
+import { brand } from '@trycompai/utils/brand';
 
 /**
  * Extra data the Roles document (5.3) needs at export time but that isn't on the
@@ -22,10 +23,14 @@ type Client = Prisma.TransactionClient | typeof db;
 const OWNER_DISPLAY_CAP = 12;
 
 type NamedAssignee = {
-  assignee: { user: { name: string | null; email: string | null } | null } | null;
+  assignee: {
+    user: { name: string | null; email: string | null } | null;
+  } | null;
 };
 
-function memberDisplayName(user: { name: string | null; email: string | null } | null): string {
+function memberDisplayName(
+  user: { name: string | null; email: string | null } | null,
+): string {
   return user?.name?.trim() || user?.email?.trim() || 'Unknown member';
 }
 
@@ -96,33 +101,33 @@ export async function loadRolesExtras({
   const operationalOwnership: OperationalOwnershipRow[] = [
     {
       artifact: 'Policies',
-      assignedWhere: 'Policy assignee / approver in Comp AI',
+      assignedWhere: `Policy assignee / approver in ${brand.name}`,
       ownerResponsibility:
         'Keep the policy current and accurate; ensure required acknowledgement.',
       owners: dedupeOwners(policies),
     },
     {
       artifact: 'Controls',
-      assignedWhere: 'Control owner in Comp AI',
+      assignedWhere: `Control owner in ${brand.name}`,
       ownerResponsibility: 'Implement, operate, and evidence the control.',
       owners: [],
     },
     {
       artifact: 'Risks',
-      assignedWhere: 'Risk owner in Comp AI',
+      assignedWhere: `Risk owner in ${brand.name}`,
       ownerResponsibility:
         'Assess, treat, and monitor the risk within the risk appetite.',
       owners: dedupeOwners(risks),
     },
     {
       artifact: 'Evidence tasks',
-      assignedWhere: 'Task assignee in Comp AI',
+      assignedWhere: `Task assignee in ${brand.name}`,
       ownerResponsibility: 'Complete and evidence the task by its due date.',
       owners: dedupeOwners(tasks),
     },
     {
       artifact: 'Vendors / sub-processors',
-      assignedWhere: 'Vendor owner in Comp AI',
+      assignedWhere: `Vendor owner in ${brand.name}`,
       ownerResponsibility:
         'Perform due diligence and ongoing security review; maintain the DPA.',
       owners: dedupeOwners(vendors),

@@ -1,8 +1,9 @@
 'use client';
 
-import { Icons } from '@trycompai/ui/icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@trycompai/ui/card';
-import { Loader2, CheckCircle2 } from 'lucide-react';
+import { Icons } from '@trycompai/ui/icons';
+import { brand } from '@trycompai/utils/brand';
+import { CheckCircle2, Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -21,14 +22,18 @@ export default function DeviceCallbackPage() {
 
     if (!callbackPort || !state) {
       setStatus('error');
-      setErrorMessage('Missing required parameters. Please try signing in again from the Comp AI agent.');
+      setErrorMessage(
+        `Missing required parameters. Please try signing in again from the ${brand.name} agent.`,
+      );
       return;
     }
 
     const port = Number.parseInt(callbackPort, 10);
     if (Number.isNaN(port) || port < 1 || port > 65535) {
       setStatus('error');
-      setErrorMessage('Invalid callback port. Please try signing in again from the Comp AI agent.');
+      setErrorMessage(
+        `Invalid callback port. Please try signing in again from the ${brand.name} agent.`,
+      );
       return;
     }
 
@@ -59,7 +64,7 @@ export default function DeviceCallbackPage() {
         setErrorMessage(
           err instanceof Error
             ? err.message
-            : 'Failed to complete sign-in. Please try again from the Comp AI agent.',
+            : `Failed to complete sign-in. Please try again from the ${brand.name} agent.`,
         );
       }
     }
@@ -84,7 +89,7 @@ export default function DeviceCallbackPage() {
               <div className="flex flex-col items-center gap-3">
                 <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
                 <p className="text-sm text-muted-foreground">
-                  Redirecting to the Comp AI agent...
+                  Redirecting to the {brand.name} agent...
                 </p>
               </div>
             )}
@@ -92,15 +97,11 @@ export default function DeviceCallbackPage() {
               <div className="flex flex-col items-center gap-3">
                 <CheckCircle2 className="h-6 w-6 text-green-500" />
                 <p className="text-sm text-muted-foreground">
-                  You can close this tab and return to the Comp AI agent.
+                  You can close this tab and return to the {brand.name} agent.
                 </p>
               </div>
             )}
-            {status === 'error' && (
-              <p className="text-sm text-destructive">
-                {errorMessage}
-              </p>
-            )}
+            {status === 'error' && <p className="text-sm text-destructive">{errorMessage}</p>}
           </CardContent>
         </Card>
       </main>

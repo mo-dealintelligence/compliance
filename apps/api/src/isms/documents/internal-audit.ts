@@ -10,6 +10,7 @@ import {
   defaultProgrammeText,
   SEED_AUDIT_CONTROL_DEFINITIONS,
 } from './internal-audit-defaults';
+import { brand } from '@trycompai/utils/brand';
 
 type Tx = Prisma.TransactionClient;
 
@@ -175,8 +176,7 @@ function buildAuditSections(
   if (audit.findings.length > 0) {
     sections.push({
       heading: `Findings${suffix}`,
-      intro:
-        'Non-conformities, opportunities for improvement (OFIs), and observations raised during this audit. Each is tracked to closure in Comp AI.',
+      intro: `Non-conformities, opportunities for improvement (OFIs), and observations raised during this audit. Each is tracked to closure in ${brand.name}.`,
       table: {
         headers: [
           'Ref',

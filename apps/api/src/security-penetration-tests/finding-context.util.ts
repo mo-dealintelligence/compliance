@@ -1,3 +1,5 @@
+import { brand } from '@trycompai/utils/brand';
+
 /**
  * Pure helpers for pentest finding-context notes. Kept free of Nest/DB
  * imports so both the storage service and the run-creation path can use
@@ -78,7 +80,7 @@ export function buildAdditionalContext(params: {
     const lines = noteLines.slice(0, includedCount);
     if (omitted > 0) {
       lines.push(
-        `(${omitted} more note${omitted === 1 ? '' : 's'} omitted for length — see the finding context notes in Comp AI)`,
+        `(${omitted} more note${omitted === 1 ? '' : 's'} omitted for length — see the finding context notes in ${brand.name})`,
       );
     }
     const sections = userSection ? [userSection] : [];

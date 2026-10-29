@@ -2,13 +2,41 @@
 
 import { updateSidebarState } from '@/actions/sidebar';
 import Chat from '@/components/ai/chat';
+import { BrandLogo } from '@/components/brand-logo';
 import { CheckoutCompleteDialog } from '@/components/dialogs/checkout-complete-dialog';
 import { NotificationBell } from '@/components/notifications/notification-bell';
 import { OrganizationSwitcher } from '@/components/organization-switcher';
 import { SidebarProvider, useSidebar } from '@/context/sidebar-context';
-import { canAccessCompliance, canAccessRoute, hasAnyPermission, type UserPermissions } from '@/lib/permissions';
+import {
+  canAccessCompliance,
+  canAccessRoute,
+  hasAnyPermission,
+  type UserPermissions,
+} from '@/lib/permissions';
+import type { OrganizationFromMe } from '@/types';
 import { authClient } from '@/utils/auth-client';
 import { Badge, Globe, Locked, Logout, ManageProtection, Settings } from '@carbon/icons-react';
+import type { Onboarding, Organization } from '@db';
+import {
+  AppShell,
+  AppShellAIChatTrigger,
+  AppShellBody,
+  AppShellContent,
+  AppShellMain,
+  AppShellNavbar,
+  AppShellRail,
+  AppShellSidebar,
+  AppShellSidebarHeader,
+  AppShellUserMenu,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  CommandSearch,
+  HStack,
+  Text,
+  ThemeSwitcher,
+  TooltipProvider,
+} from '@trycompai/design-system';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,38 +45,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@trycompai/ui/dropdown-menu';
-import type { Onboarding, Organization } from '@db';
-import type { OrganizationFromMe } from '@/types';
-import {
-  AppShell,
-  AppShellBody,
-  AppShellContent,
-  AppShellMain,
-  AppShellNavbar,
-  AppShellRail,
-  AppShellAIChatTrigger,
-  AppShellSidebar,
-  AppShellSidebarHeader,
-  AppShellUserMenu,
-  TooltipProvider,
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  CommandSearch,
-  HStack,
-  Logo,
-  Text,
-  ThemeSwitcher,
-} from '@trycompai/design-system';
 import { useAction } from 'next-safe-action/hooks';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useRef } from 'react';
 import { AdminSidebar } from '../admin/components/AdminSidebar';
 import { ImpersonationBanner } from '../admin/components/ImpersonationBanner';
-import { SettingsSidebar } from '../settings/components/SettingsSidebar';
 import { SecuritySidebar } from '../security/components/SecuritySidebar';
+import { SettingsSidebar } from '../settings/components/SettingsSidebar';
 import { TrustSidebar } from '../trust/components/TrustSidebar';
 import { getAppShellSearchGroups } from './app-shell-search-groups';
 import { AppSidebar } from './AppSidebar';
@@ -106,7 +111,7 @@ function AppShellWrapperContent({
   user,
   isAdmin,
 }: AppShellWrapperContentProps) {
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const router = useRouter();
   const { isCollapsed, setIsCollapsed } = useSidebar();
@@ -115,16 +120,6 @@ function AppShellWrapperContent({
   const isTrustActive = pathname?.startsWith(`/${organization.id}/trust`);
   const isSecurityActive = pathname?.startsWith(`/${organization.id}/security`);
   const isAdminActive = pathname?.startsWith(`/${organization.id}/admin`);
-  const [logoVariant, setLogoVariant] = useState<'dark' | 'light'>('dark');
-
-  useEffect(() => {
-    if (!resolvedTheme) {
-      return;
-    }
-
-    setLogoVariant(resolvedTheme === 'light' ? 'dark' : 'light');
-  }, [resolvedTheme]);
-
   const { execute } = useAction(updateSidebarState, {
     onError: () => {
       setIsCollapsed(previousIsCollapsedRef.current);
@@ -167,10 +162,7 @@ function AppShellWrapperContent({
           startContent={
             <HStack gap="xs" align="center">
               <Link href="/">
-                <Logo
-                  style={{ height: 22, width: 'auto' }}
-                  variant={logoVariant}
-                />
+                <BrandLogo style={{ height: 22 }} />
               </Link>
               <span className="pl-3 pr-1 text-muted-foreground">/</span>
               <OrganizationSwitcher
@@ -255,19 +247,22 @@ function AppShellWrapperContent({
             {canAccessCompliance(permissions) && (
               <ShellRailNavItem
                 href={`/${organization.id}/overview`}
-                isActive={!isSettingsActive && !isTrustActive && !isSecurityActive && !isAdminActive}
+                isActive={
+                  !isSettingsActive && !isTrustActive && !isSecurityActive && !isAdminActive
+                }
                 icon={<Badge className="size-5" />}
                 label="Compliance"
               />
             )}
-            {isTrustNdaEnabled && hasAnyPermission(permissions, [{ resource: 'trust', action: 'read' }]) && (
-              <ShellRailNavItem
-                href={`/${organization.id}/trust`}
-                isActive={isTrustActive}
-                icon={<Globe className="size-5" />}
-                label="Trust"
-              />
-            )}
+            {isTrustNdaEnabled &&
+              hasAnyPermission(permissions, [{ resource: 'trust', action: 'read' }]) && (
+                <ShellRailNavItem
+                  href={`/${organization.id}/trust`}
+                  isActive={isTrustActive}
+                  icon={<Globe className="size-5" />}
+                  label="Trust"
+                />
+              )}
             {isSecurityEnabled && canAccessRoute(permissions, 'penetration-tests') ? (
               <ShellRailNavItem
                 href={`/${organization.id}/security`}
@@ -311,7 +306,11 @@ function AppShellWrapperContent({
               {isAdminActive && isAdmin ? (
                 <AdminSidebar orgId={organization.id} />
               ) : isSettingsActive ? (
-                <SettingsSidebar orgId={organization.id} showBrowserTab={isWebAutomationsEnabled} showBillingTab={isSecurityEnabled} />
+                <SettingsSidebar
+                  orgId={organization.id}
+                  showBrowserTab={isWebAutomationsEnabled}
+                  showBillingTab={isSecurityEnabled}
+                />
               ) : isTrustActive ? (
                 <TrustSidebar orgId={organization.id} />
               ) : isSecurityActive && isSecurityEnabled ? (

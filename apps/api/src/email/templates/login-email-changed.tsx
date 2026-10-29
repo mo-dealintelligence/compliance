@@ -11,6 +11,7 @@ import {
 } from '@react-email/components';
 import { Footer } from '../components/footer';
 import { Logo } from '../components/logo';
+import { brand } from '@trycompai/utils/brand';
 
 interface Props {
   organizationName: string;
@@ -18,7 +19,11 @@ interface Props {
   newEmail: string;
 }
 
-export const LoginEmailChangedEmail = ({ organizationName, oldEmail, newEmail }: Props) => {
+export const LoginEmailChangedEmail = ({
+  organizationName,
+  oldEmail,
+  newEmail,
+}: Props) => {
   return (
     <Html>
       <Tailwind>
@@ -36,7 +41,7 @@ export const LoginEmailChangedEmail = ({ organizationName, oldEmail, newEmail }:
             fontStyle="normal"
           />
         </head>
-        <Preview>Your Comp AI login email was changed</Preview>
+        <Preview>Your {brand.name} login email was changed</Preview>
 
         <Body className="mx-auto my-auto bg-[#fff] font-sans">
           <Container
@@ -49,21 +54,22 @@ export const LoginEmailChangedEmail = ({ organizationName, oldEmail, newEmail }:
             </Heading>
 
             <Text className="text-[14px] leading-[24px] text-[#121212]">
-              An administrator of <span className="font-medium">{organizationName}</span>{' '}
-              changed your Comp AI login email from{' '}
+              An administrator of{' '}
+              <span className="font-medium">{organizationName}</span> changed
+              your {brand.name} login email from{' '}
               <span className="font-medium">{oldEmail}</span> to{' '}
               <span className="font-medium">{newEmail}</span>.
             </Text>
             <Text className="text-[14px] leading-[24px] text-[#121212]">
-              From now on, use <span className="font-medium">{newEmail}</span> to
-              sign in.
+              From now on, use <span className="font-medium">{newEmail}</span>{' '}
+              to sign in.
             </Text>
 
             <br />
             <Section>
               <Text className="text-[12px] leading-[24px] text-[#666666]">
                 If you did not expect this change, contact your organization
-                administrator or support@trycomp.ai.
+                administrator or {brand.supportEmail}.
               </Text>
             </Section>
 

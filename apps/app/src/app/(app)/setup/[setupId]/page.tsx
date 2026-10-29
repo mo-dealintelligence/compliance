@@ -1,6 +1,7 @@
 import { MinimalHeader } from '@/components/layout/MinimalHeader';
 import { auth } from '@/utils/auth';
 import { db } from '@db/server';
+import { brand } from '@trycompai/utils/brand';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -9,7 +10,7 @@ import { OrganizationSetupForm } from '../components/OrganizationSetupForm';
 import { getSetupSession } from '../lib/setup-session';
 
 export const metadata: Metadata = {
-  title: 'Setup Your Organization | Comp AI',
+  title: `Setup Your Organization | ${brand.name}`,
 };
 
 interface SetupPageProps {

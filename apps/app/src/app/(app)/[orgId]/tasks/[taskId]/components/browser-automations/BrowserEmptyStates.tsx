@@ -2,6 +2,7 @@
 
 import { Badge, Button } from '@trycompai/design-system';
 import { Add, ArrowRight, Globe, Locked } from '@trycompai/design-system/icons';
+import { brand } from '@trycompai/utils/brand';
 
 const SETUP_STEPS = [
   { n: '01', title: 'Connect a login', desc: 'Sign in to the vendor once.' },
@@ -41,7 +42,7 @@ export function NoContextState({ isStartingAuth, onConnect }: NoContextStateProp
             Browser Automations
           </h2>
           <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
-            When a vendor has no integration, Comp AI signs in to its website on a schedule and
+            When a vendor has no integration, {brand.name} signs in to its website on a schedule and
             captures a screenshot as audit evidence.
           </p>
 

@@ -13,6 +13,7 @@ import {
   SEED_ROLE_DEFINITIONS,
   SEED_ROLE_KEYS,
 } from './roles-defaults';
+import { brand } from '@trycompai/utils/brand';
 
 type Tx = Prisma.TransactionClient;
 
@@ -22,7 +23,9 @@ export function teamSizeBand(memberCount: number): IsmsTeamSizeBand {
 }
 
 /** Seeded roles that must be present + assigned before the 5.3 doc can be published. */
-const REQUIRED_SEED_ROLE_KEYS = SEED_ROLE_DEFINITIONS.map((role) => role.roleKey);
+const REQUIRED_SEED_ROLE_KEYS = SEED_ROLE_DEFINITIONS.map(
+  (role) => role.roleKey,
+);
 
 /** The subset of role fields the completeness check needs (server + client share it). */
 export interface RoleValidationRow {
@@ -224,7 +227,9 @@ function internalAuditParagraph(role: RoleExportRow | undefined): string {
     return `The organisation engages an external independent auditor to conduct its internal ISMS audit${firm}.${evidence}`;
   }
   // training_planned
-  const who = role.auditRouteHolderName ? ` by ${role.auditRouteHolderName}` : '';
+  const who = role.auditRouteHolderName
+    ? ` by ${role.auditRouteHolderName}`
+    : '';
   const course = role.auditCourse ? ` through ${role.auditCourse}` : '';
   const due = role.auditDueDate ? `, due ${role.auditDueDate}` : '';
   return `Internal audit competence is being developed${who}${course}${due}. Until it is in place, an external independent auditor is the recommended interim route.`;
@@ -260,8 +265,7 @@ function buildOperationalSection(
   ownership: OperationalOwnershipRow[],
   band: IsmsTeamSizeBand,
 ): IsmsExportSection {
-  const intro =
-    'Operational responsibility for the ISMS is assigned at the level of individual artifacts. Comp AI records a named owner or assignee for every policy, control, risk, evidence task, and vendor; this constitutes the live, auditable responsibilities matrix.';
+  const intro = `Operational responsibility for the ISMS is assigned at the level of individual artifacts. ${brand.name} records a named owner or assignee for every policy, control, risk, evidence task, and vendor; this constitutes the live, auditable responsibilities matrix.`;
 
   if (band === 'small') {
     return {
@@ -271,7 +275,7 @@ function buildOperationalSection(
         const owners =
           row.owners.length > 0
             ? row.owners.join(', ')
-            : 'assigned per item in Comp AI';
+            : `assigned per item in ${brand.name}`;
         return `${row.artifact}: ${owners}.`;
       }),
     };
@@ -310,7 +314,8 @@ export function buildRolesSections(
   const ownership = input.operationalOwnership ?? [];
   const band: IsmsTeamSizeBand = input.band ?? 'standard';
   const spo = roles.find((role) => role.roleKey === 'spo');
-  const spoHolders = spo && spo.holders.length > 0 ? ` (${spo.holders.join(', ')})` : '';
+  const spoHolders =
+    spo && spo.holders.length > 0 ? ` (${spo.holders.join(', ')})` : '';
   const auditor = roles.find((role) => role.roleKey === 'internal_auditor');
 
   const sections: IsmsExportSection[] = [
@@ -323,9 +328,8 @@ export function buildRolesSections(
       ],
     },
     {
-      heading: 'Relationship to Comp AI application-access roles',
-      intro:
-        'The Comp AI platform assigns application-access levels that determine access to the software only:',
+      heading: `Relationship to ${brand.name} application-access roles`,
+      intro: `The ${brand.name} platform assigns application-access levels that determine access to the software only:`,
       bullets: APPLICATION_ACCESS_LEVELS,
       paragraphs: [{ text: APPLICATION_ACCESS_NOTE }],
     },
@@ -337,7 +341,8 @@ export function buildRolesSections(
     },
     {
       heading: 'Specific assignments required by Clause 5.3',
-      intro: 'Top management has assigned the responsibility and authority for:',
+      intro:
+        'Top management has assigned the responsibility and authority for:',
       paragraphs: [
         {
           text: `(a) Ensuring that the ISMS conforms to the requirements of ISO/IEC 27001 — assigned to the Security & Privacy Owner${spoHolders}.`,
@@ -346,7 +351,7 @@ export function buildRolesSections(
           text: `(b) Reporting on the performance of the ISMS to top management — assigned to the Security & Privacy Owner${spoHolders}, delivered at each management review and on material incidents or risk changes.`,
         },
         {
-          text: 'The authority to assign tasks and make decisions within the ISMS rests with top management, who assign it to the Security & Privacy Owner; the SPO in turn assigns operational ownership of individual controls, policies, risks, and tasks through Comp AI.',
+          text: `The authority to assign tasks and make decisions within the ISMS rests with top management, who assign it to the Security & Privacy Owner; the SPO in turn assigns operational ownership of individual controls, policies, risks, and tasks through ${brand.name}.`,
         },
       ],
     },
@@ -373,7 +378,7 @@ export function buildRolesSections(
     heading: 'Communication of roles',
     paragraphs: [
       {
-        text: 'Responsibilities and authorities are made known throughout the organisation through policy acknowledgement at onboarding and annually, the per-item owner assignments recorded in Comp AI, and the leadership communications captured in management reviews.',
+        text: `Responsibilities and authorities are made known throughout the organisation through policy acknowledgement at onboarding and annually, the per-item owner assignments recorded in ${brand.name}, and the leadership communications captured in management reviews.`,
       },
     ],
   });

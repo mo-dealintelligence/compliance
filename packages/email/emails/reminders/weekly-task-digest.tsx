@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 import { Footer } from '../../components/footer';
 import { Logo } from '../../components/logo';
 import { UnsubscribeLink } from '../../components/unsubscribe-link';
@@ -38,7 +39,7 @@ export const WeeklyTaskDigestEmail = ({
   organizationId,
   tasks,
 }: Props) => {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.trycomp.ai';
+  const baseUrl = brand.appUrl;
   const tasksUrl = `${baseUrl}/${organizationId}/tasks`;
   const taskCountMessage = getTaskCountMessage(tasks.length);
 

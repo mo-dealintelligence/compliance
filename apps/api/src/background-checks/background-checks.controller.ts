@@ -23,6 +23,9 @@ import { BackgroundCheckCustomService } from './background-check-custom.service'
 import { AttachCustomBackgroundCheckDto } from './dto/attach-custom-background-check.dto';
 import { RequestBackgroundCheckDto } from './dto/request-background-check.dto';
 import { BackgroundChecksService } from './background-checks.service';
+import { brand } from '@trycompai/utils/brand';
+
+const API_KEY_REQUESTER_EMAIL = `api-key@${brand.supportEmail.split('@')[1] ?? 'local'}`;
 
 @ApiTags('Background Checks')
 @Controller({ path: 'people', version: '1' })
@@ -63,7 +66,7 @@ export class PeopleBackgroundChecksController {
       employeeName: body.employeeName,
       employeeEmail: body.employeeEmail.trim().toLowerCase(),
       requesterNotes: body.requesterNotes?.trim() || undefined,
-      requesterEmail: authContext.userEmail ?? 'api-key@trycomp.ai',
+      requesterEmail: authContext.userEmail ?? API_KEY_REQUESTER_EMAIL,
     });
   }
 
@@ -121,7 +124,7 @@ export class PeopleBackgroundChecksController {
     return this.backgroundChecksService.retryForMember({
       organizationId,
       memberId,
-      requesterEmail: authContext.userEmail ?? 'api-key@trycomp.ai',
+      requesterEmail: authContext.userEmail ?? API_KEY_REQUESTER_EMAIL,
     });
   }
 

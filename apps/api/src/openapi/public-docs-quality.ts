@@ -1,4 +1,5 @@
 import type { OpenAPIObject } from '@nestjs/swagger';
+import { brand } from '@trycompai/utils/brand';
 
 export const PUBLIC_DOCS_EXCLUDED_PREFIXES = [
   '/v1/auth',
@@ -95,7 +96,7 @@ export function collectPublicOpenApiIssues(document: OpenAPIObject) {
         meta?.description &&
         (meta.description.length < 80 ||
           meta.description.length > 160 ||
-          meta.description.includes('Use this Comp AI'))
+          meta.description.includes(`Use this ${brand.name}`))
       ) {
         invalidSeo.push(endpoint);
       }

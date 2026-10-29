@@ -1,11 +1,9 @@
-import {
-  Card,
-  CardContent,
-  Skeleton,
-  Text,
-} from '@trycompai/design-system';
+import { Card, CardContent, Skeleton, Text } from '@trycompai/design-system';
+import { brand } from '@trycompai/utils/brand';
 import { useState } from 'react';
 import { AUTOMATION_EXAMPLES, AutomationExample } from '../../constants/automation-examples';
+
+const brandHost = new URL(brand.websiteUrl).hostname;
 
 interface EmptyStateProps {
   onExampleClick: (prompt: string) => void;
@@ -26,7 +24,7 @@ function getVendorLogoUrl(vendorName?: string, vendorWebsite?: string): string {
   }
 
   if (!vendorName) {
-    return `https://img.logo.dev/trycomp.ai?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+    return `https://img.logo.dev/${brandHost}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
   }
 
   // Try to extract domain from vendor name or use a default
@@ -53,7 +51,7 @@ function getVendorLogoUrl(vendorName?: string, vendorWebsite?: string): string {
     return `https://img.logo.dev/${urlMatch[1]}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
   }
 
-  return `https://img.logo.dev/trycomp.ai?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+  return `https://img.logo.dev/${brandHost}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
 }
 
 function VendorCard({
@@ -64,7 +62,7 @@ function VendorCard({
   onExampleClick: (prompt: string) => void;
 }) {
   const [imageError, setImageError] = useState(false);
-  const fallbackUrl = `https://img.logo.dev/trycomp.ai?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+  const fallbackUrl = `https://img.logo.dev/${brandHost}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
   const imageUrl = imageError ? fallbackUrl : example.url;
 
   return (
@@ -127,13 +125,14 @@ export function EmptyState({
   isLoadingSuggestions = false,
 }: EmptyStateProps) {
   // Use dynamic suggestions if provided, otherwise fall back to static examples
-  const examplesToShow: AutomationExample[] = suggestions && suggestions.length > 0
-    ? suggestions.map((s) => ({
-        title: s.title,
-        prompt: s.prompt,
-        url: getVendorLogoUrl(s.vendorName, s.vendorWebsite),
-      }))
-    : AUTOMATION_EXAMPLES;
+  const examplesToShow: AutomationExample[] =
+    suggestions && suggestions.length > 0
+      ? suggestions.map((s) => ({
+          title: s.title,
+          prompt: s.prompt,
+          url: getVendorLogoUrl(s.vendorName, s.vendorWebsite),
+        }))
+      : AUTOMATION_EXAMPLES;
 
   // Show skeleton loaders when loading suggestions for new automations
   const showSkeletons = isLoadingSuggestions && suggestions?.length === 0;

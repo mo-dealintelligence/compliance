@@ -30,12 +30,13 @@ function extractMentionedUserIds(content: string | null): string[] {
   }
 }
 import { CommentEntityType } from '@db';
+import { brand } from '@trycompai/utils/brand';
 
 function getAppBaseUrl(): string {
   return (
     process.env.NEXT_PUBLIC_APP_URL ??
     process.env.BETTER_AUTH_URL ??
-    'https://app.trycomp.ai'
+    brand.appUrl
   );
 }
 
@@ -43,7 +44,7 @@ function getAllowedOrigins(): string[] {
   const candidates = [
     process.env.NEXT_PUBLIC_APP_URL,
     process.env.BETTER_AUTH_URL,
-    'https://app.trycomp.ai',
+    brand.appUrl,
   ].filter(Boolean) as string[];
 
   const origins = new Set<string>();

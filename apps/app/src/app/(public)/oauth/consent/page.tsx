@@ -1,12 +1,13 @@
 import { serverApi } from '@/lib/api-server';
 import { Alert, Heading } from '@trycompai/design-system';
+import { brand } from '@trycompai/utils/brand';
 import type { Metadata } from 'next';
 import { ConsentForm, type PendingConsent } from './components/ConsentForm';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Authorize access | Comp AI',
+  title: `Authorize access | ${brand.name}`,
   robots: { index: false, follow: false },
 };
 

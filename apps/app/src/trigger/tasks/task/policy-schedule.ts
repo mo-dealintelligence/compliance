@@ -2,6 +2,7 @@ import { isOrgParticipant } from '@/lib/org-participation-rule';
 import { db } from '@db/server';
 import { Novu } from '@novu/api';
 import { logger, schedules } from '@trigger.dev/sdk';
+import { brand } from '@trycompai/utils/brand';
 
 export const policySchedule = schedules.task({
   id: 'policy-schedule',
@@ -185,7 +186,7 @@ export const policySchedule = schedules.task({
             organizationName: recipient.policy.organization.name,
             organizationId: recipient.policy.organizationId,
             policyId: recipient.policy.id,
-            policyUrl: `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.trycomp.ai'}/${recipient.policy.organizationId}/policies/${recipient.policy.id}`,
+            policyUrl: `${brand.appUrl}/${recipient.policy.organizationId}/policies/${recipient.policy.id}`,
           },
         })),
       });

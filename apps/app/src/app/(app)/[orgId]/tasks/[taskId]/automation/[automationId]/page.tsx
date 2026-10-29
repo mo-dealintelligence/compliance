@@ -34,16 +34,9 @@ export default async function Page({
           <div className="mx-auto w-12 h-12 rounded-full bg-muted flex items-center justify-center">
             <Locked size={24} className="text-muted-foreground" />
           </div>
-          <h2 className="text-lg font-semibold text-foreground">Enterprise Feature</h2>
+          <h2 className="text-lg font-semibold text-foreground">Browser automations unavailable</h2>
           <p className="text-sm text-muted-foreground">
-            Task automations require an enterprise license. Contact{' '}
-            <a
-              href="mailto:sales@trycomp.ai"
-              className="text-primary underline underline-offset-4 hover:text-primary/80"
-            >
-              sales@trycomp.ai
-            </a>{' '}
-            to learn more about enabling this feature.
+            Browser automations are not enabled on this instance.
           </p>
           <Link
             href={`/${orgId}/tasks/${taskId}`}

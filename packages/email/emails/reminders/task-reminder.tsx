@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 import { Footer } from '../../components/footer';
 import { Logo } from '../../components/logo';
 import { UnsubscribeLink } from '../../components/unsubscribe-link';
@@ -23,13 +24,13 @@ interface Props {
 }
 
 export const TaskReminderEmail = ({ email, name, dueDate, recordId }: Props) => {
-  const link = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://app.trycomp.ai'}${recordId}`;
+  const link = `${brand.appUrl}${recordId}`;
 
   return (
     <Html>
       <Tailwind>
         <head />
-        <Preview>Comp AI - Task Reminder</Preview>
+        <Preview>{brand.name} - Task Reminder</Preview>
 
         <Body className="mx-auto my-auto bg-[#fff] font-sans">
           <Container

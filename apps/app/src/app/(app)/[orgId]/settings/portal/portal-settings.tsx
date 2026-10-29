@@ -3,6 +3,7 @@
 import { useOrganizationMutations } from '@/hooks/use-organization-mutations';
 import { usePermissions } from '@/hooks/use-permissions';
 import { SettingGroup, SettingRow, Switch } from '@trycompai/design-system';
+import { brand } from '@trycompai/utils/brand';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -45,7 +46,7 @@ export function PortalSettings({
       <SettingRow
         size="lg"
         label="Show Device Agent Step"
-        description="Employees will be asked to download and install Comp AI's device agent on their device."
+        description={`Employees will be asked to download and install ${brand.name}'s device agent on their device.`}
       >
         <Switch
           checked={deviceAgentStepEnabled}
@@ -57,13 +58,15 @@ export function PortalSettings({
               'Error updating device agent step setting',
             );
           }}
-          disabled={!hasPermission('organization', 'update') || updatingField === 'deviceAgentStepEnabled'}
+          disabled={
+            !hasPermission('organization', 'update') || updatingField === 'deviceAgentStepEnabled'
+          }
         />
       </SettingRow>
       <SettingRow
         size="lg"
         label="Show Security Training Step"
-        description="Employees will be required to complete Comp AI's security awareness training videos."
+        description={`Employees will be required to complete ${brand.name}'s security awareness training videos.`}
       >
         <Switch
           checked={securityTrainingStepEnabled}
@@ -75,7 +78,10 @@ export function PortalSettings({
               'Error updating security training step setting',
             );
           }}
-          disabled={!hasPermission('organization', 'update') || updatingField === 'securityTrainingStepEnabled'}
+          disabled={
+            !hasPermission('organization', 'update') ||
+            updatingField === 'securityTrainingStepEnabled'
+          }
         />
       </SettingRow>
       <SettingRow
@@ -93,7 +99,10 @@ export function PortalSettings({
               'Error updating whistleblower report visibility',
             );
           }}
-          disabled={!hasPermission('organization', 'update') || updatingField === 'whistleblowerReportEnabled'}
+          disabled={
+            !hasPermission('organization', 'update') ||
+            updatingField === 'whistleblowerReportEnabled'
+          }
         />
       </SettingRow>
       <SettingRow
@@ -111,7 +120,9 @@ export function PortalSettings({
               'Error updating access request visibility',
             );
           }}
-          disabled={!hasPermission('organization', 'update') || updatingField === 'accessRequestFormEnabled'}
+          disabled={
+            !hasPermission('organization', 'update') || updatingField === 'accessRequestFormEnabled'
+          }
         />
       </SettingRow>
     </SettingGroup>

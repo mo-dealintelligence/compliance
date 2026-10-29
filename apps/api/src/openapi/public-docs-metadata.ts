@@ -18,13 +18,17 @@ import type {
   PublicTagMetadata,
   PublicVisibility,
 } from './types';
+import { brand } from '@trycompai/utils/brand';
 
-export const PUBLIC_OPENAPI_TITLE = 'Comp AI API';
+export const PUBLIC_OPENAPI_TITLE = `${brand.name} API`;
 
 export const PUBLIC_OPENAPI_DESCRIPTION =
   'Compliance automation API for SOC 2, ISO 27001, HIPAA, GDPR, evidence collection, policy workflows, Trust Access, security questionnaires, integrations, cloud checks, and device compliance.';
 
-export const PUBLIC_SERVER_URL = 'https://api.trycomp.ai';
+export const PUBLIC_SERVER_URL =
+  process.env.PUBLIC_API_URL?.trim() ||
+  process.env.NEXT_PUBLIC_API_URL?.trim() ||
+  'http://localhost:3333';
 
 /**
  * Default request timeout (ms) baked into the generated SDK + MCP server via the
@@ -116,7 +120,7 @@ function createFallbackDescription(operation: OpenApiOperation): string {
     : undefined;
 
   if (summary) {
-    const base = `${toActionFragment(summary)} in Comp AI.`;
+    const base = `${toActionFragment(summary)} in ${brand.name}.`;
 
     if (tagDescription) {
       return toOperationDescription(`${base} ${tagDescription}`);
@@ -261,8 +265,7 @@ function applyMcpToolNames(
   for (const methods of Object.values(paths)) {
     for (const operation of Object.values(methods)) {
       const ext = operation?.['x-speakeasy-mcp'] as
-        | SpeakeasyMcpExtension
-        | undefined;
+        SpeakeasyMcpExtension | undefined;
       if (ext?.name) used.add(ext.name);
     }
   }
@@ -272,8 +275,7 @@ function applyMcpToolNames(
       if (!operation || typeof operation !== 'object') continue;
 
       const ext = operation['x-speakeasy-mcp'] as
-        | SpeakeasyMcpExtension
-        | undefined;
+        SpeakeasyMcpExtension | undefined;
       // Keep hand-picked names and skip disabled (non-tool) operations.
       if (ext?.name || ext?.disabled) continue;
 

@@ -23,20 +23,13 @@ interface UsePostPaymentOnboardingProps {
 
 const showShippingStep = process.env.NEXT_PUBLIC_APP_ENV !== 'staging';
 
-// Filter steps based on environment and user
-function getPostPaymentSteps(userEmail?: string) {
+// Filter steps based on environment
+function getPostPaymentSteps() {
   let filteredSteps = steps.slice(3);
 
   // Hide shipping step in staging
   if (!showShippingStep) {
     filteredSteps = filteredSteps.filter((step) => step.key !== 'shipping');
-  }
-
-  // Hide cSuite and reportSignatory for @trycomp.ai users
-  if (userEmail?.includes('@trycomp.ai')) {
-    filteredSteps = filteredSteps.filter(
-      (step) => step.key !== 'cSuite' && step.key !== 'reportSignatory',
-    );
   }
 
   return filteredSteps;
@@ -51,7 +44,7 @@ export function usePostPaymentOnboarding({
   const router = useRouter();
 
   // Get filtered steps based on user
-  const postPaymentSteps = useMemo(() => getPostPaymentSteps(userEmail), [userEmail]);
+  const postPaymentSteps = useMemo(() => getPostPaymentSteps(), []);
 
   // Create storage keys specific to this organization
   const storageKey = `onboarding-progress-${organizationId}`;
@@ -251,23 +244,23 @@ export function usePostPaymentOnboarding({
     if (stepIndex > 0) {
       // Save current form values before going back
       const currentValues = form.getValues();
-      
+
       // Build updated answers, preserving customVendors when on software step
       let updatedAnswers = { ...savedAnswers, organizationName };
-      
+
       if (currentValues[step.key]) {
         updatedAnswers = { ...updatedAnswers, [step.key]: currentValues[step.key] };
       }
-      
+
       // Also save customVendors when on software step (same as onSubmit)
       if (step.key === 'software') {
         const customVendors = form.getValues('customVendors');
-        updatedAnswers = { 
-          ...updatedAnswers, 
-          customVendors: Array.isArray(customVendors) ? customVendors : [] 
+        updatedAnswers = {
+          ...updatedAnswers,
+          customVendors: Array.isArray(customVendors) ? customVendors : [],
         };
       }
-      
+
       setSavedAnswers(updatedAnswers);
 
       // Clear form errors

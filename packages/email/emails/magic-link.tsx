@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 import { Footer } from '../components/footer';
 import { Logo } from '../components/logo';
 
@@ -24,7 +25,7 @@ export const MagicLinkEmail = ({ email, url, inviteCode }: Props) => {
     <Html>
       <Tailwind>
         <head />
-        <Preview>Login Link for Comp AI</Preview>
+        <Preview>Login Link for {brand.name}</Preview>
 
         <Body className="mx-auto my-auto bg-[#fff] font-sans">
           <Container
@@ -33,11 +34,11 @@ export const MagicLinkEmail = ({ email, url, inviteCode }: Props) => {
           >
             <Logo />
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-[#121212]">
-              Your login link for Comp AI
+              Your login link for {brand.name}
             </Heading>
 
             <Text className="text-[14px] leading-[24px] text-[#121212]">
-              Your login link for Comp AI
+              Your login link for {brand.name}
             </Text>
             <Section className="mt-[32px] mb-[42px] text-center">
               <Button

@@ -1,3 +1,7 @@
+import { brand } from '@trycompai/utils/brand';
+
+const brandHost = new URL(brand.websiteUrl).hostname;
+
 export interface AutomationExample {
   title: string;
   prompt: string;
@@ -18,7 +22,7 @@ export const AUTOMATION_EXAMPLES: AutomationExample[] = [
   {
     title: 'Check if my website has a privacy policy',
     prompt: 'Check if my website has a privacy policy',
-    url: `https://img.logo.dev/trycomp.ai?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
+    url: `https://img.logo.dev/${brandHost}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
   },
   {
     title: 'Give me a list of failed deployments in my Vercel project',

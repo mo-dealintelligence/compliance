@@ -95,7 +95,7 @@ export default async function OnboardingPage({ params }: OnboardingPageProps) {
     Object.assign(initialData, {
       describe:
         initialData.describe ||
-        'Bubba AI, Inc. is the company behind Comp AI - the fastest way to get SOC 2 compliant.',
+        'A small software company preparing for its first compliance audit.',
       industry: initialData.industry || 'SaaS',
       teamSize: initialData.teamSize || '1-10',
       devices: initialData.devices || 'Personal laptops',

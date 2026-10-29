@@ -2,6 +2,7 @@ import { ConflictException, Logger } from '@nestjs/common';
 import { db } from '@db';
 import { triggerEmail } from '../../email/trigger-email';
 import { LoginEmailChangedEmail } from '../../email/templates/login-email-changed';
+import { brand } from '@trycompai/utils/brand';
 
 export interface LoginEmailChange {
   oldEmail: string;
@@ -86,7 +87,7 @@ export async function notifyLoginEmailChanged(params: {
       [change.oldEmail, change.newEmail].map((to) =>
         triggerEmail({
           to,
-          subject: 'Your Comp AI login email was changed',
+          subject: `Your ${brand.name} login email was changed`,
           react: LoginEmailChangedEmail({
             organizationName: organization.name,
             oldEmail: change.oldEmail,

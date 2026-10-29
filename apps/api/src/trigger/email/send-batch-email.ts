@@ -42,7 +42,7 @@ export const sendBatchEmailTask = schemaTask({
 
     const toTest = process.env.RESEND_TO_TEST;
     const apiBaseUrl =
-      process.env.NEXT_PUBLIC_API_URL || 'https://api.trycomp.ai';
+      process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3333';
 
     let totalSent = 0;
     let totalFailed = 0;

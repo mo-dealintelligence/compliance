@@ -1,6 +1,7 @@
 import { UserMenu } from '@/app/components/user-menu';
 import { Icons } from '@trycompai/ui/icons';
 import { Skeleton } from '@trycompai/ui/skeleton';
+import { brand } from '@trycompai/utils/brand';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -10,7 +11,7 @@ export async function Header() {
       <div className="flex w-full items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
           <Icons.Logo />
-          <span className="text-lg font-medium">Comp AI - Employee Portal</span>
+          <span className="text-lg font-medium">{brand.name} Employee Portal</span>
         </Link>
 
         <div className="flex items-center space-x-2">

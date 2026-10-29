@@ -9,6 +9,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 import { Footer } from '../components/footer';
 import { Logo } from '../components/logo';
 import { UnsubscribeLink } from '../components/unsubscribe-link';
@@ -37,7 +38,7 @@ export const UnassignedItemsNotificationEmail = ({
   unassignedItems,
   email,
 }: Props) => {
-  const baseUrl = process.env.NEXT_PUBLIC_BETTER_AUTH_URL ?? 'https://app.trycomp.ai';
+  const baseUrl = brand.appUrl;
   const link = `${baseUrl}/${organizationId}`;
 
   const getItemTypeLabel = (type: UnassignedItem['type']) => {

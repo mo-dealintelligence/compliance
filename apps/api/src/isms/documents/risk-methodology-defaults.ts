@@ -1,3 +1,5 @@
+import { brand } from '@trycompai/utils/brand';
+
 // Seeded default text for the Risk Assessment Methodology document (6.1.2).
 // Adapted from the CS-727 reference document, aligned to the platform's REAL
 // behavior: the five-band risk level scale (very-low .. very-high, computed as
@@ -64,7 +66,7 @@ export const DEFAULT_IMPACT_DESCRIPTIONS: string[] = [
 export const DEFAULT_ACCEPTANCE_THRESHOLDS: string[] = [
   'Accepted by default. Recorded in the register; no formal owner acceptance event required.',
   'Accepted by default. Recorded in the register; a risk-owner acceptance event is recommended.',
-  'Accepted with risk-owner sign-off. An owner acceptance event is recorded in Comp AI.',
+  `Accepted with risk-owner sign-off. An owner acceptance event is recorded in ${brand.name}.`,
   'Must be treated. If retained on business grounds, requires top-management approval and a documented acceptance event.',
   'Must be treated. Retention only in exceptional circumstances with top-management approval; escalated to the next Management Review.',
 ];
@@ -78,7 +80,7 @@ export const DEFAULT_TREATMENT_OPTIONS: string[] = [
 ];
 
 export function defaultMethodologyPurpose(organizationName: string): string {
-  return `This document describes the methodology by which ${organizationName} identifies, analyses, evaluates, and treats information-security risks, in accordance with ISO/IEC 27001:2022, Clause 6.1.2. It is the reference document for the Risk Register held in Comp AI and for the Risk Treatment Plan (Clause 6.1.3).`;
+  return `This document describes the methodology by which ${organizationName} identifies, analyses, evaluates, and treats information-security risks, in accordance with ISO/IEC 27001:2022, Clause 6.1.2. It is the reference document for the Risk Register held in ${brand.name} and for the Risk Treatment Plan (Clause 6.1.3).`;
 }
 
 export function defaultMethodologyScope(): string {
@@ -86,11 +88,11 @@ export function defaultMethodologyScope(): string {
 }
 
 export function defaultMethodologyApproach(organizationName: string): string {
-  return `${organizationName} uses an asset-based risk assessment approach. Risks are identified against the information assets, systems, and processes within the ISMS scope. For each asset or process, threats and vulnerabilities are considered and translated into risk statements; supplier risks are assessed separately against each vendor. Every risk is assessed for its inherent level (before treatment) and its residual level (after treatment), and both are recorded in Comp AI.`;
+  return `${organizationName} uses an asset-based risk assessment approach. Risks are identified against the information assets, systems, and processes within the ISMS scope. For each asset or process, threats and vulnerabilities are considered and translated into risk statements; supplier risks are assessed separately against each vendor. Every risk is assessed for its inherent level (before treatment) and its residual level (after treatment), and both are recorded in ${brand.name}.`;
 }
 
 export function defaultMethodologyResponsibilities(): string {
-  return 'Every risk in the register has a named risk owner. Risk owners are responsible for: (a) understanding the risk and the treatment applied; (b) approving the treatment plan; (c) formally accepting the residual risk via the acceptance event recorded in Comp AI; and (d) escalating to the Security & Privacy Owner or top management if the risk changes materially.';
+  return `Every risk in the register has a named risk owner. Risk owners are responsible for: (a) understanding the risk and the treatment applied; (b) approving the treatment plan; (c) formally accepting the residual risk via the acceptance event recorded in ${brand.name}; and (d) escalating to the Security & Privacy Owner or top management if the risk changes materially.`;
 }
 
 export function defaultMethodologyFrequency(): string {
@@ -98,5 +100,5 @@ export function defaultMethodologyFrequency(): string {
 }
 
 export function defaultMethodologyDocumentation(): string {
-  return 'All risks, their treatments, and their acceptance events are held in Comp AI. Two rendered documents derive from that data: this Risk Assessment Methodology (Clause 6.1.2) and the Risk Treatment Plan (Clause 6.1.3), which is rendered from the Risk Register and Vendor Risks and shows the current treatment and residual state for every risk in scope. Acceptance events are timestamped and immutable; superseded acceptances are retained, so the risk position at any prior point in time can be evidenced.';
+  return `All risks, their treatments, and their acceptance events are held in ${brand.name}. Two rendered documents derive from that data: this Risk Assessment Methodology (Clause 6.1.2) and the Risk Treatment Plan (Clause 6.1.3), which is rendered from the Risk Register and Vendor Risks and shows the current treatment and residual state for every risk in scope. Acceptance events are timestamped and immutable; superseded acceptances are retained, so the risk position at any prior point in time can be evidenced.`;
 }

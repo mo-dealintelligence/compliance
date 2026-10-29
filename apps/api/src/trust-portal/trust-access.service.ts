@@ -28,6 +28,7 @@ import { Prisma, TrustFramework } from '@db';
 import archiver from 'archiver';
 import { PassThrough, Readable } from 'stream';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { brand } from '@trycompai/utils/brand';
 
 @Injectable()
 export class TrustAccessService {
@@ -1713,7 +1714,7 @@ export class TrustAccessService {
         name: params.recipientName,
         email: params.recipientEmail,
         docId: params.docId,
-        watermarkText: 'Comp AI',
+        watermarkText: brand.name,
       },
     );
 

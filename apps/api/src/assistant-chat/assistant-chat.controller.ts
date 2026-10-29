@@ -42,6 +42,7 @@ import { RolesService } from '../roles/roles.service';
 import { ASSISTANT_OPENAI_PROVIDER_OPTIONS } from './openai-options';
 import { getAITelemetry } from '../inference-tracing';
 import { resolveAssistantChatContext } from './assistant-chat-context';
+import { brand } from '@trycompai/utils/brand';
 
 @ApiTags('Assistant Chat')
 @Controller({ path: 'assistant-chat', version: '1' })
@@ -100,7 +101,7 @@ export class AssistantChatController {
       const nowIso = new Date().toISOString();
 
       const systemPrompt = `
-You're an expert in GRC, and a helpful assistant in Comp AI,
+You're an expert in GRC, and a helpful assistant in ${brand.name},
 a platform that helps companies get compliant with frameworks
 like SOC 2, ISO 27001 and GDPR.
 

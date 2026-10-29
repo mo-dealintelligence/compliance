@@ -2,6 +2,7 @@
 
 import { Button } from '@trycompai/design-system';
 import { Checkmark, Close, Locked } from '@trycompai/design-system/icons';
+import { brand } from '@trycompai/utils/brand';
 import { useEffect, useState } from 'react';
 import { LiveActivityBorder } from './LiveActivityBorder';
 import { StepList, type SignInStep } from './StepList';
@@ -119,7 +120,7 @@ export function ConnectLiveSignin({
         <div>
           <div className="text-base text-foreground">Connect to {host}</div>
           <div className="mt-0.5 text-xs text-muted-foreground">
-            Sign in once — Comp AI saves the session and re-logs in automatically.
+            Sign in once — {brand.name} saves the session and re-logs in automatically.
           </div>
         </div>
         <button
@@ -168,9 +169,7 @@ export function ConnectLiveSignin({
               {/* Show the ring only once the browser has rendered, so it fades in
                   with the page instead of appearing over a blank frame. Green
                   glow while the AI drives; amber "Your turn" when the user acts. */}
-              {!success && loaded && (
-                <LiveActivityBorder state={variant === 'ai' ? 'ai' : 'you'} />
-              )}
+              {!success && loaded && <LiveActivityBorder state={variant === 'ai' ? 'ai' : 'you'} />}
             </div>
           </div>
         </div>
@@ -222,8 +221,8 @@ export function ConnectLiveSignin({
             <div className="rounded-md border border-border p-3">
               <div className="mb-1 text-[12.5px] text-foreground">Finish sign-in yourself</div>
               <div className="mb-2.5 text-[11.5px] leading-normal text-muted-foreground">
-                Complete the sign-in in the live browser — Comp AI saves the session as
-                usual. Then confirm.
+                Complete the sign-in in the live browser — {brand.name} saves the session as usual.
+                Then confirm.
               </div>
               <Button
                 onClick={onConfirm}

@@ -8,7 +8,7 @@ import { Button } from '@trycompai/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@trycompai/ui/form';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, Loader2 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { usePostPaymentOnboarding } from '../hooks/usePostPaymentOnboarding';
 import { CancelOnboardingButton } from './CancelOnboardingButton';
 
@@ -50,12 +50,6 @@ export function PostPaymentOnboarding({
   });
 
   const isLocal = process.env.NODE_ENV !== 'production';
-
-  // Internal-only: fast-path to complete onboarding (not exposed to customers)
-  const canSkipOnboarding = useMemo(() => {
-    if (!userEmail) return false;
-    return userEmail.endsWith('@trycomp.ai');
-  }, [userEmail]);
 
   // Track if there are any invalid URLs (from OnboardingStepInput callback)
   const [hasInvalidUrl, setHasInvalidUrl] = useState(false);
@@ -287,7 +281,7 @@ export function PostPaymentOnboarding({
                 </motion.div>
               )}
             </AnimatePresence>
-            {(isLocal || canSkipOnboarding) && (
+            {isLocal && (
               <motion.div
                 key="complete-now"
                 initial={{ opacity: 0, x: 20 }}

@@ -7,6 +7,7 @@ import {
   runTaskIntegrationChecks,
   type TaskCheckRunResult,
 } from './run-task-integration-checks';
+import { brand } from '@trycompai/utils/brand';
 
 /** One task scheduled for an org, as handed down by the orchestrator. */
 export interface OrgTaskCheck {
@@ -157,7 +158,7 @@ export async function sendBundledFailureEmails(params: {
     const appUrl =
       process.env.NEXT_PUBLIC_APP_URL ||
       process.env.BETTER_AUTH_URL ||
-      'https://app.trycomp.ai';
+      brand.appUrl;
     const tasksUrl = `${appUrl}/${organizationId}/tasks`;
 
     const recipients = await resolveRecipients({

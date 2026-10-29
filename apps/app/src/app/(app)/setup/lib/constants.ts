@@ -1,3 +1,4 @@
+import { brand } from '@trycompai/utils/brand';
 import { z } from 'zod';
 import { Step } from './types';
 
@@ -170,7 +171,7 @@ export const steps: Step[] = [
 ];
 
 export const welcomeText = [
-  'Welcome to Comp AI!',
+  `Welcome to ${brand.productName}`,
   "Let's set up your security and compliance program. I'll help you:",
   '• Generate relevant vendors and risks for your business',
   '• Create customized security policies',

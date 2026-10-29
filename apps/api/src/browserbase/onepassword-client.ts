@@ -1,11 +1,12 @@
 import { Logger } from '@nestjs/common';
+import { brand } from '@trycompai/utils/brand';
 
 type OnePasswordModule = typeof import('@1password/sdk');
 export type OnePasswordClient = Awaited<
   ReturnType<OnePasswordModule['createClient']>
 >;
 
-const OP_INTEGRATION_NAME = 'Comp AI Browser Automations';
+const OP_INTEGRATION_NAME = `${brand.name} Browser Automations`;
 const OP_INTEGRATION_VERSION = '1.0.0';
 
 const logger = new Logger('OnePasswordClient');

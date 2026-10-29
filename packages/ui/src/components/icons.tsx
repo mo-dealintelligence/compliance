@@ -135,6 +135,10 @@ import {
 } from 'react-icons/md';
 import { PiDiscordLogo } from 'react-icons/pi';
 
+// Mirrors the default in @trycompai/utils/brand; NEXT_PUBLIC_* is inlined at build time.
+const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || 'Deal Intelligence';
+const BRAND_INITIAL = BRAND_NAME.charAt(0).toUpperCase();
+
 export const Icons = {
   Logo: (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -143,12 +147,24 @@ export const Icons = {
       viewBox="0 0 45 45"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={BRAND_NAME}
       {...props}
     >
-      <path
-        d="m32.947 10.714 -1.312 -0.942 -8.665 -6.22a0.802 0.802 0 0 0 -0.937 0L1.942 17.973a0.802 0.802 0 0 0 -0.335 0.653v7.747a0.802 0.802 0 0 0 0.335 0.654l20.091 14.424a0.802 0.802 0 0 0 0.937 0l20.088 -14.424a0.802 0.802 0 0 0 0.335 -0.654v-7.747a0.802 0.802 0 0 0 -0.335 -0.654zM22.033 7.327a0.802 0.802 0 0 1 0.937 0l5.126 3.68a0.802 0.802 0 0 1 0 1.306l-2.431 1.744a0.52 0.52 0 0 1 -0.598 -0.001l-2.097 -1.505a0.802 0.802 0 0 0 -0.937 0l-6.979 5.01a0.802 0.802 0 0 0 0 1.306l1.955 1.402 2.63 1.891 2.395 1.718a0.802 0.802 0 0 0 0.938 0l6.979 -5.015a0.802 0.802 0 0 0 0 -1.305l-1.654 -1.19a0.263 0.263 0 0 1 0 -0.427l2.873 -2.06a0.802 0.802 0 0 1 0.937 0l5.123 3.679a0.802 0.802 0 0 1 0 1.306l-2.433 1.747 -11.825 8.491a0.802 0.802 0 0 1 -0.937 0l-6.034 -4.333 -2.63 -1.886 -3.163 -2.27 -2.431 -1.747a0.802 0.802 0 0 1 0 -1.306z"
+      <title>{BRAND_NAME}</title>
+      <rect x={2.5} y={2.5} width={40} height={40} rx={9} stroke="currentColor" strokeWidth={3} />
+      <text
+        x="50%"
+        y="50%"
+        dominantBaseline="central"
+        textAnchor="middle"
+        fontFamily="ui-sans-serif, system-ui, sans-serif"
+        fontSize={24}
+        fontWeight={700}
         fill="currentColor"
-      />
+      >
+        {BRAND_INITIAL}
+      </text>
     </svg>
   ),
   Overview: (props: any) => (

@@ -1,6 +1,7 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@trycompai/ui/card';
+import { brand } from '@trycompai/utils/brand';
 import { Loader2, Play, Zap } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -8,21 +9,15 @@ import { useTaskAutomation } from '../../../hooks/use-task-automation';
 import { useSharedChatContext } from '../../../lib/chat-context';
 import { EvaluationCriteriaCard } from '../../evaluation/EvaluationCriteriaCard';
 
+const brandHost = new URL(brand.websiteUrl).hostname;
+
 interface WorkflowStep {
   id: string;
   title: string;
   description: string;
   type: 'trigger' | 'action' | 'condition' | 'output';
   iconType:
-    | 'start'
-    | 'fetch'
-    | 'login'
-    | 'check'
-    | 'process'
-    | 'filter'
-    | 'notify'
-    | 'complete'
-    | 'error';
+    'start' | 'fetch' | 'login' | 'check' | 'process' | 'filter' | 'notify' | 'complete' | 'error';
 }
 
 interface Props {
@@ -78,7 +73,7 @@ export function UnifiedWorkflowCard({
       {/* Header with integration icons */}
       <CardHeader className="p-4">
         <div className="flex items-center gap-2 mb-4">
-          {(integrationsUsed?.length ? integrationsUsed : [{ link: 'trycomp.ai' }]).map(
+          {(integrationsUsed?.length ? integrationsUsed : [{ link: brandHost }]).map(
             (integration) => (
               <div
                 key={`https://img.logo.dev/${integration.link}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`}
@@ -205,7 +200,11 @@ export function UnifiedWorkflowCard({
             }}
             className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors animate-in fade-in duration-500 pointer-events-auto"
           >
-            {isTesting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+            {isTesting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Play className="w-4 h-4" />
+            )}
             {isTesting ? 'Testing...' : 'Test Integration'}
           </button>
         )}

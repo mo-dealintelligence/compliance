@@ -1,4 +1,5 @@
 import type { SeedMetricDefinition } from './types';
+import { brand } from '@trycompai/utils/brand';
 
 /**
  * The nine seeded monitoring metrics (CS-723), active from day one. Names,
@@ -13,8 +14,7 @@ export const SEED_METRIC_DEFINITIONS: SeedMetricDefinition[] = [
     name: 'Security awareness training completion',
     whatIsMeasured:
       'Percentage of workforce members who have completed their assigned security-awareness training.',
-    method:
-      'Comp AI training tracker: completed assignments over total assigned, per campaign with monthly follow-up.',
+    method: `${brand.name} training tracker: completed assignments over total assigned, per campaign with monthly follow-up.`,
     cadence: 'monthly',
     target: '95% completion or above',
   },
@@ -23,8 +23,7 @@ export const SEED_METRIC_DEFINITIONS: SeedMetricDefinition[] = [
     name: 'Vendor review currency',
     whatIsMeasured:
       'Percentage of critical vendors with an in-date security review and a signed DPA.',
-    method:
-      'Comp AI vendor register: critical vendors with a review inside its window and a signed DPA, over all critical vendors.',
+    method: `${brand.name} vendor register: critical vendors with a review inside its window and a signed DPA, over all critical vendors.`,
     cadence: 'quarterly',
     target: '100% of critical vendors current',
   },
@@ -33,8 +32,7 @@ export const SEED_METRIC_DEFINITIONS: SeedMetricDefinition[] = [
     name: 'Open audit findings and corrective-action ageing',
     whatIsMeasured:
       'Count of open audit findings and the age of each open corrective action.',
-    method:
-      'Corrective-action records in Comp AI: open findings and days since each was raised, against its due date.',
+    method: `Corrective-action records in ${brand.name}: open findings and days since each was raised, against its due date.`,
     cadence: 'monthly',
     target: 'No corrective action open beyond its due date',
   },
@@ -43,8 +41,7 @@ export const SEED_METRIC_DEFINITIONS: SeedMetricDefinition[] = [
     name: 'Risk treatment status',
     whatIsMeasured:
       'Progress of risk treatment plans across the risk register.',
-    method:
-      'Comp AI risk register: risks by treatment status, highlighting high and critical risks without an active plan.',
+    method: `${brand.name} risk register: risks by treatment status, highlighting high and critical risks without an active plan.`,
     cadence: 'quarterly',
     target: 'All high and critical risks under active treatment',
   },
@@ -53,8 +50,7 @@ export const SEED_METRIC_DEFINITIONS: SeedMetricDefinition[] = [
     name: 'Policy acknowledgement coverage',
     whatIsMeasured:
       'Percentage of workforce members who have acknowledged all policies assigned to them.',
-    method:
-      'Comp AI policy tracker: members with all assigned policies acknowledged, over all members with assignments.',
+    method: `${brand.name} policy tracker: members with all assigned policies acknowledged, over all members with assignments.`,
     cadence: 'quarterly',
     target: '95% acknowledgement coverage or above',
   },

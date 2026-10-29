@@ -1,4 +1,5 @@
 import type { SeedRoleDefinition } from './types';
+import { brand } from '@trycompai/utils/brand';
 
 /**
  * The four seeded ISMS governance roles (clause 5.3) and their pre-filled
@@ -75,10 +76,11 @@ export const SEED_ROLE_KEYS: string[] = SEED_ROLE_DEFINITIONS.map(
 export const AUTO_DOC_ROLE_ROWS = [
   {
     name: 'Control / asset / risk / policy owners',
-    holders: 'Identified in the platform per policy, control, risk, task, and vendor.',
-    responsibilities:
-      'Implement, operate, and evidence the specific controls, policies, risks, and evidence tasks assigned to them. Operational ownership is assigned at the artifact level in Comp AI.',
-    authority: 'Make operational decisions for their assigned item. Authority granted by the SPO.',
+    holders:
+      'Identified in the platform per policy, control, risk, task, and vendor.',
+    responsibilities: `Implement, operate, and evidence the specific controls, policies, risks, and evidence tasks assigned to them. Operational ownership is assigned at the artifact level in ${brand.name}.`,
+    authority:
+      'Make operational decisions for their assigned item. Authority granted by the SPO.',
   },
   {
     name: 'All personnel and contractors',
@@ -93,8 +95,7 @@ export const AUTO_DOC_ROLE_ROWS = [
  * Non-removable note reproduced verbatim in the generated document (§2). Clarifies
  * that Comp AI application-access levels are not ISMS governance roles.
  */
-export const APPLICATION_ACCESS_NOTE =
-  'Comp AI application-access levels (Owner / Admin / Auditor / Employee / Contractor) are not ISMS governance roles. The ISMS governance roles are defined below.';
+export const APPLICATION_ACCESS_NOTE = `${brand.name} application-access levels (Owner / Admin / Auditor / Employee / Contractor) are not ISMS governance roles. The ISMS governance roles are defined below.`;
 
 /** The application-access levels and what they grant (generated document §2). */
 export const APPLICATION_ACCESS_LEVELS: string[] = [

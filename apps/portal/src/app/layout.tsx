@@ -1,9 +1,9 @@
 import { auth } from '@/app/lib/auth';
 import { env } from '@/env.mjs';
 import { initializeServer } from '@trycompai/analytics/server';
-import { cn } from '@trycompai/ui/cn';
-import './globals.css';
 import '@trycompai/design-system/globals.css';
+import { cn } from '@trycompai/ui/cn';
+import { brand } from '@trycompai/utils/brand';
 import { GeistMono } from 'geist/font/mono';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -11,45 +11,25 @@ import { headers } from 'next/headers';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Suspense } from 'react';
 import { Toaster } from 'sonner';
+import './globals.css';
 import { Providers } from './providers';
 
+const portalTitle = `${brand.name} | Employee Portal`;
+const portalDescription = 'Enter your email and one time password to continue';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://portal.trycomp.ai'),
-  title: 'Comp AI | Employee Portal',
-  description: 'Enter your email and one time password to continue',
+  metadataBase: new URL(brand.portalUrl),
+  title: portalTitle,
+  description: portalDescription,
   twitter: {
-    title: 'Comp AI | Employee Portal',
-    description: 'Enter your email and one time password to continue',
-    images: [
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 800,
-        height: 600,
-      },
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 1800,
-        height: 1600,
-      },
-    ],
+    title: portalTitle,
+    description: portalDescription,
   },
   openGraph: {
-    title: 'Comp AI | Employee Portal',
-    description: 'Enter your email and one time password to continue',
-    url: 'https://portal.trycomp.ai',
-    siteName: 'Comp AI',
-    images: [
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 800,
-        height: 600,
-      },
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 1800,
-        height: 1600,
-      },
-    ],
+    title: portalTitle,
+    description: portalDescription,
+    url: brand.portalUrl,
+    siteName: brand.name,
     locale: 'en_US',
     type: 'website',
   },

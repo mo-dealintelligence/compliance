@@ -12,7 +12,7 @@ export const googleWorkspaceManifest: IntegrationManifest = {
   name: 'Google Workspace',
   description: 'Monitor security settings and user compliance in Google Workspace',
   category: 'Identity & Access',
-  logoUrl: 'https://img.logo.dev/google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true',
+  logoUrl: `https://img.logo.dev/google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true`,
   docsUrl: 'https://developers.google.com/admin-sdk',
   isActive: true,
 

@@ -1,3 +1,5 @@
+import { brand } from '@trycompai/utils/brand';
+
 const TRAILING_FRAGMENT_WORDS = [
   'and',
   'bearer',
@@ -60,7 +62,7 @@ function trimTitle(value: string, maxLength: number): string {
 }
 
 export function toSeoTitle(summary: string): string {
-  const suffix = ' | Comp AI API';
+  const suffix = ` | ${brand.name} API`;
   return `${trimTitle(summary, 60 - suffix.length)}${suffix}`;
 }
 

@@ -13,6 +13,7 @@ import { EvidenceBulkReviewRequestedEmail } from '../email/templates/evidence-bu
 import { AutomationFailuresEmail } from '../email/templates/automation-failures';
 import { AutomationBulkFailuresEmail } from '../email/templates/automation-bulk-failures';
 import { NovuService } from '../notifications/novu.service';
+import { brand } from '@trycompai/utils/brand';
 
 const BULK_TASK_WORKFLOW_ID = 'evidence-bulk-updated';
 const TASK_WORKFLOW_ID = 'evidence-updated';
@@ -162,7 +163,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const tasksUrl = `${appUrl}/${organizationId}/tasks`;
 
       this.logger.log(
@@ -324,7 +325,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const tasksUrl = `${appUrl}/${organizationId}/tasks`;
 
       this.logger.log(
@@ -489,7 +490,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const taskUrl = `${appUrl}/${organizationId}/tasks/${taskId}`;
 
       this.logger.log(
@@ -673,7 +674,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const taskUrl = `${appUrl}/${organizationId}/tasks/${taskId}`;
 
       this.logger.log(
@@ -844,7 +845,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const taskUrl = `${appUrl}/${organizationId}/tasks/${taskId}`;
 
       // Send email notification
@@ -999,7 +1000,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const tasksUrl = `${appUrl}/${organizationId}/tasks`;
       const taskText = taskCount === 1 ? 'task' : 'tasks';
 
@@ -1181,7 +1182,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const taskUrl = `${appUrl}/${organizationId}/tasks/${taskId}`;
 
       this.logger.log(
@@ -1393,7 +1394,7 @@ export class TaskNotifierService {
       const appUrl =
         process.env.NEXT_PUBLIC_APP_URL ??
         process.env.BETTER_AUTH_URL ??
-        'https://app.trycomp.ai';
+        brand.appUrl;
       const tasksUrl = `${appUrl}/${organizationId}/tasks`;
 
       // Build task items for the email template

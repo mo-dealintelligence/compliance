@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  Logger,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { db } from '@db';
 import { triggerEmail } from '../email/trigger-email';
 import { InviteEmail } from '../email/templates/invite-member';
@@ -17,6 +13,7 @@ import {
 import type { InviteItemDto } from './dto/invite-people.dto';
 import { checkAutoCompletePhases } from '../frameworks/frameworks-timeline.helper';
 import { TimelinesService } from '../timelines/timelines.service';
+import { brand } from '@trycompai/utils/brand';
 
 export interface InviteResult {
   email: string;
@@ -78,7 +75,11 @@ export class PeopleInviteService {
           callerMemberActions,
         );
         if (roleError) {
-          results.push({ email: invite.email, success: false, error: roleError });
+          results.push({
+            email: invite.email,
+            success: false,
+            error: roleError,
+          });
           continue;
         }
 
@@ -89,8 +90,7 @@ export class PeopleInviteService {
           invite.roles,
           organizationId,
         );
-        const shouldSendPortalEmail =
-          !!invite.sendPortalEmail && hasCompliance;
+        const shouldSendPortalEmail = !!invite.sendPortalEmail && hasCompliance;
         const shouldSendAppEmail = await this.rolesHaveAppAccess(
           invite.roles,
           organizationId,
@@ -240,7 +240,7 @@ export class PeopleInviteService {
         const inviteLink = this.buildPortalUrl(organizationId);
         await triggerEmail({
           to: email,
-          subject: `You've been invited to join ${organization.name} on Comp AI`,
+          subject: `You've been invited to join ${organization.name} on ${brand.name}`,
           react: InvitePortalEmail({
             organizationName: organization.name,
             inviteLink,
@@ -434,7 +434,7 @@ export class PeopleInviteService {
 
     await triggerEmail({
       to: email,
-      subject: `Access your ${member.organization.name} Employee Portal on Comp AI`,
+      subject: `Access your ${member.organization.name} Employee Portal on ${brand.name}`,
       react: InvitePortalEmail({
         organizationName: member.organization.name,
         inviteLink,
@@ -490,7 +490,7 @@ export class PeopleInviteService {
     if (sendAppEmail) {
       await triggerEmail({
         to: email,
-        subject: `You've been invited to join ${organizationName} on Comp AI`,
+        subject: `You've been invited to join ${organizationName} on ${brand.name}`,
         react: InviteEmail({
           organizationName,
           inviteLink: appLink,
@@ -500,7 +500,7 @@ export class PeopleInviteService {
     } else if (sendPortalEmail) {
       await triggerEmail({
         to: email,
-        subject: `You've been invited to join ${organizationName} on Comp AI`,
+        subject: `You've been invited to join ${organizationName} on ${brand.name}`,
         react: InvitePortalEmail({
           organizationName,
           inviteLink: portalLink,
@@ -510,7 +510,7 @@ export class PeopleInviteService {
     } else {
       await triggerEmail({
         to: email,
-        subject: `You've been invited to join ${organizationName} on Comp AI`,
+        subject: `You've been invited to join ${organizationName} on ${brand.name}`,
         react: InviteEmail({
           organizationName,
           inviteLink: appLink,
@@ -527,9 +527,7 @@ export class PeopleInviteService {
       if (BUILT_IN_ROLE_PERMISSIONS[role]?.app) return true;
     }
 
-    const customRoleNames = roles.filter(
-      (r) => !BUILT_IN_ROLE_PERMISSIONS[r],
-    );
+    const customRoleNames = roles.filter((r) => !BUILT_IN_ROLE_PERMISSIONS[r]);
     if (customRoleNames.length === 0) return false;
 
     const customRoles = await db.organizationRole.findMany({
@@ -540,8 +538,8 @@ export class PeopleInviteService {
       select: { permissions: true },
     });
 
-    return customRoles.some((role) =>
-      parseRolePermissions(role.permissions)?.app,
+    return customRoles.some(
+      (role) => parseRolePermissions(role.permissions)?.app,
     );
   }
 
@@ -564,8 +562,8 @@ export class PeopleInviteService {
       select: { obligations: true },
     });
 
-    return customRoles.some((role) =>
-      parseRoleObligations(role.obligations).compliance,
+    return customRoles.some(
+      (role) => parseRoleObligations(role.obligations).compliance,
     );
   }
 
@@ -584,7 +582,8 @@ export class PeopleInviteService {
     if (hasWriteAccess) return null;
 
     const disallowed = targetRoles.filter(
-      (r) => !isRestrictedRole(r) && Object.hasOwn(BUILT_IN_ROLE_PERMISSIONS, r),
+      (r) =>
+        !isRestrictedRole(r) && Object.hasOwn(BUILT_IN_ROLE_PERMISSIONS, r),
     );
     if (disallowed.length > 0) {
       return `You cannot assign privileged roles: ${disallowed.join(', ')}.`;
@@ -677,8 +676,7 @@ export class PeopleInviteService {
   }
 
   private buildPortalUrl(organizationId: string): string {
-    const portalUrl =
-      process.env.NEXT_PUBLIC_PORTAL_URL ?? 'https://portal.trycomp.ai';
+    const portalUrl = brand.portalUrl;
     return `${portalUrl}/${organizationId}`;
   }
 
@@ -686,7 +684,7 @@ export class PeopleInviteService {
     const appUrl =
       process.env.NEXT_PUBLIC_APP_URL ??
       process.env.BETTER_AUTH_URL ??
-      'https://app.trycomp.ai';
+      brand.appUrl;
     return `${appUrl}/invite/${invitationId}`;
   }
 }

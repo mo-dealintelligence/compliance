@@ -13,6 +13,7 @@ import {
 } from '@react-email/components';
 import { Footer } from '../components/footer';
 import { Logo } from '../components/logo';
+import { brand } from '@trycompai/utils/brand';
 
 interface Props {
   organizationName: string;
@@ -21,7 +22,12 @@ interface Props {
   portalLink?: string;
 }
 
-export const InviteEmail = ({ organizationName, inviteLink, email, portalLink }: Props) => {
+export const InviteEmail = ({
+  organizationName,
+  inviteLink,
+  email,
+  portalLink,
+}: Props) => {
   return (
     <Html>
       <Tailwind>
@@ -39,7 +45,7 @@ export const InviteEmail = ({ organizationName, inviteLink, email, portalLink }:
             fontStyle="normal"
           />
         </head>
-        <Preview>You've been invited to join Comp AI</Preview>
+        <Preview>You've been invited to join {brand.name}</Preview>
 
         <Body className="mx-auto my-auto bg-[#fff] font-sans">
           <Container
@@ -48,11 +54,13 @@ export const InviteEmail = ({ organizationName, inviteLink, email, portalLink }:
           >
             <Logo />
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-[#121212]">
-              Join <strong>{organizationName}</strong> on <strong>Comp AI</strong>
+              Join <strong>{organizationName}</strong> on{' '}
+              <strong>{brand.name}</strong>
             </Heading>
 
             <Text className="text-[14px] leading-[24px] text-[#121212]">
-              You've been invited to join your team on <strong>Comp AI</strong>.
+              You've been invited to join your team on{' '}
+              <strong>{brand.name}</strong>.
             </Text>
             <Section className="mt-[32px] mb-[42px] text-center">
               <Button
@@ -73,9 +81,11 @@ export const InviteEmail = ({ organizationName, inviteLink, email, portalLink }:
             {portalLink && (
               <>
                 <Text className="text-[14px] leading-[24px] text-[#121212] mt-[24px]">
-                  You also have access to the <strong>{organizationName} Employee Portal</strong> for
-                  completing compliance tasks like signing policies and security training.
-                  Once you've accepted your invite above, you can access the portal at:
+                  You also have access to the{' '}
+                  <strong>{organizationName} Employee Portal</strong> for
+                  completing compliance tasks like signing policies and security
+                  training. Once you've accepted your invite above, you can
+                  access the portal at:
                 </Text>
                 <Text className="text-[14px] leading-[24px] break-all text-[#707070]">
                   <Link href={portalLink} className="text-[#707070] underline">

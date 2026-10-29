@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { brand } from '@trycompai/utils/brand';
 import { jsPDF } from 'jspdf';
 
 // Primary brand color (teal/green) - hsl(165, 100%, 15%)
 const PRIMARY_COLOR = { r: 0, g: 77, b: 61 };
 
-const COMP_AI_LOGO_URL = 'https://assets.trycomp.ai/logo.png';
-
 const getLogoDataUrl = async (): Promise<string | null> => {
   try {
-    const response = await fetch(COMP_AI_LOGO_URL);
+    const response = await fetch(brand.logoUrl);
     if (!response.ok) {
       return null;
     }
@@ -108,7 +107,7 @@ export class TrainingCertificatePdfService {
     doc.setLineWidth(0.5);
     doc.rect(15, 15, pageWidth - 30, pageHeight - 30, 'S');
 
-    // Add Comp AI logo at top center
+    // Add brand logo at top center
     const logoDataUrl = await getLogoDataUrl();
     if (logoDataUrl) {
       const logoWidth = 15;
@@ -220,11 +219,11 @@ export class TrainingCertificatePdfService {
     doc.setTextColor(120, 120, 120);
     doc.text('Certified by', pageWidth / 2, 158, { align: 'center' });
 
-    // Comp AI branding with logo
+    // Brand name with logo
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(18);
     doc.setTextColor(18, 18, 18);
-    const compAiText = 'Comp AI';
+    const compAiText = brand.name;
     const compAiTextWidth = doc.getTextWidth(compAiText);
     const logoSize = 8;
     const gap = 3;
@@ -241,10 +240,10 @@ export class TrainingCertificatePdfService {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text('AI-powered compliance platform', pageWidth / 2, 178, {
+    doc.text(brand.productName, pageWidth / 2, 178, {
       align: 'center',
     });
-    doc.text('https://trycomp.ai', pageWidth / 2, 183, { align: 'center' });
+    doc.text(brand.websiteUrl, pageWidth / 2, 183, { align: 'center' });
 
     // Get the PDF as a buffer
     const pdfOutput = doc.output('arraybuffer');

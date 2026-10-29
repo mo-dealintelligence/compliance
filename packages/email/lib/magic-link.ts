@@ -1,3 +1,4 @@
+import { brand } from '@trycompai/utils/brand';
 import { MagicLinkEmail } from '../emails/magic-link';
 import { sendEmail } from './resend';
 
@@ -11,7 +12,7 @@ export const sendMagicLinkEmail = async (params: {
   try {
     const sent = await sendEmail({
       to: email,
-      subject: 'Your sign-in link for Comp AI',
+      subject: `Your sign-in link for ${brand.name}`,
       react: MagicLinkEmail({ url, email, inviteCode }),
     });
 

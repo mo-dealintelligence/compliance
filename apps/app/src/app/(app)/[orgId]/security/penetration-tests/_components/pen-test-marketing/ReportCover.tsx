@@ -1,3 +1,4 @@
+import { brand } from '@trycompai/utils/brand';
 import { Meta, ReportPage } from './report-page';
 
 export function ReportCover() {
@@ -47,7 +48,9 @@ export function ReportCover() {
       >
         PENETRATION TEST REPORT
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 4, fontSize: 7, color: '#333' }}>
+      <div
+        style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 4, fontSize: 7, color: '#333' }}
+      >
         <Meta label="Assessment Period" value="May 5, 2026 — May 5, 2026" />
         <Meta label="Report Date" value="May 5, 2026" />
         <Meta label="Version" value="1.0" />
@@ -62,7 +65,7 @@ export function ReportCover() {
           color: '#888',
         }}
       >
-        <span>Comp AI — Penetration Test Report</span>
+        <span>{brand.name} — Penetration Test Report</span>
         <span>1 of 33</span>
       </div>
     </ReportPage>

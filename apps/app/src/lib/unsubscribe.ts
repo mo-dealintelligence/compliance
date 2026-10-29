@@ -1,3 +1,4 @@
+import { brand } from '@trycompai/utils/brand';
 import { createHmac } from 'node:crypto';
 
 const UNSUBSCRIBE_SECRET = process.env.UNSUBSCRIBE_SECRET || process.env.AUTH_SECRET;
@@ -19,7 +20,7 @@ function getBaseUrl(): string {
   }
 
   // Default fallback
-  return 'https://app.trycomp.ai';
+  return brand.appUrl;
 }
 
 /**
@@ -50,4 +51,3 @@ export function getUnsubscribeUrl(email: string): string {
   const baseUrl = getBaseUrl();
   return `${baseUrl}/unsubscribe/preferences?email=${encodeURIComponent(email)}&token=${token}`;
 }
-

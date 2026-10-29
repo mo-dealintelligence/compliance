@@ -2,7 +2,6 @@
 
 import { RecentAuditLogs } from '@/components/RecentAuditLogs';
 import { apiClient } from '@/lib/api-client';
-import { useAdminAuditLogs } from '../hooks/use-admin-audit-logs';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,9 +17,11 @@ import {
   Switch,
   Text,
 } from '@trycompai/design-system';
+import { brand } from '@trycompai/utils/brand';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useAdminAuditLogs } from '../hooks/use-admin-audit-logs';
 
 interface AdminOrgDetail {
   id: string;
@@ -111,8 +112,7 @@ export function OrganizationDetail({
     );
   };
 
-  const { logs, total, hasMore, loadMore, isLoadingMore, isLoading } =
-    useAdminAuditLogs(org.id);
+  const { logs, total, hasMore, loadMore, isLoadingMore, isLoading } = useAdminAuditLogs(org.id);
 
   return (
     <Stack gap="lg">
@@ -150,9 +150,9 @@ export function OrganizationDetail({
           <div className="flex-1">
             <Text weight="medium">Internal organization</Text>
             <Text size="sm" variant="muted">
-              For Comp AI-operated orgs only. When on, platform admins are treated as real members
-              here — assignable, counted in compliance, and notified. Leave off for every customer
-              organization.
+              For {brand.name}-operated orgs only. When on, platform admins are treated as real
+              members here — assignable, counted in compliance, and notified. Leave off for every
+              customer organization.
             </Text>
           </div>
           <Switch
@@ -195,13 +195,11 @@ export function OrganizationDetail({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {pendingInternal
-                ? 'Mark as internal organization?'
-                : 'Remove internal organization?'}
+              {pendingInternal ? 'Mark as internal organization?' : 'Remove internal organization?'}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {pendingInternal
-                ? 'Platform admins will be treated as real members here — assignable, counted in compliance, and notified. Only enable this for Comp AI-operated orgs, never a customer organization.'
+                ? `Platform admins will be treated as real members here — assignable, counted in compliance, and notified. Only enable this for ${brand.name}-operated orgs, never a customer organization.`
                 : 'Platform admins will be excluded from this organization again — removed from assignments, compliance counts, and notifications.'}
             </AlertDialogDescription>
           </AlertDialogHeader>

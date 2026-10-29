@@ -4,6 +4,7 @@ import { env } from '@/env.mjs';
 import { auth } from '@/utils/auth';
 import { Analytics as DubAnalytics } from '@dub/analytics/react';
 import { cn } from '@trycompai/ui/cn';
+import { brand } from '@trycompai/utils/brand';
 import { GeistMono } from 'geist/font/mono';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -15,43 +16,22 @@ import { Providers } from './providers';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
+const appTitle = `${brand.productName} | Compliance workspace`;
+const appDescription = `Policies, controls, risks, and evidence for ${brand.name}.`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://app.trycomp.ai'),
-  title: 'Comp AI | Automate SOC 2, ISO 27001 and GDPR compliance with AI.',
-  description: 'Automate SOC 2, ISO 27001 and GDPR compliance with AI.',
+  metadataBase: new URL(brand.appUrl),
+  title: appTitle,
+  description: appDescription,
   twitter: {
-    title: 'Comp AI | Automate SOC 2, ISO 27001 and GDPR compliance with AI.',
-    description: 'Automate SOC 2, ISO 27001 and GDPR compliance with AI.',
-    images: [
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 800,
-        height: 600,
-      },
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 1800,
-        height: 1600,
-      },
-    ],
+    title: appTitle,
+    description: appDescription,
   },
   openGraph: {
-    title: 'Comp AI | Automate SOC 2, ISO 27001 and GDPR compliance with AI.',
-    description: 'Automate SOC 2, ISO 27001 and GDPR compliance with AI.',
-    url: 'https://app.trycomp.ai',
-    siteName: 'Comp AI',
-    images: [
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 800,
-        height: 600,
-      },
-      {
-        url: 'https://cdn.trycomp.ai/opengraph-image.jpg',
-        width: 1800,
-        height: 1600,
-      },
-    ],
+    title: appTitle,
+    description: appDescription,
+    url: brand.appUrl,
+    siteName: brand.name,
     locale: 'en_US',
     type: 'website',
   },

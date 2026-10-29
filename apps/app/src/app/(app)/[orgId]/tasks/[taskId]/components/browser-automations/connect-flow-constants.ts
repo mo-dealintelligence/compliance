@@ -1,3 +1,5 @@
+import { brand } from '@trycompai/utils/brand';
+
 export type Step =
   | 'enter-url'
   | 'checking'
@@ -61,6 +63,6 @@ export function railSubtitleFor(step: Step): string {
     case 'signin':
       return 'Your turn — finish signing in';
     default:
-      return 'So Comp AI can capture evidence on a schedule';
+      return `So ${brand.name} can capture evidence on a schedule`;
   }
 }

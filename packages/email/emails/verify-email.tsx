@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 import { Footer } from '../components/footer';
 import { Logo } from '../components/logo';
 
@@ -23,7 +24,7 @@ export const VerifyEmail = ({ email, url }: Props) => {
     <Html>
       <Tailwind>
         <head />
-        <Preview>Verify your email for Comp AI</Preview>
+        <Preview>Verify your email for {brand.name}</Preview>
 
         <Body className="mx-auto my-auto bg-[#fff] font-sans">
           <Container
@@ -32,11 +33,11 @@ export const VerifyEmail = ({ email, url }: Props) => {
           >
             <Logo />
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-[#121212]">
-              Verify your email for Comp AI
+              Verify your email for {brand.name}
             </Heading>
 
             <Text className="text-[14px] leading-[24px] text-[#121212]">
-              Confirm your email address to finish setting up your Comp AI
+              Confirm your email address to finish setting up your {brand.name}
               account.
             </Text>
             <Section className="mt-[32px] mb-[42px] text-center">

@@ -1,8 +1,9 @@
 'use client';
 
-import { Card } from '@trycompai/ui';
-import { Button } from '@trycompai/design-system';
 import type { Member, User } from '@db';
+import { Button } from '@trycompai/design-system';
+import { Card } from '@trycompai/ui';
+import { brand } from '@trycompai/utils/brand';
 
 type Document = {
   id: string;
@@ -36,9 +37,10 @@ export function SOADocumentInfo({
   onAutoFill,
   onSubmitForApproval,
 }: SOADocumentInfoProps) {
-  const progressPercentage = document.totalQuestions > 0
-    ? Math.round((document.answeredQuestions / document.totalQuestions) * 100)
-    : 0;
+  const progressPercentage =
+    document.totalQuestions > 0
+      ? Math.round((document.answeredQuestions / document.totalQuestions) * 100)
+      : 0;
 
   const approvalStatusText = document.approvedAt
     ? `Approved on ${new Date(document.approvedAt).toLocaleDateString()}`
@@ -83,25 +85,31 @@ export function SOADocumentInfo({
             suffix={`(${progressPercentage}%)`}
           />
           <div className="hidden xl:block h-8 w-px bg-border" />
-          <InfoItem label="Prepared by" value={document.preparedBy || 'Comp AI'} />
+          <InfoItem label="Prepared by" value={document.preparedBy || brand.name} />
           <div className="hidden xl:block h-8 w-px bg-border" />
           <InfoItem label="Approval status" value={approvalStatusText} />
 
           {approver && document.approvedAt && (
             <>
               <div className="hidden xl:block h-8 w-px bg-border" />
-              <InfoItem label="Approved by" value={approver.user.name || approver.user.email || 'Unknown'} />
+              <InfoItem
+                label="Approved by"
+                value={approver.user.name || approver.user.email || 'Unknown'}
+              />
             </>
           )}
           {approver &&
             !document.approvedAt &&
             !document.declinedAt &&
             document.status === 'needs_review' && (
-            <>
-              <div className="hidden xl:block h-8 w-px bg-border" />
-              <InfoItem label="Pending approval by" value={approver.user.name || approver.user.email || 'Unknown'} />
-            </>
-          )}
+              <>
+                <div className="hidden xl:block h-8 w-px bg-border" />
+                <InfoItem
+                  label="Pending approval by"
+                  value={approver.user.name || approver.user.email || 'Unknown'}
+                />
+              </>
+            )}
           {document.declinedAt && (
             <>
               <div className="hidden xl:block h-8 w-px bg-border" />

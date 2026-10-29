@@ -3,6 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { isUserUnsubscribed } from '@trycompai/email';
 import { triggerEmail } from '../email/trigger-email';
 import { EvidenceAccessRequestSubmittedEmail } from '../email/templates/evidence-access-request-submitted';
+import { brand } from '@trycompai/utils/brand';
 
 interface Recipient {
   userId: string;
@@ -14,7 +15,7 @@ function getAppUrl(): string {
   return (
     process.env.NEXT_PUBLIC_APP_URL ??
     process.env.BETTER_AUTH_URL ??
-    'https://app.trycomp.ai'
+    brand.appUrl
   );
 }
 

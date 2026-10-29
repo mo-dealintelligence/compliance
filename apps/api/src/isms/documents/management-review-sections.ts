@@ -1,6 +1,7 @@
 import type { IsmsExportSection } from '../utils/export-shared';
 import type { DocumentExportInput, ReviewExportRow } from './types';
 import { managementReviewNarrativeSchema } from './management-review';
+import { brand } from '@trycompai/utils/brand';
 
 function parseProcedure(narrative: unknown): string | null {
   const parsed = managementReviewNarrativeSchema.safeParse(narrative);
@@ -44,7 +45,8 @@ function buildReviewSections(
         { label: 'Chair', value: review.chairName || '—' },
         {
           label: 'Attendees',
-          value: review.attendees.length > 0 ? review.attendees.join(', ') : '—',
+          value:
+            review.attendees.length > 0 ? review.attendees.join(', ') : '—',
         },
         { label: 'Status', value: review.status },
       ],
@@ -119,8 +121,7 @@ function buildReviewSections(
     review.actions.length > 0
       ? {
           heading: `Actions arising${suffix}`,
-          intro:
-            "Actions arising from this review, tracked to closure in Comp AI. Open actions carry forward automatically to the next review's input (a).",
+          intro: `Actions arising from this review, tracked to closure in ${brand.name}. Open actions carry forward automatically to the next review's input (a).`,
           table: {
             headers: ACTION_TABLE_HEADERS,
             rows: actionRows(review.actions),

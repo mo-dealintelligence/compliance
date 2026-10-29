@@ -30,7 +30,7 @@ export class OrganizationAccessController {
   @ApiOperation({
     summary: 'Auto-approve organization access via domain or self-hosted check',
     description:
-      'Grants hasAccess on the active organization if the requesting user is an internal trycomp.ai user, the deployment is self-hosted, or the user email domain matches the organization website domain and is an active Stripe customer.',
+      'Grants hasAccess on the active organization if the requesting user is a vendor staff user (when ALLOW_VENDOR_STAFF_ACCESS is set), the deployment is self-hosted, or the user email domain matches the organization website domain and is an active Stripe customer.',
   })
   async autoApprove(
     @OrganizationId() organizationId: string,

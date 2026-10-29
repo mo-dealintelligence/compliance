@@ -2,6 +2,7 @@
 
 import { apiClient } from '@/lib/api-client';
 import { Alert, Button, Heading, Text } from '@trycompai/design-system';
+import { brand } from '@trycompai/utils/brand';
 import { useState } from 'react';
 
 export interface PendingConsent {
@@ -61,9 +62,7 @@ export function ConsentForm({
         <div className="space-y-2">
           <Heading level="2">{`Allow ${consent.clientName} to access your account?`}</Heading>
           <Text size="sm" variant="muted">
-            {
-              'If you allow access, this app can read and change your Comp AI data with your permissions.'
-            }
+            {`If you allow access, this app can read and change your ${brand.name} data with your permissions.`}
           </Text>
         </div>
         <div className="space-y-1 rounded-md border p-4">

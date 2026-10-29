@@ -12,7 +12,6 @@ import {
   Stack,
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -20,13 +19,11 @@ import {
   Textarea,
 } from '@trycompai/design-system';
 import { Add } from '@trycompai/design-system/icons';
+import { brand } from '@trycompai/utils/brand';
 import { Controller, useForm } from 'react-hook-form';
 import type { IsmsAudit, IsmsAuditControl } from '../isms-types';
 import { AuditControlRow, type RaisedResult } from './AuditControlRow';
-import {
-  auditControlSchema,
-  type AuditControlFormValues,
-} from './audit-schema';
+import { auditControlSchema, type AuditControlFormValues } from './audit-schema';
 import { IsmsAddCard, IsmsFieldLabel } from './shared';
 
 interface AuditControlsTableProps {
@@ -181,7 +178,7 @@ function AddControlForm({
             <Input
               {...field}
               aria-label="Where to find it"
-              placeholder="Comp AI > ... or an external location"
+              placeholder={`${brand.name} > ... or an external location`}
             />
           )}
         />

@@ -9,6 +9,7 @@ import {
 import { getUnsubscribedEmails } from '@trycompai/email/lib/check-unsubscribe';
 
 import { render } from '@react-email/render';
+import { brand } from '@trycompai/utils/brand';
 import { sendBatchEmailViaApi } from '../../lib/send-email-via-api';
 import {
   computePendingPolicies,
@@ -17,8 +18,7 @@ import {
   type DigestMember,
 } from './policy-acknowledgment-digest-helpers';
 
-const getPortalBase = () =>
-  (process.env.NEXT_PUBLIC_PORTAL_URL ?? 'https://portal.trycomp.ai').replace(/\/+$/, '');
+const getPortalBase = () => brand.portalUrl.replace(/\/+$/, '');
 
 // Skip orgs that look abandoned — same threshold weekly-task-reminder uses so
 // we don't keep hitting dead addresses and burning domain reputation.

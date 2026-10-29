@@ -6,6 +6,7 @@ import { trainingVideos } from '@/lib/data/training-videos';
 import type { PortalPolicy } from '@/lib/portal-policy-types';
 import type { Device, EmployeeTrainingVideoCompletion, Member } from '@db';
 import { Accordion, Button } from '@trycompai/design-system';
+import { brand } from '@trycompai/utils/brand';
 import Link from 'next/link';
 import useSWR from 'swr';
 import type { FleetPolicy, Host } from '../types';
@@ -146,7 +147,7 @@ export const EmployeeTasksList = ({
     ...(deviceAgentStepEnabled
       ? [
           {
-            title: 'Download and install Comp AI Device Agent',
+            title: `Download and install ${brand.name} Device Agent`,
             content: (
               <DeviceAgentAccordionItem
                 member={member}

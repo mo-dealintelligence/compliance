@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import { brand } from '@trycompai/utils/brand';
 import { Footer } from '../components/footer';
 import { Logo } from '../components/logo';
 
@@ -24,7 +25,7 @@ export const ChangeEmailConfirmationEmail = ({ currentEmail, newEmail, url }: Pr
     <Html>
       <Tailwind>
         <head />
-        <Preview>Confirm your email change for Comp AI</Preview>
+        <Preview>Confirm your email change for {brand.name}</Preview>
 
         <Body className="mx-auto my-auto bg-[#fff] font-sans">
           <Container
@@ -37,11 +38,10 @@ export const ChangeEmailConfirmationEmail = ({ currentEmail, newEmail, url }: Pr
             </Heading>
 
             <Text className="text-[14px] leading-[24px] text-[#121212]">
-              You requested to change your Comp AI login email from{' '}
+              You requested to change your {brand.name} login email from{' '}
               <span className="font-medium">{currentEmail}</span> to{' '}
-              <span className="font-medium">{newEmail}</span>. Confirm below,
-              then follow the verification link we send to your new address to
-              finish the change.
+              <span className="font-medium">{newEmail}</span>. Confirm below, then follow the
+              verification link we send to your new address to finish the change.
             </Text>
             <Section className="mt-[32px] mb-[42px] text-center">
               <Button
@@ -62,9 +62,8 @@ export const ChangeEmailConfirmationEmail = ({ currentEmail, newEmail, url }: Pr
             <br />
             <Section>
               <Text className="text-[12px] leading-[24px] text-[#666666]">
-                If you did not request this change, you can safely ignore this
-                email — your login email will stay{' '}
-                <span className="text-[#121212]">{currentEmail}</span>.
+                If you did not request this change, you can safely ignore this email — your login
+                email will stay <span className="text-[#121212]">{currentEmail}</span>.
               </Text>
             </Section>
 

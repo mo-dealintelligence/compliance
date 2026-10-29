@@ -1,5 +1,6 @@
+import { Icons } from '@trycompai/ui/icons';
+import { brand } from '@trycompai/utils/brand';
 import { UserIcon } from 'lucide-react';
-import Image from 'next/image';
 import { createContext, memo, useContext, useEffect, useState } from 'react';
 import { MessagePart } from './message-part';
 import type { ChatUIMessage } from './types';
@@ -311,14 +312,7 @@ export const Message = memo(function Message({
           ) : (
             <div className="relative">
               <div className="w-8 h-8 rounded-full bg-white border border-primary/25 overflow-hidden flex items-center justify-center">
-                <Image
-                  src="/compailogo.jpg"
-                  alt="Comp AI"
-                  width={32}
-                  height={32}
-                  className="w-full h-full object-cover object-center"
-                  unoptimized
-                />
+                <Icons.Logo className="h-5 w-5 text-primary" aria-hidden />
               </div>
               <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-500 border-2 border-background" />
             </div>
@@ -330,7 +324,7 @@ export const Message = memo(function Message({
           {/* Header - Clean and simple */}
           <div className="flex items-baseline gap-2 mb-1">
             <span className="text-sm font-semibold text-foreground">
-              {message.role === 'user' ? 'You' : 'Comp AI'}
+              {message.role === 'user' ? 'You' : brand.name}
             </span>
             <span className="text-xs text-muted-foreground">
               {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

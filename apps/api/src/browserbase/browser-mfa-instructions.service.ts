@@ -3,6 +3,7 @@ import { anthropic } from '@ai-sdk/anthropic';
 import { generateObject } from 'ai';
 import { z } from 'zod';
 import { normalizeHostnameFromUrl } from './browserbase-url';
+import { brand } from '@trycompai/utils/brand';
 
 // Guidance is plain natural language with no SDK-call shape to validate, so the
 // cheaper/faster model is the right fit — same choice as the manual-steps
@@ -85,7 +86,7 @@ const UNIVERSAL_STEPS = [
   'Sign in to the vendor and open your account Security / Two-factor authentication settings.',
   'Choose to add an authenticator app (TOTP).',
   'When the QR code appears, select "Can\'t scan?" / "Enter this code manually" to reveal the setup key.',
-  'Copy that setup key and paste it into Comp AI.',
+  `Copy that setup key and paste it into ${brand.name}.`,
 ];
 
 const SYSTEM_PROMPT = `You help a user turn on an authenticator app (TOTP) for a third-party SaaS vendor so an automation can generate their 2FA codes.
@@ -130,7 +131,7 @@ Base your steps on these docs. If they clearly describe adding an authenticator 
 
 /**
  * Produces per-vendor, human-readable instructions for obtaining an authenticator
- * (TOTP) setup key, so users can hand Comp AI the seed for unattended 2FA. Steps
+ * (TOTP) setup key, so users can hand the platform the seed for unattended 2FA. Steps
  * are AI-generated (no per-vendor hardcode), confidence-gated to a universal
  * fallback, and cached per hostname.
  */
@@ -282,7 +283,9 @@ export class BrowserMfaInstructionsService {
   /** Accepts a full URL or a bare hostname; always returns a normalized host. */
   private normalizeHost(rawHost: string): string {
     const trimmed = rawHost.trim();
-    const withScheme = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    const withScheme = /^https?:\/\//i.test(trimmed)
+      ? trimmed
+      : `https://${trimmed}`;
     try {
       return normalizeHostnameFromUrl(withScheme);
     } catch {

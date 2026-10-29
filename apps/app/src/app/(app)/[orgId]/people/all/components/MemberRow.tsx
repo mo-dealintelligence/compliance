@@ -38,24 +38,28 @@ import {
   TrashCan,
 } from '@trycompai/design-system/icons';
 
+import { brand } from '@trycompai/utils/brand';
 import { toast } from 'sonner';
 import { BackgroundCheckVerifiedTick } from '../../components/BackgroundCheckVerifiedTick';
+import type { CustomRoleOption } from './MultiRoleCombobox';
 import { MultiRoleCombobox } from './MultiRoleCombobox';
 import { RemoveDeviceAlert } from './RemoveDeviceAlert';
+import { RemoveMemberAlert } from './RemoveMemberAlert';
 import {
   RequirementBadge,
   RequirementCount,
   RequirementDash,
   RequirementLoading,
 } from './RequirementCell';
+import type {
+  BackgroundCheckStatus,
+  MemberWithUser,
+  TaskCompletion,
+  TwoFactorStatus,
+} from './TeamMembers';
 
 export type RequirementColumnKey =
-  | 'policies'
-  | 'training'
-  | 'hipaa'
-  | 'device'
-  | 'background'
-  | 'twoFactor';
+  'policies' | 'training' | 'hipaa' | 'device' | 'background' | 'twoFactor';
 
 export const ALL_REQUIREMENT_COLUMNS: RequirementColumnKey[] = [
   'policies',
@@ -65,14 +69,6 @@ export const ALL_REQUIREMENT_COLUMNS: RequirementColumnKey[] = [
   'background',
   'twoFactor',
 ];
-import { RemoveMemberAlert } from './RemoveMemberAlert';
-import type { CustomRoleOption } from './MultiRoleCombobox';
-import type {
-  BackgroundCheckStatus,
-  MemberWithUser,
-  TaskCompletion,
-  TwoFactorStatus,
-} from './TeamMembers';
 
 interface MemberRowProps {
   member: MemberWithUser;
@@ -205,9 +201,7 @@ export function MemberRow({
           <RequirementBadge
             label="HIPAA"
             state={
-              taskCompletion.hipaa.completed >= taskCompletion.hipaa.total
-                ? 'done'
-                : 'missing'
+              taskCompletion.hipaa.completed >= taskCompletion.hipaa.total ? 'done' : 'missing'
             }
           />
         ) : (
@@ -369,9 +363,7 @@ export function MemberRow({
         <TableCell>
           <div className="w-[160px]">
             <div className="flex flex-wrap gap-1">
-              {member.user.role === 'admin' && (
-                <Badge>Comp AI</Badge>
-              )}
+              {member.user.role === 'admin' && <Badge>{brand.name}</Badge>}
               {currentRoles.map((role) => (
                 <Badge key={role} variant="outline">
                   {getRoleLabel(role)}
@@ -388,7 +380,9 @@ export function MemberRow({
               {format(member.onboardDate, 'MMM d, yyyy')}
             </Text>
           ) : (
-            <Text size="sm" variant="muted">—</Text>
+            <Text size="sm" variant="muted">
+              —
+            </Text>
           )}
         </TableCell>
 
@@ -399,7 +393,9 @@ export function MemberRow({
               {format(member.offboardDate, 'MMM d, yyyy')}
             </Text>
           ) : (
-            <Text size="sm" variant="muted">—</Text>
+            <Text size="sm" variant="muted">
+              —
+            </Text>
           )}
         </TableCell>
 
@@ -416,7 +412,7 @@ export function MemberRow({
                 disabled={!canEdit}
                 className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
               >
-                  <OverflowMenuVertical />
+                <OverflowMenuVertical />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {isDeactivated && canEdit && (
@@ -504,7 +500,7 @@ export function MemberRow({
               <Label htmlFor={`role-${memberId}`}>Roles</Label>
               {isPlatformAdmin && (
                 <div className="flex items-center gap-2 rounded-md border px-3 py-2">
-                  <Badge>Comp AI</Badge>
+                  <Badge>{brand.name}</Badge>
                   <span className="text-muted-foreground text-xs">
                     This role is managed by the platform and cannot be removed.
                   </span>

@@ -6,7 +6,7 @@ export const vercelManifest: IntegrationManifest = {
   name: 'Vercel',
   description: 'Monitor deployments and alerting configuration in Vercel',
   category: 'Cloud',
-  logoUrl: 'https://img.logo.dev/vercel.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true',
+  logoUrl: `https://img.logo.dev/vercel.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true`,
   docsUrl: 'https://vercel.com/docs/rest-api',
   isActive: true,
 

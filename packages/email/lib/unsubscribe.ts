@@ -1,3 +1,4 @@
+import { brand } from '@trycompai/utils/brand';
 import { createHmac } from 'node:crypto';
 
 /**
@@ -32,7 +33,7 @@ function getBaseUrl(): string {
   }
 
   // Default fallback
-  return 'https://app.trycomp.ai';
+  return brand.appUrl;
 }
 
 /**

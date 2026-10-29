@@ -21,11 +21,10 @@ export function BookingStep({
 }) {
   const [isCopied, setIsCopied] = useState(false);
 
-  const title = !hasAccess ? `Let's get ${company} approved` : 'Talk to us to upgrade';
+  const title = !hasAccess ? `${company} is awaiting approval` : 'Your workspace is being approved';
 
-  const description = !hasAccess
-    ? `Please copy and share the Org ID below in your with your Customer Success Rep in Slack`
-    : `A quick 20-minute call with our team to understand your compliance needs and upgrade your plan.`;
+  const description =
+    'Your workspace is being approved. Share the Org ID below with your administrator if they ask for it.';
 
   const handleCopyOrgId = async () => {
     if (isCopied) return;
@@ -86,10 +85,7 @@ export function BookingStep({
 
           {/* Cancel option */}
           <div className="flex justify-center">
-            <CancelOnboardingButton
-              organizationId={orgId}
-              hasOtherOrgs={hasOtherOrgs}
-            />
+            <CancelOnboardingButton organizationId={orgId} hasOtherOrgs={hasOtherOrgs} />
           </div>
         </div>
       </Card>
