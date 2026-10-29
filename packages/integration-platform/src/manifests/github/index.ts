@@ -18,7 +18,7 @@ export const manifest: IntegrationManifest = {
   description:
     'Connect GitHub to monitor repository security, branch protection, and organization settings.',
   category: 'Development',
-  logoUrl: 'https://img.logo.dev/github.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
+  logoUrl: `https://img.logo.dev/github.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
   docsUrl: 'https://docs.trycomp.ai/integrations/github',
 
   // API configuration for ctx.fetch helper

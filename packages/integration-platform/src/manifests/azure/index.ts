@@ -24,7 +24,7 @@ export const azureManifest: IntegrationManifest = {
     'Read-only monitoring of security posture, identity, network, and compliance in Microsoft Azure',
   category: 'Cloud',
   logoUrl:
-    'https://img.logo.dev/azure.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
+    `https://img.logo.dev/azure.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
   docsUrl: 'https://docs.microsoft.com/en-us/azure/defender-for-cloud/',
   supportsMultipleConnections: true,
   isActive: true,

@@ -811,7 +811,7 @@ export interface IntegrationManifest {
   /** Category for grouping */
   category: IntegrationCategory;
 
-  /** Logo URL (use logo.dev, e.g., 'https://img.logo.dev/github.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ') */
+  /** Logo URL (use logo.dev, e.g., `https://img.logo.dev/github.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`) */
   logoUrl: string;
 
   /** URL to documentation */

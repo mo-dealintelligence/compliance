@@ -14,7 +14,6 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { usePostHog } from 'posthog-js/react';
 import { useEffect, useState } from 'react';
-import { zaraz } from 'zaraz-ts';
 
 type PlanType = 'starter' | 'done-for-you';
 
@@ -45,7 +44,6 @@ export function CheckoutCompleteDialog({ orgId }: { orgId: string }) {
       setPlanType(detectedPlanType);
 
       // Track the checkout completion event
-      zaraz.track('checkout_completed', { plan_type: detectedPlanType });
       posthog?.capture('checkout_completed', { plan_type: detectedPlanType, orgId });
 
       // Show the dialog

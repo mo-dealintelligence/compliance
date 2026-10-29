@@ -20,7 +20,7 @@ export const manifest: IntegrationManifest = {
   description:
     'Connect Aikido Security to monitor vulnerabilities, code security, and compliance status across your repositories and infrastructure.',
   category: 'Security',
-  logoUrl: 'https://img.logo.dev/aikido.dev?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
+  logoUrl: `https://img.logo.dev/aikido.dev?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
   docsUrl: 'https://docs.trycomp.ai/integrations/aikido',
 
   // API configuration

@@ -43,7 +43,7 @@ import { matchesIntegrationNameSearch } from './integration-search';
 import { SearchInput } from './SearchInput';
 import { TaskCard, TaskCardSkeleton } from './TaskCard';
 
-const LOGO_TOKEN = 'pk_AZatYxV5QDSfWpRDaBxzRQ';
+const LOGO_TOKEN = process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? '';
 
 // Check if a provider needs variable configuration based on manifest's required variables
 const providerNeedsConfiguration = (

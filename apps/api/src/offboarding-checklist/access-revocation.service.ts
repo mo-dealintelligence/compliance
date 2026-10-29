@@ -69,7 +69,7 @@ export class AccessRevocationService {
         return {
           vendorId: vendor.id,
           vendorName: vendor.name,
-          logoUrl: vendor.logoUrl ?? (domain ? `https://img.logo.dev/${domain}?token=pk_X-1ZO13GSgeOoUrIuJ6GMQ&size=64` : null),
+          logoUrl: vendor.logoUrl ?? (domain ? `https://img.logo.dev/${domain}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&size=64` : null),
           revoked: !!revocation,
           revokedAt: revocation?.revokedAt ?? null,
           revokedBy: revocation?.revokedBy ?? null,

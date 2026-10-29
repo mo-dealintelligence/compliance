@@ -19,9 +19,9 @@ import { EmptyState } from './EmptyState';
 import { ProviderTabs } from './ProviderTabs';
 
 const PROVIDER_LOGO: Record<string, string> = {
-  aws: 'https://img.logo.dev/aws.amazon.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
-  gcp: 'https://img.logo.dev/cloud.google.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
-  azure: 'https://img.logo.dev/azure.microsoft.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
+  aws: `https://img.logo.dev/aws.amazon.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
+  gcp: `https://img.logo.dev/cloud.google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
+  azure: `https://img.logo.dev/azure.microsoft.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
 };
 
 const PROVIDER_NAME: Record<string, string> = {
@@ -428,7 +428,7 @@ export function TestsLayout({ initialFindings, initialProviders, orgId }: TestsL
               : configureProvider.integrationId === 'gcp'
                 ? 'cloud.google.com'
                 : 'azure.com'
-          }?token=pk_AZatYxV5QDSfWpRDaBxzRQ`}
+          }?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`}
           configureOnly={true}
           onSaved={async () => {
             const savedProvider = configureProvider;

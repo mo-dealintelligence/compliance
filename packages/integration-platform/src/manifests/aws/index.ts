@@ -18,7 +18,7 @@ export const awsManifest: IntegrationManifest = {
   name: 'Amazon Web Services',
   description: 'Monitor security configurations and compliance across your AWS infrastructure',
   category: 'Cloud',
-  logoUrl: 'https://img.logo.dev/aws.amazon.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
+  logoUrl: `https://img.logo.dev/aws.amazon.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
   docsUrl:
     'https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html',
   supportsMultipleConnections: true,

@@ -51,17 +51,17 @@ const PROVIDER_CONFIG = {
   'google-workspace': {
     name: 'Google Workspace',
     shortName: 'Google',
-    logo: 'https://img.logo.dev/google.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ&format=png&retina=true',
+    logo: 'https://img.logo.dev/google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true',
   },
   rippling: {
     name: 'Rippling',
     shortName: 'Rippling',
-    logo: 'https://img.logo.dev/rippling.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ&format=png&retina=true',
+    logo: 'https://img.logo.dev/rippling.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true',
   },
   jumpcloud: {
     name: 'JumpCloud',
     shortName: 'JumpCloud',
-    logo: 'https://img.logo.dev/jumpcloud.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ&format=png&retina=true',
+    logo: 'https://img.logo.dev/jumpcloud.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true',
   },
 } as const;
 

@@ -22,11 +22,11 @@ function getVendorLogoUrl(vendorName?: string, vendorWebsite?: string): string {
       .replace(/^www\./i, '')
       .split('/')[0]
       .split('?')[0];
-    return `https://img.logo.dev/${cleanDomain}?token=pk_AZatYxV5QDSfWpRDaBxzRQ`;
+    return `https://img.logo.dev/${cleanDomain}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
   }
 
   if (!vendorName) {
-    return 'https://img.logo.dev/trycomp.ai?token=pk_AZatYxV5QDSfWpRDaBxzRQ';
+    return `https://img.logo.dev/trycomp.ai?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
   }
 
   // Try to extract domain from vendor name or use a default
@@ -43,17 +43,17 @@ function getVendorLogoUrl(vendorName?: string, vendorWebsite?: string): string {
   const lowerName = vendorName.toLowerCase();
   for (const [key, domain] of Object.entries(vendorDomainMap)) {
     if (lowerName.includes(key)) {
-      return `https://img.logo.dev/${domain}?token=pk_AZatYxV5QDSfWpRDaBxzRQ`;
+      return `https://img.logo.dev/${domain}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
     }
   }
 
   // Try to extract domain from vendor name if it looks like a URL
   const urlMatch = vendorName.match(/(?:https?:\/\/)?(?:www\.)?([^\/\s]+)/i);
   if (urlMatch) {
-    return `https://img.logo.dev/${urlMatch[1]}?token=pk_AZatYxV5QDSfWpRDaBxzRQ`;
+    return `https://img.logo.dev/${urlMatch[1]}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
   }
 
-  return 'https://img.logo.dev/trycomp.ai?token=pk_AZatYxV5QDSfWpRDaBxzRQ';
+  return `https://img.logo.dev/trycomp.ai?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
 }
 
 function VendorCard({
@@ -64,7 +64,7 @@ function VendorCard({
   onExampleClick: (prompt: string) => void;
 }) {
   const [imageError, setImageError] = useState(false);
-  const fallbackUrl = 'https://img.logo.dev/trycomp.ai?token=pk_AZatYxV5QDSfWpRDaBxzRQ';
+  const fallbackUrl = `https://img.logo.dev/trycomp.ai?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
   const imageUrl = imageError ? fallbackUrl : example.url;
 
   return (

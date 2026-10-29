@@ -81,10 +81,10 @@ export function UnifiedWorkflowCard({
           {(integrationsUsed?.length ? integrationsUsed : [{ link: 'trycomp.ai' }]).map(
             (integration) => (
               <div
-                key={`https://img.logo.dev/${integration.link}?token=pk_AZatYxV5QDSfWpRDaBxzRQ`}
+                key={`https://img.logo.dev/${integration.link}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`}
               >
                 <Image
-                  src={`https://img.logo.dev/${integration.link}?token=pk_AZatYxV5QDSfWpRDaBxzRQ`}
+                  src={`https://img.logo.dev/${integration.link}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`}
                   alt={integration.link}
                   width={20}
                   height={20}

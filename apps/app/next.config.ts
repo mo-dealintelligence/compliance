@@ -1,5 +1,4 @@
 import { withSentryConfig } from '@sentry/nextjs';
-import { withBotId } from 'botid/next/config';
 import type { NextConfig } from 'next';
 import path from 'path';
 
@@ -62,9 +61,11 @@ const config: NextConfig = {
       bodySizeLimit: '150mb',
       allowedOrigins:
         process.env.NODE_ENV === 'production'
-          ? ([process.env.NEXT_PUBLIC_PORTAL_URL, 'https://app.trycomp.ai'].filter(
-              Boolean,
-            ) as string[])
+          ? ([
+              process.env.NEXT_PUBLIC_PORTAL_URL,
+              process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+              process.env.NEXT_PUBLIC_APP_URL,
+            ].filter(Boolean) as string[])
           : undefined,
     },
     authInterrupts: true,
@@ -103,8 +104,9 @@ const config: NextConfig = {
     ];
   },
 
-  // PostHog proxy for better tracking
+  // PostHog proxy for better tracking (only when PostHog is configured)
   async rewrites() {
+    if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return [];
     return [
       {
         source: '/ingest/static/:path*',
@@ -122,13 +124,13 @@ const config: NextConfig = {
   },
 };
 
-export default withSentryConfig(withBotId(config), {
+export default withSentryConfig(config, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-  org: "comp-ai",
+  org: process.env.SENTRY_ORG,
 
-  project: "comp",
+  project: process.env.SENTRY_PROJECT,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,

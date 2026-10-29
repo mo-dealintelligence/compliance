@@ -18,6 +18,7 @@ const config = {
     unoptimized: true,
   },
   async rewrites() {
+    if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return [];
     return [
       {
         source: '/ingest/static/:path*',
@@ -70,8 +71,8 @@ const config = {
 };
 
 export default withSentryConfig(config, {
-  org: 'comp-ai',
-  project: 'comp',
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,

@@ -19,7 +19,7 @@ export const gcpManifest: IntegrationManifest = {
     'Read-only monitoring of IAM access, alerting and cloud tests in Google Cloud Platform',
   category: 'Cloud',
   logoUrl:
-    'https://img.logo.dev/cloud.google.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ&format=png&retina=true',
+    'https://img.logo.dev/cloud.google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true',
   docsUrl: 'https://cloud.google.com/security-command-center/docs',
   isActive: true,
 

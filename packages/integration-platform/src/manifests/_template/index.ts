@@ -17,7 +17,7 @@ export const manifest: IntegrationManifest = {
   name: 'Your Integration',
   description: 'Connect Your Integration to monitor security compliance.',
   category: 'Development',
-  logoUrl: 'https://img.logo.dev/example.com?token=pk_AZatYxV5QDSfWpRDaBxzRQ',
+  logoUrl: `https://img.logo.dev/example.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
   docsUrl: 'https://docs.trycomp.ai/integrations/your-integration',
 
   baseUrl: 'https://api.example.com',
