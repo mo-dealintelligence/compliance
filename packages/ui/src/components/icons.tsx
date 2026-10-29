@@ -136,6 +136,7 @@ import {
 import { PiDiscordLogo } from 'react-icons/pi';
 
 // Mirrors the default in @trycompai/utils/brand; NEXT_PUBLIC_* is inlined at build time.
+declare const process: { env: Record<string, string | undefined> };
 const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || 'Deal Intelligence';
 const BRAND_INITIAL = BRAND_NAME.charAt(0).toUpperCase();
 
