@@ -116,3 +116,6 @@ deploy/aws/node_modules
 deploy/aws/.serverless
 deploy/aws/*/.serverless
 deploy/.env.*
+
+# Internal compliance source material (never commit)
+scripts/di-migration/data/
