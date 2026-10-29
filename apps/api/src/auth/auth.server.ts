@@ -50,6 +50,13 @@ const MAGIC_LINK_EXPIRES_IN_SECONDS = 60 * 60; // 1 hour
  * Determine the cookie domain based on environment.
  */
 function getCookieDomain(): string | undefined {
+  // Self-hosted deployments share sessions across app./api./portal. subdomains
+  // by setting COOKIE_DOMAIN explicitly (e.g. ".dealintelligence.io").
+  const explicit = process.env.COOKIE_DOMAIN?.trim();
+  if (explicit) {
+    return explicit.startsWith('.') ? explicit : `.${explicit}`;
+  }
+
   const baseUrl = process.env.BASE_URL || '';
 
   if (baseUrl.includes('staging.trycomp.ai')) {

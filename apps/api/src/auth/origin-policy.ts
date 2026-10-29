@@ -92,11 +92,20 @@ export function isStaticTrustedOrigin(origin: string): boolean {
     // Only the explicit DEFAULT_TRUSTED_ORIGINS entries above may be plain
     // HTTP (localhost). The wildcard suffix match is HTTPS-only.
     if (url.protocol !== 'https:') return false;
-    return (
-      url.hostname.endsWith('.trycomp.ai') ||
-      url.hostname.endsWith('.staging.trycomp.ai') ||
-      url.hostname.endsWith('.trust.inc') ||
-      url.hostname === 'trust.inc'
+    // Wildcard suffixes are configurable so a self-hosted instance never
+    // trusts the upstream vendor's domains. Comma-separated list of suffixes,
+    // e.g. "dealintelligence.io" matches "*.dealintelligence.io".
+    const suffixes = (process.env.AUTH_TRUSTED_ORIGIN_SUFFIXES ?? '')
+      .split(',')
+      .map((s) => s.trim().replace(/^\./, '').toLowerCase())
+      .filter(Boolean);
+    if (suffixes.length === 0 && !process.env.AUTH_TRUSTED_ORIGINS) {
+      // Upstream default behaviour when nothing is configured.
+      suffixes.push('trycomp.ai', 'trust.inc');
+    }
+    return suffixes.some(
+      (suffix) =>
+        url.hostname === suffix || url.hostname.endsWith(`.${suffix}`),
     );
   } catch {
     return false;
