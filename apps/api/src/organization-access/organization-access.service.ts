@@ -85,8 +85,13 @@ export class OrganizationAccessService {
     // Only treat an @trycomp.ai address as an internal team member once the
     // account's email has actually been verified. The domain on its own proves
     // nothing about who controls the mailbox.
+    // Upstream auto-approves verified @trycomp.ai staff. A self-hosted
+    // instance is never served by the vendor, so this rule is disabled
+    // unless ALLOW_VENDOR_STAFF_ACCESS=true.
     const isVerifiedTrycompEmail =
-      isTrycompEmailDomain && (await this.isEmailVerified(userEmail));
+      process.env.ALLOW_VENDOR_STAFF_ACCESS === 'true' &&
+      isTrycompEmailDomain &&
+      (await this.isEmailVerified(userEmail));
 
     const canAutoApproveViaDomain =
       !isTrycompEmailDomain &&

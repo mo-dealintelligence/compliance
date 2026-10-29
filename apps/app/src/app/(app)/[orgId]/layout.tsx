@@ -158,7 +158,13 @@ export default async function Layout({
   const isWebAutomationsEnabled =
     featureFlags['is-web-automations-enabled'] === true ||
     featureFlags['is-web-automations-enabled'] === 'true';
-  const isSecurityEnabled = true;
+  // Security product (pentests via the vendor's Maced contract, billing tab)
+  // is a Comp AI Cloud offering. Hide it on self-hosted instances unless
+  // explicitly re-enabled.
+  const isSecurityEnabled =
+    process.env.SELF_HOSTED === 'true' || process.env.NEXT_PUBLIC_SELF_HOSTED === 'true'
+      ? process.env.SELF_HOSTED_ENABLE_SECURITY_PRODUCT === 'true'
+      : true;
 
   // Check auditor role
   const hasAuditorRole = roles.includes(Role.auditor);

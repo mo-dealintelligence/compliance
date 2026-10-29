@@ -76,7 +76,7 @@ export default async function UpgradePage({ params }: PageProps) {
     // have this env, so the check stays on the page. The DB write here is the
     // single exception to "all mutations through the API" — it's gated on a
     // build-time deploy flag, not user input.
-    if (env.NEXT_PUBLIC_SELF_HOSTED === 'true') {
+    if (env.NEXT_PUBLIC_SELF_HOSTED === 'true' || process.env.SELF_HOSTED === 'true') {
       await db.organization.update({
         where: { id: orgId },
         data: { hasAccess: true },

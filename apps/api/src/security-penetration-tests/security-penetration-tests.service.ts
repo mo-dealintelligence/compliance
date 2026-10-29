@@ -197,11 +197,20 @@ export class SecurityPenetrationTestsService {
   ) {
     const apiKey = process.env.MACED_API_KEY;
     if (!apiKey) {
-      // Throw at construction so the app fails loudly on boot, not on first request.
-      throw new Error('MACED_API_KEY is required to start the pentest module');
+      if (process.env.SELF_HOSTED === 'true') {
+        // Self-hosted instances typically have no Maced (pentest vendor)
+        // contract. Boot with an inert client; pentest endpoints will fail
+        // with a clear upstream error if ever called.
+        this.logger.warn(
+          'MACED_API_KEY not set; penetration-test module is inert (self-hosted).',
+        );
+      } else {
+        // Throw at construction so the app fails loudly on boot, not on first request.
+        throw new Error('MACED_API_KEY is required to start the pentest module');
+      }
     }
     this.macedClient = createMacedClient({
-      apiKey,
+      apiKey: apiKey ?? 'mc_self_hosted_disabled',
       baseUrl: process.env.MACED_API_BASE_URL,
       userAgent: 'comp-api',
       // Disable SDK-level retries. The 0.9.1 retry wrapper reuses the same
