@@ -1,0 +1,13 @@
+{
+  "name": "di-migration",
+  "private": true,
+  "type": "module",
+  "description": "Deal Intelligence: Humadroid export -> Comp import scripts",
+  "dependencies": {
+    "@tiptap/extension-table": "3.22.1",
+    "@tiptap/extension-text-align": "3.22.1",
+    "@tiptap/html": "3.22.1",
+    "@tiptap/starter-kit": "3.22.1",
+    "marked": "^15.0.0"
+  }
+}
