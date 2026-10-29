@@ -8,6 +8,11 @@
     "@tiptap/extension-text-align": "3.22.1",
     "@tiptap/html": "3.22.1",
     "@tiptap/starter-kit": "3.22.1",
-    "marked": "^15.0.0"
+    "marked": "^15.0.0",
+    "csv-parse": "^5.6.0"
+  },
+  "scripts": {
+    "plan": "bun import/plan.ts",
+    "import": "bun import/run.ts"
   }
 }
