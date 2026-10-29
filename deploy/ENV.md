@@ -11,7 +11,7 @@ never commit real values. Build-time `NEXT_PUBLIC_*` values are baked into the
 | `DATABASE_URL`                                                                                                                               | RDS Postgres, `?sslmode=require`                                                                                                       |
 | `SELF_HOSTED`                                                                                                                                | `true` — turns on the self-hosted feature-flag map, disables vendor gates                                                              |
 | `COOKIE_DOMAIN`                                                                                                                              | `.dealintelligence.io` — shares the session across app./api./portal.                                                                   |
-| `AUTH_TRUSTED_ORIGINS`                                                                                                                       | `https://app.dealintelligence.io,https://portal.dealintelligence.io,https://api.dealintelligence.io,https://trust.dealintelligence.io` |
+| `AUTH_TRUSTED_ORIGINS`                                                                                                                       | `https://compliance.dealintelligence.io,https://compliance-portal.dealintelligence.io,https://compliance-api.dealintelligence.io,https://trust.dealintelligence.io` |
 | `AUTH_TRUSTED_ORIGIN_SUFFIXES`                                                                                                               | `dealintelligence.io`                                                                                                                  |
 | `RESEND_API_KEY`, `RESEND_FROM_SYSTEM`, `RESEND_FROM_DEFAULT`, `RESEND_FROM_TRUST_PORTAL`, `RESEND_DOMAIN`                                   | Resend on `mail.dealintelligence.io`                                                                                                   |
 | `UNSUBSCRIBE_SECRET`                                                                                                                         | `openssl rand -base64 32` (same on api and app)                                                                                        |
@@ -26,10 +26,10 @@ never commit real values. Build-time `NEXT_PUBLIC_*` values are baked into the
 
 | Var                                    | Value                                                       |
 | -------------------------------------- | ----------------------------------------------------------- |
-| `BASE_URL`                             | `https://api.dealintelligence.io`                           |
-| `BETTER_AUTH_URL`                      | `https://app.dealintelligence.io`                           |
-| `NEXT_PUBLIC_APP_URL`                  | `https://app.dealintelligence.io`                           |
-| `PORTAL_URL`                           | `https://portal.dealintelligence.io`                        |
+| `BASE_URL`                             | `https://compliance-api.dealintelligence.io`                           |
+| `BETTER_AUTH_URL`                      | `https://compliance.dealintelligence.io`                           |
+| `NEXT_PUBLIC_APP_URL`                  | `https://compliance.dealintelligence.io`                           |
+| `PORTAL_URL`                           | `https://compliance-portal.dealintelligence.io`                        |
 | `TRUST_APP_URL`                        | `https://trust.dealintelligence.io`                         |
 | `SECRET_KEY`                           | ≥16 chars, `openssl rand -base64 32`                        |
 | `AUTH_SECRET`                          | `openssl rand -base64 32`                                   |
@@ -45,10 +45,10 @@ never commit real values. Build-time `NEXT_PUBLIC_*` values are baked into the
 | Var                                                | Value                                |
 | -------------------------------------------------- | ------------------------------------ |
 | `AUTH_SECRET`, `SECRET_KEY`, `REVALIDATION_SECRET` | random                               |
-| `BETTER_AUTH_URL`                                  | `https://app.dealintelligence.io`    |
-| `NEXT_PUBLIC_BETTER_AUTH_URL` (build)              | `https://app.dealintelligence.io`    |
-| `NEXT_PUBLIC_API_URL` (build)                      | `https://api.dealintelligence.io`    |
-| `NEXT_PUBLIC_PORTAL_URL` (build+run)               | `https://portal.dealintelligence.io` |
+| `BETTER_AUTH_URL`                                  | `https://compliance.dealintelligence.io`    |
+| `NEXT_PUBLIC_BETTER_AUTH_URL` (build)              | `https://compliance.dealintelligence.io`    |
+| `NEXT_PUBLIC_API_URL` (build)                      | `https://compliance-api.dealintelligence.io`    |
+| `NEXT_PUBLIC_PORTAL_URL` (build+run)               | `https://compliance-portal.dealintelligence.io` |
 | `NEXT_PUBLIC_TRUST_URL` (build)                    | `https://trust.dealintelligence.io`  |
 | `NEXT_PUBLIC_SELF_HOSTED` (build)                  | `true`                               |
 | `TRIGGER_SECRET_KEY`                               | App Trigger project prod key         |
@@ -59,7 +59,7 @@ never commit real values. Build-time `NEXT_PUBLIC_*` values are baked into the
 
 | Var                                                          | Value                                        |
 | ------------------------------------------------------------ | -------------------------------------------- |
-| `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`                      | random; `https://portal.dealintelligence.io` |
+| `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`                      | random; `https://compliance-portal.dealintelligence.io` |
 | `NEXT_PUBLIC_BETTER_AUTH_URL`, `NEXT_PUBLIC_API_URL` (build) | portal / api URLs                            |
 | `INTERNAL_API_TOKEN`                                         | same as api                                  |
 

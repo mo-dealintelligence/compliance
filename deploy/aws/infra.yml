@@ -73,7 +73,7 @@ Resources:
       CorsConfiguration:
         CorsRules:
           - AllowedMethods: [GET, PUT, HEAD]
-            AllowedOrigins: ['https://app.dealintelligence.io', 'https://portal.dealintelligence.io']
+            AllowedOrigins: ['https://compliance.dealintelligence.io', 'https://compliance-portal.dealintelligence.io']
             AllowedHeaders: ['*']
             MaxAge: 3000
   SourceBucket:

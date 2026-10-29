@@ -38,7 +38,7 @@ import json, sys
 (inp, db_url, bucket, s3_json, auth_secret, secret_key, reval, unsub, internal,
  svc_trigger, svc_portal, root) = sys.argv[1:]
 ext = json.load(open(inp)); s3 = json.loads(s3_json)
-app_url, api_url, portal_url, trust_url = (f"https://{p}.{root}" for p in ("app","api","portal","trust"))
+app_url, api_url, portal_url, trust_url = (f"https://{p}.{root}" for p in ("compliance","compliance-api","compliance-portal","trust"))
 brand = {
   "NEXT_PUBLIC_BRAND_NAME": "Deal Intelligence",
   "NEXT_PUBLIC_BRAND_PRODUCT_NAME": "Deal Intelligence Compliance",

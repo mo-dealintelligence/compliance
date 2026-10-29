@@ -3,9 +3,9 @@
 Topology (us-east-1, same account as `di-backend-api-prod`):
 
 ```
-app.dealintelligence.io    -> HTTP API -> Lambda (container: comp-app)    Next.js admin
-api.dealintelligence.io    -> HTTP API -> Lambda (container: comp-api)    NestJS + better-auth
-portal.dealintelligence.io -> HTTP API -> Lambda (container: comp-portal) employee portal
+compliance.dealintelligence.io    -> HTTP API -> Lambda (container: comp-app)    Next.js admin
+compliance-api.dealintelligence.io    -> HTTP API -> Lambda (container: comp-api)    NestJS + better-auth
+compliance-portal.dealintelligence.io -> HTTP API -> Lambda (container: comp-portal) employee portal
 trust.dealintelligence.io  -> existing DI trust center (unchanged)
 Aurora Serverless v2 Postgres 16 (0–2 ACU, auto-pause), public TLS endpoint
 S3 comp-evidence-<acct> (SSE, versioned, private)
@@ -36,7 +36,7 @@ deploy/aws/deploy.sh functions
 
 Then: deploy Trigger.dev tasks (`bunx trigger.dev deploy` in `apps/app` and
 `apps/api` with `TRIGGER_PROJECT_REF`), add the Google OAuth redirect
-`https://api.dealintelligence.io/api/auth/callback/google`, and sign in.
+`https://compliance-api.dealintelligence.io/api/auth/callback/google`, and sign in.
 
 ## Every release
 

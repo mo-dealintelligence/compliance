@@ -9,7 +9,7 @@ custom:
   imageTag: ${param:imageTag, 'latest'}
   hostedZoneId: ${param:hostedZoneId}
   rootDomain: dealintelligence.io
-  hostname: app.${self:custom.rootDomain}
+  hostname: compliance.${self:custom.rootDomain}
 
 functions:
   app:
