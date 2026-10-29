@@ -7,7 +7,12 @@ export class CompApi {
     private readonly apiKey: string,
   ) {}
 
-  private async request<T>(method: string, path: string, body?: unknown, query?: Record<string, string>): Promise<T> {
+  private async request<T>(
+    method: string,
+    path: string,
+    body?: unknown,
+    query?: Record<string, string>,
+  ): Promise<T> {
     const url = new URL(`/v1${path}`, this.baseUrl);
     for (const [k, v] of Object.entries(query ?? {})) url.searchParams.set(k, v);
     const res = await fetch(url, {
@@ -16,7 +21,8 @@ export class CompApi {
       body: body === undefined ? undefined : JSON.stringify(body),
     });
     const text = await res.text();
-    if (!res.ok) throw new Error(`${method} ${url.pathname} -> ${res.status}: ${text.slice(0, 500)}`);
+    if (!res.ok)
+      throw new Error(`${method} ${url.pathname} -> ${res.status}: ${text.slice(0, 500)}`);
     return (text ? JSON.parse(text) : undefined) as T;
   }
 
@@ -34,7 +40,11 @@ export class CompApi {
   async listAll<T>(path: string, query: Record<string, string> = {}): Promise<T[]> {
     const out: T[] = [];
     for (let page = 1; page < 200; page++) {
-      const res = await this.get<{ data: T[] }>(path, { ...query, page: String(page), perPage: '100' });
+      const res = await this.get<{ data: T[] }>(path, {
+        ...query,
+        page: String(page),
+        perPage: '100',
+      });
       const data = Array.isArray(res?.data) ? res.data : [];
       out.push(...data);
       if (data.length < 100) break;

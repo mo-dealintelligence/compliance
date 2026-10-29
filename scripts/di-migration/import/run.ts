@@ -13,8 +13,8 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { CompApi } from './api';
-import type { ImportPlan, PlannedEvidence, PlannedPolicy } from './plan';
-import { VENDORS, PEOPLE, CONTEXT } from './seed-data';
+import type { ImportPlan, PlannedEvidence } from './plan';
+import { CONTEXT, PEOPLE, RISKS, VENDORS } from './seed-data';
 
 const DATA = join(import.meta.dir, '..', 'data');
 const STATE_FILE = join(DATA, 'import-state.json');
@@ -28,6 +28,7 @@ interface State {
   evidenceUploaded: Record<string, boolean>;
   links: Record<string, boolean>;
   vendors: Record<string, string>;
+  risks: Record<string, string>;
   people: Record<string, boolean>;
   context: Record<string, string>;
 }
@@ -39,7 +40,11 @@ const env = (k: string) => {
 };
 const dryRun = process.argv.includes('--dry-run');
 const onlyArg = process.argv.find((a) => a.startsWith('--only='));
-const only = new Set(onlyArg ? onlyArg.slice(7).split(',') : ['policies', 'controls', 'evidence', 'records', 'vendors', 'people', 'context']);
+const only = new Set(
+  onlyArg
+    ? onlyArg.slice(7).split(',')
+    : ['policies', 'controls', 'evidence', 'records', 'vendors', 'risks', 'people', 'context'],
+);
 
 const api = new CompApi(env('COMP_API_URL'), env('COMP_API_KEY'));
 const userId = env('COMP_USER_ID');
@@ -47,21 +52,42 @@ const memberId = process.env.COMP_MEMBER_ID;
 const plan = JSON.parse(readFileSync(join(DATA, 'import-plan.json'), 'utf8')) as ImportPlan;
 const state: State = existsSync(STATE_FILE)
   ? JSON.parse(readFileSync(STATE_FILE, 'utf8'))
-  : { requirementIds: {}, policies: {}, controls: {}, evidenceTasks: {}, evidenceUploaded: {}, links: {}, vendors: {}, people: {}, context: {} };
+  : {
+      requirementIds: {},
+      policies: {},
+      controls: {},
+      evidenceTasks: {},
+      evidenceUploaded: {},
+      links: {},
+      vendors: {},
+      risks: {},
+      people: {},
+      context: {},
+    };
 const save = () => writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
 const log = (...a: unknown[]) => console.log(new Date().toISOString().slice(11, 19), ...a);
 
-const MIME: Record<string, string> = { png: 'image/png', pdf: 'application/pdf', json: 'application/json' };
-const mimeFor = (f: string) => MIME[f.split('.').pop()!.toLowerCase()] ?? 'application/octet-stream';
+const MIME: Record<string, string> = {
+  png: 'image/png',
+  pdf: 'application/pdf',
+  json: 'application/json',
+};
+const mimeFor = (f: string) =>
+  MIME[f.split('.').pop()!.toLowerCase()] ?? 'application/octet-stream';
 
 async function resolveFramework() {
   if (state.frameworkInstanceId && Object.keys(state.requirementIds).length) return;
-  const list = await api.get<{ data: { id: string; framework: { name: string } }[] }>('/frameworks');
+  const list = await api.get<{ data: { id: string; framework: { name: string } }[] }>(
+    '/frameworks',
+  );
   const soc2 = list.data.find((f) => /soc ?2/i.test(f.framework?.name ?? ''));
   if (!soc2) throw new Error('SOC 2 framework instance not found; enable it in the UI first');
   state.frameworkInstanceId = soc2.id;
-  const detail = await api.get<{ requirementDefinitions: { id: string; identifier: string }[] }>(`/frameworks/${soc2.id}`);
-  for (const r of detail.requirementDefinitions) state.requirementIds[r.identifier.toUpperCase().replace(/-/g, '.')] = r.id;
+  const detail = await api.get<{ requirementDefinitions: { id: string; identifier: string }[] }>(
+    `/frameworks/${soc2.id}`,
+  );
+  for (const r of detail.requirementDefinitions)
+    state.requirementIds[r.identifier.toUpperCase().replace(/-/g, '.')] = r.id;
   log(`framework ${soc2.id}: ${detail.requirementDefinitions.length} requirements`);
   save();
 }
@@ -110,7 +136,11 @@ async function importControls() {
     const key = `policies:${c.identifier}`;
     if (policyIds.length && !state.links[key] && !dryRun) {
       await api.post(`/controls/${controlId}/policies/link`, { policyIds });
-      await api.post(`/controls/${controlId}/policies/link`, { policyIds }, { frameworkInstanceId: fi });
+      await api.post(
+        `/controls/${controlId}/policies/link`,
+        { policyIds },
+        { frameworkInstanceId: fi },
+      );
       state.links[key] = true;
       save();
     }
@@ -140,7 +170,12 @@ async function importEvidence() {
   await resolveFramework();
   const fi = state.frameworkInstanceId!;
   const controlIdByFile = new Map<string, string[]>();
-  for (const c of plan.controls) for (const f of c.evidenceFiles) controlIdByFile.set(f, [...(controlIdByFile.get(f) ?? []), state.controls[c.identifier]].filter(Boolean));
+  for (const c of plan.controls)
+    for (const f of c.evidenceFiles)
+      controlIdByFile.set(
+        f,
+        [...(controlIdByFile.get(f) ?? []), state.controls[c.identifier]].filter(Boolean),
+      );
 
   for (const e of plan.evidence) {
     if (e.kind === 'policy') continue; // policies are linked, not uploaded as evidence
@@ -165,7 +200,11 @@ async function importEvidence() {
       const key = `task:${e.file}:${controlId}`;
       if (state.links[key]) continue;
       await api.post(`/controls/${controlId}/tasks/link`, { taskIds: [taskId] });
-      await api.post(`/controls/${controlId}/tasks/link`, { taskIds: [taskId] }, { frameworkInstanceId: fi });
+      await api.post(
+        `/controls/${controlId}/tasks/link`,
+        { taskIds: [taskId] },
+        { frameworkInstanceId: fi },
+      );
       state.links[key] = true;
       save();
     }
@@ -193,7 +232,17 @@ async function importRecords() {
     });
     state.evidenceTasks[r.sourcePdf] = created.id;
     save();
-    await uploadEvidence({ file: r.sourcePdf, localPath: join('data', 'Compliance', 'evidence', 'policies-procedures', r.sourcePdf), title: r.name, description: r.docType, criteria: [], kind: 'record' }, created.id);
+    await uploadEvidence(
+      {
+        file: r.sourcePdf,
+        localPath: join('data', 'Compliance', 'evidence', 'policies-procedures', r.sourcePdf),
+        title: r.name,
+        description: r.docType,
+        criteria: [],
+        kind: 'record',
+      },
+      created.id,
+    );
     await api.patch(`/tasks/${created.id}`, { status: 'done' });
   }
 }
@@ -209,12 +258,28 @@ async function importVendors() {
   }
 }
 
+async function importRisks() {
+  for (const r of RISKS) {
+    if (state.risks[r.title]) continue;
+    log(`risk: ${r.title}`);
+    if (dryRun) continue;
+    const created = await api.post<{ id: string }>('/risks', {
+      ...r,
+      ...(memberId ? { assigneeId: memberId } : {}),
+    });
+    state.risks[r.title] = created.id;
+    save();
+  }
+}
+
 async function importPeople() {
   for (const p of PEOPLE) {
     if (state.people[p.email]) continue;
     log(`person: ${p.email} (${p.roles.join(',')})`);
     if (dryRun) continue;
-    await api.post('/people/invite', { invites: [{ email: p.email, roles: p.roles, sendPortalEmail: false }] });
+    await api.post('/people/invite', {
+      invites: [{ email: p.email, roles: p.roles, sendPortalEmail: false }],
+    });
     state.people[p.email] = true;
     save();
   }
@@ -237,6 +302,7 @@ const steps: [string, () => Promise<void>][] = [
   ['evidence', importEvidence],
   ['records', importRecords],
   ['vendors', importVendors],
+  ['risks', importRisks],
   ['people', importPeople],
   ['context', importContext],
 ];

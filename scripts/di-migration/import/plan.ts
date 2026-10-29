@@ -60,11 +60,14 @@ export interface ImportPlan {
   records: PlannedPolicy[]; // documents imported as evidence (not policies)
 }
 
-const RECORD_SLUGS = /^(annual-performance|board-management|ethics-.*-certificate|ethics-violation|job-description|organizational-structure)/;
+const RECORD_SLUGS =
+  /^(annual-performance|board-management|ethics-.*-certificate|ethics-violation|job-description|organizational-structure)/;
 const TITLE_OVERRIDES: Record<string, string> = {
   'board-management-meeting-minutes-q4-2025': 'Board / Management Meeting Minutes - Q4 2025',
-  'ethics-and-privacy-training-completion-certificate-william-wickey': 'Ethics and Privacy Training Completion Certificate - William Wickey',
-  'ethics-and-security-training-completion-certificate-mo-messidi': 'Ethics and Security Training Completion Certificate - Mo Messidi',
+  'ethics-and-privacy-training-completion-certificate-william-wickey':
+    'Ethics and Privacy Training Completion Certificate - William Wickey',
+  'ethics-and-security-training-completion-certificate-mo-messidi':
+    'Ethics and Security Training Completion Certificate - Mo Messidi',
 };
 const DEPARTMENT_BY_SLUG: Record<string, string> = {
   'code-of-conduct': 'hr',
@@ -109,11 +112,25 @@ function humanize(file: string): string {
 }
 
 export function buildPlan(): ImportPlan {
-  const rows = parse(readFileSync(join(DATA, 'Compliance', 'controls-list.csv')), { columns: true, skip_empty_lines: true }) as MatrixRow[];
+  const rows = parse(readFileSync(join(DATA, 'Compliance', 'controls-list.csv')), {
+    columns: true,
+    skip_empty_lines: true,
+  }) as MatrixRow[];
   const docIndex = JSON.parse(readFileSync(join(DATA, 'markdown', '_index.json'), 'utf8')) as {
-    slug: string; title: string; doc_type: string; acknowledgment: string; effective_date: string; review_date: string; source: string;
+    slug: string;
+    title: string;
+    doc_type: string;
+    acknowledgment: string;
+    effective_date: string;
+    review_date: string;
+    source: string;
   }[];
-  const manifest = JSON.parse(readFileSync(join(DATA, 'manifest.json'), 'utf8')) as { title: string; localPath: string; mimeType: string; ok: boolean }[];
+  const manifest = JSON.parse(readFileSync(join(DATA, 'manifest.json'), 'utf8')) as {
+    title: string;
+    localPath: string;
+    mimeType: string;
+    ok: boolean;
+  }[];
   const byFile = new Map(manifest.filter((m) => m.ok).map((m) => [m.title, m]));
 
   const policies: PlannedPolicy[] = [];
@@ -151,25 +168,50 @@ export function buildPlan(): ImportPlan {
     const policySlugs = new Set<string>();
     const lines: string[] = [];
     lines.push(`Criterion ${identifier} (${head.Section}): ${head.Title.trim()}`);
-    if (head['Implementation Notes']) lines.push('', `Implementation: ${head['Implementation Notes'].trim()}`);
+    if (head['Implementation Notes'])
+      lines.push('', `Implementation: ${head['Implementation Notes'].trim()}`);
     if (subs.length) {
       lines.push('', 'Deal Intelligence controls:');
       for (const s of subs) {
-        lines.push(`- ${s.Identifier} ${s.Title.trim()}: ${s.Description.trim()}${s['Implementation Notes'] ? ` (Implementation: ${s['Implementation Notes'].trim()})` : ''}`);
+        lines.push(
+          `- ${s.Identifier} ${s.Title.trim()}: ${s.Description.trim()}${s['Implementation Notes'] ? ` (Implementation: ${s['Implementation Notes'].trim()})` : ''}`,
+        );
       }
     }
     for (const r of group) {
-      const refs = r['Evidence files'].split(',').map((f) => f.trim()).filter(Boolean);
-      const descs = r['Evidence files desciptions'].split(/\.\s+(?=[A-Z])/).map((d) => d.trim()).filter(Boolean);
+      const refs = r['Evidence files']
+        .split(',')
+        .map((f) => f.trim())
+        .filter(Boolean);
+      const descs = r['Evidence files desciptions']
+        .split(/\.\s+(?=[A-Z])/)
+        .map((d) => d.trim())
+        .filter(Boolean);
       refs.forEach((f, i) => {
         if (policyBySource.has(f)) policySlugs.add(policyBySource.get(f)!);
         files.add(f);
         const m = byFile.get(f);
         const existing = evidence.get(f);
         const desc = descs[i] ?? descs[0] ?? '';
-        const kind: PlannedEvidence['kind'] = f.endsWith('.png') ? 'screenshot' : f.endsWith('.json') ? 'log' : policyBySource.has(f) ? 'policy' : docIndex.some((d) => d.source === f) ? 'record' : 'document';
+        const kind: PlannedEvidence['kind'] = f.endsWith('.png')
+          ? 'screenshot'
+          : f.endsWith('.json')
+            ? 'log'
+            : policyBySource.has(f)
+              ? 'policy'
+              : docIndex.some((d) => d.source === f)
+                ? 'record'
+                : 'document';
         if (!existing) {
-          evidence.set(f, { file: f, localPath: m?.localPath, mimeType: m?.mimeType, title: humanize(f), description: desc, criteria: [identifier], kind });
+          evidence.set(f, {
+            file: f,
+            localPath: m?.localPath,
+            mimeType: m?.mimeType,
+            title: humanize(f),
+            description: desc,
+            criteria: [identifier],
+            kind,
+          });
         } else if (!existing.criteria.includes(identifier)) {
           existing.criteria.push(identifier);
           if (desc && !existing.description.includes(desc)) existing.description += ` ${desc}`;
@@ -186,13 +228,20 @@ export function buildPlan(): ImportPlan {
     });
   }
 
-  return { policies, controls, evidence: [...evidence.values()].sort((a, b) => a.file.localeCompare(b.file)), records };
+  return {
+    policies,
+    controls,
+    evidence: [...evidence.values()].sort((a, b) => a.file.localeCompare(b.file)),
+    records,
+  };
 }
 
 if (import.meta.main) {
   const plan = buildPlan();
   writeFileSync(join(DATA, 'import-plan.json'), JSON.stringify(plan, null, 2));
   const missing = plan.evidence.filter((e) => !e.localPath);
-  console.log(`policies=${plan.policies.length} records=${plan.records.length} controls=${plan.controls.length} evidence=${plan.evidence.length} (missing files: ${missing.map((m) => m.file).join(', ') || 'none'})`);
+  console.log(
+    `policies=${plan.policies.length} records=${plan.records.length} controls=${plan.controls.length} evidence=${plan.evidence.length} (missing files: ${missing.map((m) => m.file).join(', ') || 'none'})`,
+  );
   if (!existsSync(join(DATA, 'tiptap'))) console.warn('run md_to_tiptap.mjs first');
 }
