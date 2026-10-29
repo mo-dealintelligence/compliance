@@ -138,34 +138,26 @@ import { PiDiscordLogo } from 'react-icons/pi';
 // Mirrors the default in @trycompai/utils/brand; NEXT_PUBLIC_* is inlined at build time.
 declare const process: { env: Record<string, string | undefined> };
 const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || 'Deal Intelligence';
-const BRAND_INITIAL = BRAND_NAME.charAt(0).toUpperCase();
 
 export const Icons = {
   Logo: (props: React.SVGProps<SVGSVGElement>) => (
     <svg
       width={45}
       height={45}
-      viewBox="0 0 45 45"
-      fill="none"
+      viewBox="0 0 32 32"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label={BRAND_NAME}
       {...props}
     >
       <title>{BRAND_NAME}</title>
-      <rect x={2.5} y={2.5} width={40} height={40} rx={9} stroke="currentColor" strokeWidth={3} />
-      <text
-        x="50%"
-        y="50%"
-        dominantBaseline="central"
-        textAnchor="middle"
-        fontFamily="ui-sans-serif, system-ui, sans-serif"
-        fontSize={24}
-        fontWeight={700}
-        fill="currentColor"
-      >
-        {BRAND_INITIAL}
-      </text>
+      <rect width={32} height={32} rx={6} fill="#0a0a09" />
+      <g transform="translate(2.5 0)">
+        <circle cx={5} cy={13} r={2} fill="#ff7a3d" />
+        <circle cx={5} cy={19} r={2} fill="#ff7a3d" />
+        <path d="M8 8 H16 a8 8 0 0 1 0 16 H8 Z" fill="#ff7a3d" />
+        <path d="M12 12 H16 a4 4 0 0 1 0 8 H12 Z" fill="#0a0a09" />
+      </g>
     </svg>
   ),
   Overview: (props: any) => (

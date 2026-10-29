@@ -1,8 +1,6 @@
 import { brand } from '@trycompai/utils/brand';
 import { SVGProps } from 'react';
 
-const initial = brand.name.charAt(0).toUpperCase();
-
 export const Logo = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width={178}
@@ -15,21 +13,17 @@ export const Logo = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <title>{brand.name}</title>
-    <rect x={3} y={3} width={37} height={37} rx={8} stroke="currentColor" strokeWidth={3} />
+    <g transform="translate(3 5) scale(1.03)">
+      <rect width={32} height={32} rx={6} fill="#0a0a09" />
+      <g transform="translate(2.5 0)">
+        <circle cx={5} cy={13} r={2} fill="#ff7a3d" />
+        <circle cx={5} cy={19} r={2} fill="#ff7a3d" />
+        <path d="M8 8 H16 a8 8 0 0 1 0 16 H8 Z" fill="#ff7a3d" />
+        <path d="M12 12 H16 a4 4 0 0 1 0 8 H12 Z" fill="#0a0a09" />
+      </g>
+    </g>
     <text
-      x={21.5}
-      y={21.5}
-      dominantBaseline="central"
-      textAnchor="middle"
-      fontFamily="ui-sans-serif, system-ui, sans-serif"
-      fontSize={22}
-      fontWeight={700}
-      fill="currentColor"
-    >
-      {initial}
-    </text>
-    <text
-      x={50}
+      x={46}
       y={21.5}
       dominantBaseline="central"
       fontFamily="ui-sans-serif, system-ui, sans-serif"
