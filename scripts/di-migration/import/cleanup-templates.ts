@@ -45,17 +45,14 @@ for (const c of controls)
   }
 const orphanTasks = [...owners.entries()].filter(([, e]) => [...e.owners].every((o) => doomedIds.has(o)));
 
-// Generic 2023 policy docs imported by mistake (import/repo-policies.ts); they
-// were set to draft and are not the audited documents. Remove them too.
-const repoPoliciesState = new URL('../data/repo-policies/state.json', import.meta.url);
-const { existsSync, readFileSync } = await import('node:fs');
-const genericDrafts: Record<string, string> = existsSync(repoPoliciesState)
-  ? JSON.parse(readFileSync(repoPoliciesState, 'utf8'))
-  : {};
-const policies = await api.get<{ data: { id: string; name: string; status: string }[] }>('/policies');
-const draftsToDelete = policies.data.filter((p) => Object.values(genericDrafts).includes(p.id));
+// Every policy that is not one of ours is a draft: the Comp seed templates
+// (SOC 2 / GDPR / CCPA) and the 8 generic 2023 docs imported by mistake
+// (import/repo-policies.ts). The audited set is published, never draft, so
+// "status === 'draft'" is the whole unwanted set. Deleting a draft is final.
+const policies = await api.listAll<{ id: string; name: string; status: string; policyTemplateId?: string | null }>('/policies');
+const draftsToDelete = policies.filter((p) => p.status === 'draft');
 
-console.log(`${draftsToDelete.length} generic draft policies (not the audited set):`);
+console.log(`${draftsToDelete.length} draft policies (templates + generic docs; none are the audited set):`);
 for (const p of draftsToDelete) console.log('  -', p.name, `(${p.status})`);
 console.log(`${doomed.length} SOC 2 template controls:`);
 for (const c of doomed) console.log('  -', c.name);
