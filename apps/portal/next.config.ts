@@ -5,6 +5,27 @@ import './src/env.mjs';
 const isStandalone = process.env.NEXT_OUTPUT_STANDALONE === 'true';
 
 const config = {
+  experimental: {
+    serverActions: {
+      // Behind CloudFront -> Lambda URL the forwarded host is the function URL;
+      // list the public hostnames so server actions pass Next's origin check.
+      allowedOrigins:
+        process.env.NODE_ENV === 'production'
+          ? Array.from(
+              new Set(
+                [
+                  process.env.NEXT_PUBLIC_PORTAL_URL,
+                  process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+                  process.env.NEXT_PUBLIC_APP_URL,
+                  ...(process.env.SERVER_ACTIONS_ALLOWED_ORIGINS ?? '').split(','),
+                ]
+                  .filter(Boolean)
+                  .map((v) => (v as string).trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '')),
+              ),
+            )
+          : undefined,
+    },
+  },
   transpilePackages: [
     '@trycompai/auth',
     '@trycompai/db',

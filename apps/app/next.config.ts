@@ -59,13 +59,23 @@ const config: NextConfig = {
       // NOTE: Attachment uploads may be sent as base64 strings, which increases payload size.
       // Keep this above the user-facing max file size.
       bodySizeLimit: '150mb',
+      // Hostnames (not URLs) that may POST server actions. Behind CloudFront ->
+      // Lambda URL the forwarded host is the function URL, so the public
+      // hostnames must be listed explicitly.
       allowedOrigins:
         process.env.NODE_ENV === 'production'
-          ? ([
-              process.env.NEXT_PUBLIC_PORTAL_URL,
-              process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
-              process.env.NEXT_PUBLIC_APP_URL,
-            ].filter(Boolean) as string[])
+          ? Array.from(
+              new Set(
+                [
+                  process.env.NEXT_PUBLIC_PORTAL_URL,
+                  process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+                  process.env.NEXT_PUBLIC_APP_URL,
+                  ...(process.env.SERVER_ACTIONS_ALLOWED_ORIGINS ?? '').split(','),
+                ]
+                  .filter(Boolean)
+                  .map((v) => (v as string).trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '')),
+              ),
+            )
           : undefined,
     },
     authInterrupts: true,
