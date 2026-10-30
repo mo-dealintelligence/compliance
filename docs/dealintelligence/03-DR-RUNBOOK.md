@@ -15,8 +15,9 @@ kept outside the repo. Nothing lives only on a laptop.
 | Infra | this repo (`deploy/aws`) | git |
 | Third-party inputs (Google OAuth client, Resend key) | `~/di-run-logs/comp-deploy/secrets-input.json` | keep with the backup above |
 
-`SECRET_KEY` matters most: it encrypts integration credentials stored in the
-database. A restored database with a regenerated `SECRET_KEY` loses them.
+`ENCRYPTION_KEY` matters most: it encrypts integration credentials stored in
+the database (`SECRET_KEY`/`AUTH_SECRET` sign sessions). A restored database
+with a regenerated `ENCRYPTION_KEY` loses every connected integration.
 That is why `secrets.sh init` refuses to run over existing secrets.
 
 ## Scenarios

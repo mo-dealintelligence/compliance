@@ -8,6 +8,7 @@
 #   deploy/aws/secrets.sh backup [file]       # dump all three to a file outside the repo
 #   deploy/aws/secrets.sh restore [file]      # load them into a rebuilt account
 #   deploy/aws/secrets.sh refresh-db-url      # recompute DATABASE_URL after a DB restore
+#   deploy/aws/secrets.sh sync-derived        # add URL aliases + ENCRYPTION_KEY to existing secrets
 #
 # SECRETS_INPUT is a JSON file you keep OUTSIDE the repo with third-party
 # values: RESEND_API_KEY, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, OPENAI_API_KEY,
@@ -52,14 +53,14 @@ init() {
   local db_url="postgresql://comp:${pw}@${db_host}:5432/comp?sslmode=require&connect_timeout=60"
   local bucket; bucket="$(out EvidenceBucket)"
 
-  local auth_secret secret_key reval unsub internal svc_trigger svc_portal
+  local auth_secret secret_key reval unsub internal svc_trigger svc_portal enc_key
   auth_secret="$(rnd)"; secret_key="$(rnd)"; reval="$(rnd)"; unsub="$(rnd)"
-  internal="$(rnd)"; svc_trigger="$(rnd)"; svc_portal="$(rnd)"
+  internal="$(rnd)"; svc_trigger="$(rnd)"; svc_portal="$(rnd)"; enc_key="$(rnd)"
 
-  python3 - "$input" "$db_url" "$bucket" "$s3_secret" "$auth_secret" "$secret_key" "$reval" "$unsub" "$internal" "$svc_trigger" "$svc_portal" "$ROOT_DOMAIN" <<'EOF' > /tmp/comp-secrets.json
+  python3 - "$input" "$db_url" "$bucket" "$s3_secret" "$auth_secret" "$secret_key" "$reval" "$unsub" "$internal" "$svc_trigger" "$svc_portal" "$ROOT_DOMAIN" "$enc_key" <<'EOF' > /tmp/comp-secrets.json
 import json, sys
 (inp, db_url, bucket, s3_json, auth_secret, secret_key, reval, unsub, internal,
- svc_trigger, svc_portal, root) = sys.argv[1:]
+ svc_trigger, svc_portal, root, enc_key) = sys.argv[1:]
 ext = json.load(open(inp)); s3 = json.loads(s3_json)
 app_url, api_url, portal_url, trust_url = ("https://compliance." + root, "https://api.compliance." + root, "https://portal.compliance." + root, "https://trust." + root)
 brand = {
@@ -73,6 +74,11 @@ brand = {
 }
 shared = {
   "DATABASE_URL": db_url, "SELF_HOSTED": "true", "NODE_ENV": "production",
+  # Encrypts integration credentials at rest (api + app). Never rotate casually.
+  "ENCRYPTION_KEY": enc_key,
+  # The code reads the three URLs under several names.
+  "APP_URL": app_url, "API_URL": api_url, "API_BASE_URL": api_url, "BACKEND_API_URL": api_url,
+  "APP_AUTH_URL": app_url, "PUBLIC_API_URL": api_url, "MCP_RESOURCE_URL": api_url,
   "COOKIE_DOMAIN": f".compliance.{root}",
   "AUTH_TRUSTED_ORIGINS": ",".join([app_url, portal_url, api_url, trust_url]),
   "AUTH_TRUSTED_ORIGIN_SUFFIXES": "compliance." + root,
@@ -157,6 +163,21 @@ os.chmod(f,0o600); print("saved", f)' "$f" "$(get_secret "$PROJECT/env/api")" "$
     pw="$(get_secret "$db_secret" | python3 -c 'import json,sys,urllib.parse; print(urllib.parse.quote(json.load(sys.stdin)["password"], safe=""))')"
     url="postgresql://comp:${pw}@${db_host}:5432/comp?sslmode=require&connect_timeout=60"
     for s in api app portal; do set_key "$s" DATABASE_URL "$url"; done ;;
+  sync-derived)
+    # Add keys introduced after the first init: URL aliases the code reads and a
+    # shared ENCRYPTION_KEY (generated once, identical in all three secrets).
+    app_url="https://compliance.$ROOT_DOMAIN"; api_url="https://api.compliance.$ROOT_DOMAIN"
+    enc="$(get_secret "$PROJECT/env/api" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("ENCRYPTION_KEY",""))')"
+    [ -n "$enc" ] || enc="$(rnd)"
+    for s in api app portal; do
+      cur="$(get_secret "$PROJECT/env/$s")"
+      new="$(python3 -c 'import json,sys
+d=json.load(sys.stdin); app,api,enc=sys.argv[1:4]
+d.setdefault("ENCRYPTION_KEY", enc)
+for k,v in {"APP_URL":app,"API_URL":api,"API_BASE_URL":api,"BACKEND_API_URL":api,"APP_AUTH_URL":app,"PUBLIC_API_URL":api,"MCP_RESOURCE_URL":api}.items(): d.setdefault(k, v)
+print(json.dumps(d))' "$app_url" "$api_url" "$enc" <<<"$cur")"
+      put_secret "$PROJECT/env/$s" "$new"; echo "synced $s"
+    done ;;
   fix-db-url)
     # Append connect_timeout to DATABASE_URL in all three secrets (auto-paused Aurora wake-up).
     for s in api app portal; do
