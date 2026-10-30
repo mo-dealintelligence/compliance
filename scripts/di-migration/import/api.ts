@@ -42,6 +42,10 @@ export class CompApi {
   post<T>(path: string, body?: unknown, query?: Record<string, string>) {
     return this.request<T>('POST', path, body, query);
   }
+  delete<T = void>(path: string) {
+    return this.request<T>('DELETE', path);
+  }
+
   patch<T>(path: string, body?: unknown) {
     return this.request<T>('PATCH', path, body);
   }
