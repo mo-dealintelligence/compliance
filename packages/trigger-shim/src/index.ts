@@ -79,10 +79,19 @@ export interface ScheduledTaskPayload {
   type: 'DECLARATIVE' | 'IMPERATIVE';
 }
 
+/** Like the real SDK: the payload argument is optional when the task takes no payload. */
+export type TriggerArgs<TPayload> = undefined extends TPayload
+  ? [payload?: TPayload, options?: TriggerOptions]
+  : void extends TPayload
+    ? [payload?: TPayload, options?: TriggerOptions]
+    : unknown extends TPayload
+      ? [payload?: TPayload, options?: TriggerOptions]
+      : [payload: TPayload, options?: TriggerOptions];
+
 export interface Task<TIdentifier extends string = string, TPayload = unknown, TOutput = unknown> {
   id: TIdentifier;
-  trigger: (payload: TPayload, options?: TriggerOptions) => Promise<RunHandle>;
-  triggerAndWait: (payload: TPayload, options?: TriggerOptions) => Promise<TaskRunResult<TOutput>>;
+  trigger: (...args: TriggerArgs<TPayload>) => Promise<RunHandle>;
+  triggerAndWait: (...args: TriggerArgs<TPayload>) => Promise<TaskRunResult<TOutput>>;
   batchTrigger: (
     items: { payload: TPayload; options?: TriggerOptions }[],
     options?: TriggerOptions,
@@ -217,9 +226,10 @@ function buildTask<TPayload, TOutput, TId extends string = string>(
   });
   const t: Task<TId, TPayload, TOutput> = {
     id: options.id,
-    trigger: (payload, opts) => startRun(options.id, payload, mergeTags(opts, options.tags)),
-    triggerAndWait: (payload, opts) =>
-      runInline<TOutput>(options.id, payload, mergeTags(opts, options.tags)),
+    trigger: ((payload?: TPayload, opts?: TriggerOptions) =>
+      startRun(options.id, payload, mergeTags(opts, options.tags))) as Task<TId, TPayload, TOutput>['trigger'],
+    triggerAndWait: ((payload?: TPayload, opts?: TriggerOptions) =>
+      runInline<TOutput>(options.id, payload, mergeTags(opts, options.tags))) as Task<TId, TPayload, TOutput>['triggerAndWait'],
     batchTrigger: async (items, opts) => {
       const runs: RunHandle[] = [];
       for (const item of items)
