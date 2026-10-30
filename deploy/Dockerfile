@@ -92,7 +92,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 COPY --from=api-builder --chown=nestjs:nestjs /app/apps/api/dist ./dist
 COPY --from=api-builder --chown=nestjs:nestjs /app/apps/api/prisma ./prisma
-COPY --from=api-builder --chown=nestjs:nestjs /app/apps/api/package.json ./package.json
+COPY --from=api-builder --chown=nestjs:nestjs /app/apps/api/package.json /app/apps/api/alias-register.cjs ./
 COPY --from=api-builder --chown=nestjs:nestjs /app/packages ./packages
 COPY --from=api-builder --chown=nestjs:nestjs /app/node_modules ./node_modules
 ENV NODE_ENV=production PORT=3333 \
@@ -101,7 +101,7 @@ USER nestjs
 EXPOSE 3333
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3333/v1/health || exit 1
-CMD ["node", "--report-on-fatalerror", "--report-compact", "dist/src/main.js"]
+CMD ["node", "--report-on-fatalerror", "--report-compact", "-r", "./alias-register.cjs", "dist/src/main.js"]
 
 # -----------------------------------------------------------------------------
 # api-worker: background tasks (replaces Trigger.dev) on the Lambda Node base
@@ -111,10 +111,10 @@ ADD https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY --from=api-builder /app/apps/api/dist ./dist
-COPY --from=api-builder /app/apps/api/package.json ./package.json
+COPY --from=api-builder /app/apps/api/package.json /app/apps/api/alias-register.cjs ./
 COPY --from=api-builder /app/packages ./packages
 COPY --from=api-builder /app/node_modules ./node_modules
-ENV NODE_ENV=production
+ENV NODE_ENV=production NODE_OPTIONS="-r /var/task/alias-register.cjs"
 CMD ["dist/src/trigger-worker.handler"]
 
 # -----------------------------------------------------------------------------

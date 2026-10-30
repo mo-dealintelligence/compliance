@@ -4,6 +4,29 @@ infra: {}
 
 all:
   Resources:
+    # Since Oct 2025 public function URLs also need lambda:InvokeFunction
+    # (Serverless v3 only adds lambda:InvokeFunctionUrl).
+    AppUrlInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: !Ref AppLambdaFunction
+        Principal: '*'
+        InvokedViaFunctionUrl: true
+    ApiUrlInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: !Ref ApiLambdaFunction
+        Principal: '*'
+        InvokedViaFunctionUrl: true
+    PortalUrlInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: !Ref PortalLambdaFunction
+        Principal: '*'
+        InvokedViaFunctionUrl: true
     AppDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
