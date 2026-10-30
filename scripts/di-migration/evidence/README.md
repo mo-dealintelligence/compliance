@@ -19,5 +19,5 @@ what the auditor already accepted.
    never skip silently.
 
 Sign-ins needed in Chrome: AWS console (prod account 164482277879), GitHub
-(`mo-dealintelligence`), PropelAuth, Google Admin. Humadroid entries now point
+(`dealintelligence` org), PropelAuth, Google Admin. Humadroid entries now point
 at Comp's own pages (risk register, vendors, BCP) — Humadroid is retired.

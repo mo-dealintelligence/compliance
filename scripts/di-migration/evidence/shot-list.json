@@ -7,7 +7,7 @@
    "file": "01_github_actions_workflows.png",
    "taskId": "tsk_6ae444bc3f15dc23dccec164",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions",
+   "url": "https://github.com/dealintelligence/di-backend-api/actions",
    "mustShow": "Workflows list with recent runs",
    "cadence": "monthly"
   },
@@ -15,7 +15,7 @@
    "file": "02_github_ci_workflow.png",
    "taskId": "tsk_6ae444bfb1a8f119e8b1b092",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions/workflows/ci.yml",
+   "url": "https://github.com/dealintelligence/di-backend-api/actions/workflows/ci.yml",
    "mustShow": "CI workflow runs (pytest/model validation)",
    "cadence": "monthly",
    "note": "workflow file name may differ"
@@ -24,7 +24,7 @@
    "file": "03_github_deploy_workflow.png",
    "taskId": "tsk_6ae444c3546fe1eb4c5b4baa",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions/workflows/deploy.yml",
+   "url": "https://github.com/dealintelligence/di-backend-api/actions/workflows/deploy.yml",
    "mustShow": "Deploy workflow runs",
    "cadence": "monthly",
    "note": "workflow file name may differ"
@@ -33,7 +33,7 @@
    "file": "04_github_workflow_run_details.png",
    "taskId": "tsk_6ae444c60fda138fbd504ace",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions",
+   "url": "https://github.com/dealintelligence/di-backend-api/actions",
    "mustShow": "Open the latest successful run: jobs + steps + timestamps",
    "cadence": "monthly"
   },
@@ -41,7 +41,7 @@
    "file": "05_github_dependabot.png",
    "taskId": "tsk_6ae444c8993db6438c273a18",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/security/dependabot",
+   "url": "https://github.com/dealintelligence/di-backend-api/security/dependabot",
    "mustShow": "Dependabot alerts list and counts",
    "cadence": "monthly"
   },
@@ -49,7 +49,7 @@
    "file": "07_github_secret_scanning.png",
    "taskId": "tsk_6ae444cdfb7b143b2457bc72",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/settings/security_analysis",
+   "url": "https://github.com/dealintelligence/di-backend-api/settings/security_analysis",
    "mustShow": "Code security settings: secret scanning + push protection enabled",
    "cadence": "quarterly"
   },
@@ -57,7 +57,7 @@
    "file": "08_github_branch_protection.png",
    "taskId": "tsk_6ae444cfe501a351b7d1c460",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/settings/branches",
+   "url": "https://github.com/dealintelligence/di-backend-api/settings/branches",
    "mustShow": "Branch protection rule for main: PR required, reviews, status checks",
    "cadence": "quarterly"
   },
@@ -324,7 +324,7 @@
    "file": "middleware_py_screenshot.png",
    "taskId": "tsk_6ae44630fc853119537947c9",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/middleware.py",
+   "url": "https://github.com/dealintelligence/di-backend-api/blob/main/app/server/middleware.py",
    "mustShow": "RateLimitMiddleware + PII validators at a pinned commit",
    "cadence": "quarterly",
    "note": "prefer permalink with commit SHA"
@@ -333,7 +333,7 @@
    "file": "models_collections_py_screenshot.png",
    "taskId": "tsk_6ae446360d68a8cce1875e66",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/models/collections.py",
+   "url": "https://github.com/dealintelligence/di-backend-api/blob/main/app/server/models/collections.py",
    "mustShow": "Typed collections with compliance comments",
    "cadence": "quarterly"
   },
@@ -341,7 +341,7 @@
    "file": "models_pii_py_screenshot.png",
    "taskId": "tsk_6ae446370e82c1378bdc4446",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/models/pii.py",
+   "url": "https://github.com/dealintelligence/di-backend-api/blob/main/app/server/models/pii.py",
    "mustShow": "PIIFields / validators",
    "cadence": "quarterly"
   },
@@ -349,7 +349,7 @@
    "file": "models_v1_py_screenshot.png",
    "taskId": "tsk_6ae4463c66a517b7ffd7efa6",
    "source": "github",
-   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/models/v1.py",
+   "url": "https://github.com/dealintelligence/di-backend-api/blob/main/app/server/models/v1.py",
    "mustShow": "v1 data structures with compliance comments",
    "cadence": "quarterly"
   },
