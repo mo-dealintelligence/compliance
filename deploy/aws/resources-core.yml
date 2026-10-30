@@ -55,7 +55,7 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: 0.0.0.0/0
-      InstanceId: !Ref NatInstanceV2
+      InstanceId: !Ref NatInstanceV3
   PrivateSubnetARoute:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties: { SubnetId: !Ref PrivateSubnetA, RouteTableId: !Ref PrivateRouteTable }
@@ -78,7 +78,7 @@ Resources:
       VpcId: !Ref Vpc
       SecurityGroupIngress:
         - { IpProtocol: '-1', CidrIp: '${self:custom.vpcCidr}', Description: from VPC }
-  NatInstanceV2:
+  NatInstanceV3:
     Type: AWS::EC2::Instance
     DependsOn: PublicDefaultRoute
     Properties:
@@ -91,24 +91,33 @@ Resources:
       UserData:
         Fn::Base64: |
           #!/bin/bash
-          set -e
+          # NAT via iptables-nft (preinstalled on AL2023; no dnf, which OOMs on nano)
           echo 'net.ipv4.ip_forward = 1' > /etc/sysctl.d/90-nat.conf
           sysctl -p /etc/sysctl.d/90-nat.conf
-          dnf install -y nftables
           IFACE=$(ip -o -4 route show to default | awk '{print $5}')
-          cat > /etc/sysconfig/nftables.conf <<EOF
-          table ip nat {
-            chain postrouting {
-              type nat hook postrouting priority 100;
-              oifname "$IFACE" masquerade
-            }
-          }
+          cat > /usr/local/sbin/nat-up.sh <<EOF
+          #!/bin/bash
+          iptables -t nat -C POSTROUTING -o $IFACE -j MASQUERADE 2>/dev/null || iptables -t nat -A POSTROUTING -o $IFACE -j MASQUERADE
           EOF
-          systemctl enable --now nftables
-          nft list ruleset
+          chmod +x /usr/local/sbin/nat-up.sh
+          cat > /etc/systemd/system/nat.service <<EOF
+          [Unit]
+          Description=NAT masquerade
+          After=network-online.target
+          Wants=network-online.target
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/local/sbin/nat-up.sh
+          RemainAfterExit=yes
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+          systemctl daemon-reload
+          systemctl enable --now nat.service
+          iptables -t nat -S POSTROUTING
   NatEip:
     Type: AWS::EC2::EIP
-    Properties: { Domain: vpc, InstanceId: !Ref NatInstanceV2 }
+    Properties: { Domain: vpc, InstanceId: !Ref NatInstanceV3 }
 
   # ---------------------------------------------------------------- Security groups
   LambdaSecurityGroup:
