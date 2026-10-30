@@ -21,7 +21,9 @@ interface UsePostPaymentOnboardingProps {
   userEmail?: string;
 }
 
-const showShippingStep = process.env.NEXT_PUBLIC_APP_ENV !== 'staging';
+// Physical-certificate shipping is a Comp AI Cloud perk; never ask on self-hosted.
+const showShippingStep =
+  process.env.NEXT_PUBLIC_APP_ENV !== 'staging' && process.env.NEXT_PUBLIC_SELF_HOSTED !== 'true';
 
 // Filter steps based on environment
 function getPostPaymentSteps() {
