@@ -6,6 +6,9 @@
 #   deploy/aws/deploy.sh build [tag]      # zip repo -> S3 -> CodeBuild builds+pushes images (+migrate/seed)
 #   deploy/aws/deploy.sh migrate [tag]    # CodeBuild run that only migrates (+SEED=true seeds)
 #   deploy/aws/deploy.sh functions [tag]  # phase 2: lambdas, function urls, cloudfront, dns
+#   deploy/aws/deploy.sh bootstrap        # all of the above in order; re-runnable (DR / fresh account)
+#   deploy/aws/deploy.sh restore <snapshot-id>  # bootstrap, but the database comes from a snapshot
+#   deploy/aws/deploy.sh snapshot         # take a manual cluster snapshot now (comp-db-<date>)
 #
 # Credentials: run with the di-compliance account. From the management
 # account, export COMP_ACCOUNT_ID and the script assumes
@@ -21,7 +24,8 @@ unset AWS_SESSION_TOKEN
 export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
 STAGE="${STAGE:-prod}"
 STACK="comp-${STAGE}"
-cmd="${1:-}"; tag="${2:-$(git -C "$ROOT" rev-parse --short HEAD)}"
+cmd="${1:-}"; tag="$(git -C "$ROOT" rev-parse --short HEAD)"
+case "$cmd" in build|migrate|functions) tag="${2:-$tag}" ;; esac
 
 assume_role() {
   [ -z "${COMP_ACCOUNT_ID:-}" ] && return 0
@@ -42,7 +46,7 @@ sls() { (cd "$HERE" && npm install --silent --no-audit --no-fund >/dev/null && n
 
 infra() {
   assume_role
-  sls deploy --stage "$STAGE" --param="phase=infra"
+  sls deploy --stage "$STAGE" --param="phase=infra" --param="dbSnapshot=${DB_SNAPSHOT:-}"
   echo "Name servers for compliance.dealintelligence.io: $(out HostedZoneNameServers)"
 }
 
@@ -87,7 +91,34 @@ migrate() {
 
 functions() {
   assume_role
-  sls deploy --stage "$STAGE" --param="phase=all" --param="imageTag=$tag"
+  sls deploy --stage "$STAGE" --param="phase=all" --param="imageTag=$tag" --param="dbSnapshot=${DB_SNAPSHOT:-}"
+}
+
+snapshot() {
+  assume_role
+  local id="${STACK}-db-$(date -u +%Y%m%d-%H%M)"
+  aws rds create-db-cluster-snapshot --db-cluster-identifier "${STACK%-*}-db" --db-cluster-snapshot-identifier "$id" --query 'DBClusterSnapshot.Status' --output text
+  echo "snapshot $id"
+}
+
+# Full build-out in order. Every step is idempotent, so a failed run is simply
+# re-run. Credentials: prod keys from .env; the script assumes the compliance
+# role where needed and uses the prod keys for the NS delegation.
+bootstrap() {
+  local backup="${SECRETS_BACKUP:-$HOME/di-run-logs/comp-deploy/secrets-backup.json}"
+  echo "### 1/6 infra"; infra
+  echo "### 2/6 delegate"; (unset COMP_ACCOUNT_ID; delegate) || echo "delegation skipped/failed (set PROD_ZONE_ID); certs will wait"
+  echo "### 3/6 secrets"
+  assume_role
+  if [ "$(aws secretsmanager get-secret-value --secret-id comp/env/api --query SecretString --output text)" = "{}" ]; then
+    if [ -f "$backup" ]; then bash "$HERE/secrets.sh" restore "$backup"
+    else bash "$HERE/secrets.sh" init; fi
+  else echo "secrets already present"; fi
+  echo "### 4/6 build + migrate$( [ -n "${DB_SNAPSHOT:-}" ] || echo ' + seed')"
+  if [ -n "${DB_SNAPSHOT:-}" ]; then SEED=false build; else SEED=true build; fi
+  echo "### 5/6 functions"; functions
+  echo "### 6/6 smoke"; bash "$HERE/smoke.sh" || echo "smoke test failed (cold start?) — rerun deploy/aws/smoke.sh"
+  bash "$HERE/secrets.sh" backup "$backup" >/dev/null && echo "secrets backed up to $backup"
 }
 
 case "$cmd" in
@@ -97,5 +128,8 @@ case "$cmd" in
   build) build ;;
   migrate) migrate ;;
   functions) functions ;;
-  *) sed -n 2,12p "$0"; exit 1 ;;
+  bootstrap) bootstrap ;;
+  restore) DB_SNAPSHOT="${2:?snapshot id}" bootstrap ;;
+  snapshot) snapshot ;;
+  *) sed -n 2,15p "$0"; exit 1 ;;
 esac

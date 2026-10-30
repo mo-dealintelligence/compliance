@@ -42,6 +42,9 @@ custom:
   phase: ${param:phase, 'all'}
   registry: ${aws:accountId}.dkr.ecr.${self:provider.region}.amazonaws.com
   imageTag: ${param:imageTag, 'latest'}
+  # DR: build the cluster from a snapshot (fresh stacks only; changing it on an
+  # existing stack replaces the cluster). deploy.sh restore passes this.
+  dbSnapshot: ${param:dbSnapshot, ''}
   zoneName: compliance.dealintelligence.io
   hosts:
     app: compliance.dealintelligence.io

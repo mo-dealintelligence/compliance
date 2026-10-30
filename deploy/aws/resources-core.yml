@@ -1,3 +1,6 @@
+Conditions:
+  UseDbSnapshot: !Not [!Equals ['${self:custom.dbSnapshot}', '']]
+
 Resources:
   # ---------------------------------------------------------------- Network
   Vpc:
@@ -147,9 +150,10 @@ Resources:
       Engine: aurora-postgresql
       EngineVersion: '16.11'
       EngineMode: provisioned
-      DatabaseName: comp
-      MasterUsername: comp
+      DatabaseName: !If [UseDbSnapshot, !Ref AWS::NoValue, comp]
+      MasterUsername: !If [UseDbSnapshot, !Ref AWS::NoValue, comp]
       ManageMasterUserPassword: true
+      SnapshotIdentifier: !If [UseDbSnapshot, '${self:custom.dbSnapshot}', !Ref AWS::NoValue]
       StorageEncrypted: true
       DBSubnetGroupName: !Ref DbSubnetGroup
       DBClusterParameterGroupName: !Ref DbClusterParameterGroup

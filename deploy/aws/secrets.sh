@@ -5,6 +5,9 @@
 #                                # secrets + values in $SECRETS_INPUT (json file)
 #   deploy/aws/secrets.sh set api KEY value   # upsert one key
 #   deploy/aws/secrets.sh show api            # print keys (values masked)
+#   deploy/aws/secrets.sh backup [file]       # dump all three to a file outside the repo
+#   deploy/aws/secrets.sh restore [file]      # load them into a rebuilt account
+#   deploy/aws/secrets.sh refresh-db-url      # recompute DATABASE_URL after a DB restore
 #
 # SECRETS_INPUT is a JSON file you keep OUTSIDE the repo with third-party
 # values: RESEND_API_KEY, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, OPENAI_API_KEY,
@@ -35,6 +38,13 @@ put_secret() { aws secretsmanager put-secret-value --secret-id "$1" --secret-str
 
 init() {
   local input="${SECRETS_INPUT:?set SECRETS_INPUT=/path/to/input.json}"
+  # Never regenerate on top of live secrets: SECRET_KEY encrypts integration
+  # credentials in the database and AUTH_SECRET signs sessions. Use
+  # `restore` (from a backup) or FORCE_INIT=1 for a truly fresh install.
+  if [ "${FORCE_INIT:-}" != "1" ] && [ "$(get_secret "$PROJECT/env/api")" != "{}" ]; then
+    echo "comp/env/api already populated; refusing to regenerate (FORCE_INIT=1 to override, or use restore)" >&2
+    exit 1
+  fi
   local db_host db_secret pw s3_secret
   db_host="$(out DbEndpoint)"; db_secret="$(out DbMasterSecretArn)"
   pw="$(get_secret "$db_secret" | python3 -c 'import json,sys,urllib.parse; print(urllib.parse.quote(json.load(sys.stdin)["password"], safe=""))')"
@@ -122,6 +132,29 @@ show() { get_secret "$PROJECT/env/$1" | python3 -c 'import json,sys; d=json.load
 
 case "${1:-}" in
   init) init ;;
+  backup)
+    # Dump all three secrets to one JSON file OUTSIDE the repo. Keep it safe:
+    # it is what makes a database restore usable.
+    f="${2:-$HOME/di-run-logs/comp-deploy/secrets-backup.json}"
+    python3 -c 'import json,sys,os,datetime
+f,api,app,portal=sys.argv[1:]
+os.makedirs(os.path.dirname(f), exist_ok=True)
+json.dump({"savedAt":datetime.datetime.utcnow().isoformat()+"Z","api":json.loads(api),"app":json.loads(app),"portal":json.loads(portal)}, open(f,"w"), indent=2)
+os.chmod(f,0o600); print("saved", f)' "$f" "$(get_secret "$PROJECT/env/api")" "$(get_secret "$PROJECT/env/app")" "$(get_secret "$PROJECT/env/portal")" ;;
+  restore)
+    # Load backed-up secrets into a rebuilt account, then recompute DATABASE_URL.
+    f="${2:-$HOME/di-run-logs/comp-deploy/secrets-backup.json}"
+    for s in api app portal; do
+      put_secret "$PROJECT/env/$s" "$(python3 -c 'import json,sys; print(json.dumps(json.load(open(sys.argv[1]))[sys.argv[2]]))' "$f" "$s")"
+      echo "restored $s"
+    done
+    "$0" refresh-db-url ;;
+  refresh-db-url)
+    # After a snapshot restore the cluster has a new managed master password.
+    db_host="$(out DbEndpoint)"; db_secret="$(out DbMasterSecretArn)"
+    pw="$(get_secret "$db_secret" | python3 -c 'import json,sys,urllib.parse; print(urllib.parse.quote(json.load(sys.stdin)["password"], safe=""))')"
+    url="postgresql://comp:${pw}@${db_host}:5432/comp?sslmode=require&connect_timeout=60"
+    for s in api app portal; do set_key "$s" DATABASE_URL "$url"; done ;;
   fix-db-url)
     # Append connect_timeout to DATABASE_URL in all three secrets (auto-paused Aurora wake-up).
     for s in api app portal; do
