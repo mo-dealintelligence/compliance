@@ -26,6 +26,7 @@ PROD_ZONE_ID=Z0889255QBJMQ8IWV1X2 deploy/aws/deploy.sh delegate   # NS record in
 SECRETS_INPUT=~/comp-input.json deploy/aws/secrets.sh init        # writes comp/env/{api,app,portal}
 SEED=true deploy/aws/deploy.sh build                  # CodeBuild: images -> ECR, migrate, seed frameworks
 deploy/aws/deploy.sh functions                        # lambdas + cloudfront + dns
+deploy/aws/smoke.sh                                   # hits the three hostnames
 ```
 
 Then add the Google OAuth redirect `https://api.compliance.dealintelligence.io/api/auth/callback/google`
