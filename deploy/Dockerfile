@@ -157,7 +157,9 @@ ENV NEXT_PUBLIC_BETTER_AUTH_URL=$NEXT_PUBLIC_BETTER_AUTH_URL \
     NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production \
     NEXT_OUTPUT_STANDALONE=true \
     NODE_OPTIONS=--max_old_space_size=8192
-RUN cd apps/app && SKIP_ENV_VALIDATION=true bun run build:docker \
+RUN find /app/packages/db/prisma/schema -name '*.prisma' ! -name 'schema.prisma' \
+      -exec cp {} /app/apps/app/prisma/schema/ \; \
+ && cd apps/app && SKIP_ENV_VALIDATION=true bun run build:docker \
  && node scripts/build-worker.mjs
 
 FROM node:${NODE_VERSION}-alpine AS app
@@ -219,7 +221,8 @@ ENV NEXT_PUBLIC_BETTER_AUTH_URL=$NEXT_PUBLIC_BETTER_AUTH_URL \
     NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production \
     NEXT_OUTPUT_STANDALONE=true \
     NODE_OPTIONS=--max_old_space_size=6144
-RUN cp packages/db/dist/schema.prisma apps/portal/prisma/schema.prisma \
+RUN find /app/packages/db/prisma/schema -name '*.prisma' ! -name 'schema.prisma' \
+      -exec cp {} /app/apps/portal/prisma/schema/ \; \
  && cd apps/portal && SKIP_ENV_VALIDATION=true bun run build:docker
 
 FROM node:${NODE_VERSION}-alpine AS portal
