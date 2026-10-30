@@ -42,11 +42,11 @@ assume_role() {
 
 out() { aws cloudformation describe-stacks --stack-name "$STACK" --query "Stacks[0].Outputs[?OutputKey=='$1'].OutputValue" --output text; }
 
-sls() { (cd "$HERE" && npm install --silent --no-audit --no-fund >/dev/null && npx serverless "$@"); }
+sls() { (cd "$HERE" && npm install --silent --no-audit --no-fund >/dev/null && npx serverless "$@" ${DB_SNAPSHOT:+--param="dbSnapshot=$DB_SNAPSHOT"}); }
 
 infra() {
   assume_role
-  sls deploy --stage "$STAGE" --param="phase=infra" --param="dbSnapshot=${DB_SNAPSHOT:-}"
+  sls deploy --stage "$STAGE" --param="phase=infra"
   echo "Name servers for compliance.dealintelligence.io: $(out HostedZoneNameServers)"
 }
 
@@ -91,7 +91,7 @@ migrate() {
 
 functions() {
   assume_role
-  sls deploy --stage "$STAGE" --param="phase=all" --param="imageTag=$tag" --param="dbSnapshot=${DB_SNAPSHOT:-}"
+  sls deploy --stage "$STAGE" --param="phase=all" --param="imageTag=$tag"
 }
 
 snapshot() {
