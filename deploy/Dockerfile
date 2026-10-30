@@ -52,7 +52,8 @@ COPY apps/api ./apps/api
 COPY apps/app ./apps/app
 COPY apps/portal ./apps/portal
 RUN cd packages/db && bun run build
-RUN cd packages/auth && bun run build \
+RUN cd packages/utils && bun run build \
+ && cd ../auth && bun run build \
  && cd ../kv && bun run build \
  && cd ../trigger-shim && bun run build \
  && cd ../integration-platform && bun run build \

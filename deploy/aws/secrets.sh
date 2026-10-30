@@ -102,6 +102,7 @@ api = {**shared,
 }
 app = {**shared,
   "AUTH_SECRET": auth_secret, "SECRET_KEY": secret_key, "REVALIDATION_SECRET": reval,
+  "AUTH_GOOGLE_ID": ext.get("AUTH_GOOGLE_ID",""), "AUTH_GOOGLE_SECRET": ext.get("AUTH_GOOGLE_SECRET",""),
   "BETTER_AUTH_URL": app_url, "NEXT_PUBLIC_BETTER_AUTH_URL": app_url,
   "NEXT_PUBLIC_SELF_HOSTED": "true", "NEXT_PUBLIC_APP_ENV": "production",
   "SERVICE_TOKEN_TRIGGER": svc_trigger,
@@ -110,6 +111,7 @@ app = {**shared,
 }
 portal = {**shared,
   "BETTER_AUTH_SECRET": auth_secret, "BETTER_AUTH_URL": portal_url,
+  "AUTH_GOOGLE_ID": ext.get("AUTH_GOOGLE_ID",""), "AUTH_GOOGLE_SECRET": ext.get("AUTH_GOOGLE_SECRET",""),
   "NEXT_PUBLIC_BETTER_AUTH_URL": portal_url, "SERVICE_TOKEN_PORTAL": svc_portal,
 }
 json.dump({"api": api, "app": app, "portal": portal}, sys.stdout)

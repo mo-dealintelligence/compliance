@@ -24,7 +24,9 @@ await build({
   sourcemap: true,
   packages: 'external',
   tsconfig: resolve(root, 'tsconfig.json'),
-  alias: { 'server-only': resolve(root, 'worker/server-only.cjs') },
+  // Upstream imports the app by its own package name; bundle it instead of
+  // leaving a node_modules symlink to .ts sources at runtime.
+  alias: { 'server-only': resolve(root, 'worker/server-only.cjs'), '@trycompai/app': root },
   jsx: 'automatic',
   logLevel: 'info',
   define: { 'process.env.NEXT_RUNTIME': '"nodejs"' },
