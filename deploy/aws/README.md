@@ -26,7 +26,6 @@ Costs at idle ≈ $0 for compute/API; Aurora pauses after 10 min idle
 
 ```
 export AWS_PROFILE=... AWS_DEFAULT_REGION=us-east-1
-export VPC_ID=vpc-xxxx SUBNET_IDS=subnet-a,subnet-b     # default VPC public subnets
 deploy/aws/deploy.sh infra
 deploy/aws/secrets.sh init        # writes comp/env/{api,app,portal} from a filled template
 SEED=true deploy/aws/deploy.sh build      # builds images, migrates, seeds frameworks

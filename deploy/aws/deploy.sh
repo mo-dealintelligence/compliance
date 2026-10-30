@@ -22,11 +22,10 @@ cmd="${1:-}"; tag="${2:-$(git -C "$ROOT" rev-parse --short HEAD)}"
 out() { aws cloudformation describe-stacks --stack-name "$STACK" --query "Stacks[0].Outputs[?OutputKey=='$1'].OutputValue" --output text; }
 
 infra() {
-  : "${VPC_ID:?set VPC_ID}"; : "${SUBNET_IDS:?set SUBNET_IDS (comma separated public subnets)}"
   aws cloudformation deploy \
     --stack-name "$STACK" --template-file "$HERE/infra.yml" \
     --capabilities CAPABILITY_NAMED_IAM \
-    --parameter-overrides "Project=$PROJECT" "VpcId=$VPC_ID" "SubnetIds=$SUBNET_IDS" \
+    --parameter-overrides "Project=$PROJECT" \
     --no-fail-on-empty-changeset
   aws cloudformation describe-stacks --stack-name "$STACK" --query 'Stacks[0].Outputs' --output table
 }
