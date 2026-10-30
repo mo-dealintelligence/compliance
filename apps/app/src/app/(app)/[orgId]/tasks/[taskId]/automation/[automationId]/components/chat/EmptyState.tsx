@@ -2,6 +2,7 @@ import { Card, CardContent, Skeleton, Text } from '@trycompai/design-system';
 import { brand } from '@trycompai/utils/brand';
 import { useState } from 'react';
 import { AUTOMATION_EXAMPLES, AutomationExample } from '../../constants/automation-examples';
+import { logoDevUrl } from '@/lib/logo-dev';
 
 const brandHost = new URL(brand.websiteUrl).hostname;
 
@@ -20,11 +21,11 @@ function getVendorLogoUrl(vendorName?: string, vendorWebsite?: string): string {
       .replace(/^www\./i, '')
       .split('/')[0]
       .split('?')[0];
-    return `https://img.logo.dev/${cleanDomain}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+    return logoDevUrl(cleanDomain);
   }
 
   if (!vendorName) {
-    return `https://img.logo.dev/${brandHost}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+    return logoDevUrl(brandHost);
   }
 
   // Try to extract domain from vendor name or use a default
@@ -41,17 +42,17 @@ function getVendorLogoUrl(vendorName?: string, vendorWebsite?: string): string {
   const lowerName = vendorName.toLowerCase();
   for (const [key, domain] of Object.entries(vendorDomainMap)) {
     if (lowerName.includes(key)) {
-      return `https://img.logo.dev/${domain}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+      return logoDevUrl(domain);
     }
   }
 
   // Try to extract domain from vendor name if it looks like a URL
   const urlMatch = vendorName.match(/(?:https?:\/\/)?(?:www\.)?([^\/\s]+)/i);
   if (urlMatch) {
-    return `https://img.logo.dev/${urlMatch[1]}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+    return logoDevUrl(urlMatch[1]);
   }
 
-  return `https://img.logo.dev/${brandHost}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+  return logoDevUrl(brandHost);
 }
 
 function VendorCard({
@@ -62,7 +63,7 @@ function VendorCard({
   onExampleClick: (prompt: string) => void;
 }) {
   const [imageError, setImageError] = useState(false);
-  const fallbackUrl = `https://img.logo.dev/${brandHost}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`;
+  const fallbackUrl = logoDevUrl(brandHost);
   const imageUrl = imageError ? fallbackUrl : example.url;
 
   return (

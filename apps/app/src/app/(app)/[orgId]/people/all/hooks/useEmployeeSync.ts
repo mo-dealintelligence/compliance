@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import useSWR from 'swr';
 
 import type { EmployeeSyncConnectionsData, SyncProviderInfo } from '../data/queries';
+import { logoDevUrl } from '@/lib/logo-dev';
 
 type BuiltInSyncProvider = 'google-workspace' | 'rippling' | 'jumpcloud';
 type SyncProvider = string;
@@ -51,17 +52,17 @@ const PROVIDER_CONFIG = {
   'google-workspace': {
     name: 'Google Workspace',
     shortName: 'Google',
-    logo: `https://img.logo.dev/google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true`,
+    logo: logoDevUrl('google.com', '&format=png&retina=true'),
   },
   rippling: {
     name: 'Rippling',
     shortName: 'Rippling',
-    logo: `https://img.logo.dev/rippling.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true`,
+    logo: logoDevUrl('rippling.com', '&format=png&retina=true'),
   },
   jumpcloud: {
     name: 'JumpCloud',
     shortName: 'JumpCloud',
-    logo: `https://img.logo.dev/jumpcloud.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}&format=png&retina=true`,
+    logo: logoDevUrl('jumpcloud.com', '&format=png&retina=true'),
   },
 } as const;
 

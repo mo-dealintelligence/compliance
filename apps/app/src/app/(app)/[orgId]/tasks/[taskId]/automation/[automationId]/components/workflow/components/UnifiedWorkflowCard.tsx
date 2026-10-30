@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useTaskAutomation } from '../../../hooks/use-task-automation';
 import { useSharedChatContext } from '../../../lib/chat-context';
 import { EvaluationCriteriaCard } from '../../evaluation/EvaluationCriteriaCard';
+import { logoDevUrl } from '@/lib/logo-dev';
 
 const brandHost = new URL(brand.websiteUrl).hostname;
 
@@ -76,10 +77,10 @@ export function UnifiedWorkflowCard({
           {(integrationsUsed?.length ? integrationsUsed : [{ link: brandHost }]).map(
             (integration) => (
               <div
-                key={`https://img.logo.dev/${integration.link}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`}
+                key={logoDevUrl(integration.link)}
               >
                 <Image
-                  src={`https://img.logo.dev/${integration.link}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`}
+                  src={logoDevUrl(integration.link)}
                   alt={integration.link}
                   width={20}
                   height={20}

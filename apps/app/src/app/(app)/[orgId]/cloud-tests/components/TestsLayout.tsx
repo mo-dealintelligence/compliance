@@ -17,11 +17,12 @@ import type { Finding, Provider } from '../types';
 import { CloudSettingsModal } from './CloudSettingsModal';
 import { EmptyState } from './EmptyState';
 import { ProviderTabs } from './ProviderTabs';
+import { logoDevUrl } from '@/lib/logo-dev';
 
 const PROVIDER_LOGO: Record<string, string> = {
-  aws: `https://img.logo.dev/aws.amazon.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
-  gcp: `https://img.logo.dev/cloud.google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
-  azure: `https://img.logo.dev/azure.microsoft.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
+  aws: logoDevUrl('aws.amazon.com'),
+  gcp: logoDevUrl('cloud.google.com'),
+  azure: logoDevUrl('azure.microsoft.com'),
 };
 
 const PROVIDER_NAME: Record<string, string> = {
@@ -422,13 +423,13 @@ export function TestsLayout({ initialFindings, initialProviders, orgId }: TestsL
           connectionId={configureProvider.id}
           integrationId={configureProvider.integrationId}
           integrationName={configureProvider.name}
-          integrationLogoUrl={`https://img.logo.dev/${
+          integrationLogoUrl={logoDevUrl(
             configureProvider.integrationId === 'aws'
               ? 'aws.amazon.com'
               : configureProvider.integrationId === 'gcp'
                 ? 'cloud.google.com'
                 : 'azure.com'
-          }?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`}
+          )}
           configureOnly={true}
           onSaved={async () => {
             const savedProvider = configureProvider;

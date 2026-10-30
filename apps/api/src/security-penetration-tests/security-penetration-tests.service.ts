@@ -292,7 +292,7 @@ export class SecurityPenetrationTestsService {
 
   private readonly canonicalWebhookPath =
     '/v1/security-penetration-tests/webhook';
-  private readonly defaultWebhookBaseUrl = 'https://api.trycomp.ai';
+  private readonly defaultWebhookBaseUrl = process.env.BASE_URL ?? 'https://api.trycomp.ai';
   private readonly defaultCompWebhookHosts = new Set([
     'api.trycomp.ai',
     'api.staging.trycomp.ai',

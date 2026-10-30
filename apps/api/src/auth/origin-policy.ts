@@ -36,7 +36,12 @@ function normalizePath(path: string): string {
 
 export function getTrustedOrigins(): string[] {
   const origins = parseOriginList(process.env.AUTH_TRUSTED_ORIGINS);
-  return origins.length > 0 ? origins : [...DEFAULT_TRUSTED_ORIGINS];
+  if (origins.length > 0) return origins;
+  // Self-hosted instances never trust the vendor's hosted domains.
+  if (process.env.SELF_HOSTED === 'true') {
+    return DEFAULT_TRUSTED_ORIGINS.filter((o) => o.startsWith('http://localhost'));
+  }
+  return [...DEFAULT_TRUSTED_ORIGINS];
 }
 
 export function getCompExtensionTrustedOrigins(): string[] {

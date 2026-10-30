@@ -21,6 +21,7 @@ import {
 import { ArrowLeft, CheckmarkFilled, Launch } from '@trycompai/design-system/icons';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { logoDevUrl } from '@/lib/logo-dev';
 
 type CloudProvider = 'aws' | 'gcp' | 'azure' | null;
 type Step = 'choose' | 'connect' | 'validate-aws' | 'success';
@@ -32,7 +33,7 @@ const CLOUD_PROVIDERS = [
     shortName: 'AWS',
     description: 'Scan AWS Security Hub for vulnerabilities and compliance issues',
     color: 'from-orange-500 to-yellow-600',
-    logoUrl: `https://img.logo.dev/aws.amazon.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
+    logoUrl: logoDevUrl('aws.amazon.com'),
     guideUrl: 'https://trycomp.ai/docs/cloud-tests/aws',
   },
   {
@@ -41,7 +42,7 @@ const CLOUD_PROVIDERS = [
     shortName: 'GCP',
     description: 'Monitor GCP Security Command Center for security findings',
     color: 'from-blue-500 to-cyan-600',
-    logoUrl: `https://img.logo.dev/cloud.google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
+    logoUrl: logoDevUrl('cloud.google.com'),
     guideUrl: 'https://trycomp.ai/docs/cloud-tests/gcp',
   },
   {
@@ -50,7 +51,7 @@ const CLOUD_PROVIDERS = [
     shortName: 'Azure',
     description: 'Check Azure Security Center for compliance data',
     color: 'from-blue-600 to-indigo-700',
-    logoUrl: `https://img.logo.dev/azure.microsoft.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`,
+    logoUrl: logoDevUrl('azure.microsoft.com'),
     guideUrl: 'https://trycomp.ai/docs/cloud-tests/azure',
   },
 ];
@@ -417,10 +418,10 @@ export function EmptyState({
             }
             integrationLogoUrl={
               connectDialogProvider === 'gcp'
-                ? `https://img.logo.dev/cloud.google.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`
+                ? logoDevUrl('cloud.google.com')
                 : connectDialogProvider === 'azure'
-                  ? `https://img.logo.dev/azure.microsoft.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`
-                  : `https://img.logo.dev/aws.amazon.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN ?? ''}`
+                  ? logoDevUrl('azure.microsoft.com')
+                  : logoDevUrl('aws.amazon.com')
             }
             onConnected={() => {
               setShowConnectDialog(false);
