@@ -248,7 +248,7 @@ Resources:
             Statement:
               - { Effect: Allow, Action: [logs:CreateLogStream, logs:PutLogEvents], Resource: !GetAtt BuildLogs.Arn }
               - { Effect: Allow, Action: [s3:GetObject, s3:GetObjectVersion], Resource: !Join ['', [!GetAtt SourceBucket.Arn, '/*']] }
-              - { Effect: Allow, Action: [ecr:GetAuthorizationToken], Resource: '*' }
+              - { Effect: Allow, Action: [ecr:GetAuthorizationToken, ecr-public:GetAuthorizationToken, sts:GetServiceBearerToken], Resource: '*' }
               - Effect: Allow
                 Action: [ecr:BatchCheckLayerAvailability, ecr:CompleteLayerUpload, ecr:InitiateLayerUpload, ecr:PutImage, ecr:UploadLayerPart, ecr:BatchGetImage, ecr:GetDownloadUrlForLayer]
                 Resource: [!GetAtt EcrApi.Arn, !GetAtt EcrApp.Arn, !GetAtt EcrPortal.Arn, !GetAtt EcrApiWorker.Arn, !GetAtt EcrAppWorker.Arn, !GetAtt EcrMigrator.Arn]

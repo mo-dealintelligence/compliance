@@ -7,6 +7,7 @@ version: 0.2
 # RUN_MIGRATIONS (true|false), SEED (true|false), TARGETS (space separated).
 
 env:
+  shell: bash
   variables:
     IMAGE_TAG: latest
     RUN_MIGRATIONS: 'false'
@@ -30,21 +31,21 @@ phases:
         keys = [k for k in env if k.startswith('NEXT_PUBLIC_')]
         with open('/tmp/build-args', 'w') as f:
             for k in keys:
-                f.write(f"--build-arg {k}={env[k]}\n")
+                f.write(f"{k}={env[k]}\n")
         print(f"{len(keys)} NEXT_PUBLIC_* build args")
         EOF
-      - export BUILD_ARGS="$(tr '\n' ' ' < /tmp/build-args)"
   build:
     commands:
       - |
         set -e
+        mapfile -t NEXT_ARGS < /tmp/build-args
         for target in $TARGETS; do
           echo "==> building $target"
           docker build -f deploy/Dockerfile --target "$target" \
             --platform linux/amd64 \
             --cache-from "$REGISTRY/$PROJECT-$target:latest" \
             --build-arg BUILDKIT_INLINE_CACHE=1 \
-            $BUILD_ARGS \
+            "${NEXT_ARGS[@]/#/--build-arg=}" \
             -t "$REGISTRY/$PROJECT-$target:$IMAGE_TAG" \
             -t "$REGISTRY/$PROJECT-$target:latest" .
           docker push "$REGISTRY/$PROJECT-$target:$IMAGE_TAG"
@@ -53,6 +54,7 @@ phases:
   post_build:
     commands:
       - |
+        if [ "$CODEBUILD_BUILD_SUCCEEDING" != "1" ]; then echo "build failed; skipping migrations"; exit 1; fi
         if [ "$RUN_MIGRATIONS" = "true" ]; then
           echo "==> running migrations against $DB_HOST"
           PW=$(aws secretsmanager get-secret-value --secret-id "$DB_MASTER_SECRET_ARN" --query SecretString --output text | python3 -c 'import json,sys,urllib.parse; print(urllib.parse.quote(json.load(sys.stdin)["password"], safe=""))')
