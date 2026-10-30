@@ -191,6 +191,19 @@ export class SecurityPenetrationTestsService {
   private readonly logger = new Logger(SecurityPenetrationTestsService.name);
   private readonly macedClient: MacedClient;
 
+  /** Real client, or a proxy that fails with a clear error when the module is inert. */
+  private static inertMacedClient(): MacedClient {
+    const fail = () => {
+      throw new Error(
+        'Penetration testing is not available on this self-hosted instance (MACED_API_KEY not set).',
+      );
+    };
+    return new Proxy({} as MacedClient, {
+      get: (_t, prop) =>
+        prop === 'then' ? undefined : new Proxy(fail, { get: () => fail, apply: fail }),
+    });
+  }
+
   constructor(
     private readonly credits: PentestCreditsService,
     private readonly billingEntitlements: BillingEntitlementsService,
@@ -209,8 +222,12 @@ export class SecurityPenetrationTestsService {
         throw new Error('MACED_API_KEY is required to start the pentest module');
       }
     }
+    if (!apiKey) {
+      this.macedClient = SecurityPenetrationTestsService.inertMacedClient();
+      return;
+    }
     this.macedClient = createMacedClient({
-      apiKey: apiKey ?? 'mc_self_hosted_disabled',
+      apiKey,
       baseUrl: process.env.MACED_API_BASE_URL,
       userAgent: 'comp-api',
       // Disable SDK-level retries. The 0.9.1 retry wrapper reuses the same

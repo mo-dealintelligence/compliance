@@ -64,7 +64,7 @@ RUN cd packages/auth && bun run build \
 # migrator: prisma migrate deploy (+ seed when SEED=true)
 # -----------------------------------------------------------------------------
 FROM workspace AS migrator
-ADD https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
+ADD --chmod=644 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 WORKDIR /app/packages/db
 COPY deploy/migrate.sh /usr/local/bin/migrate.sh
@@ -88,6 +88,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       wget ca-certificates fontconfig fonts-dejavu-core openssl \
  && wget -q -O /usr/local/share/aws-rds-ca-bundle.pem \
       https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem \
+ && chmod 644 /usr/local/share/aws-rds-ca-bundle.pem \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 COPY --from=api-builder --chown=nestjs:nestjs /app/apps/api/dist ./dist
@@ -107,7 +108,7 @@ CMD ["node", "--report-on-fatalerror", "--report-compact", "-r", "./alias-regist
 # api-worker: background tasks (replaces Trigger.dev) on the Lambda Node base
 # -----------------------------------------------------------------------------
 FROM public.ecr.aws/lambda/nodejs:22 AS api-worker
-ADD https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
+ADD --chmod=644 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY --from=api-builder /app/apps/api/dist ./dist
@@ -168,7 +169,7 @@ RUN find /app/packages/db/prisma/schema -name '*.prisma' ! -name 'schema.prisma'
 
 FROM node:${NODE_VERSION}-alpine AS app
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 /lambda-adapter /opt/extensions/lambda-adapter
-ADD https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
+ADD --chmod=644 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 WORKDIR /app
 RUN apk add --no-cache curl
@@ -190,7 +191,7 @@ CMD ["/usr/local/bin/next-entrypoint.sh"]
 # app-worker: the app's background tasks on the Lambda Node base
 # -----------------------------------------------------------------------------
 FROM public.ecr.aws/lambda/nodejs:22 AS app-worker
-ADD https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
+ADD --chmod=644 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY --from=app-builder /app/package.json ./package.json
@@ -235,7 +236,7 @@ RUN find /app/packages/db/prisma/schema -name '*.prisma' ! -name 'schema.prisma'
 
 FROM node:${NODE_VERSION}-alpine AS portal
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 /lambda-adapter /opt/extensions/lambda-adapter
-ADD https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
+ADD --chmod=644 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /usr/local/share/aws-rds-ca-bundle.pem
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/aws-rds-ca-bundle.pem DATABASE_SSL_CA_FILE=/usr/local/share/aws-rds-ca-bundle.pem
 WORKDIR /app
 RUN apk add --no-cache curl
