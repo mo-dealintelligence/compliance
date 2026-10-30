@@ -1,10 +1,17 @@
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import fs from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { frameworkEditorModelSchemas } from './frameworkEditorSchemas';
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
+// Direct Aurora/RDS endpoints chain to the regional RDS CA, which is not in the
+// default trust store; the Docker images ship the RDS global bundle.
+const sslCaFile = process.env.DATABASE_SSL_CA_FILE;
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL!,
+  ...(sslCaFile ? { ssl: { ca: readFileSync(sslCaFile, 'utf8') } } : {}),
+});
 const prisma = new PrismaClient({ adapter });
 
 async function seedJsonFiles(subDirectory: string) {

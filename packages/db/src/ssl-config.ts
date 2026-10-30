@@ -1,6 +1,9 @@
+import { readFileSync } from 'node:fs';
+
 export type SslConfig =
   | undefined
   | { checkServerIdentity: () => undefined }
+  | { ca: string; checkServerIdentity: () => undefined }
   | { rejectUnauthorized: false };
 
 const LOCAL_HOSTNAMES = new Set(['localhost', '127.0.0.1', '::1']);
@@ -23,6 +26,12 @@ export function resolveSslConfig(
 ): SslConfig {
   if (isLocalhostUrl(databaseUrl)) return undefined;
   if (env.PRISMA_ALLOW_INSECURE_TLS === '1') return { rejectUnauthorized: false };
+  // Direct Aurora/RDS endpoints (no RDS Proxy) chain to the regional RDS CA,
+  // which is not in Node's default store. Self-hosted images ship the RDS
+  // global bundle and point here.
+  if (env.DATABASE_SSL_CA_FILE) {
+    return { ca: readFileSync(env.DATABASE_SSL_CA_FILE, 'utf8'), checkServerIdentity: () => undefined };
+  }
   // Verified TLS via Node's default trust store, which includes Amazon Root
   // CA 1 — where AWS RDS Proxy chains terminate. Hostname check is skipped
   // because connections traverse an AWS NLB whose hostname isn't in the RDS
