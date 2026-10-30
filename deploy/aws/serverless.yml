@@ -1,0 +1,58 @@
+# Deal Intelligence self-hosted Comp — single Serverless Framework stack.
+#
+# Account: di-compliance (separate member account; nothing shared with prod).
+# Everything lives here: VPC with a t4g.nano NAT instance (no NAT Gateway),
+# private Aurora Serverless v2, S3, ECR + CodeBuild image pipeline, secrets,
+# five container Lambdas (web via Function URL + CloudFront, workers via async
+# invoke + EventBridge crons), delegated Route 53 zone and ACM certs.
+#
+# Two-phase deploy (images must exist before Lambdas can reference them):
+#   sls deploy --param=phase=infra      # network, db, buckets, ecr, codebuild, zone
+#   deploy.sh build                     # CodeBuild -> ECR (+ migrate/seed)
+#   sls deploy --param=phase=all        # lambdas, function urls, cloudfront, dns
+service: comp
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'prod'}
+  architecture: x86_64
+  deploymentMethod: direct
+  versionFunctions: false
+  logRetentionInDays: 90
+  tags: { Project: comp, Scope: out-of-scope-grc }
+  vpc:
+    securityGroupIds: [!Ref LambdaSecurityGroup]
+    subnetIds: [!Ref PrivateSubnetA, !Ref PrivateSubnetB]
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: [lambda:InvokeFunction]
+          Resource: arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${self:provider.stage}-*Worker
+        - Effect: Allow
+          Action: [s3:ListBucket, s3:GetBucketLocation]
+          Resource: !GetAtt EvidenceBucket.Arn
+        - Effect: Allow
+          Action: [s3:GetObject, s3:PutObject, s3:DeleteObject, s3:GetObjectVersion]
+          Resource: !Join ['', [!GetAtt EvidenceBucket.Arn, '/*']]
+
+custom:
+  phase: ${param:phase, 'all'}
+  registry: ${aws:accountId}.dkr.ecr.${self:provider.region}.amazonaws.com
+  imageTag: ${param:imageTag, 'latest'}
+  zoneName: compliance.dealintelligence.io
+  hosts:
+    app: compliance.dealintelligence.io
+    api: api.compliance.dealintelligence.io
+    portal: portal.compliance.dealintelligence.io
+  vpcCidr: 10.42.0.0/24
+  natInstanceType: t4g.nano
+  natAmi: ${ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64}
+
+functions: ${file(./functions.yml):${self:custom.phase}}
+
+resources:
+  - ${file(./resources-core.yml)}
+  - ${file(./resources-edge.yml):${self:custom.phase}}

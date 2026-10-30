@@ -1,0 +1,46 @@
+# Lambda functions, keyed by deploy phase. `infra` deploys none (images do
+# not exist yet); `all` deploys the three web functions and two workers.
+infra: {}
+
+all:
+  api:
+    image: ${self:custom.registry}/comp-api:${self:custom.imageTag}
+    memorySize: 2048
+    timeout: 120
+    ephemeralStorageSize: 1024
+    environment: ${file(./env.js):api}
+    url: true
+
+  app:
+    image: ${self:custom.registry}/comp-app:${self:custom.imageTag}
+    memorySize: 3008
+    timeout: 120
+    ephemeralStorageSize: 2048
+    environment: ${file(./env.js):app}
+    url: true
+
+  portal:
+    image: ${self:custom.registry}/comp-portal:${self:custom.imageTag}
+    memorySize: 2048
+    timeout: 120
+    ephemeralStorageSize: 1024
+    environment: ${file(./env.js):portal}
+    url: true
+
+  apiWorker:
+    image: ${self:custom.registry}/comp-api-worker:${self:custom.imageTag}
+    memorySize: 2048
+    timeout: 900
+    ephemeralStorageSize: 2048
+    maximumRetryAttempts: 0
+    environment: ${file(./env.js):apiWorker}
+    events: ${file(./schedules-api.yml):events}
+
+  appWorker:
+    image: ${self:custom.registry}/comp-app-worker:${self:custom.imageTag}
+    memorySize: 3008
+    timeout: 900
+    ephemeralStorageSize: 2048
+    maximumRetryAttempts: 0
+    environment: ${file(./env.js):appWorker}
+    events: ${file(./schedules-app.yml):events}

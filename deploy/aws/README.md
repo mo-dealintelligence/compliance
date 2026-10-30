@@ -1,42 +1,35 @@
-# AWS deployment (Serverless Framework, scale-to-zero)
+# AWS deployment (single Serverless Framework stack, scale-to-zero)
 
-Topology (us-east-1, same account as `di-backend-api-prod`):
+Account: `di-compliance` (member of the dealintelligence Organization; nothing
+shared with the production account). Treated as a self-hosted vendor tool,
+outside the SOC 2 system boundary.
 
 ```
-compliance.dealintelligence.io        -> CloudFront -> Lambda URL (comp-app)        Next.js admin
-compliance-api.dealintelligence.io    -> CloudFront -> Lambda URL (comp-api)        NestJS + better-auth
-compliance-portal.dealintelligence.io -> CloudFront -> Lambda URL (comp-portal)     employee portal
-                                         +-> worker Lambdas (comp-app-worker, comp-api-worker) via async invoke + EventBridge crons
-trust.dealintelligence.io  -> existing DI trust center (unchanged)
-Aurora Serverless v2 Postgres 16 (0–2 ACU, auto-pause), public TLS endpoint
-S3 comp-evidence-<acct> (SSE, versioned, private)
-Trigger.dev Cloud (2 projects), Resend, Upstash Redis — SaaS
+compliance.dealintelligence.io         -> CloudFront -> Lambda URL (comp-app)     Next.js admin
+api.compliance.dealintelligence.io     -> CloudFront -> Lambda URL (comp-api)     NestJS + better-auth
+portal.compliance.dealintelligence.io  -> CloudFront -> Lambda URL (comp-portal)  employee portal
+                                          +-> comp-prod-apiWorker / comp-prod-appWorker (async invoke + EventBridge crons)
+VPC 10.42.0.0/24: 1 public subnet (t4g.nano NAT instance), 2 private subnets (Lambdas, Aurora, CodeBuild)
+Aurora Serverless v2 Postgres 16, private, 0-2 ACU, auto-pause 10 min, force SSL
+S3 evidence bucket (SSE, versioned, private) via gateway endpoint; S3 source bucket for CodeBuild
+Route 53 zone compliance.dealintelligence.io (delegated by one NS record in the prod zone)
+Outside AWS: Resend (email), Google Workspace (sign-in). Trust center stays on SafeBase.
 ```
-
-Why public DB endpoint: Trigger.dev Cloud workers (which send every email and
-run schedules) must reach Postgres from outside AWS, so the Lambdas stay out of
-the VPC as well and no NAT gateway is needed. Protection: `rds.force_ssl=1`,
-32-char managed master password in Secrets Manager, security group, and the
-cluster is only reachable by password. Revisit (VPC + NAT + self-hosted
-Trigger) if the tool ever enters SOC 2 scope.
-
-Costs at idle ≈ $0 for compute/API; Aurora pauses after 10 min idle
-(storage only); S3 pennies.
 
 ## One-time
 
 ```
-export AWS_PROFILE=... AWS_DEFAULT_REGION=us-east-1
-deploy/aws/deploy.sh infra
-deploy/aws/secrets.sh init        # writes comp/env/{api,app,portal} from a filled template
-SEED=true deploy/aws/deploy.sh build      # builds images, migrates, seeds frameworks
-export HOSTED_ZONE_ID=Z...
-deploy/aws/deploy.sh functions
+export AWS_PROFILE=<management account> AWS_DEFAULT_REGION=us-east-1
+export COMP_ACCOUNT_ID=<di-compliance account id>   # deploy.sh assumes OrganizationAccountAccessRole
+deploy/aws/deploy.sh infra                            # ~15 min (Aurora); prints the zone's name servers
+PROD_ZONE_ID=Z0889255QBJMQ8IWV1X2 deploy/aws/deploy.sh delegate   # NS record in dealintelligence.io (prod creds)
+SECRETS_INPUT=~/comp-input.json deploy/aws/secrets.sh init        # writes comp/env/{api,app,portal}
+SEED=true deploy/aws/deploy.sh build                  # CodeBuild: images -> ECR, migrate, seed frameworks
+deploy/aws/deploy.sh functions                        # lambdas + cloudfront + dns
 ```
 
-Then: deploy Trigger.dev tasks (`bunx trigger.dev deploy` in `apps/app` and
-`apps/api` with `TRIGGER_PROJECT_REF`), add the Google OAuth redirect
-`https://compliance-api.dealintelligence.io/api/auth/callback/google`, and sign in.
+Then add the Google OAuth redirect `https://api.compliance.dealintelligence.io/api/auth/callback/google`
+and the JS origins for the three hostnames, and sign in.
 
 ## Every release
 
@@ -44,11 +37,13 @@ Then: deploy Trigger.dev tasks (`bunx trigger.dev deploy` in `apps/app` and
 deploy/aws/deploy.sh build && deploy/aws/deploy.sh functions
 ```
 
+Cron tasks: after changing `schedules.task` definitions, regenerate
+`apps/*/src/trigger/**/_registry.ts` + `_schedules.json`
+(`node packages/trigger-shim/bin/gen-registry.mjs <dir>`) and
+`deploy/aws/schedules-{api,app}.yml` (`node deploy/aws/gen-schedules.mjs <json>`).
+
 ## Limits worth knowing
 
-- Lambda function URLs cap request bodies at 6 MB; larger uploads go through
-  presigned S3 URLs (the app does this for policies and task attachments).
-- Web Lambdas time out at 120 s; background work runs on the worker Lambdas
-  (15 min) and EventBridge crons. CloudFront fronts the function URLs only to
-  provide the custom hostnames and TLS.
-- Cold start for the Next.js app is a few seconds after idle.
+- Lambda function URLs cap request bodies at 6 MB; larger uploads use presigned S3 URLs.
+- Web Lambdas: 120 s; workers: 15 min. CloudFront exists only for hostnames + TLS.
+- The NAT instance is the single egress path for private subnets (t4g.nano, ~$3/mo).

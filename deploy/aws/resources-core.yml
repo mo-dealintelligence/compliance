@@ -1,0 +1,318 @@
+Resources:
+  # ---------------------------------------------------------------- Network
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: ${self:custom.vpcCidr}
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags: [{ Key: Name, Value: ${self:service}-vpc }]
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+  VpcGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties: { VpcId: !Ref Vpc, InternetGatewayId: !Ref InternetGateway }
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: !Select [0, !Cidr [!GetAtt Vpc.CidrBlock, 4, 6]]
+      AvailabilityZone: !Select [0, !GetAZs '']
+      MapPublicIpOnLaunch: true
+      Tags: [{ Key: Name, Value: ${self:service}-public }]
+  PrivateSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: !Select [1, !Cidr [!GetAtt Vpc.CidrBlock, 4, 6]]
+      AvailabilityZone: !Select [0, !GetAZs '']
+      Tags: [{ Key: Name, Value: ${self:service}-private-a }]
+  PrivateSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: !Select [2, !Cidr [!GetAtt Vpc.CidrBlock, 4, 6]]
+      AvailabilityZone: !Select [1, !GetAZs '']
+      Tags: [{ Key: Name, Value: ${self:service}-private-b }]
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties: { VpcId: !Ref Vpc }
+  PublicDefaultRoute:
+    Type: AWS::EC2::Route
+    DependsOn: VpcGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  PublicSubnetRoute:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: { SubnetId: !Ref PublicSubnet, RouteTableId: !Ref PublicRouteTable }
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties: { VpcId: !Ref Vpc }
+  PrivateDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      InstanceId: !Ref NatInstance
+  PrivateSubnetARoute:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: { SubnetId: !Ref PrivateSubnetA, RouteTableId: !Ref PrivateRouteTable }
+  PrivateSubnetBRoute:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: { SubnetId: !Ref PrivateSubnetB, RouteTableId: !Ref PrivateRouteTable }
+  S3Endpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcId: !Ref Vpc
+      ServiceName: com.amazonaws.${aws:region}.s3
+      VpcEndpointType: Gateway
+      RouteTableIds: [!Ref PrivateRouteTable]
+
+  # ---------------------------------------------------------------- NAT instance (t4g.nano, AL2023, nftables masquerade)
+  NatSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: NAT instance - forwards outbound traffic for private subnets
+      VpcId: !Ref Vpc
+      SecurityGroupIngress:
+        - { IpProtocol: '-1', CidrIp: '${self:custom.vpcCidr}', Description: from VPC }
+  NatInstance:
+    Type: AWS::EC2::Instance
+    DependsOn: PublicDefaultRoute
+    Properties:
+      ImageId: ${self:custom.natAmi}
+      InstanceType: ${self:custom.natInstanceType}
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds: [!Ref NatSecurityGroup]
+      SourceDestCheck: false
+      Tags: [{ Key: Name, Value: ${self:service}-nat-instance }]
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          set -e
+          echo 'net.ipv4.ip_forward = 1' > /etc/sysctl.d/90-nat.conf
+          sysctl -p /etc/sysctl.d/90-nat.conf
+          IFACE=$(ip -o -4 route show to default | awk '{print $5}')
+          cat > /etc/nftables.conf <<EOF
+          table ip nat {
+            chain postrouting {
+              type nat hook postrouting priority 100;
+              oifname "$IFACE" masquerade
+            }
+          }
+          EOF
+          systemctl enable --now nftables
+  NatEip:
+    Type: AWS::EC2::EIP
+    Properties: { Domain: vpc, InstanceId: !Ref NatInstance }
+
+  # ---------------------------------------------------------------- Security groups
+  LambdaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: comp lambdas
+      VpcId: !Ref Vpc
+  BuildSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: comp codebuild (migrations)
+      VpcId: !Ref Vpc
+  DbSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: comp aurora - postgres from lambdas and codebuild only
+      VpcId: !Ref Vpc
+      SecurityGroupIngress:
+        - { IpProtocol: tcp, FromPort: 5432, ToPort: 5432, SourceSecurityGroupId: !Ref LambdaSecurityGroup }
+        - { IpProtocol: tcp, FromPort: 5432, ToPort: 5432, SourceSecurityGroupId: !Ref BuildSecurityGroup }
+
+  # ---------------------------------------------------------------- Database (private, scale-to-zero)
+  DbSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: comp aurora private subnets
+      SubnetIds: [!Ref PrivateSubnetA, !Ref PrivateSubnetB]
+  DbClusterParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    Properties:
+      Description: comp aurora-postgresql16 force ssl
+      Family: aurora-postgresql16
+      Parameters: { rds.force_ssl: '1' }
+  DbCluster:
+    Type: AWS::RDS::DBCluster
+    DeletionPolicy: Snapshot
+    UpdateReplacePolicy: Snapshot
+    Properties:
+      DBClusterIdentifier: ${self:service}-db
+      Engine: aurora-postgresql
+      EngineVersion: '16.11'
+      EngineMode: provisioned
+      DatabaseName: comp
+      MasterUsername: comp
+      ManageMasterUserPassword: true
+      StorageEncrypted: true
+      DBSubnetGroupName: !Ref DbSubnetGroup
+      DBClusterParameterGroupName: !Ref DbClusterParameterGroup
+      VpcSecurityGroupIds: [!Ref DbSecurityGroup]
+      BackupRetentionPeriod: 14
+      DeletionProtection: true
+      EnableCloudwatchLogsExports: [postgresql]
+      ServerlessV2ScalingConfiguration: { MinCapacity: 0, MaxCapacity: 2, SecondsUntilAutoPause: 600 }
+  DbInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: ${self:service}-db-1
+      DBClusterIdentifier: !Ref DbCluster
+      Engine: aurora-postgresql
+      DBInstanceClass: db.serverless
+      PubliclyAccessible: false
+
+  # ---------------------------------------------------------------- Storage
+  EvidenceBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: ${self:service}-evidence-${aws:accountId}
+      VersioningConfiguration: { Status: Enabled }
+      BucketEncryption:
+        ServerSideEncryptionConfiguration: [{ ServerSideEncryptionByDefault: { SSEAlgorithm: AES256 } }]
+      PublicAccessBlockConfiguration: { BlockPublicAcls: true, BlockPublicPolicy: true, IgnorePublicAcls: true, RestrictPublicBuckets: true }
+      CorsConfiguration:
+        CorsRules:
+          - AllowedMethods: [GET, PUT, HEAD]
+            AllowedOrigins: ['https://${self:custom.hosts.app}', 'https://${self:custom.hosts.portal}']
+            AllowedHeaders: ['*']
+            MaxAge: 3000
+  SourceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:service}-build-source-${aws:accountId}
+      VersioningConfiguration: { Status: Enabled }
+      BucketEncryption:
+        ServerSideEncryptionConfiguration: [{ ServerSideEncryptionByDefault: { SSEAlgorithm: AES256 } }]
+      PublicAccessBlockConfiguration: { BlockPublicAcls: true, BlockPublicPolicy: true, IgnorePublicAcls: true, RestrictPublicBuckets: true }
+      LifecycleConfiguration:
+        Rules: [{ Status: Enabled, ExpirationInDays: 30, NoncurrentVersionExpirationInDays: 7 }]
+
+  # ---------------------------------------------------------------- App S3 user (static keys: Trigger-style workers need them too)
+  AppUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: ${self:service}-app-s3
+      Policies:
+        - PolicyName: evidence-bucket-rw
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - { Effect: Allow, Action: [s3:ListBucket, s3:GetBucketLocation], Resource: !GetAtt EvidenceBucket.Arn }
+              - { Effect: Allow, Action: [s3:GetObject, s3:PutObject, s3:DeleteObject, s3:GetObjectVersion], Resource: !Join ['', [!GetAtt EvidenceBucket.Arn, '/*']] }
+  AppUserKey:
+    Type: AWS::IAM::AccessKey
+    Properties: { UserName: !Ref AppUser }
+  AppUserKeySecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: ${self:service}/app-s3-user
+      SecretString: !Join ['', ['{"APP_AWS_ACCESS_KEY_ID":"', !Ref AppUserKey, '","APP_AWS_SECRET_ACCESS_KEY":"', !GetAtt AppUserKey.SecretAccessKey, '"}']]
+  ApiEnvSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties: { Name: '${self:service}/env/api', SecretString: '{}' }
+  AppEnvSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties: { Name: '${self:service}/env/app', SecretString: '{}' }
+  PortalEnvSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties: { Name: '${self:service}/env/portal', SecretString: '{}' }
+
+  # ---------------------------------------------------------------- Images: ECR + CodeBuild (runs in the VPC so it can migrate the DB)
+  EcrApi: { Type: AWS::ECR::Repository, Properties: { RepositoryName: comp-api, ImageScanningConfiguration: { ScanOnPush: true } } }
+  EcrApp: { Type: AWS::ECR::Repository, Properties: { RepositoryName: comp-app, ImageScanningConfiguration: { ScanOnPush: true } } }
+  EcrPortal: { Type: AWS::ECR::Repository, Properties: { RepositoryName: comp-portal, ImageScanningConfiguration: { ScanOnPush: true } } }
+  EcrApiWorker: { Type: AWS::ECR::Repository, Properties: { RepositoryName: comp-api-worker, ImageScanningConfiguration: { ScanOnPush: true } } }
+  EcrAppWorker: { Type: AWS::ECR::Repository, Properties: { RepositoryName: comp-app-worker, ImageScanningConfiguration: { ScanOnPush: true } } }
+  EcrMigrator: { Type: AWS::ECR::Repository, Properties: { RepositoryName: comp-migrator, ImageScanningConfiguration: { ScanOnPush: true } } }
+  BuildLogs:
+    Type: AWS::Logs::LogGroup
+    Properties: { LogGroupName: '/codebuild/${self:service}', RetentionInDays: 90 }
+  BuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement: [{ Effect: Allow, Principal: { Service: codebuild.amazonaws.com }, Action: sts:AssumeRole }]
+      Policies:
+        - PolicyName: build
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - { Effect: Allow, Action: [logs:CreateLogStream, logs:PutLogEvents], Resource: !GetAtt BuildLogs.Arn }
+              - { Effect: Allow, Action: [s3:GetObject, s3:GetObjectVersion], Resource: !Join ['', [!GetAtt SourceBucket.Arn, '/*']] }
+              - { Effect: Allow, Action: [ecr:GetAuthorizationToken], Resource: '*' }
+              - Effect: Allow
+                Action: [ecr:BatchCheckLayerAvailability, ecr:CompleteLayerUpload, ecr:InitiateLayerUpload, ecr:PutImage, ecr:UploadLayerPart, ecr:BatchGetImage, ecr:GetDownloadUrlForLayer]
+                Resource: [!GetAtt EcrApi.Arn, !GetAtt EcrApp.Arn, !GetAtt EcrPortal.Arn, !GetAtt EcrApiWorker.Arn, !GetAtt EcrAppWorker.Arn, !GetAtt EcrMigrator.Arn]
+              - { Effect: Allow, Action: [secretsmanager:GetSecretValue], Resource: [!Ref AppEnvSecret, !GetAtt DbCluster.MasterUserSecret.SecretArn] }
+              - { Effect: Allow, Action: [ec2:CreateNetworkInterface, ec2:DescribeNetworkInterfaces, ec2:DeleteNetworkInterface, ec2:DescribeSubnets, ec2:DescribeSecurityGroups, ec2:DescribeDhcpOptions, ec2:DescribeVpcs], Resource: '*' }
+              - Effect: Allow
+                Action: [ec2:CreateNetworkInterfacePermission]
+                Resource: arn:aws:ec2:${aws:region}:${aws:accountId}:network-interface/*
+  BuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: ${self:service}-images
+      ServiceRole: !GetAtt BuildRole.Arn
+      Source: { Type: S3, Location: !Join ['/', [!Ref SourceBucket, 'source.zip']], BuildSpec: deploy/aws/buildspec.yml }
+      Artifacts: { Type: NO_ARTIFACTS }
+      VpcConfig:
+        VpcId: !Ref Vpc
+        Subnets: [!Ref PrivateSubnetA, !Ref PrivateSubnetB]
+        SecurityGroupIds: [!Ref BuildSecurityGroup]
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_LARGE
+        Image: aws/codebuild/standard:7.0
+        PrivilegedMode: true
+        EnvironmentVariables:
+          - { Name: AWS_ACCOUNT_ID, Value: !Ref 'AWS::AccountId' }
+          - { Name: PROJECT, Value: comp }
+          - { Name: DB_MASTER_SECRET_ARN, Value: !GetAtt DbCluster.MasterUserSecret.SecretArn }
+          - { Name: DB_HOST, Value: !GetAtt DbCluster.Endpoint.Address }
+          - { Name: APP_ENV_SECRET, Value: !Ref AppEnvSecret }
+      LogsConfig: { CloudWatchLogs: { Status: ENABLED, GroupName: !Ref BuildLogs } }
+      TimeoutInMinutes: 60
+
+  # ---------------------------------------------------------------- DNS zone (delegated from dealintelligence.io in the prod account) + certs
+  HostedZone:
+    Type: AWS::Route53::HostedZone
+    Properties: { Name: ${self:custom.zoneName} }
+  CertApp:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: ${self:custom.hosts.app}
+      ValidationMethod: DNS
+      DomainValidationOptions: [{ DomainName: ${self:custom.hosts.app}, HostedZoneId: !Ref HostedZone }]
+  CertApi:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: ${self:custom.hosts.api}
+      ValidationMethod: DNS
+      DomainValidationOptions: [{ DomainName: ${self:custom.hosts.api}, HostedZoneId: !Ref HostedZone }]
+  CertPortal:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: ${self:custom.hosts.portal}
+      ValidationMethod: DNS
+      DomainValidationOptions: [{ DomainName: ${self:custom.hosts.portal}, HostedZoneId: !Ref HostedZone }]
+
+Outputs:
+  HostedZoneNameServers: { Value: !Join [',', !GetAtt HostedZone.NameServers] }
+  DbEndpoint: { Value: !GetAtt DbCluster.Endpoint.Address }
+  DbMasterSecretArn: { Value: !GetAtt DbCluster.MasterUserSecret.SecretArn }
+  EvidenceBucket: { Value: !Ref EvidenceBucket }
+  SourceBucket: { Value: !Ref SourceBucket }
+  BuildProject: { Value: !Ref BuildProject }
+  AppUserKeySecret: { Value: !Ref AppUserKeySecret }
+  NatPublicIp: { Value: !Ref NatEip }

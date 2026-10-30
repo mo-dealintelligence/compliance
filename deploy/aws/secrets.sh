@@ -11,7 +11,7 @@
 # LOGO_DEV_TOKEN (optional).
 set -euo pipefail
 export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
-PROJECT="${PROJECT:-comp}"; STACK="${PROJECT}-infra"
+PROJECT="${PROJECT:-comp}"; STACK="${PROJECT}-${STAGE:-prod}"
 ROOT_DOMAIN="dealintelligence.io"
 
 out() { aws cloudformation describe-stacks --stack-name "$STACK" --query "Stacks[0].Outputs[?OutputKey=='$1'].OutputValue" --output text; }
@@ -37,7 +37,7 @@ import json, sys
 (inp, db_url, bucket, s3_json, auth_secret, secret_key, reval, unsub, internal,
  svc_trigger, svc_portal, root) = sys.argv[1:]
 ext = json.load(open(inp)); s3 = json.loads(s3_json)
-app_url, api_url, portal_url, trust_url = (f"https://{p}.{root}" for p in ("compliance","compliance-api","compliance-portal","trust"))
+app_url, api_url, portal_url, trust_url = ("https://compliance." + root, "https://api.compliance." + root, "https://portal.compliance." + root, "https://trust." + root)
 brand = {
   "NEXT_PUBLIC_BRAND_NAME": "Deal Intelligence",
   "NEXT_PUBLIC_BRAND_PRODUCT_NAME": "Deal Intelligence Compliance",
@@ -51,7 +51,7 @@ shared = {
   "DATABASE_URL": db_url, "SELF_HOSTED": "true", "NODE_ENV": "production",
   "COOKIE_DOMAIN": f".{root}",
   "AUTH_TRUSTED_ORIGINS": ",".join([app_url, portal_url, api_url, trust_url]),
-  "AUTH_TRUSTED_ORIGIN_SUFFIXES": root,
+  "AUTH_TRUSTED_ORIGIN_SUFFIXES": "compliance." + root,
   "RESEND_API_KEY": ext.get("RESEND_API_KEY",""),
   "RESEND_DOMAIN": f"mail.{root}",
   "RESEND_FROM_SYSTEM": f"Deal Intelligence <noreply@mail.{root}>",
