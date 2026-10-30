@@ -19,11 +19,10 @@ Outside AWS: Resend (email), Google Workspace (sign-in). Trust center stays on S
 ## One-time
 
 ```
-export AWS_PROFILE=<management account> AWS_DEFAULT_REGION=us-east-1
-export COMP_ACCOUNT_ID=<di-compliance account id>   # deploy.sh assumes OrganizationAccountAccessRole
+cp deploy/aws/.env.example deploy/aws/.env            # fill in the prod keys; git-ignored, scripts source it
 deploy/aws/deploy.sh infra                            # ~15 min (Aurora); prints the zone's name servers
-PROD_ZONE_ID=Z0889255QBJMQ8IWV1X2 deploy/aws/deploy.sh delegate   # NS record in dealintelligence.io (prod creds)
-SECRETS_INPUT=~/comp-input.json deploy/aws/secrets.sh init        # writes comp/env/{api,app,portal}
+deploy/aws/deploy.sh delegate                         # NS record in dealintelligence.io (prod creds)
+deploy/aws/secrets.sh init                            # writes comp/env/{api,app,portal}
 SEED=true deploy/aws/deploy.sh build                  # CodeBuild: images -> ECR, migrate, seed frameworks
 deploy/aws/deploy.sh functions                        # lambdas + cloudfront + dns
 deploy/aws/smoke.sh                                   # hits the three hostnames

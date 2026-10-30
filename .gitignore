@@ -122,3 +122,4 @@ scripts/di-migration/data/
 
 # app worker bundle (built in Docker)
 apps/app/worker/
+deploy/aws/.env

@@ -10,7 +10,21 @@
 # values: RESEND_API_KEY, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, OPENAI_API_KEY,
 # LOGO_DEV_TOKEN (optional).
 set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Load deploy/aws/.env when present; a stale session token from an earlier
+# assume-role would otherwise break the long-term keys.
+if [ -f "$HERE/.env" ]; then set -a; . "$HERE/.env"; set +a; fi
+unset AWS_SESSION_TOKEN
 export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
+assume_role() {
+  [ -z "${COMP_ACCOUNT_ID:-}" ] && return 0
+  [ "$(aws sts get-caller-identity --query Account --output text)" = "$COMP_ACCOUNT_ID" ] && return 0
+  local creds; creds="$(aws sts assume-role --role-arn "arn:aws:iam::${COMP_ACCOUNT_ID}:role/OrganizationAccountAccessRole" --role-session-name comp-secrets --query Credentials --output json)"
+  export AWS_ACCESS_KEY_ID="$(python3 -c 'import json,sys; print(json.load(sys.stdin)["AccessKeyId"])' <<<"$creds")"
+  export AWS_SECRET_ACCESS_KEY="$(python3 -c 'import json,sys; print(json.load(sys.stdin)["SecretAccessKey"])' <<<"$creds")"
+  export AWS_SESSION_TOKEN="$(python3 -c 'import json,sys; print(json.load(sys.stdin)["SessionToken"])' <<<"$creds")"
+}
+assume_role
 PROJECT="${PROJECT:-comp}"; STACK="${PROJECT}-${STAGE:-prod}"
 ROOT_DOMAIN="dealintelligence.io"
 

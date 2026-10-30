@@ -14,6 +14,10 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../.." && pwd)"
+# Load deploy/aws/.env when present; a stale session token from an earlier
+# assume-role would otherwise break the long-term keys.
+if [ -f "$HERE/.env" ]; then set -a; . "$HERE/.env"; set +a; fi
+unset AWS_SESSION_TOKEN
 export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
 STAGE="${STAGE:-prod}"
 STACK="comp-${STAGE}"
@@ -23,6 +27,7 @@ assume_role() {
   [ -z "${COMP_ACCOUNT_ID:-}" ] && return 0
   local current; current="$(aws sts get-caller-identity --query Account --output text)"
   [ "$current" = "$COMP_ACCOUNT_ID" ] && return 0
+  unset AWS_SESSION_TOKEN
   local creds
   creds="$(aws sts assume-role --role-arn "arn:aws:iam::${COMP_ACCOUNT_ID}:role/OrganizationAccountAccessRole" \
            --role-session-name comp-deploy --duration-seconds 3600 --query 'Credentials' --output json)"
