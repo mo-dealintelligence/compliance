@@ -299,6 +299,7 @@ describe('EvidenceFormsController', () => {
         mockAuthContext,
         'security-awareness',
         body,
+        {} as AuthenticatedRequest,
       );
 
       expect(result).toEqual(mockResult);
@@ -391,6 +392,7 @@ describe('EvidenceFormsController', () => {
         'security-awareness',
         'sub_1',
         body,
+        {} as AuthenticatedRequest,
       );
 
       expect(result).toEqual(mockResult);
@@ -414,6 +416,7 @@ describe('EvidenceFormsController', () => {
         'org_1',
         mockAuthContext,
         body,
+        {} as AuthenticatedRequest,
       );
 
       expect(result).toEqual(mockResult);

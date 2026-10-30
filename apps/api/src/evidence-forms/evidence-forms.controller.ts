@@ -25,6 +25,7 @@ import {
 } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
+import { db } from '@db';
 import { EvidenceFormsService } from './evidence-forms.service';
 
 @ApiTags('Evidence Forms')
@@ -42,6 +43,45 @@ export class EvidenceFormsController {
     private readonly evidenceFormsService: EvidenceFormsService,
     private readonly actingUser: ActingUserResolver,
   ) {}
+
+  /**
+   * Session callers already carry userId/roles. API-key and service-token
+   * callers do not, so resolve the acting member the same way
+   * `upload-submission` does (key creator → oldest owner) and hydrate the
+   * auth context with that member's id and roles. Lets evidence forms be
+   * submitted/reviewed by automation while keeping attribution to a real,
+   * active member.
+   */
+  private async withActingUser(
+    req: AuthenticatedRequest,
+    organizationId: string,
+    authContext: AuthContextType,
+  ): Promise<AuthContextType> {
+    if (authContext.userId) return authContext;
+    const acting = await this.actingUser.resolve(req, organizationId);
+    if (!acting.userId) {
+      throw new BadRequestException(
+        'Cannot attribute this request — your organization must have at least one user with the "owner" role.',
+      );
+    }
+    const member = await db.member.findFirst({
+      where: {
+        userId: acting.userId,
+        organizationId,
+        deactivated: false,
+        isActive: true,
+      },
+      select: { id: true, role: true },
+    });
+    return {
+      ...authContext,
+      userId: acting.userId,
+      memberId: member?.id ?? acting.memberId,
+      userRoles: member?.role
+        ? member.role.split(',').map((r) => r.trim()).filter(Boolean)
+        : authContext.userRoles,
+    };
+  }
 
   @Get()
   @RequirePermission('evidence', 'read')
@@ -208,12 +248,13 @@ export class EvidenceFormsController {
     @AuthContext() authContext: AuthContextType,
     @Param('formType') formType: string,
     @Body() body: unknown,
+    @Req() req: AuthenticatedRequest,
   ) {
     return this.evidenceFormsService.submitForm({
       organizationId,
       formType,
       payload: body,
-      authContext,
+      authContext: await this.withActingUser(req, organizationId, authContext),
     });
   }
 
@@ -258,13 +299,14 @@ export class EvidenceFormsController {
     @Param('formType') formType: string,
     @Param('submissionId') submissionId: string,
     @Body() body: unknown,
+    @Req() req: AuthenticatedRequest,
   ) {
     return this.evidenceFormsService.reviewSubmission({
       organizationId,
       formType,
       submissionId,
       payload: body,
-      authContext,
+      authContext: await this.withActingUser(req, organizationId, authContext),
     });
   }
 
@@ -279,10 +321,11 @@ export class EvidenceFormsController {
     @OrganizationId() organizationId: string,
     @AuthContext() authContext: AuthContextType,
     @Body() body: unknown,
+    @Req() req: AuthenticatedRequest,
   ) {
     return this.evidenceFormsService.uploadFile({
       organizationId,
-      authContext,
+      authContext: await this.withActingUser(req, organizationId, authContext),
       payload: body,
     });
   }
