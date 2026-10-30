@@ -11,7 +11,7 @@
 #   deploy/aws/secrets.sh sync-derived        # add URL aliases + ENCRYPTION_KEY to existing secrets
 #
 # SECRETS_INPUT is a JSON file you keep OUTSIDE the repo with third-party
-# values: RESEND_API_KEY, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, OPENAI_API_KEY,
+# values: RESEND_API_KEY, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET, ANTHROPIC_API_KEY, OPENAI_API_KEY,
 # LOGO_DEV_TOKEN (optional).
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -94,7 +94,7 @@ shared = {
   "APP_AWS_KNOWLEDGE_BASE_BUCKET": bucket,
   "APP_AWS_ACCESS_KEY_ID": s3["APP_AWS_ACCESS_KEY_ID"],
   "APP_AWS_SECRET_ACCESS_KEY": s3["APP_AWS_SECRET_ACCESS_KEY"],
-  "OPENAI_API_KEY": ext.get("OPENAI_API_KEY",""),
+  "OPENAI_API_KEY": ext.get("OPENAI_API_KEY",""), "ANTHROPIC_API_KEY": ext.get("ANTHROPIC_API_KEY",""),
   "NEXT_PUBLIC_APP_URL": app_url, "NEXT_PUBLIC_API_URL": api_url,
   "NEXT_PUBLIC_PORTAL_URL": portal_url, "NEXT_PUBLIC_TRUST_URL": trust_url,
   **brand,
