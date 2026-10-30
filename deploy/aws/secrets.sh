@@ -25,7 +25,7 @@ init() {
   db_host="$(out DbEndpoint)"; db_secret="$(out DbMasterSecretArn)"
   pw="$(get_secret "$db_secret" | python3 -c 'import json,sys,urllib.parse; print(urllib.parse.quote(json.load(sys.stdin)["password"], safe=""))')"
   s3_secret="$(get_secret "$(out AppUserKeySecret)")"
-  local db_url="postgresql://comp:${pw}@${db_host}:5432/comp?sslmode=require"
+  local db_url="postgresql://comp:${pw}@${db_host}:5432/comp?sslmode=require&connect_timeout=60"
   local bucket; bucket="$(out EvidenceBucket)"
 
   local auth_secret secret_key reval unsub internal svc_trigger svc_portal
@@ -108,6 +108,13 @@ show() { get_secret "$PROJECT/env/$1" | python3 -c 'import json,sys; d=json.load
 
 case "${1:-}" in
   init) init ;;
+  fix-db-url)
+    # Append connect_timeout to DATABASE_URL in all three secrets (auto-paused Aurora wake-up).
+    for s in api app portal; do
+      cur="$(get_secret "$PROJECT/env/$s")"
+      new="$(python3 -c 'import json,sys; d=json.load(sys.stdin); u=d["DATABASE_URL"]; d["DATABASE_URL"]=u if "connect_timeout" in u else u+"&connect_timeout=60"; print(json.dumps(d))' <<<"$cur")"
+      put_secret "$PROJECT/env/$s" "$new"; echo "patched $s.DATABASE_URL"
+    done ;;
   set) set_key "$2" "$3" "$4" ;;
   show) show "$2" ;;
   *) sed -n 2,13p "$0"; exit 1 ;;

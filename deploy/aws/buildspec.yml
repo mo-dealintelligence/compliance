@@ -59,7 +59,7 @@ phases:
           echo "==> running migrations against $DB_HOST"
           PW=$(aws secretsmanager get-secret-value --secret-id "$DB_MASTER_SECRET_ARN" --query SecretString --output text | python3 -c 'import json,sys,urllib.parse; print(urllib.parse.quote(json.load(sys.stdin)["password"], safe=""))')
           docker run --rm \
-            -e DATABASE_URL="postgresql://comp:${PW}@${DB_HOST}:5432/comp?sslmode=require" \
+            -e DATABASE_URL="postgresql://comp:${PW}@${DB_HOST}:5432/comp?sslmode=require&connect_timeout=60" \
             -e SEED="$SEED" \
             "$REGISTRY/$PROJECT-migrator:$IMAGE_TAG"
         fi

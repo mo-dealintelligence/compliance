@@ -5,16 +5,14 @@ set -euo pipefail
 
 : "${DATABASE_URL:?DATABASE_URL is required}"
 
-# Aurora Serverless v2 may be auto-paused (0 ACU); the first connection wakes
-# it and can take ~30 s. Retry instead of failing the deploy.
-echo "==> waiting for database"
-for i in $(seq 1 20); do
-  if bunx prisma db execute --schema=prisma/schema --stdin <<<'SELECT 1' >/dev/null 2>&1; then break; fi
-  echo "   not reachable yet (attempt $i/20), retrying in 15s"; sleep 15
-done
-
+# Aurora Serverless v2 may be auto-paused (0 ACU). The first connection wakes
+# it, which can take ~30-60 s, so retry the migration itself.
 echo "==> prisma migrate deploy"
-bunx prisma migrate deploy --schema=prisma/schema
+for i in $(seq 1 10); do
+  if bunx prisma migrate deploy --schema=prisma/schema; then break; fi
+  [ "$i" = 10 ] && { echo "database still unreachable after 10 attempts"; exit 1; }
+  echo "   attempt $i failed (database waking up?), retrying in 20s"; sleep 20
+done
 
 # The generate_prefixed_cuid() helper is created by migrations, but older
 # dumps may lack it. Re-applying is idempotent (CREATE OR REPLACE).
