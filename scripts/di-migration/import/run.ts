@@ -118,8 +118,8 @@ async function importControls() {
   await resolveFramework();
   const fi = state.frameworkInstanceId!;
   for (const c of plan.controls) {
+    const reqId = state.requirementIds[c.requirement ?? c.identifier];
     if (!state.controls[c.identifier]) {
-      const reqId = state.requirementIds[c.identifier];
       if (!reqId) log(`  ! no Comp requirement for ${c.identifier}; creating control unmapped`);
       log(`control: ${c.title}`);
       if (dryRun) continue;

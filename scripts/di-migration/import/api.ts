@@ -15,15 +15,25 @@ export class CompApi {
   ): Promise<T> {
     const url = new URL(`/v1${path}`, this.baseUrl);
     for (const [k, v] of Object.entries(query ?? {})) url.searchParams.set(k, v);
-    const res = await fetch(url, {
-      method,
-      headers: { 'X-API-Key': this.apiKey, 'Content-Type': 'application/json' },
-      body: body === undefined ? undefined : JSON.stringify(body),
-    });
-    const text = await res.text();
-    if (!res.ok)
-      throw new Error(`${method} ${url.pathname} -> ${res.status}: ${text.slice(0, 500)}`);
-    return (text ? JSON.parse(text) : undefined) as T;
+    // The API throttles API-key traffic; pace writes and back off on 429.
+    if (method !== 'GET') await new Promise((r) => setTimeout(r, 250));
+    for (let attempt = 1; ; attempt++) {
+      const res = await fetch(url, {
+        method,
+        headers: { 'X-API-Key': this.apiKey, 'Content-Type': 'application/json' },
+        body: body === undefined ? undefined : JSON.stringify(body),
+      });
+      const text = await res.text();
+      if (res.status === 429 && attempt < 8) {
+        const wait = Math.min(60_000, 5_000 * attempt);
+        console.log(`  429 throttled; waiting ${wait / 1000}s`);
+        await new Promise((r) => setTimeout(r, wait));
+        continue;
+      }
+      if (!res.ok)
+        throw new Error(`${method} ${url.pathname} -> ${res.status}: ${text.slice(0, 500)}`);
+      return (text ? JSON.parse(text) : undefined) as T;
+    }
   }
 
   get<T>(path: string, query?: Record<string, string>) {

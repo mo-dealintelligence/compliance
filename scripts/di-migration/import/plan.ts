@@ -48,7 +48,8 @@ export interface PlannedControl {
   identifier: string; // e.g. CC6.1
   section: string;
   title: string;
-  description: string; // criterion text + DI sub-controls + implementation notes
+  requirement: string; // TSC criterion this row maps to (itself for criterion rows)
+  description: string; // verbatim row text + implementation notes
   evidenceFiles: string[];
   policySlugs: string[];
 }
@@ -151,77 +152,72 @@ export function buildPlan(): ImportPlan {
   }
   const policyBySource = new Map(policies.map((p) => [p.sourcePdf, p.slug]));
 
-  // Group matrix rows by top-level criterion (e.g. CC6.1); sub-controls are CC6.1.1, ...
-  const groups = new Map<string, MatrixRow[]>();
-  for (const r of rows) {
-    const top = r.Identifier.split('.').slice(0, 2).join('.');
-    if (!groups.has(top)) groups.set(top, []);
-    groups.get(top)!.push(r);
-  }
-
+  // One Comp control per matrix row, verbatim: the 61 TSC criteria rows and the
+  // 150 Deal Intelligence sub-controls (CC6.1.1, ...). Sub-controls map to the
+  // requirement of their parent criterion. Evidence attaches to the row that
+  // lists it. Nothing is merged or rewritten.
   const evidence = new Map<string, PlannedEvidence>();
   const controls: PlannedControl[] = [];
-  for (const [identifier, group] of groups) {
-    const head = group.find((r) => r.Identifier === identifier) ?? group[0];
-    const subs = group.filter((r) => r.Identifier !== identifier);
+  for (const r of rows) {
+    const identifier = r.Identifier.trim();
+    const parent = identifier.split('.').slice(0, 2).join('.');
+    const isCriterion = identifier === parent;
     const files = new Set<string>();
     const policySlugs = new Set<string>();
     const lines: string[] = [];
-    lines.push(`Criterion ${identifier} (${head.Section}): ${head.Title.trim()}`);
-    if (head['Implementation Notes'])
-      lines.push('', `Implementation: ${head['Implementation Notes'].trim()}`);
-    if (subs.length) {
-      lines.push('', 'Deal Intelligence controls:');
-      for (const s of subs) {
-        lines.push(
-          `- ${s.Identifier} ${s.Title.trim()}: ${s.Description.trim()}${s['Implementation Notes'] ? ` (Implementation: ${s['Implementation Notes'].trim()})` : ''}`,
-        );
+    if (isCriterion) {
+      lines.push(`${identifier} (${r.Section}): ${r.Title.trim()}`);
+      if (r.Description?.trim()) lines.push('', r.Description.trim());
+    } else {
+      lines.push(r.Description.trim());
+    }
+    if (r['Implementation Notes']?.trim())
+      lines.push('', `Implementation: ${r['Implementation Notes'].trim()}`);
+    const refs = r['Evidence files']
+      .split(',')
+      .map((f) => f.trim())
+      .filter(Boolean);
+    const descs = r['Evidence files desciptions']
+      .split(/\.\s+(?=[A-Z])/)
+      .map((d) => d.trim())
+      .filter(Boolean);
+    refs.forEach((f, i) => {
+      if (policyBySource.has(f)) policySlugs.add(policyBySource.get(f)!);
+      files.add(f);
+      const m = byFile.get(f);
+      const existing = evidence.get(f);
+      const desc = descs[i] ?? descs[0] ?? '';
+      const kind: PlannedEvidence['kind'] = f.endsWith('.png')
+        ? 'screenshot'
+        : f.endsWith('.json')
+          ? 'log'
+          : policyBySource.has(f)
+            ? 'policy'
+            : docIndex.some((d) => d.source === f)
+              ? 'record'
+              : 'document';
+      if (!existing) {
+        evidence.set(f, {
+          file: f,
+          localPath: m?.localPath,
+          mimeType: m?.mimeType,
+          title: humanize(f),
+          description: desc,
+          criteria: [identifier],
+          kind,
+        });
+      } else if (!existing.criteria.includes(identifier)) {
+        existing.criteria.push(identifier);
+        if (desc && !existing.description.includes(desc)) existing.description += ` ${desc}`;
       }
-    }
-    for (const r of group) {
-      const refs = r['Evidence files']
-        .split(',')
-        .map((f) => f.trim())
-        .filter(Boolean);
-      const descs = r['Evidence files desciptions']
-        .split(/\.\s+(?=[A-Z])/)
-        .map((d) => d.trim())
-        .filter(Boolean);
-      refs.forEach((f, i) => {
-        if (policyBySource.has(f)) policySlugs.add(policyBySource.get(f)!);
-        files.add(f);
-        const m = byFile.get(f);
-        const existing = evidence.get(f);
-        const desc = descs[i] ?? descs[0] ?? '';
-        const kind: PlannedEvidence['kind'] = f.endsWith('.png')
-          ? 'screenshot'
-          : f.endsWith('.json')
-            ? 'log'
-            : policyBySource.has(f)
-              ? 'policy'
-              : docIndex.some((d) => d.source === f)
-                ? 'record'
-                : 'document';
-        if (!existing) {
-          evidence.set(f, {
-            file: f,
-            localPath: m?.localPath,
-            mimeType: m?.mimeType,
-            title: humanize(f),
-            description: desc,
-            criteria: [identifier],
-            kind,
-          });
-        } else if (!existing.criteria.includes(identifier)) {
-          existing.criteria.push(identifier);
-          if (desc && !existing.description.includes(desc)) existing.description += ` ${desc}`;
-        }
-      });
-    }
+    });
     controls.push({
       identifier,
-      section: head.Section,
-      title: `${identifier} ${head.Title.trim().slice(0, 110)}`,
+      requirement: parent,
+      section: r.Section,
+      title: isCriterion
+        ? `${identifier} ${r.Title.trim().slice(0, 110)}`
+        : `${identifier} ${r.Title.trim()}`,
       description: lines.join('\n'),
       evidenceFiles: [...files],
       policySlugs: [...policySlugs],
