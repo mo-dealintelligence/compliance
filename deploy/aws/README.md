@@ -3,9 +3,10 @@
 Topology (us-east-1, same account as `di-backend-api-prod`):
 
 ```
-compliance.dealintelligence.io    -> HTTP API -> Lambda (container: comp-app)    Next.js admin
-compliance-api.dealintelligence.io    -> HTTP API -> Lambda (container: comp-api)    NestJS + better-auth
-compliance-portal.dealintelligence.io -> HTTP API -> Lambda (container: comp-portal) employee portal
+compliance.dealintelligence.io        -> CloudFront -> Lambda URL (comp-app)        Next.js admin
+compliance-api.dealintelligence.io    -> CloudFront -> Lambda URL (comp-api)        NestJS + better-auth
+compliance-portal.dealintelligence.io -> CloudFront -> Lambda URL (comp-portal)     employee portal
+                                         +-> worker Lambdas (comp-app-worker, comp-api-worker) via async invoke + EventBridge crons
 trust.dealintelligence.io  -> existing DI trust center (unchanged)
 Aurora Serverless v2 Postgres 16 (0–2 ACU, auto-pause), public TLS endpoint
 S3 comp-evidence-<acct> (SSE, versioned, private)
@@ -45,7 +46,9 @@ deploy/aws/deploy.sh build && deploy/aws/deploy.sh functions
 
 ## Limits worth knowing
 
-- HTTP API request body limit is 10 MB; uploads larger than that go through
+- Lambda function URLs cap request bodies at 6 MB; larger uploads go through
   presigned S3 URLs (the app does this for policies and task attachments).
-- Lambda timeout is 29 s (API Gateway cap). Long work runs in Trigger.dev.
+- Web Lambdas time out at 120 s; background work runs on the worker Lambdas
+  (15 min) and EventBridge crons. CloudFront fronts the function URLs only to
+  provide the custom hostnames and TLS.
 - Cold start for the Next.js app is a few seconds after idle.

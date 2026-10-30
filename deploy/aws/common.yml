@@ -1,12 +1,13 @@
 # Shared fragment for the three Serverless Framework services (api, app, portal).
-# Each service file pulls pieces from here with ${file(../common.yml):key}.
 #
 # Design: one Lambda per app running the container image via the Lambda Web
-# Adapter, one HTTP API per app with its own custom domain + ACM cert, Route 53
-# alias records. No VPC, no ALB, scales to zero.
-
-# Custom domain + cert + DNS for the service's HttpApi. Service files include
-# this under `resources:` and set `${self:custom.hostname}`.
+# Adapter, exposed through a Lambda Function URL. A CloudFront distribution
+# in front of the URL provides the custom hostname + ACM certificate (function
+# URLs have no custom-domain support of their own). No API Gateway, no ALB,
+# no VPC; scales to zero.
+#
+# Service files include `domainResources` under `resources:` and define
+# `${self:custom.hostname}` and `${self:custom.fnLogicalId}`.
 domainResources:
   Certificate:
     Type: AWS::CertificateManager::Certificate
@@ -16,21 +17,36 @@ domainResources:
       DomainValidationOptions:
         - DomainName: ${self:custom.hostname}
           HostedZoneId: ${self:custom.hostedZoneId}
-  ApiDomain:
-    Type: AWS::ApiGatewayV2::DomainName
+  Distribution:
+    Type: AWS::CloudFront::Distribution
     Properties:
-      DomainName: ${self:custom.hostname}
-      DomainNameConfigurations:
-        - CertificateArn: !Ref Certificate
-          EndpointType: REGIONAL
-          SecurityPolicy: TLS_1_2
-  ApiMapping:
-    Type: AWS::ApiGatewayV2::ApiMapping
-    DependsOn: [HttpApiStage]
-    Properties:
-      ApiId: !Ref HttpApi
-      DomainName: !Ref ApiDomain
-      Stage: !Ref HttpApiStage
+      DistributionConfig:
+        Enabled: true
+        Comment: ${self:custom.hostname}
+        Aliases: [${self:custom.hostname}]
+        HttpVersion: http2and3
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        Origins:
+          - Id: lambda-url
+            DomainName: !Select [2, !Split ['/', !GetAtt ${self:custom.fnLogicalId}LambdaFunctionUrl.FunctionUrl]]
+            CustomOriginConfig:
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols: [TLSv1.2]
+              OriginReadTimeout: 60
+        DefaultCacheBehavior:
+          TargetOriginId: lambda-url
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE]
+          CachedMethods: [GET, HEAD]
+          Compress: true
+          # Managed policies: CachingDisabled + AllViewerExceptHostHeader
+          # (forwards cookies, query strings and every header except Host).
+          CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
+          OriginRequestPolicyId: b689b0a8-53d0-40ab-baf2-68738e2966ac
   DnsRecord:
     Type: AWS::Route53::RecordSet
     Properties:
@@ -38,5 +54,5 @@ domainResources:
       Name: ${self:custom.hostname}
       Type: A
       AliasTarget:
-        DNSName: !GetAtt ApiDomain.RegionalDomainName
-        HostedZoneId: !GetAtt ApiDomain.RegionalHostedZoneId
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2

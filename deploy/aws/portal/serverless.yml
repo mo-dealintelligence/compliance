@@ -20,17 +20,17 @@ custom:
   imageTag: ${param:imageTag, 'latest'}
   hostedZoneId: ${param:hostedZoneId}
   rootDomain: dealintelligence.io
+  fnLogicalId: Portal
   hostname: compliance-portal.${self:custom.rootDomain}
 
 functions:
   portal:
     image: ${self:custom.registry}/${self:custom.project}-portal:${self:custom.imageTag}
     memorySize: 2048
-    timeout: 29
+    timeout: 120
     ephemeralStorageSize: 1024
     environment: ${file(../env.js):portal}
-    events:
-      - httpApi: '*'
+    url: true
 
 resources:
   Resources: ${file(../common.yml):domainResources}

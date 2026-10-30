@@ -7,6 +7,7 @@ custom:
   imageTag: ${param:imageTag, 'latest'}
   hostedZoneId: ${param:hostedZoneId}
   rootDomain: dealintelligence.io
+  fnLogicalId: Api
   hostname: compliance-api.${self:custom.rootDomain}
 
 provider:
@@ -32,11 +33,10 @@ functions:
   api:
     image: ${self:custom.registry}/${self:custom.project}-api:${self:custom.imageTag}
     memorySize: 2048
-    timeout: 29
+    timeout: 120
     ephemeralStorageSize: 1024
     environment: ${file(../env.js):api}
-    events:
-      - httpApi: '*'
+    url: true
 
   worker:
     image: ${self:custom.registry}/${self:custom.project}-api-worker:${self:custom.imageTag}
