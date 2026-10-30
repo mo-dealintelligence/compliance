@@ -3,7 +3,7 @@ Description: >-
   Deal Intelligence self-hosted Comp (GRC tool). Shared infrastructure:
   ECR repositories, evidence bucket, Aurora Serverless v2 (scale-to-zero),
   CodeBuild image builder, scoped IAM user for S3, and secrets placeholders.
-  Application Lambdas + HTTP APIs are deployed by the Serverless Framework
+  Application Lambdas (function URLs behind CloudFront) are deployed by the Serverless Framework
   stacks in deploy/aws/{api,app,portal}.
 
 Parameters:
