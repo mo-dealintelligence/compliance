@@ -5,6 +5,14 @@ set -euo pipefail
 
 : "${DATABASE_URL:?DATABASE_URL is required}"
 
+# Aurora Serverless v2 may be auto-paused (0 ACU); the first connection wakes
+# it and can take ~30 s. Retry instead of failing the deploy.
+echo "==> waiting for database"
+for i in $(seq 1 20); do
+  if bunx prisma db execute --schema=prisma/schema --stdin <<<'SELECT 1' >/dev/null 2>&1; then break; fi
+  echo "   not reachable yet (attempt $i/20), retrying in 15s"; sleep 15
+done
+
 echo "==> prisma migrate deploy"
 bunx prisma migrate deploy --schema=prisma/schema
 
