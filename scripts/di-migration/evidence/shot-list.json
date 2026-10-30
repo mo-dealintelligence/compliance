@@ -1,0 +1,398 @@
+{
+ "org": "org_6ae43948f44032b0bb39e61f",
+ "apiBase": "https://api.compliance.dealintelligence.io/v1",
+ "awsAccount": "164482277879",
+ "shots": [
+  {
+   "file": "01_github_actions_workflows.png",
+   "taskId": "tsk_6ae444bc3f15dc23dccec164",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions",
+   "mustShow": "Workflows list with recent runs",
+   "cadence": "monthly"
+  },
+  {
+   "file": "02_github_ci_workflow.png",
+   "taskId": "tsk_6ae444bfb1a8f119e8b1b092",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions/workflows/ci.yml",
+   "mustShow": "CI workflow runs (pytest/model validation)",
+   "cadence": "monthly",
+   "note": "workflow file name may differ"
+  },
+  {
+   "file": "03_github_deploy_workflow.png",
+   "taskId": "tsk_6ae444c3546fe1eb4c5b4baa",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions/workflows/deploy.yml",
+   "mustShow": "Deploy workflow runs",
+   "cadence": "monthly",
+   "note": "workflow file name may differ"
+  },
+  {
+   "file": "04_github_workflow_run_details.png",
+   "taskId": "tsk_6ae444c60fda138fbd504ace",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/actions",
+   "mustShow": "Open the latest successful run: jobs + steps + timestamps",
+   "cadence": "monthly"
+  },
+  {
+   "file": "05_github_dependabot.png",
+   "taskId": "tsk_6ae444c8993db6438c273a18",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/security/dependabot",
+   "mustShow": "Dependabot alerts list and counts",
+   "cadence": "monthly"
+  },
+  {
+   "file": "07_github_secret_scanning.png",
+   "taskId": "tsk_6ae444cdfb7b143b2457bc72",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/settings/security_analysis",
+   "mustShow": "Code security settings: secret scanning + push protection enabled",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "08_github_branch_protection.png",
+   "taskId": "tsk_6ae444cfe501a351b7d1c460",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/settings/branches",
+   "mustShow": "Branch protection rule for main: PR required, reviews, status checks",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_cloudformation_stacks.png",
+   "taskId": "tsk_6ae444d7533a601cced5f441",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks",
+   "mustShow": "Stack list (IaC) with statuses",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_cloudtrail_trails.png",
+   "taskId": "tsk_6ae444db10c758f7b4eb2bdc",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/cloudtrailv2/home?region=us-east-1#/trails",
+   "mustShow": "Trail list: multi-region, logging ON",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_cloudwatch_alarms.png",
+   "taskId": "tsk_6ae444e1c9143d62486189ee",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:",
+   "mustShow": "Alarms list with states",
+   "cadence": "monthly"
+  },
+  {
+   "file": "aws_cloudwatch_log_groups.png",
+   "taskId": "tsk_6ae444ebf6be2a04e8f76b3e",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups",
+   "mustShow": "Log groups with retention column",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_documentdb_backups.png",
+   "taskId": "tsk_6ae444fcdaab2433054f2873",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/docdb/home?region=us-east-1#clusters",
+   "mustShow": "Cluster \u2192 Maintenance & backups tab: retention, PITR",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_documentdb_cluster.png",
+   "taskId": "tsk_6ae445052e299c11cb1ab1d4",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/docdb/home?region=us-east-1#clusters",
+   "mustShow": "Cluster: instances across AZs, encryption",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_ecr_repositories.png",
+   "taskId": "tsk_6ae4450f39b97e60a1e07181",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-1",
+   "mustShow": "Repositories with scan-on-push",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_eventbridge_rules.png",
+   "taskId": "tsk_6ae4455e6019b6caf2e5c4de",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/events/home?region=us-east-1#/rules",
+   "mustShow": "Scheduled rules (access review, retention)",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_iam_password_policy.png",
+   "taskId": "tsk_6ae44560f3b3973fc64aff02",
+   "source": "aws",
+   "url": "https://console.aws.amazon.com/iam/home#/account_settings",
+   "mustShow": "Password policy section",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_iam_roles.png",
+   "taskId": "tsk_6ae445641e1f09041e584cfe",
+   "source": "aws",
+   "url": "https://console.aws.amazon.com/iam/home#/roles",
+   "mustShow": "Roles list",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_iam_users.png",
+   "taskId": "tsk_6ae4456baba402296ae727d1",
+   "source": "aws",
+   "url": "https://console.aws.amazon.com/iam/home#/users",
+   "mustShow": "Users list with MFA + last activity columns",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_kms_keys.png",
+   "taskId": "tsk_6ae4457169bc4cd8e68111be",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/kms/home?region=us-east-1#/kms/keys",
+   "mustShow": "Customer managed keys, rotation enabled",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_lambda_functions.png",
+   "taskId": "tsk_6ae4457c904a374dd0cbd73a",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions",
+   "mustShow": "Functions list incl. access-review function",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_s3_bucket_encryption.png",
+   "taskId": "tsk_6ae445803dfc7ebc896f9e3d",
+   "source": "aws",
+   "url": "https://s3.console.aws.amazon.com/s3/buckets",
+   "mustShow": "Open main bucket \u2192 Properties \u2192 Default encryption",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_s3_buckets.png",
+   "taskId": "tsk_6ae44583e20d884bafc136ad",
+   "source": "aws",
+   "url": "https://s3.console.aws.amazon.com/s3/buckets",
+   "mustShow": "Bucket list (+ Management tab lifecycle rules on main bucket)",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_security_groups.png",
+   "taskId": "tsk_6ae445886efe315e02f31c38",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#SecurityGroups:",
+   "mustShow": "Security groups with inbound rules",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_securityhub_findings.png",
+   "taskId": "tsk_6ae4458d4ef150b3b92dd543",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/securityhub/home?region=us-east-1#/findings",
+   "mustShow": "Findings list with severities",
+   "cadence": "monthly"
+  },
+  {
+   "file": "aws_securityhub_overview.png",
+   "taskId": "tsk_6ae445981e718c509d1449c8",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/securityhub/home?region=us-east-1#/summary",
+   "mustShow": "Summary: security score, enabled standards",
+   "cadence": "monthly"
+  },
+  {
+   "file": "aws_sns_topics.png",
+   "taskId": "tsk_6ae4459eff771225daa8346e",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/topics",
+   "mustShow": "Alert topics with subscriptions",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_vpc_list.png",
+   "taskId": "tsk_6ae445a29752946f965f0bfd",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#vpcs:",
+   "mustShow": "VPC list",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "aws_vpc_subnets.png",
+   "taskId": "tsk_6ae445a59a2ba92fdb39222d",
+   "source": "aws",
+   "url": "https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#subnets:",
+   "mustShow": "Subnets list with AZs",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "cloudtrail_events_20260204_132225.json",
+   "taskId": "tsk_6ae445af53a46de0664b4c6e",
+   "source": "aws-cli",
+   "url": "aws cloudtrail lookup-events --max-results 100",
+   "mustShow": "JSON export of latest 100 events",
+   "cadence": "monthly"
+  },
+  {
+   "file": "lambda_app_events_20260204_132311.json",
+   "taskId": "tsk_6ae446253b877d421053618d",
+   "source": "aws-cli",
+   "url": "aws logs filter-log-events --log-group-name <app log group> --limit 100",
+   "mustShow": "JSON export of recent app log events",
+   "cadence": "monthly"
+  },
+  {
+   "file": "vpc_flow_events_20260204_132240.json",
+   "taskId": "tsk_6ae4465d905686bbaed81b7d",
+   "source": "aws-cli",
+   "url": "aws logs filter-log-events --log-group-name <vpc flow log group> --limit 100",
+   "mustShow": "JSON export incl. ACCEPT and REJECT records",
+   "cadence": "monthly"
+  },
+  {
+   "file": "humadroid_bcp_dashboard.png",
+   "taskId": "tsk_6ae445c8696cd03c5b791864",
+   "source": "comp",
+   "url": "https://compliance.dealintelligence.io/org_6ae43948f44032b0bb39e61f/policies",
+   "mustShow": "Comp: Business Continuity Plan policy page (published, review date)",
+   "cadence": "quarterly",
+   "note": "Humadroid retired; Comp is the system of record"
+  },
+  {
+   "file": "humadroid_bcp_test_results.png",
+   "taskId": "tsk_6ae445ccf97916a02c3794a5",
+   "source": "comp",
+   "url": "https://compliance.dealintelligence.io/org_6ae43948f44032b0bb39e61f/tasks",
+   "mustShow": "Comp: BCP test evidence task with attached test report",
+   "cadence": "quarterly",
+   "note": "attach the DR test write-up when run"
+  },
+  {
+   "file": "humadroid_incident_reporting.png",
+   "taskId": "tsk_6ae445d12126864c631d7688",
+   "source": "comp",
+   "url": "https://compliance.dealintelligence.io/org_6ae43948f44032b0bb39e61f/overview?tab=findings",
+   "mustShow": "Comp: incidents/findings list",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "humadroid_risk_detail.png",
+   "taskId": "tsk_6ae445d43966e9fd006e4248",
+   "source": "comp",
+   "url": "https://compliance.dealintelligence.io/org_6ae43948f44032b0bb39e61f/risk",
+   "mustShow": "Comp: open one risk \u2014 likelihood/impact scoring",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "humadroid_risk_register.png",
+   "taskId": "tsk_6ae445d71fe5e65faec9add5",
+   "source": "comp",
+   "url": "https://compliance.dealintelligence.io/org_6ae43948f44032b0bb39e61f/risk",
+   "mustShow": "Comp: risk register list",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "humadroid_vendor_assessment.png",
+   "taskId": "tsk_6ae445fa39cd961b8d2308b3",
+   "source": "comp",
+   "url": "https://compliance.dealintelligence.io/org_6ae43948f44032b0bb39e61f/vendors",
+   "mustShow": "Comp: AWS vendor page with assessment/SOC 2 status",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "humadroid_vendor_dashboard.png",
+   "taskId": "tsk_6ae445fd3a6b86d10d6bfdc8",
+   "source": "comp",
+   "url": "https://compliance.dealintelligence.io/org_6ae43948f44032b0bb39e61f/vendors",
+   "mustShow": "Comp: vendor inventory",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "macos_filevault_status.png",
+   "taskId": "tsk_6ae4462cb56809fa463973b9",
+   "source": "mac",
+   "url": "System Settings \u2192 Privacy & Security \u2192 FileVault",
+   "mustShow": "FileVault: On",
+   "cadence": "quarterly",
+   "note": "local screenshot (not a web page)"
+  },
+  {
+   "file": "middleware_py_screenshot.png",
+   "taskId": "tsk_6ae44630fc853119537947c9",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/middleware.py",
+   "mustShow": "RateLimitMiddleware + PII validators at a pinned commit",
+   "cadence": "quarterly",
+   "note": "prefer permalink with commit SHA"
+  },
+  {
+   "file": "models_collections_py_screenshot.png",
+   "taskId": "tsk_6ae446360d68a8cce1875e66",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/models/collections.py",
+   "mustShow": "Typed collections with compliance comments",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "models_pii_py_screenshot.png",
+   "taskId": "tsk_6ae446370e82c1378bdc4446",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/models/pii.py",
+   "mustShow": "PIIFields / validators",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "models_v1_py_screenshot.png",
+   "taskId": "tsk_6ae4463c66a517b7ffd7efa6",
+   "source": "github",
+   "url": "https://github.com/mo-dealintelligence/di-backend-api/blob/main/app/server/models/v1.py",
+   "mustShow": "v1 data structures with compliance comments",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "propelauth_api_keys.png",
+   "taskId": "tsk_6ae446458e9e36c3d85a5f7b",
+   "source": "propelauth",
+   "url": "https://app.propelauth.com/",
+   "mustShow": "Project \u2192 API Keys list",
+   "cadence": "quarterly",
+   "note": "exact project URL to fill in"
+  },
+  {
+   "file": "propelauth_mfa_settings.png",
+   "taskId": "tsk_6ae4464716aa37e19eb4a707",
+   "source": "propelauth",
+   "url": "https://app.propelauth.com/",
+   "mustShow": "Project \u2192 Security \u2192 MFA settings",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "propelauth_roles.png",
+   "taskId": "tsk_6ae4464a125c05c764ecb3d3",
+   "source": "propelauth",
+   "url": "https://app.propelauth.com/",
+   "mustShow": "Project \u2192 Roles & Permissions",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "propelauth_security_settings.png",
+   "taskId": "tsk_6ae4464d495555d34cf7333f",
+   "source": "propelauth",
+   "url": "https://app.propelauth.com/",
+   "mustShow": "Project \u2192 Security settings (passwords, sessions)",
+   "cadence": "quarterly"
+  },
+  {
+   "file": "propelauth_users.png",
+   "taskId": "tsk_6ae44656e6b6662077c28607",
+   "source": "propelauth",
+   "url": "https://app.propelauth.com/",
+   "mustShow": "Project \u2192 Users list",
+   "cadence": "quarterly"
+  }
+ ]
+}
