@@ -49,7 +49,7 @@ brand = {
 }
 shared = {
   "DATABASE_URL": db_url, "SELF_HOSTED": "true", "NODE_ENV": "production",
-  "COOKIE_DOMAIN": f".{root}",
+  "COOKIE_DOMAIN": f".compliance.{root}",
   "AUTH_TRUSTED_ORIGINS": ",".join([app_url, portal_url, api_url, trust_url]),
   "AUTH_TRUSTED_ORIGIN_SUFFIXES": "compliance." + root,
   "RESEND_API_KEY": ext.get("RESEND_API_KEY",""),
