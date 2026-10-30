@@ -6,7 +6,7 @@ Resources:
       CidrBlock: ${self:custom.vpcCidr}
       EnableDnsSupport: true
       EnableDnsHostnames: true
-      Tags: [{ Key: Name, Value: ${self:service}-vpc }]
+      Tags: [{ Key: Name, Value: '${self:service}-vpc' }]
   InternetGateway:
     Type: AWS::EC2::InternetGateway
   VpcGatewayAttachment:
@@ -19,21 +19,21 @@ Resources:
       CidrBlock: !Select [0, !Cidr [!GetAtt Vpc.CidrBlock, 4, 6]]
       AvailabilityZone: !Select [0, !GetAZs '']
       MapPublicIpOnLaunch: true
-      Tags: [{ Key: Name, Value: ${self:service}-public }]
+      Tags: [{ Key: Name, Value: '${self:service}-public' }]
   PrivateSubnetA:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Select [1, !Cidr [!GetAtt Vpc.CidrBlock, 4, 6]]
       AvailabilityZone: !Select [0, !GetAZs '']
-      Tags: [{ Key: Name, Value: ${self:service}-private-a }]
+      Tags: [{ Key: Name, Value: '${self:service}-private-a' }]
   PrivateSubnetB:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Select [2, !Cidr [!GetAtt Vpc.CidrBlock, 4, 6]]
       AvailabilityZone: !Select [1, !GetAZs '']
-      Tags: [{ Key: Name, Value: ${self:service}-private-b }]
+      Tags: [{ Key: Name, Value: '${self:service}-private-b' }]
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties: { VpcId: !Ref Vpc }
@@ -87,7 +87,7 @@ Resources:
       SubnetId: !Ref PublicSubnet
       SecurityGroupIds: [!Ref NatSecurityGroup]
       SourceDestCheck: false
-      Tags: [{ Key: Name, Value: ${self:service}-nat-instance }]
+      Tags: [{ Key: Name, Value: '${self:service}-nat-instance' }]
       UserData:
         Fn::Base64: |
           #!/bin/bash
@@ -287,25 +287,25 @@ Resources:
   # ---------------------------------------------------------------- DNS zone (delegated from dealintelligence.io in the prod account) + certs
   HostedZone:
     Type: AWS::Route53::HostedZone
-    Properties: { Name: ${self:custom.zoneName} }
+    Properties: { Name: '${self:custom.zoneName}' }
   CertApp:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: ${self:custom.hosts.app}
       ValidationMethod: DNS
-      DomainValidationOptions: [{ DomainName: ${self:custom.hosts.app}, HostedZoneId: !Ref HostedZone }]
+      DomainValidationOptions: [{ DomainName: '${self:custom.hosts.app}', HostedZoneId: !Ref HostedZone }]
   CertApi:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: ${self:custom.hosts.api}
       ValidationMethod: DNS
-      DomainValidationOptions: [{ DomainName: ${self:custom.hosts.api}, HostedZoneId: !Ref HostedZone }]
+      DomainValidationOptions: [{ DomainName: '${self:custom.hosts.api}', HostedZoneId: !Ref HostedZone }]
   CertPortal:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: ${self:custom.hosts.portal}
       ValidationMethod: DNS
-      DomainValidationOptions: [{ DomainName: ${self:custom.hosts.portal}, HostedZoneId: !Ref HostedZone }]
+      DomainValidationOptions: [{ DomainName: '${self:custom.hosts.portal}', HostedZoneId: !Ref HostedZone }]
 
 Outputs:
   HostedZoneNameServers: { Value: !Join [',', !GetAtt HostedZone.NameServers] }
