@@ -10,6 +10,14 @@ export function normalizeAwsEnvironment(value: unknown): AwsEnvironment {
 }
 
 function getAwsRoleAssumerArn(environment: AwsEnvironment): string {
+  // Self-hosted: the roleAssumer lives in the operator's own account. The API
+  // assumes it via SECURITY_HUB_ROLE_ASSUMER_ARN; the setup script must tell the
+  // customer-side role to trust the same principal, never Comp AI's.
+  const selfHosted =
+    environment === 'aws-us-gov'
+      ? process.env.SECURITY_HUB_GOVCLOUD_ROLE_ASSUMER_ARN
+      : process.env.SECURITY_HUB_ROLE_ASSUMER_ARN;
+  if (selfHosted) return selfHosted;
   const accountId =
     environment === 'aws-us-gov'
       ? COMP_AI_GOVCLOUD_ROLE_ASSUMER_ACCOUNT_ID
@@ -280,9 +288,9 @@ export const awsRemediationScript = getAwsRemediationScript();
 export const awsSetupInstructions = `Setup (AWS CloudShell)
 
 1. Open AWS CloudShell at console.aws.amazon.com/cloudshell
-2. Run the following command (replace YOUR_EXTERNAL_ID with your Comp AI organization ID):
+2. Run the following command (replace YOUR_EXTERNAL_ID with your organization ID):
 
-EXTERNAL_ID="YOUR_EXTERNAL_ID" && ROLE_NAME="CompAI-Auditor" && aws iam create-role --role-name "$ROLE_NAME" --max-session-duration 43200 --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"AWS":"arn:aws:iam::684120556289:role/roleAssumer"},"Action":"sts:AssumeRole","Condition":{"StringEquals":{"sts:ExternalId":"'$EXTERNAL_ID'"}}}]}' --query 'Role.Arn' --output text && aws iam attach-role-policy --role-name "$ROLE_NAME" --policy-arn arn:aws:iam::aws:policy/SecurityAudit && aws iam attach-role-policy --role-name "$ROLE_NAME" --policy-arn arn:aws:iam::aws:policy/job-function/ViewOnlyAccess && aws iam put-role-policy --role-name "$ROLE_NAME" --policy-name CompAI-CostExplorer --policy-document '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"ce:GetCostAndUsage","Resource":"*"}]}' && aws iam put-role-policy --role-name "$ROLE_NAME" --policy-name CompAI-ExtraReadAccess --policy-document '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":["ssm:GetDocument","ssm:DescribeDocument","ssm:ListDocuments"],"Resource":"*"}]}'
+${getAwsCloudShellScript('aws').trim()}
 
 3. Copy the Role ARN from the output
 4. Paste the Role ARN and External ID into the form below`;
