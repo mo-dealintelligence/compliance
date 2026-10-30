@@ -5,16 +5,38 @@
  * Events:
  *   { source: 'trigger',  runId }            — from tasks.trigger()
  *   { source: 'schedule', taskId, payload? } — from EventBridge rules
+ *   { source: 'admin', action: 'set-run-status', runId, status, error? }
+ *                                            — operator tool (self-hosted): resolve a
+ *                                              run that died with the worker, e.g. an
+ *                                              onboarding run stuck in EXECUTING
  */
 import type { WorkerEvent } from './dispatch';
 import { createRunRecord, executeRun } from './execute';
 import { getTask, listSchedules } from './registry';
+import { loadRun, patchRun } from './runs-store';
 
 export { listSchedules };
 
 export async function handler(
-  event: WorkerEvent & { detail?: unknown },
+  event: WorkerEvent & {
+    detail?: unknown;
+    action?: string;
+    status?: string;
+    error?: string;
+  },
 ): Promise<{ runId: string; status: string }> {
+  if ((event.source as string) === 'admin') {
+    if (event.action !== 'set-run-status' || !event.runId || !event.status)
+      throw new Error('[trigger-shim] admin event needs action=set-run-status, runId, status');
+    const run = await loadRun(event.runId);
+    if (!run) throw new Error(`[trigger-shim] run ${event.runId} not found`);
+    await patchRun(event.runId, {
+      status: event.status as never,
+      finishedAt: new Date().toISOString(),
+      ...(event.error ? { error: { message: event.error } } : {}),
+    } as never);
+    return { runId: event.runId, status: event.status };
+  }
   if (event.source === 'schedule' || (!event.runId && event.taskId)) {
     const taskId = event.taskId;
     if (!taskId || !getTask(taskId))
