@@ -91,6 +91,11 @@ migrate() {
 
 functions() {
   assume_role
+  # The tag defaults to HEAD; if HEAD was never built, use the newest image.
+  if ! aws ecr describe-images --repository-name comp-api --image-ids imageTag="$tag" >/dev/null 2>&1; then
+    local latest; latest="$(aws ecr describe-images --repository-name comp-api --query 'sort_by(imageDetails,&imagePushedAt)[-1].imageTags' --output text | tr '\t' '\n' | grep -v '^latest$' | head -1)"
+    echo "no image tagged $tag; deploying newest build $latest instead"; tag="$latest"
+  fi
   sls deploy --stage "$STAGE" --param="phase=all" --param="imageTag=$tag"
 }
 
