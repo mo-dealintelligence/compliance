@@ -55,7 +55,7 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: 0.0.0.0/0
-      InstanceId: !Ref NatInstanceV3
+      InstanceId: !Ref NatInstanceV4
   PrivateSubnetARoute:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties: { SubnetId: !Ref PrivateSubnetA, RouteTableId: !Ref PrivateRouteTable }
@@ -78,7 +78,7 @@ Resources:
       VpcId: !Ref Vpc
       SecurityGroupIngress:
         - { IpProtocol: '-1', CidrIp: '${self:custom.vpcCidr}', Description: from VPC }
-  NatInstanceV3:
+  NatInstanceV4:
     Type: AWS::EC2::Instance
     DependsOn: PublicDefaultRoute
     Properties:
@@ -91,38 +91,20 @@ Resources:
       UserData:
         Fn::Base64: |
           #!/bin/bash
-          # t4g.nano has 512 MB: give dnf swap so it can't be OOM-killed, then NAT via iptables.
+          # Same method as di-backend-api (AWS official NAT-instance recipe on AL2023).
+          set -x; exec > >(tee /var/log/user-data.log) 2>&1
+          dnf install -y iptables-services
+          systemctl enable --now iptables
           echo 'net.ipv4.ip_forward = 1' > /etc/sysctl.d/90-nat.conf
           sysctl -p /etc/sysctl.d/90-nat.conf
-          if ! command -v iptables >/dev/null; then
-            fallocate -l 1G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile
-            echo '/swapfile none swap sw 0 0' >> /etc/fstab
-            dnf install -y --setopt=install_weak_deps=False iptables-nft
-          fi
           IFACE=$(ip -o -4 route show to default | awk '{print $5}')
-          cat > /usr/local/sbin/nat-up.sh <<EOF
-          #!/bin/bash
-          iptables -t nat -C POSTROUTING -o $IFACE -j MASQUERADE 2>/dev/null || iptables -t nat -A POSTROUTING -o $IFACE -j MASQUERADE
-          EOF
-          chmod +x /usr/local/sbin/nat-up.sh
-          cat > /etc/systemd/system/nat.service <<EOF
-          [Unit]
-          Description=NAT masquerade
-          After=network-online.target
-          Wants=network-online.target
-          [Service]
-          Type=oneshot
-          ExecStart=/usr/local/sbin/nat-up.sh
-          RemainAfterExit=yes
-          [Install]
-          WantedBy=multi-user.target
-          EOF
-          systemctl daemon-reload
-          systemctl enable --now nat.service
-          iptables -t nat -S POSTROUTING
+          /sbin/iptables -t nat -A POSTROUTING -o $IFACE -j MASQUERADE
+          /sbin/iptables -F FORWARD
+          service iptables save
+          /sbin/iptables -t nat -S POSTROUTING
   NatEip:
     Type: AWS::EC2::EIP
-    Properties: { Domain: vpc, InstanceId: !Ref NatInstanceV3 }
+    Properties: { Domain: vpc, InstanceId: !Ref NatInstanceV4 }
 
   # ---------------------------------------------------------------- Security groups
   LambdaSecurityGroup:

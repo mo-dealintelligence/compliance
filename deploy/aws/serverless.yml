@@ -48,7 +48,7 @@ custom:
     api: api.compliance.dealintelligence.io
     portal: portal.compliance.dealintelligence.io
   vpcCidr: 10.42.0.0/24
-  natInstanceType: t4g.nano
+  natInstanceType: t4g.micro
   natAmi: ${ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64}
 
 functions: ${file(./functions.yml):${self:custom.phase}}

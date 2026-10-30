@@ -9,7 +9,7 @@ compliance.dealintelligence.io         -> CloudFront -> Lambda URL (comp-app)   
 api.compliance.dealintelligence.io     -> CloudFront -> Lambda URL (comp-api)     NestJS + better-auth
 portal.compliance.dealintelligence.io  -> CloudFront -> Lambda URL (comp-portal)  employee portal
                                           +-> comp-prod-apiWorker / comp-prod-appWorker (async invoke + EventBridge crons)
-VPC 10.42.0.0/24: 1 public subnet (t4g.nano NAT instance), 2 private subnets (Lambdas, Aurora, CodeBuild)
+VPC 10.42.0.0/24: 1 public subnet (t4g.micro NAT instance), 2 private subnets (Lambdas, Aurora, CodeBuild)
 Aurora Serverless v2 Postgres 16, private, 0-2 ACU, auto-pause 10 min, force SSL
 S3 evidence bucket (SSE, versioned, private) via gateway endpoint; S3 source bucket for CodeBuild
 Route 53 zone compliance.dealintelligence.io (delegated by one NS record in the prod zone)
@@ -46,4 +46,4 @@ Cron tasks: after changing `schedules.task` definitions, regenerate
 
 - Lambda function URLs cap request bodies at 6 MB; larger uploads use presigned S3 URLs.
 - Web Lambdas: 120 s; workers: 15 min. CloudFront exists only for hostnames + TLS.
-- The NAT instance is the single egress path for private subnets (t4g.nano, ~$3/mo).
+- The NAT instance is the single egress path for private subnets (t4g.micro, ~$6/mo).
