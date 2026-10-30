@@ -55,7 +55,7 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: 0.0.0.0/0
-      InstanceId: !Ref NatInstance
+      InstanceId: !Ref NatInstanceV2
   PrivateSubnetARoute:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties: { SubnetId: !Ref PrivateSubnetA, RouteTableId: !Ref PrivateRouteTable }
@@ -78,7 +78,7 @@ Resources:
       VpcId: !Ref Vpc
       SecurityGroupIngress:
         - { IpProtocol: '-1', CidrIp: '${self:custom.vpcCidr}', Description: from VPC }
-  NatInstance:
+  NatInstanceV2:
     Type: AWS::EC2::Instance
     DependsOn: PublicDefaultRoute
     Properties:
@@ -94,8 +94,9 @@ Resources:
           set -e
           echo 'net.ipv4.ip_forward = 1' > /etc/sysctl.d/90-nat.conf
           sysctl -p /etc/sysctl.d/90-nat.conf
+          dnf install -y nftables
           IFACE=$(ip -o -4 route show to default | awk '{print $5}')
-          cat > /etc/nftables.conf <<EOF
+          cat > /etc/sysconfig/nftables.conf <<EOF
           table ip nat {
             chain postrouting {
               type nat hook postrouting priority 100;
@@ -104,9 +105,10 @@ Resources:
           }
           EOF
           systemctl enable --now nftables
+          nft list ruleset
   NatEip:
     Type: AWS::EC2::EIP
-    Properties: { Domain: vpc, InstanceId: !Ref NatInstance }
+    Properties: { Domain: vpc, InstanceId: !Ref NatInstanceV2 }
 
   # ---------------------------------------------------------------- Security groups
   LambdaSecurityGroup:
