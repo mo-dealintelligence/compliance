@@ -116,7 +116,9 @@ COPY --from=api-builder /app/apps/api/dist ./dist
 COPY --from=api-builder /app/apps/api/package.json /app/apps/api/alias-register.cjs ./
 COPY --from=api-builder /app/packages ./packages
 COPY --from=api-builder /app/node_modules ./node_modules
-ENV NODE_ENV=production NODE_OPTIONS="-r /var/task/alias-register.cjs"
+# --experimental-require-module: the lambda nodejs:22 base ships a Node older
+# than 22.12, which cannot require() ESM-only deps (better-auth) otherwise.
+ENV NODE_ENV=production NODE_OPTIONS="--experimental-require-module -r /var/task/alias-register.cjs"
 CMD ["dist/src/trigger-worker.handler"]
 
 # -----------------------------------------------------------------------------
@@ -201,9 +203,9 @@ COPY --from=app-builder /app/packages ./packages
 COPY --from=app-builder /app/apps/app/package.json ./apps/app/package.json
 COPY --from=app-builder /app/apps/app/node_modules ./apps/app/node_modules
 COPY --from=app-builder /app/apps/app/worker ./apps/app/worker
-COPY --from=app-builder /app/apps/app/worker-entry.cjs /app/apps/app/worker-hooks.mjs /app/apps/app/worker-register.mjs ./apps/app/
+COPY --from=app-builder /app/apps/app/worker-entry.mjs /app/apps/app/worker-hooks.mjs /app/apps/app/worker-register.mjs ./apps/app/
 ENV NODE_ENV=production \
-    NODE_OPTIONS="--import /var/task/apps/app/worker-register.mjs"
+    NODE_OPTIONS="--experimental-require-module --import /var/task/apps/app/worker-register.mjs"
 CMD ["apps/app/worker-entry.handler"]
 
 # -----------------------------------------------------------------------------
