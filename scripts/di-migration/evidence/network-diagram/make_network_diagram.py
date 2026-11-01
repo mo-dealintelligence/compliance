@@ -1,23 +1,15 @@
 #!/usr/bin/env python3
 """
-Deal Intelligence network flow diagrams — three audiences, one set of facts.
+Deal Intelligence network flow diagrams.
 
-  internal  engineering / auditor: every node, every flow, blocked paths shown.
-  boundary  what crosses the account boundary, in which direction, under what control.
-  customer  the customer's own systems are the only outside party.
+  internal  the production network as built: every system and every connection.
+  customer  the same network with the customer's systems as the only outside party.
 
-These are network flow diagrams, not illustrations: every edge is directed, carries
-protocol and port, is numbered, and is listed in the flow table underneath with its
-initiator and the control applied. Nodes carry identifiers, not prose.
+Nodes are systems; arrows are connections, pointing from the side that opens the
+connection, labelled with protocol and port. Nothing else. Official AWS icons from
+./aws-icons. The WAF and NAT are self-managed (application WAF, NAT instance).
 
-The WAF and the NAT are self-managed rather than the AWS managed services (a t3.micro
-NAT instance instead of a NAT Gateway; the firewall's job in the application instead of
-AWS WAF). They are named for what they do, marked "self-managed".
-
-Facts verified read-only against account 164482277879 on 2026-11-01, from
-di-backend-api/docs/infra-edge-review-2026-11-01.md and auth-hardening-2026-11-01.md.
-
-    python3 make_network_diagram.py [internal|boundary|customer ...]
+    python3 make_network_diagram.py [internal|customer]
 """
 import re
 import sys
@@ -26,28 +18,23 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ICONS = HERE / "aws-icons"
 DATE = "2026-11-01"
-
 EXT = ("#ffe6cc", "#d79b00")
 BND = ("#fff2cc", "#d6b656")
 INT = ("#dae8fc", "#6c8ebf")
 DAT = ("#d5e8d4", "#82b366")
 SUP = ("#e1d5e7", "#9673a6")
 FONT = "Helvetica, Arial, sans-serif"
-BLOCK = "#c0392b"
-MGMT = "#7f8c8d"
-_icons: dict[str, str] = {}
+_icons = {}
 
 
 class Canvas:
     def __init__(self, w, h):
         self.w, self.h, self.p = w, h, []
 
-    def esc(self, s):
-        return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-    def text(self, x, y, s, size=12, anchor="middle", weight="normal", fill="#1a1a1a", family=FONT):
-        self.p.append(f'<text x="{x}" y="{y}" font-family="{family}" font-size="{size}" '
-                      f'font-weight="{weight}" text-anchor="{anchor}" fill="{fill}">{self.esc(s)}</text>')
+    def text(self, x, y, s, size=12, anchor="middle", weight="normal", fill="#1a1a1a"):
+        s = s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        self.p.append(f'<text x="{x}" y="{y}" font-family="{FONT}" font-size="{size}" font-weight="{weight}" '
+                      f'text-anchor="{anchor}" fill="{fill}">{s}</text>')
 
     def icon(self, name, x, y, size=30):
         if name not in _icons:
@@ -57,422 +44,155 @@ class Canvas:
             _icons[name] = re.sub(r"<title>.*?</title>", "", inner, flags=re.S)
         self.p.append(f'<g transform="translate({x},{y}) scale({size/64:.4f})">{_icons[name]}</g>')
 
-    def node(self, x, y, w, h, title, meta=(), pal=INT, ic=None, r=7):
-        """Terse node: bold name, then identifier/placement lines. No prose."""
+    def node(self, x, y, w, h, title, sub=None, pal=INT, ic=None):
         f, s = pal
-        self.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{r}" ry="{r}" fill="{f}" '
+        self.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" ry="7" fill="{f}" '
                       f'stroke="{s}" stroke-width="1.6"/>')
-        tx = x + (52 if ic else w / 2)
-        ta = "start" if ic else "middle"
+        tx, ta = (x + 50, "start") if ic else (x + w / 2, "middle")
         if ic:
             self.icon(ic, x + 11, y + h / 2 - 15)
-        rows = [(title, 12.5, "bold")] + [(m, 10.5, "normal") for m in meta]
-        total = sum(r0[1] + 3 for r0 in rows) - 3
-        yy = y + h / 2 - total / 2
-        for t, sz, wt in rows:
-            yy += sz
-            self.text(tx, yy, t, size=sz, weight=wt, anchor=ta,
-                      fill="#1a1a1a" if wt == "bold" else "#444")
-            yy += 3
+        if sub:
+            self.text(tx, y + h / 2 - 2, title, 12.5, ta, "bold")
+            self.text(tx, y + h / 2 + 14, sub, 10.5, ta, fill="#444")
+        else:
+            self.text(tx, y + h / 2 + 4.5, title, 12.5, ta, "bold")
 
-    def cyl(self, x, y, w, h, title, meta=(), ic=None):
+    def cyl(self, x, y, w, h, title, sub=None, ic=None):
         f, s = DAT
         ry = 12
         self.p.append(f'<path d="M{x},{y+ry} a{w/2},{ry} 0 0 1 {w},0 v{h-2*ry} a{w/2},{ry} 0 0 1 {-w},0 z" '
                       f'fill="{f}" stroke="{s}" stroke-width="1.6"/>')
         self.p.append(f'<path d="M{x},{y+ry} a{w/2},{ry} 0 0 0 {w},0" fill="none" stroke="{s}" stroke-width="1.6"/>')
-        tx = x + (54 if ic else w / 2)
-        ta = "start" if ic else "middle"
+        tx, ta = (x + 52, "start") if ic else (x + w / 2, "middle")
         if ic:
             self.icon(ic, x + 13, y + h / 2 - 10)
-        rows = [(title, 12, "bold")] + [(m, 10.5, "normal") for m in meta]
-        total = sum(r0[1] + 3 for r0 in rows) - 3
-        yy = y + h / 2 - total / 2 + 5
-        for t, sz, wt in rows:
-            yy += sz
-            self.text(tx, yy, t, size=sz, weight=wt, anchor=ta,
-                      fill="#1a1a1a" if wt == "bold" else "#444")
-            yy += 3
+        self.text(tx, y + h / 2 + 3, title, 12.5, ta, "bold")
+        if sub:
+            self.text(tx, y + h / 2 + 19, sub, 10.5, ta, fill="#444")
 
     def boundary(self, x, y, w, h, label, color="#444", at="top"):
         self.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="4" ry="4" fill="none" '
                       f'stroke="{color}" stroke-width="1.6" stroke-dasharray="8 5"/>')
-        self.text(x + 16, y + 22 if at == "top" else y + h - 13, label, size=12.5,
-                  anchor="start", weight="bold", fill=color)
+        self.text(x + 16, y + 22 if at == "top" else y + h - 13, label, 12.5, "start", "bold", color)
 
-    # ---------- flows ----------
-    def flow(self, n, pts, label, lx=None, ly=None, anchor="middle", color="#1a1a1a",
-             dashed=False, badge=True, both=False):
-        d = ' stroke-dasharray="6 4"' if dashed else ""
-        mid = f' marker-start="url(#as)"' if both else ""
+    def arrow(self, pts, label=None, lx=None, ly=None, anchor="middle"):
         path = "M" + " L".join(f"{x},{y}" for x, y in pts)
-        self.p.append(f'<path d="{path}" fill="none" stroke="{color}" stroke-width="1.9" '
-                      f'marker-end="url(#a)"{mid}{d}/>')
-        if badge and n:
-            bx, by = pts[len(pts) // 2] if len(pts) % 2 else (
-                (pts[len(pts) // 2 - 1][0] + pts[len(pts) // 2][0]) / 2,
-                (pts[len(pts) // 2 - 1][1] + pts[len(pts) // 2][1]) / 2)
-            self.p.append(f'<circle cx="{bx}" cy="{by}" r="10" fill="#fff" stroke="{color}" stroke-width="1.6"/>')
-            self.text(bx, by + 3.8, str(n), size=11, weight="bold", fill=color)
+        self.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#a)"/>')
         if label:
-            self.text(lx, ly, label, size=10, fill=color if color != "#1a1a1a" else "#222",
-                      anchor=anchor, family="Helvetica, Arial, sans-serif")
+            self.text(lx, ly, label, 10.5, anchor, fill="#222")
 
-    def blocked(self, pts, label, lx, ly, anchor="middle"):
-        path = "M" + " L".join(f"{x},{y}" for x, y in pts)
-        self.p.append(f'<path d="{path}" fill="none" stroke="{BLOCK}" stroke-width="1.7" '
-                      'stroke-dasharray="5 4"/>')
-        mx, my = pts[-1]
-        px, py = pts[-2]
-        cx, cy = (mx + px) / 2, (my + py) / 2
-        self.p.append(f'<g stroke="{BLOCK}" stroke-width="2.4"><line x1="{cx-7}" y1="{cy-7}" x2="{cx+7}" '
-                      f'y2="{cy+7}"/><line x1="{cx+7}" y1="{cy-7}" x2="{cx-7}" y2="{cy+7}"/></g>')
-        self.text(lx, ly, label, size=10, fill=BLOCK, anchor=anchor)
-
-    def legend(self, x, y, items):
-        self.text(x, y, "Legend", size=11.5, anchor="start", weight="bold", fill="#333")
-        yy = y + 16
-        for style, lab in items:
-            if style == "flow":
-                self.p.append(f'<line x1="{x}" y1="{yy-4}" x2="{x+34}" y2="{yy-4}" stroke="#1a1a1a" '
-                              'stroke-width="1.9" marker-end="url(#a)"/>')
-            elif style == "mgmt":
-                self.p.append(f'<line x1="{x}" y1="{yy-4}" x2="{x+34}" y2="{yy-4}" stroke="{MGMT}" '
-                              'stroke-width="1.9" stroke-dasharray="6 4" marker-end="url(#a)"/>')
-            elif style == "blocked":
-                self.p.append(f'<line x1="{x}" y1="{yy-4}" x2="{x+34}" y2="{yy-4}" stroke="{BLOCK}" '
-                              'stroke-width="1.7" stroke-dasharray="5 4"/>')
-                self.p.append(f'<g stroke="{BLOCK}" stroke-width="2.2"><line x1="{x+13}" y1="{yy-11}" '
-                              f'x2="{x+23}" y2="{yy+3}"/><line x1="{x+23}" y1="{yy-11}" x2="{x+13}" y2="{yy+3}"/></g>')
-            elif style == "bnd":
-                self.p.append(f'<rect x="{x}" y="{yy-11}" width="34" height="14" fill="none" stroke="#444" '
-                              'stroke-width="1.5" stroke-dasharray="6 4"/>')
-            self.text(x + 44, yy, lab, size=10.5, anchor="start", fill="#333")
-            yy += 19
-
-    def flow_table(self, x, y, w, rows, title="Network flows"):
-        self.text(x, y, title, size=13, anchor="start", weight="bold")
-        cols = [52, 300, 150, 110, 999]
-        heads = ["#", "Source → destination (arrow shows who initiates)", "Protocol / port",
-                 "Direction", "Control enforced"]
-        yy = y + 24
-        cx = x
-        for i, hd in enumerate(heads):
-            self.text(cx + 4, yy, hd, size=10.5, anchor="start", weight="bold", fill="#333")
-            cx += cols[i]
-        yy += 6
-        self.p.append(f'<line x1="{x}" y1="{yy}" x2="{x+w}" y2="{yy}" stroke="#bbb" stroke-width="1"/>')
-        for r in rows:
-            yy += 20
-            cx = x
-            colr = BLOCK if r[0] == "DENY" else ("#555" if r[0] == "LOG" else "#222")
-            for i, cell in enumerate(r):
-                self.text(cx + 4, yy, cell, size=10.2, anchor="start",
-                          fill=colr if i == 0 else "#333",
-                          weight="bold" if i == 0 else "normal")
-                cx += cols[i]
-            self.p.append(f'<line x1="{x}" y1="{yy+6}" x2="{x+w}" y2="{yy+6}" stroke="#eee" stroke-width="1"/>')
-        return yy + 6
-
-    def header(self, title, subtitle, note):
-        self.text(40, 46, title, size=24, anchor="start", weight="bold")
-        self.text(40, 70, "Mo Messidi, Chief Executive Officer, Deal Intelligence", size=12,
-                  anchor="start", fill="#444")
-        self.text(40, 91, subtitle, size=12, anchor="start", fill="#444")
-        self.text(40, 110, note, size=11, anchor="start", fill="#777")
+    def header(self, title, sub):
+        self.text(40, 46, title, 24, "start", "bold")
+        self.text(40, 70, "Mo Messidi, Chief Executive Officer, Deal Intelligence", 12, "start", fill="#444")
+        self.text(40, 91, sub, 12, "start", fill="#444")
 
     def save(self, stem):
-        svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{self.w}" height="{self.h}" '
-               f'viewBox="0 0 {self.w} {self.h}"><rect width="{self.w}" height="{self.h}" fill="#fff"/>'
-               '<defs>'
-               '<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" '
-               'orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>'
-               '<marker id="as" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" '
-               'orient="auto-start-reverse"><path d="M10,0 L0,5 L10,10 z" fill="context-stroke"/></marker>'
-               '</defs>' + "".join(self.p) + "</svg>")
+        svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{self.w}" height="{self.h}" viewBox="0 0 {self.w} {self.h}">'
+               f'<rect width="{self.w}" height="{self.h}" fill="#fff"/><defs><marker id="a" viewBox="0 0 10 10" refX="9" '
+               'refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" '
+               'fill="#1a1a1a"/></marker></defs>' + "".join(self.p) + "</svg>")
         (HERE / f"{stem}.svg").write_text(svg)
-        try:
-            import cairosvg
-            cairosvg.svg2png(bytestring=svg.encode(), write_to=str(HERE / f"{stem}-{DATE}.png"),
-                             output_width=self.w * 2, output_height=self.h * 2, background_color="white")
-        except ImportError:
-            print("  (cairosvg missing — svg only)")
+        import cairosvg
+        cairosvg.svg2png(bytestring=svg.encode(), write_to=str(HERE / f"{stem}-{DATE}.png"),
+                         output_width=self.w * 2, output_height=self.h * 2, background_color="white")
         print(f"  {stem}")
 
 
-# ===================================================================== internal
 def build_internal():
-    c = Canvas(1460, 2200)
-    c.header("Deal Intelligence — Network Flow Diagram (internal)",
-             "Production AWS account 164482277879, us-east-1. Arrows point from the party that opens the "
-             "connection to the party that accepts it.",
-             f"Verified read-only against the live account, {DATE}. Flows are numbered to the table below.")
+    c = Canvas(1300, 1150)
+    c.header("Deal Intelligence — Network Flow Diagram",
+             f"Production, AWS account 164482277879, us-east-1 · {DATE}")
 
-    # ---- outside
-    c.boundary(50, 146, 1360, 132, "Internet — outside the account")
-    ey, eh = 182, 76
-    c.node(70, ey, 236, eh, "Customers", ["MCP clients · REST · Clay", "unauthenticated internet"], EXT, "Users")
-    c.node(330, ey, 236, eh, "PropelAuth", ["identity provider", "auth.dealintelligence.co"], EXT, "Client")
-    c.node(590, ey, 236, eh, "Customer CRMs", ["HubSpot · Salesforce", "customer tenants"], EXT, "Client")
-    c.node(850, ey, 236, eh, "Google Workspace", ["identity · mail"], EXT, "Client")
-    c.node(1110, ey, 280, eh, "Data vendors", ["enrichment · search APIs"], EXT, "Internetalt1")
+    c.boundary(50, 124, 1200, 118, "Internet")
+    ey, eh, ew = 158, 64, 212
+    c.node(72, ey, ew, eh, "Customers", "MCP · REST API · Clay", EXT, "Users")
+    c.node(308, ey, ew, eh, "PropelAuth", "identity provider", EXT, "Client")
+    c.node(544, ey, ew, eh, "Customer CRMs", "HubSpot · Salesforce", EXT, "Client")
+    c.node(780, ey, ew, eh, "Google Workspace", None, EXT, "Client")
+    c.node(1016, ey, ew, eh, "Data vendors", None, EXT, "Internetalt1")
 
-    # ---- account boundary, with the two chokepoints straddling it
-    ACC = 372
-    c.p.append(f'<rect x="50" y="{ACC}" width="1360" height="1140" rx="4" ry="4" fill="none" '
-               'stroke="#2b6cb0" stroke-width="1.7" stroke-dasharray="8 5"/>')
-    c.text(66, ACC + 1126, "AWS account 164482277879 — us-east-1 (production)", size=12.5,
-           anchor="start", weight="bold", fill="#2b6cb0")
+    A = 330
+    c.p.append(f'<rect x="50" y="{A}" width="1200" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
+               'stroke-width="1.7" stroke-dasharray="8 5"/>')
+    c.text(66, A + 756, "AWS account 164482277879 — us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
-    c.node(110, ACC - 38, 330, 76, "CloudFront + WAF (self-managed)",
-           ["E1QUZLMQLDUTYL · TLS 1.2+ · Shield Std", "api· / mcp·dealintelligence.io"], BND, "AWSWAF")
-    c.node(1000, ACC - 38, 330, 76, "NAT (self-managed instance)",
-           ["t3.micro · 52.70.24.151 · public subnet", "egress only — accepts no internet ingress"],
-           BND, "AmazonVPCNATGateway")
+    c.node(100, A - 34, 560, 68, "CloudFront + WAF", "self-managed WAF · TLS 1.2+", BND, "AWSWAF")
+    c.node(900, A - 34, 300, 68, "NAT", "self-managed instance · t3.micro · public subnet", BND, "AmazonVPCNATGateway")
 
-    # ---- inside: function URLs
-    c.node(110, 470, 330, 72, "Lambda function URLs",
-           ["app — origin-verified · mcp — bearer", "orchestrator · proxy — SigV4"], INT, "AWSLambda")
+    c.boundary(80, 410, 1140, 650, "VPC 10.0.0.0/16", "#2f855a")
+    c.boundary(104, 440, 700, 520, "Private subnets — us-east-1a / 1b / 1f", "#555")
+    c.node(128, 480, 300, 64, "Lambda app", "FastAPI", INT, "AWSLambda")
+    c.node(448, 480, 330, 64, "Lambda mcp", "MCP server", INT, "AWSLambda")
+    c.node(128, 580, 300, 64, "Lambda orchestrator", None, INT, "AWSLambda")
+    c.node(448, 580, 330, 64, "Scheduled Lambdas", None, INT, "AWSLambda")
+    c.cyl(200, 780, 500, 80, "DocumentDB", "di-backend-production-cluster", "AmazonDocumentDB")
 
-    # ---- VPC
-    c.boundary(80, 580, 1300, 880, "VPC di-backend-vpc 10.0.0.0/16", "#2f855a")
-    c.boundary(104, 614, 1252, 470, "Private subnets — us-east-1a / 1b / 1f (no public IPs)", "#555")
-    c.node(128, 650, 400, 76, "Lambda app (FastAPI)",
-           ["112 routes · PropelAuth bearer", "X-Internal-Key · tenant from token"], INT, "AWSLambda")
-    c.node(560, 650, 360, 76, "Lambda mcp", ["MCP server · PropelAuth API keys"], INT, "AWSLambda")
-    c.node(952, 650, 380, 76, "Scheduled Lambdas",
-           ["accessReview · retention", "breachDetection · workspace"], INT, "AWSLambda")
-    c.node(128, 758, 400, 68, "Lambda batchOrchestrator", ["launches Fargate jobs"], INT, "AWSLambda")
-    c.node(560, 758, 360, 68, "Lambda documentdb-proxy", ["SigV4 only"], INT, "AWSLambda")
-    c.cyl(430, 880, 520, 86, "DocumentDB 5.0 — di-backend-production-cluster",
-          ["private subnets · TLS · KMS · deletion protection · 35-day backups",
-           "security group: 27017 from the Lambda and NAT SGs only"], "AmazonDocumentDB")
+    c.boundary(830, 440, 366, 520, "Public subnet", "#555")
+    c.node(856, 480, 316, 64, "Fargate tasks", "di-jobs-production-cluster", INT, "AWSFargate")
 
-    c.boundary(104, 1104, 1252, 330, "Public subnet", "#555")
-    c.node(128, 1140, 400, 84, "Fargate batch tasks",
-           ["di-jobs-production-cluster", "own public IP · SG has no ingress rules"], INT, "AWSFargate")
-    c.node(560, 1140, 300, 76, "Bastion", ["ECS task definition", "no instance running"],
-           INT, "AmazonElasticContainerService")
-    c.node(900, 1140, 300, 76, "NAT instance", ["drawn on the boundary above"], BND, "AmazonEC2Instance")
-    c.p.append('<path d="M1050,1140 L1050,1098 L1362,1098 L1362,406 L1330,406" fill="none" '
-               f'stroke="{MGMT}" stroke-width="1.5" stroke-dasharray="4 4"/>')
+    sw = 206
+    for i, (ic, t) in enumerate([("AWSSecretsManager", "Secrets Manager"), ("AWSKeyManagementService", "KMS"),
+                                 ("AmazonSimpleStorageService", "S3"), ("AWSCloudTrail", "CloudTrail"),
+                                 ("AmazonElasticContainerRegistry", "ECR")]):
+        c.node(104 + i * (sw + 16), 986, sw, 54, t, None, SUP, ic)
 
-    sw = 246
-    for i, (ic, t, m) in enumerate([
-            ("AWSSecretsManager", "Secrets Manager", "API keys · OAuth tokens"),
-            ("AWSKeyManagementService", "KMS", "customer-managed key"),
-            ("AmazonSimpleStorageService", "S3 × 5", "Block Public Access on"),
-            ("AWSCloudTrail", "CloudTrail", "multi-region · validated"),
-            ("AmazonElasticContainerRegistry", "ECR", "scan on push")]):
-        c.node(128 + i * (sw + 10), 1270, sw, 60, t, [m], SUP, ic)
-    c.text(128, 1356, "AWS service endpoints reached over HTTPS 443 through the NAT — there are no VPC endpoints.",
-           size=10.5, anchor="start", fill="#555")
-
-    # ---- flows
-    c.flow(1, [(165, ey + eh), (200, ACC - 38)], "HTTPS 443", lx=120, ly=330, anchor="start")
-    c.flow(2, [(275, ACC + 38), (275, 470)], "HTTPS 443 + X-Origin-Verify", lx=292, ly=440, anchor="start")
-    c.flow(3, [(275, 542), (275, 650)], "invoke", lx=292, ly=600, anchor="start")
-    c.flow(4, [(440, 506), (660, 506), (660, 650)], "invoke", lx=676, ly=600, anchor="start")
-    c.flow(5, [(528, 700), (544, 700), (544, 880)], "TCP 27017 TLS", lx=552, ly=836, anchor="start")
-    c.flow(6, [(700, 726), (760, 880)], "TCP 27017 TLS", lx=770, ly=800, anchor="start")
-    c.flow(7, [(1100, 726), (900, 880)], "TCP 27017 TLS", lx=1010, ly=790, anchor="start")
-    c.flow(8, [(300, 826), (440, 884)], "TCP 27017 TLS", lx=150, ly=874, anchor="start")
-    c.flow(9, [(330, 826), (330, 1140)], "ECS RunTask (HTTPS 443 via NAT)", lx=344, ly=1038, anchor="start")
-    c.flow(10, [(1240, 726), (1240, 1000), (1300, 1000)], "HTTPS 443 via NAT →", lx=1150, ly=1022, anchor="start")
-    c.flow(11, [(1300, 1000), (1336, 1000), (1336, 452), (1200, 420)], "", badge=False)
-    c.flow(12, [(1120, ACC - 38), (960, ey + eh)], "HTTPS 443 — JWT / API-key validation", lx=905, ly=330, anchor="start")
-    c.flow(13, [(1180, ACC - 38), (1180, ey + eh)], "HTTPS 443 — OAuth, mail, enrichment",
-           lx=1196, ly=330, anchor="start")
-    c.flow(14, [(528, 1182), (1396, 1182), (1396, 300), (1300, 262)], "HTTPS 443 — own public IP,", lx=1388, ly=1210, anchor="end")
-    c.text(1388, 1224, "not via the NAT", size=10, fill="#222", anchor="end")
-    c.flow(15, [(300, 1140), (300, 1096), (28, 1096), (28, 420), (110, 396)],
-           "", badge=True)
-    c.text(36, 316, "15 — Fargate jobs call the public API: HTTPS 443 + X-Internal-Key", size=10, fill="#222", anchor="start")
-
-    # blocked
-    c.blocked([(700, 300), (560, 440), (420, 470)], "direct hit on a function URL → 403 (origin verification)",
-              lx=600, ly=430, anchor="start")
-    c.blocked([(936, 300), (936, 600), (936, 872)], "no route from the internet to DocumentDB",
-              lx=948, ly=548, anchor="start")
-
-    c.legend(60, 1552, [("flow", "network flow — arrow points to the party accepting the connection"),
-                        ("blocked", "path that is denied, and what denies it"),
-                        ("mgmt", "same host / management relationship, not a network flow"),
-                        ("bnd", "trust boundary")])
-
-    rows = [
-        ("1", "Customer client → CloudFront", "HTTPS 443 (TLS 1.2+)", "inbound", "Shield Standard; WAF rate limit per credential then IP"),
-        ("2", "CloudFront → Lambda function URL", "HTTPS 443", "inbound", "X-Origin-Verify header; direct hits rejected 403"),
-        ("3", "Function URL → Lambda app", "AWS invoke", "internal", "PropelAuth bearer or X-Internal-Key on every route"),
-        ("4", "Function URL → Lambda mcp", "AWS invoke", "internal", "PropelAuth API key; bearer on the function URL"),
-        ("5", "Lambda app → DocumentDB", "TCP 27017 (TLS)", "internal", "SG: 27017 from the Lambda SG only; KMS at rest"),
-        ("6", "Lambda documentdb-proxy → DocumentDB", "TCP 27017 (TLS)", "internal", "SigV4 on the function URL; same SG rule"),
-        ("7", "Scheduled Lambdas → DocumentDB", "TCP 27017 (TLS)", "internal", "same SG rule; EventBridge schedules only"),
-        ("8", "batchOrchestrator → DocumentDB", "TCP 27017 (TLS)", "internal", "same SG rule; also holds the shared WAF rate-limit counters"),
-        ("9", "batchOrchestrator → ECS RunTask", "HTTPS 443 via NAT", "outbound", "task role scoped to the jobs cluster"),
-        ("10", "Lambdas → Secrets Manager / AWS APIs", "HTTPS 443 via NAT", "outbound", "no VPC endpoints; IAM-scoped; 5-minute cache"),
-        ("12", "Lambdas → NAT → PropelAuth", "HTTPS 443", "outbound", "egress through the NAT; no inbound path"),
-        ("13", "Lambdas → NAT → CRM / Workspace / vendors", "HTTPS 443", "outbound", "OAuth tokens held in Secrets Manager"),
-        ("14", "Fargate task → data vendors", "HTTPS 443", "outbound", "leaves on the task's own public IP, not the NAT (finding A)"),
-        ("15", "Fargate task → CloudFront → API", "HTTPS 443", "out and back in", "X-Internal-Key header; same WAF path as a customer"),
-        ("DENY", "Internet → Lambda function URL (direct)", "HTTPS 443", "inbound", "denied — origin verification returns 403"),
-        ("DENY", "Internet → DocumentDB", "TCP 27017", "inbound", "denied — private subnets, no public IP, SG denies"),
-        ("DENY", "Internet → NAT instance", "any", "inbound", "denied — SG accepts 10.0.1.0/24 and 10.0.2.0/24 only"),
-        ("DENY", "Internet → Fargate task", "any", "inbound", "denied — security group has no ingress rules"),
-        ("LOG", "CloudTrail → S3; VPC flow logs and Lambda logs → CloudWatch", "AWS internal", "logging", "multi-region, log-file validation, 90-day retention"),
-    ]
-    c.flow_table(60, 1672, 1340, rows)
+    # inbound
+    c.arrow([(178, ey + eh), (230, A - 34)], "HTTPS 443", 150, 290, "start")
+    c.arrow([(250, A + 34), (250, 480)], "HTTPS 443", 262, 430, "start")
+    c.arrow([(600, A + 34), (600, 480)], "HTTPS 443", 588, 440, "end")
+    # to the database
+    c.arrow([(278, 544), (380, 780)], "TCP 27017", 318, 672, "end")
+    c.arrow([(613, 544), (560, 780)], "TCP 27017", 598, 672, "start")
+    c.arrow([(230, 644), (300, 780)], "TCP 27017", 180, 740, "start")
+    c.arrow([(660, 644), (620, 780)], "TCP 27017", 650, 740, "start")
+    # orchestrator launches Fargate
+    c.arrow([(330, 644), (330, 700), (1014, 700), (1014, 544)], "ECS RunTask", 860, 692, "start")
+    # Lambdas out through the NAT
+    c.arrow([(778, 612), (1190, 612), (1190, A + 34)], "HTTPS 443", 1070, 604, "start")
+    c.arrow([(970, A - 34), (414, ey + eh)], "HTTPS 443", 560, 300, "start")
+    c.arrow([(1030, A - 34), (660, ey + eh)], "HTTPS 443", 760, 290, "start")
+    c.arrow([(1090, A - 34), (900, ey + eh)], "HTTPS 443", 950, 280, "start")
+    # Fargate: calls the API through CloudFront; reaches vendors directly
+    c.arrow([(856, 500), (840, 500), (840, 420), (620, 420), (620, A + 34)], "HTTPS 443", 700, 403, "start")
+    c.arrow([(1172, 500), (1236, 500), (1236, 250), (1130, 222)], "HTTPS 443", 1242, 390, "start")
     c.save("di-backend-network-internal")
 
 
-# ===================================================================== boundary
-def build_boundary():
-    c = Canvas(1460, 1400)
-    c.header("Deal Intelligence — Account Boundary Crossings",
-             "Every flow that crosses the production account boundary, its direction, and the control that "
-             "governs it. Three crossing points: in through CloudFront, out through the NAT, and the Fargate "
-             "tasks' own egress.",
-             f"Verified read-only against the live account, {DATE}.")
-
-    c.boundary(50, 150, 1360, 124, "Internet — outside the account")
-    c.node(80, 182, 380, 72, "Customers", ["MCP clients · REST · Clay"], EXT, "Users")
-    c.node(500, 182, 380, 72, "PropelAuth", ["identity provider · sub-processor"], EXT, "Client")
-    c.node(920, 182, 460, 72, "Third parties", ["customer CRMs · Google Workspace · data vendors"],
-           EXT, "Internetalt1")
-
-    ACC = 384
-    c.p.append(f'<rect x="50" y="{ACC}" width="1360" height="452" rx="4" ry="4" fill="none" '
-               'stroke="#2b6cb0" stroke-width="1.7" stroke-dasharray="8 5"/>')
-    c.text(66, ACC + 438, "AWS account 164482277879 — us-east-1 (production)", size=12.5,
-           anchor="start", weight="bold", fill="#2b6cb0")
-
-    c.node(90, ACC - 38, 340, 76, "CloudFront + WAF (self-managed)",
-           ["ingress chokepoint · TLS 1.2+ · Shield Std"], BND, "AWSWAF")
-    c.node(560, ACC - 38, 320, 76, "NAT (self-managed instance)",
-           ["egress chokepoint · t3.micro"], BND, "AmazonVPCNATGateway")
-    c.node(1010, ACC - 38, 370, 76, "Fargate task public IP",
-           ["second egress path — not the NAT"], BND, "AWSFargate")
-
-    c.boundary(80, 500, 1300, 288, "VPC di-backend-vpc 10.0.0.0/16", "#2f855a")
-    c.node(110, 548, 420, 84, "Private subnets — compute",
-           ["Lambda app · mcp · orchestrator · proxy", "scheduled jobs · no public IPs"], INT, "AWSLambda")
-    c.cyl(600, 544, 460, 92, "DocumentDB",
-          ["private subnets · TLS · KMS · 35-day backups",
-           "27017 from the Lambda and NAT SGs only"], "AmazonDocumentDB")
-    c.node(110, 672, 420, 80, "Public subnet — Fargate tasks",
-          ["di-jobs-production-cluster", "SG has no ingress rules"], INT, "AWSFargate")
-    c.node(1120, 548, 240, 80, "Account services",
-           ["Secrets Manager · KMS", "S3 · CloudTrail · ECR"], SUP, "AWSSecretsManager")
-
-    c.flow(1, [(200, 254), (200, ACC - 38)], "HTTPS 443 inbound", lx=212, ly=330, anchor="start")
-    c.flow(2, [(260, ACC + 38), (260, 548)], "HTTPS 443 + X-Origin-Verify", lx=272, ly=476, anchor="start")
-    c.flow(3, [(530, 586), (600, 586)], "27017 TLS", lx=512, ly=612, anchor="middle")
-    c.flow(4, [(640, 548), (640, ACC + 38)], "HTTPS 443 outbound via NAT", lx=652, ly=470, anchor="start")
-    c.flow(5, [(680, ACC - 38), (680, 254)], "HTTPS 443 — JWT / API-key validation, OAuth, mail, enrichment",
-           lx=694, ly=330, anchor="start")
-    c.flow(6, [(530, 712), (1195, 712), (1195, ACC + 38)], "HTTPS 443 outbound on the task's own public IP",
-           lx=1185, ly=700, anchor="end")
-    c.flow(7, [(1195, ACC - 38), (1195, 254)], "", badge=False)
-    c.flow(8, [(1120, 588), (1060, 588)], "HTTPS 443 via NAT", lx=1180, ly=640, anchor="middle")
-
-    c.blocked([(430, 300), (430, 420), (430, 540)], "direct hit on a function URL → 403", lx=440, ly=350,
-              anchor="start")
-    c.blocked([(940, 300), (940, 440), (940, 536)], "no inbound route to DocumentDB", lx=950, ly=350,
-              anchor="start")
-
-    c.legend(60, 890, [("flow", "network flow — arrow points to the party accepting the connection"),
-                       ("blocked", "path that is denied, and what denies it"),
-                       ("bnd", "trust boundary")])
-
-    rows = [
-        ("1", "Internet (customer) → CloudFront", "HTTPS 443 (TLS 1.2+)", "inbound", "Shield Standard; self-managed WAF: origin check, rate limit, headers"),
-        ("2", "CloudFront → Lambda function URL", "HTTPS 443", "inbound", "X-Origin-Verify header; every route authenticated"),
-        ("3", "Compute → DocumentDB", "TCP 27017 (TLS)", "internal", "SG 27017 from the Lambda SG only; KMS at rest"),
-        ("4", "Compute → NAT", "HTTPS 443", "internal", "NAT SG accepts 10.0.1.0/24 and 10.0.2.0/24 only"),
-        ("5", "NAT → PropelAuth / CRM / Workspace / vendors", "HTTPS 443", "outbound", "egress only; credentials from Secrets Manager"),
-        ("6", "Fargate task → internet", "HTTPS 443", "outbound", "task's own public IP, bypasses the NAT (finding A, open)"),
-        ("8", "Compute → AWS service endpoints", "HTTPS 443 via NAT", "outbound", "no VPC endpoints; IAM-scoped"),
-        ("DENY", "Internet → Lambda function URL (direct)", "HTTPS 443", "inbound", "origin verification returns 403"),
-        ("DENY", "Internet → DocumentDB", "TCP 27017", "inbound", "private subnets, no public IP, SG denies"),
-        ("DENY", "Internet → NAT instance", "any", "inbound", "SG accepts 10.0.1.0/24 and 10.0.2.0/24 only"),
-        ("DENY", "Internet → Fargate task", "any", "inbound", "security group has no ingress rules"),
-        ("LOG", "CloudTrail → S3; flow logs and Lambda logs → CloudWatch", "AWS internal", "stays in account", "multi-region, log-file validation, 90-day retention"),
-    ]
-    c.flow_table(60, 1000, 1340, rows, "Boundary crossings")
-    c.save("di-backend-network-boundary")
-
-
-# ===================================================================== customer
 def build_customer():
-    c = Canvas(1400, 1100)
-    c.header("Deal Intelligence — How Your Data Is Connected",
-             "The network path between your systems and the Deal Intelligence platform. Arrows point from "
-             "the party that opens the connection to the party that accepts it.",
-             f"Production environment as at {DATE}. Single AWS account in us-east-1.")
+    c = Canvas(1200, 780)
+    c.header("Deal Intelligence — Network Flow Diagram",
+             f"How your systems connect to the Deal Intelligence platform · {DATE}")
 
-    c.boundary(50, 150, 1300, 124, "Your systems and your identity provider")
-    c.node(80, 182, 300, 72, "Your users", ["MCP client · REST API · Clay"], EXT, "Users")
-    c.node(410, 182, 300, 72, "Your CRM", ["HubSpot · Salesforce"], EXT, "Client")
-    c.node(740, 182, 280, 72, "Your Slack", ["alerts and digests"], EXT, "Client")
-    c.node(1050, 182, 270, 72, "PropelAuth", ["sign-in · sub-processor"], EXT, "Client")
+    c.boundary(50, 124, 1100, 118, "Your systems")
+    ey, eh = 158, 64
+    c.node(76, ey, 250, eh, "Your users", "MCP · REST API · Clay", EXT, "Users")
+    c.node(350, ey, 250, eh, "Your CRM", "HubSpot · Salesforce", EXT, "Client")
+    c.node(624, ey, 230, eh, "Your Slack", None, EXT, "Client")
+    c.node(878, ey, 250, eh, "PropelAuth", "sign-in", EXT, "Client")
 
-    ACC = 384
-    c.p.append(f'<rect x="50" y="{ACC}" width="1300" height="290" rx="4" ry="4" fill="none" '
-               'stroke="#2b6cb0" stroke-width="1.7" stroke-dasharray="8 5"/>')
-    c.text(66, ACC + 276, "Deal Intelligence — private AWS environment (us-east-1)", size=12.5,
-           anchor="start", weight="bold", fill="#2b6cb0")
+    A = 330
+    c.p.append(f'<rect x="50" y="{A}" width="1100" height="400" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
+               'stroke-width="1.7" stroke-dasharray="8 5"/>')
+    c.text(66, A + 386, "Deal Intelligence — AWS, us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
-    c.node(90, ACC - 38, 360, 76, "CloudFront + WAF",
-           ["the only way in · TLS 1.2+ · DDoS protection"], BND, "AWSWAF")
-    c.node(900, ACC - 38, 380, 76, "NAT — outbound only",
-           ["accepts no inbound connection"], BND, "AmazonVPCNATGateway")
+    c.node(100, A - 34, 300, 68, "CloudFront + WAF", "TLS 1.2+", BND, "AWSWAF")
+    c.node(800, A - 34, 300, 68, "NAT", "outbound only", BND, "AmazonVPCNATGateway")
 
-    c.node(230, 520, 460, 84, "Authenticated API",
-           ["every route requires your token or API key", "your tenant is taken from the token"],
-           INT, "AWSLambda")
-    c.cyl(760, 516, 500, 92, "Your data",
-          ["private network only · encrypted with AWS KMS",
-           "TLS in transit · 35-day backups · deletion protection"], "AmazonDocumentDB")
+    c.boundary(80, 420, 1040, 260, "Private network", "#2f855a")
+    c.node(150, 470, 300, 68, "API", "Lambda", INT, "AWSLambda")
+    c.cyl(620, 462, 400, 84, "Your data", "DocumentDB · encrypted · 35-day backups", "AmazonDocumentDB")
 
-    c.flow(1, [(170, 254), (170, ACC - 38)], "HTTPS 443", lx=182, ly=330, anchor="start")
-    c.flow(2, [(270, ACC + 38), (270, 520)], "HTTPS 443, origin-verified", lx=282, ly=490, anchor="start")
-    c.flow(3, [(690, 560), (760, 560)], "TCP 27017, TLS", lx=726, ly=620, anchor="middle")
-    c.flow(4, [(620, 520), (1010, 470), (1010, ACC + 38)], "HTTPS 443 outbound", lx=1024, ly=498, anchor="start")
-    c.flow(5, [(1020, ACC - 38), (620, 254)], "HTTPS 443 — your CRM, with the OAuth grant you gave us",
-           lx=640, ly=324, anchor="start")
-    c.flow(6, [(1120, ACC - 38), (900, 254)], "", badge=False)
-    c.flow(7, [(1200, ACC - 38), (1180, 254)], "HTTPS 443 — sign-in", lx=1216, ly=324, anchor="start")
-
-    c.blocked([(470, 300), (470, 400), (470, 508)], "the API cannot be reached except through CloudFront",
-              lx=482, ly=352, anchor="start")
-    c.blocked([(820, 300), (820, 400), (820, 504)], "your data is not reachable from the internet",
-              lx=832, ly=352, anchor="start")
-
-    c.legend(60, 742, [("flow", "network flow — arrow points to the party accepting the connection"),
-                       ("blocked", "path that is denied, and what denies it"),
-                       ("bnd", "trust boundary")])
-
-    rows = [
-        ("1", "Your users → CloudFront", "HTTPS 443 (TLS 1.2+)", "inbound", "DDoS protection; web application firewall; rate limiting"),
-        ("2", "CloudFront → Deal Intelligence API", "HTTPS 443", "inbound", "origin verification; no other route reaches the API"),
-        ("3", "API → your data", "TCP 27017 (TLS)", "internal", "private network only; encrypted at rest with AWS KMS"),
-        ("4", "API → NAT", "HTTPS 443", "internal", "single controlled exit for outbound calls"),
-        ("5", "NAT → your CRM", "HTTPS 443", "outbound", "uses the OAuth grant you issued; token held in AWS Secrets Manager"),
-        ("6", "NAT → your Slack", "HTTPS 443", "outbound", "posts only to the channels you configure"),
-        ("7", "NAT → PropelAuth", "HTTPS 443", "outbound", "sign-in and token validation"),
-        ("DENY", "Internet → the API directly", "HTTPS 443", "inbound", "rejected; CloudFront is the only entry point"),
-        ("DENY", "Internet → your data", "TCP 27017", "inbound", "no public address and no route; firewall denies"),
-        ("LOG", "All API calls logged and retained", "—", "internal", "90-day log retention; SOC 2 Type I report available under NDA"),
-    ]
-    c.flow_table(60, 852, 1280, rows, "Data flows")
+    c.arrow([(200, ey + eh), (230, A - 34)], "HTTPS 443", 150, 290, "start")
+    c.arrow([(250, A + 34), (250, 470)], "HTTPS 443", 262, 440, "start")
+    c.arrow([(450, 504), (620, 504)], "TCP 27017", 535, 496, "middle")
+    c.arrow([(300, 538), (300, 600), (1080, 600), (1080, A + 34)], "HTTPS 443", 1090, 480, "start")
+    c.arrow([(880, A - 34), (520, ey + eh)], "HTTPS 443", 640, 300, "start")
+    c.arrow([(940, A - 34), (760, ey + eh)], "HTTPS 443", 870, 280, "start")
+    c.arrow([(1010, A - 34), (1000, ey + eh)], "HTTPS 443", 1020, 300, "start")
     c.save("di-backend-network-customer")
 
 
-BUILDERS = {"internal": build_internal, "boundary": build_boundary, "customer": build_customer}
-
+B = {"internal": build_internal, "customer": build_customer}
 if __name__ == "__main__":
-    want = sys.argv[1:] or list(BUILDERS)
-    for name in want:
-        if name not in BUILDERS:
-            sys.exit(f"unknown variant {name!r}; pick from {', '.join(BUILDERS)}")
-        BUILDERS[name]()
+    for n in (sys.argv[1:] or list(B)):
+        B[n]()
