@@ -15,12 +15,12 @@ flowchart LR
   subgraph AWS["AWS account 164482277879 — us-east-1 (prod)"]
     direction LR
     CF["CloudFront E1QUZLMQLDUTYL<br/>api· / mcp·dealintelligence.io<br/>TLS 1.2+ · Shield Standard"]:::edge
-    WAFL["Edge protection — in code, no AWS WAF<br/>X-Origin-Verify header → OriginVerifyMiddleware<br/>rate limiting shared via DocumentDB (per credential, then IP)<br/>security headers · redaction"]:::edge
+    WAFL["WAF — self-managed (not AWS WAF)<br/>X-Origin-Verify header → OriginVerifyMiddleware<br/>rate limiting shared via DocumentDB (per credential, then IP)<br/>security headers · redaction"]:::edge
     FURL["Lambda function URLs<br/>app (origin-verified) · mcp (bearer)<br/>batchOrchestrator · documentdb-proxy (SigV4)"]:::edge
     subgraph VPC["VPC di-backend-vpc 10.0.0.0/16 — no SG allows 0.0.0.0/0"]
       direction LR
       subgraph PUB["Public subnet"]
-        NAT["NAT instance t3.micro<br/>i-0c5a7ab0… · 52.70.24.151<br/>ingress only 10.0.1.0/24, 10.0.2.0/24<br/>IMDSv2 · SSM · no key pair"]:::edge
+        NAT["NAT — self-managed instance t3.micro<br/>i-0c5a7ab0… · 52.70.24.151<br/>ingress only 10.0.1.0/24, 10.0.2.0/24<br/>IMDSv2 · SSM · no key pair"]:::edge
         FARGATE["Fargate batch tasks<br/>di-jobs-production-cluster<br/>public IP, no ingress (finding A)"]:::priv
         BAST["Bastion task def<br/>on demand · none running"]:::edge
       end
