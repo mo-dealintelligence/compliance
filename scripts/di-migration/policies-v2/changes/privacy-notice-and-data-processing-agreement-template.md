@@ -57,3 +57,6 @@ Contractual register kept: "shall" retained inside the DPA clauses (§4.1, §4.2
 
 - D12: Security Hub removed — §3.5 security monitoring → CloudWatch alarms, a monthly configuration-check Lambda and real-time alerting on security-relevant CloudTrail events; §4.3 technical measures "Security Hub continuous monitoring" → monthly configuration-check Lambda recorded in the compliance platform, with CloudTrail real-time event alerting
 - D14: marked OPEN — `[CONFIRM: D14 open — pending investigation]` added to the §4 preamble (processor / independent-controller split) and at the top of §4.10; applied text kept unchanged pending the investigation
+
+## Decisions applied (2026-10-31, round 3)
+- D14 closed (Mo, 2026-10-31): two-flow framing adopted — independent controller for compiled business contact information, processor for customer-uploaded data; no joint control; no combining of customer data; CCPA business thresholds not met (service provider for customer data where the customer is a CCPA business). Markers removed; wording from scratch/d14-controller-processor/REPORT.md §6.

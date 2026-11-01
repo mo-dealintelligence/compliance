@@ -52,3 +52,6 @@
 ## Decisions applied (2026-10-31, round 2)
 
 - D14: marked OPEN — `[CONFIRM: D14 open — pending investigation]` appended to the §1 controller/processor framing sentence; applied text kept unchanged pending the investigation
+
+## Decisions applied (2026-10-31, round 3)
+- D14 closed (Mo, 2026-10-31): two-flow framing adopted — independent controller for compiled business contact information, processor for customer-uploaded data; no joint control; no combining of customer data; CCPA business thresholds not met (service provider for customer data where the customer is a CCPA business). Markers removed; wording from scratch/d14-controller-processor/REPORT.md §6.

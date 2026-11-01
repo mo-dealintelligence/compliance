@@ -45,3 +45,7 @@ scratch/quality-sweep/records-v2/. Each is final unless marked OPEN.
 - D13b Availability: monthly, as decided; **a monthly compliance-platform task "Availability record (monthly)" must exist** with the Monday reminder email covering it (task frequency monthly, owner CEO).
 - D14 **OPEN** — controller/processor framing needs a proper investigation before Mo decides. Keep the applied text but mark the DSR §1 framing and the DPA §4 preamble / §4.10 independent-controllers clause with `[CONFIRM: D14 open — pending investigation]`.
 - D23 Context answers: delete the duplicate "How many employees" row; sign-in answer = "Google Workspace SSO and email/password, both with 2FA".
+
+## Round 3 (2026-10-31, 23:22)
+- D14 **closed**: two-flow framing adopted (independent controller for compiled data; processor for customer-uploaded data). CCPA: Deal Intelligence does not meet the business thresholds (Mo: well under the 50 %-of-revenue test for California personal information); no data-broker registration. Applied to the DSR procedure and the DPA template.
+- D17/minutes: confirmed; markers resolved with the audited current-state facts, re-submitted.

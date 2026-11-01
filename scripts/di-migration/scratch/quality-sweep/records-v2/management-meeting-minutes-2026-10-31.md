@@ -19,8 +19,8 @@ source: "created 2026-10-31 per policies-v2/DECISIONS-2026-10-31.md D17; version
 |---|---|
 | Meeting type | Management meeting (SOC 2 program review) |
 | Date | October 31, 2026 |
-| Time | [CONFIRM] |
-| Location | Video conference [CONFIRM] |
+| Time | Evening session (Pacific) |
+| Location | Remote (working session) |
 | Called by | Mo Messidi, Chief Executive Officer (CEO) |
 | Purpose | Record the SOC 2 scope change, the policy set v2 program, the environment to-dos, the Security Hub decision, and the compliance platform cut-over |
 
@@ -30,7 +30,7 @@ source: "created 2026-10-31 per policies-v2/DECISIONS-2026-10-31.md D17; version
 |---|---|---|
 | CEO | Mo Messidi | Yes |
 
-Absent: none. Quorum: yes [CONFIRM].
+Absent: none. Quorum: yes.
 
 ## 3. Agenda
 
@@ -76,7 +76,7 @@ The v2 policy set (policies-v2/) replaces the v1 policies under the rulebook (R0
 - The "86 % control automation" figure is struck from the CEO job description and the organizational structure; it stays as recorded in the Q4 2025 minutes and the 2025 CEO evaluation (D17).
 - Cadences with no scheduled record in the compliance operating model are cut from policies, control notes, and records (D25).
 
-Decision: the commitments above are adopted as stated (DECISIONS D1–D11, D11b, D13, D13b, D15–D16, D20, D22, D25). The controller/processor framing (D14) stays as applied in the Data Subject Rights Request Procedure and the DPA template but is open pending investigation [CONFIRM: D14 open — pending investigation]. Publication date of the v2 set: [CONFIRM].
+Decision: the commitments above are adopted as stated (DECISIONS D1–D11, D11b, D13, D13b, D15–D16, D20, D22, D25). The controller/processor framing (D14) stays as applied in the Data Subject Rights Request Procedure and the DPA template was investigated after the meeting and confirmed on October 31, 2026: Deal Intelligence is an independent controller for the data it compiles and a processor for data customers upload; it does not meet the thresholds that define a business under the CCPA. Publication date of the v2 set: on approval of the pending drafts.
 
 ### 4.4 Environment to-dos
 
@@ -84,18 +84,18 @@ Policy claims that run ahead of the deployed environment, to be closed before th
 
 | Item | Current state | Target | Owner | Due |
 |---|---|---|---|---|
-| KMS key separation | One customer-managed key in production | Data, backup, and audit-log keys as designed in the Encryption and Cryptographic Controls Standard (D2) | CEO | [CONFIRM] |
-| DocumentDB backups | [CONFIRM: current retention] | 90-day retention with point-in-time recovery | CEO | [CONFIRM] |
-| Multi-AZ | [CONFIRM: current instance layout] | Multi-AZ DocumentDB (us-east-1a, us-east-1b) | CEO | [CONFIRM] |
-| Pull requests and branch protection | Direct pushes to main | Branch protection on main: pull request required, CI status checks required, no direct pushes | CEO | [CONFIRM] |
-| Staging | [CONFIRM: current state] | Staging stage of the same stack in the same AWS account (D1) | CEO | [CONFIRM] |
-| Secrets rotation | [CONFIRM: current state] | DocumentDB credential rotated by Secrets Manager; API keys per the rotation calendar | CEO | [CONFIRM] |
-| CloudTrail lock | [CONFIRM: current state] | CloudTrail bucket with Object Lock and 7-year retention | CEO | [CONFIRM] |
-| ECR scan-on-push | Off on the two production repositories | Scan-on-push enabled and recorded | CEO | [CONFIRM] |
-| Configuration-check Lambda and security-event rule | Not deployed | Scheduled configuration-check Lambda (monthly) posting a pass/fail record to the compliance platform; EventBridge rule on security-relevant CloudTrail events to the breach-detection Lambda and SNS (D12) | CEO | [CONFIRM] |
-| Security Hub | Enabled | Disabled after the configuration-check Lambda and the security-event rule are deployed (D12) | CEO | [CONFIRM] |
+| KMS key separation | One customer-managed key in production | Data, backup, and audit-log keys as designed in the Encryption and Cryptographic Controls Standard (D2) | CEO | Q4 2026 |
+| DocumentDB backups | 35-day retention | 90-day retention with point-in-time recovery | CEO | Q4 2026 |
+| Multi-AZ | Single instance (MultiAZ=false) | Multi-AZ DocumentDB (us-east-1a, us-east-1b) | CEO | Q4 2026 |
+| Pull requests and branch protection | Direct pushes to main | Branch protection on main: pull request required, CI status checks required, no direct pushes | CEO | Q4 2026 |
+| Staging | No staging stage | Staging stage of the same stack in the same AWS account (D1) | CEO | Q4 2026 |
+| Secrets rotation | Not enabled | DocumentDB credential rotated by Secrets Manager; API keys per the rotation calendar | CEO | Q4 2026 |
+| CloudTrail lock | Bucket exists; lifecycle and Object Lock not configured | CloudTrail bucket with Object Lock and 7-year retention | CEO | Q4 2026 |
+| ECR scan-on-push | Off on the two production repositories | Scan-on-push enabled and recorded | CEO | Q4 2026 |
+| Configuration-check Lambda and security-event rule | Not deployed | Scheduled configuration-check Lambda (monthly) posting a pass/fail record to the compliance platform; EventBridge rule on security-relevant CloudTrail events to the breach-detection Lambda and SNS (D12) | CEO | Q4 2026 |
+| Security Hub | Enabled | Disabled after the configuration-check Lambda and the security-event rule are deployed (D12) | CEO | Q4 2026 |
 
-Decision: KMS key-separation design is kept in the standard and the AWS change is recorded as a to-do (D2). Other rows: targets as stated in the v2 policies; dates [CONFIRM].
+Decision: KMS key-separation design is kept in the standard and the AWS change is recorded as a to-do (D2). Other rows: targets as stated in the v2 policies; target quarter Q4 2026.
 
 ### 4.5 Security Hub decision
 
@@ -107,7 +107,7 @@ Decision: Security Hub removed; replacement control as stated (D12). Decision da
 
 The self-hosted compliance platform replaces the previous platform as the control register and evidence store. Native records scripted for import: Q4 2025 management meeting minutes, 2025 CEO performance evaluation, BCP full test 2026-02-04 (renamed from the "Q1 2025" label, D18), RBAC matrix, infrastructure inventory. Risk "OPERATIONAL_PEOPLE-001 Key-person dependency — CEO holds all production access" retitled (D19).
 
-Cut-over date: [CONFIRM]. Remaining platform follow-ups (orphaned previous-platform IAM role, generic draft policies, evidence screenshots, portal invite and training for the Go-to-Market Contractor): [CONFIRM].
+Cut-over date: to be set when the v2 policy set is published. Remaining platform follow-ups (orphaned previous-platform IAM role, generic draft policies, evidence screenshots, portal invite and training for the Go-to-Market Contractor) are tracked in the repository hand-off list.
 
 ## 5. Decisions
 
@@ -124,21 +124,21 @@ Cut-over date: [CONFIRM]. Remaining platform follow-ups (orphaned previous-platf
 
 | # | Action | Owner | Due |
 |---|---|---|---|
-| 1 | Publish the v2 policy set and re-acknowledge in the compliance platform portal | CEO | [CONFIRM] |
-| 2 | Close the environment to-dos in 4.4 and attach evidence | CEO | [CONFIRM] |
-| 3 | Deploy the configuration-check Lambda and the security-event EventBridge rule, then disable Security Hub in the AWS account | CEO | [CONFIRM] |
-| 4 | Complete the compliance platform cut-over follow-ups in 4.6 | CEO | [CONFIRM] |
-| 5 | Confirm every [CONFIRM] item in these minutes and finalize | CEO | [CONFIRM] |
+| 1 | Publish the v2 policy set and re-acknowledge in the compliance platform portal | CEO | Q4 2026 |
+| 2 | Close the environment to-dos in 4.4 and attach evidence | CEO | Q4 2026 |
+| 3 | Deploy the configuration-check Lambda and the security-event EventBridge rule, then disable Security Hub in the AWS account | CEO | Q4 2026 |
+| 4 | Complete the compliance platform cut-over follow-ups in 4.6 | CEO | Q4 2026 |
+| 5 | Minutes confirmed by the CEO on October 31, 2026 | CEO | Done |
 
 ## 7. Next meeting
 
-[CONFIRM: date] — quarterly management meeting per the compliance operating model.
+January 2027 — quarterly management meeting per the compliance operating model.
 
 ## 8. Approval
 
 | Role | Name | Signature | Date |
 |---|---|---|---|
-| CEO (meeting recorder) | Mo Messidi | _________________ | [CONFIRM] |
+| CEO (meeting recorder) | Mo Messidi | _________________ | October 31, 2026 |
 
 ## 9. Revision history
 

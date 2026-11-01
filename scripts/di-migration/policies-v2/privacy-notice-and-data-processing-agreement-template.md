@@ -142,7 +142,7 @@ In the event of a personal data breach, we will notify affected customers within
 
 This Data Processing Agreement ("DPA") forms part of the Service Agreement between Deal Intelligence LLC ("Processor") and [Customer Name] ("Controller").
 
-Sections 4.1 to 4.9 apply to personal data that the Controller uploads to or holds within its Deal Intelligence account, for which Deal Intelligence acts as processor. Section 4.10 applies to the business contact information that Deal Intelligence compiles and delivers through the platform, for which Deal Intelligence and the Customer each act as an independent controller. [CONFIRM: D14 open — pending investigation]
+Sections 4.1 to 4.9 apply to personal data that the Controller uploads to or holds within its Deal Intelligence account, for which Deal Intelligence acts as processor. Section 4.10 applies to the business contact information that Deal Intelligence compiles and delivers through the platform, for which Deal Intelligence and the Customer each act as a separate and independent controller; nothing in this DPA creates a joint-controller relationship. Deal Intelligence compiles that information for its own purposes under its own lawful basis (legitimate interests, Art. 6(1)(f) GDPR, with a documented legitimate-interests assessment and Art. 14 notice) and is responsible for its own compliance, including responding to data subject requests concerning it. Deal Intelligence does not combine Customer-uploaded data with the information it compiles, and does not use Customer-uploaded data for any purpose other than providing the Services, unless the Customer expressly opts in under a separate written addendum. Deal Intelligence does not meet the thresholds that define a "business" under the CCPA; where the Customer is a CCPA business, Deal Intelligence acts as its service provider for Customer-uploaded data.
 
 ### 4.1 Definitions
 
@@ -242,8 +242,6 @@ Reference: Data Retention and Disposal Policy
 - Exclusions for consequential damages
 
 ### 4.10 Independent controllers (business contact information)
-
-[CONFIRM: D14 open — pending investigation]
 
 For the business contact information that Deal Intelligence compiles and delivers to the Customer through the platform:
 

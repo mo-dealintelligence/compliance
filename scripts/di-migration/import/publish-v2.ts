@@ -91,8 +91,9 @@ async function policies() {
       state.policyVersions[slug] = { policyId, versionId, submitted: false };
       save();
     }
+    if (state.policyVersions[slug].submitted) continue; // pending versions are immutable
     await api.patch(`/policies/${policyId}/versions/${versionId}`, { content });
-    if (!state.policyVersions[slug].submitted) {
+    {
       await api.post(`/policies/${policyId}/versions/${versionId}/submit-for-approval`, { approverId: APPROVER });
       state.policyVersions[slug].submitted = true;
       save();

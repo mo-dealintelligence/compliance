@@ -16,7 +16,7 @@ source: "data-subject-rights-request-procedure-v1.0.pdf"
 
 This procedure defines how Deal Intelligence LLC receives, validates, processes, and responds to data subject requests under the General Data Protection Regulation (GDPR) Articles 15–22 and the California Consumer Privacy Act (CCPA) Sections 1798.100–1798.130, while maintaining the security and integrity of the platform.
 
-Deal Intelligence acts as a data controller for the business contact information it compiles and delivers through the platform, and as a data processor for data that customers upload to or hold within their own accounts (see Section 7.2). [CONFIRM: D14 open — pending investigation]
+Deal Intelligence acts as a data controller for the business contact information it compiles and delivers through the platform, and as a data processor for data that customers upload to or hold within their own accounts (see Section 7.2). Deal Intelligence and each customer are separate and independent controllers of the compiled business contact information; no joint-controller relationship exists. Requests about compiled data are answered by Deal Intelligence as controller and the resulting suppression is passed to customers through the platform; requests about customer-uploaded data are forwarded to the customer without undue delay and Deal Intelligence does not respond to the data subject except to redirect them. Deal Intelligence does not meet the thresholds that define a "business" under the CCPA; it applies the CCPA request timelines in this procedure as a matter of policy.
 
 This procedure implements the privacy principles of the Information Security Policy and the technical controls of the Data Retention and Disposal Policy for timely, compliant responses to data subject requests.
 

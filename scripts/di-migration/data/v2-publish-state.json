@@ -35,11 +35,6 @@
       "versionId": "pv_6ae6d0a3eddb3193210c684c",
       "submitted": true
     },
-    "privacy-notice-and-data-processing-agreement-template": {
-      "policyId": "pol_6ae4436c1e8dc2e3d8176b36",
-      "versionId": "pv_6ae6d0a4612dca4cced4e3f9",
-      "submitted": true
-    },
     "risk-assessment-procedure": {
       "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
       "versionId": "pv_6ae6d0a53742a470b639cb33",
@@ -58,11 +53,6 @@
     "cloud-infrastructure-security-policy": {
       "policyId": "pol_6ae4b07083de4536842df831",
       "versionId": "pv_6ae6d0a989debd2768f76d0a",
-      "submitted": true
-    },
-    "data-subject-rights-request-procedure": {
-      "policyId": "pol_6ae4b072957f1afd8b70bdea",
-      "versionId": "pv_6ae6d0aa0b84034877fdc6f3",
       "submitted": true
     },
     "encryption-and-cryptographic-controls-standard": {
@@ -108,6 +98,16 @@
     "data-classification-and-handling-standard": {
       "policyId": "pol_6ae4b07aae52026d8aa8d504",
       "versionId": "pv_6ae6d0b4c03736862b72cbe7",
+      "submitted": true
+    },
+    "privacy-notice-and-data-processing-agreement-template": {
+      "policyId": "pol_6ae4436c1e8dc2e3d8176b36",
+      "versionId": "pv_6ae6db238db30ab15eadcc1f",
+      "submitted": true
+    },
+    "data-subject-rights-request-procedure": {
+      "policyId": "pol_6ae4b072957f1afd8b70bdea",
+      "versionId": "pv_6ae6db255733e9a6c2fff04d",
       "submitted": true
     }
   },
@@ -367,5 +367,18 @@
     "pol_6ae44365e620da64444d0e00"
   ],
   "archived": [],
-  "minutes": "evs_6ae6d106abe18ac7d3dea789"
+  "superseded": [
+    {
+      "policyId": "pol_6ae4b072957f1afd8b70bdea",
+      "versionId": "pv_6ae6d0aa0b84034877fdc6f3",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae4436c1e8dc2e3d8176b36",
+      "versionId": "pv_6ae6d0a4612dca4cced4e3f9",
+      "submitted": true
+    }
+  ],
+  "minutesSuperseded": "evs_6ae6d106abe18ac7d3dea789",
+  "minutes": "evs_6ae6db263e7eecfb109636e1"
 }
