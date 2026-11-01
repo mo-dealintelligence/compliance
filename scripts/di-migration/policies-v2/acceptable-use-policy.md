@@ -213,7 +213,7 @@ Personnel must:
 
 - Use only sanitized or synthetic data in non-production environments
 - Not copy production data to development or testing systems
-- Apply the same security controls in the staging stage as in production
+- Apply the same security controls in the staging environment as in production
 - Document and track all test accounts and credentials
 - Destroy test environments when no longer needed
 

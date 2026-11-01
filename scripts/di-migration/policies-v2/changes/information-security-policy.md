@@ -49,3 +49,5 @@ No new CONFIRM items.
 
 - D12: Security Hub removed. §5.7 security-monitoring list: the Security Hub bullet replaced by the CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert (folded into the CloudTrail bullet, event list named) and a monthly configuration-check Lambda bullet (checklist left to the Cloud Infrastructure Security Policy, which carries the full list); §6.1 "Continuous monitoring runs through CloudWatch and Security Hub" → CloudWatch and CloudTrail event alerting, with the monthly configuration-check record as the recurring evidence.
 - D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.
+
+- D1 revised (Mo, 2026-10-31): staging moves to a **separate AWS account** in the same Organization; wording updated from "staging stage of the same stack" to a staging environment/account.

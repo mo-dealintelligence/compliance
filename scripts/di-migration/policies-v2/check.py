@@ -40,8 +40,8 @@ HARD = {
                    r"\bMDM\b", r"\bHumadroid", r"\bHumadriod", r"\b86\s?%", r"\b220 (implemented )?controls", r"\b100\+ ", r"\bStandard Change Catalog",
                    r"\bConsent Management Procedure", r"\bInfrastructure and Recovery Policy", r"\bmaintained separately",
                    r"\bEC2 instances?\b", r"\bSSH\b", r"\b(daily|every day) (security |alert )?review", r"\bquarterly tabletop",
-                   r"\b48[- ]hour (CAB|review)", r"\b15[- ]minute", r"\b24/7\b", r"\bseparate AWS account", r"\bdistinct AWS accounts?",
-                   r"\bnon-production account", r"\bPropelAuth MFA", r"\b99\.95\s?%"],
+                   r"\b48[- ]hour (CAB|review)", r"\b15[- ]minute", r"\b24/7\b", r"\bdistinct AWS accounts?",
+                   r"\bPropelAuth MFA", r"\b99\.95\s?%"],
     "R6 placeholders": [r"dealintelligence\.ai\b", r"\[Maintained Separately\]", r"\[YES\]", r"\[NO\]", r"Document Assignments",
                         r"\(Chief Executive Officer\)", r"di-backendapi", r"AIpowered", r"\[Original Date\]", r"\[Current Date\]"],
 }

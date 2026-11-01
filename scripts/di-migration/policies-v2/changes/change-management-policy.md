@@ -57,3 +57,5 @@
 
 - D12: Security Hub removed. §7.1 tooling bullet "Security Hub configuration checks for compliance monitoring" → the monthly configuration-check Lambda record plus the CloudTrail-EventBridge real-time alert for IAM and security-group changes (the two checklist/alert items that catch unauthorized infrastructure change).
 - D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.
+
+- D1 revised (Mo, 2026-10-31): staging moves to a **separate AWS account** in the same Organization; wording updated from "staging stage of the same stack" to a staging environment/account.

@@ -4,7 +4,7 @@ Apply these across policies-v2/, scratch/quality-sweep/controls-v2.json and
 scratch/quality-sweep/records-v2/. Each is final unless marked OPEN.
 
 ## Environment facts
-- D1 Staging: **same AWS account**, a `staging` stage of the same stack. Policies say "a staging stage"; no account language.
+- D1 Staging: ~~same AWS account~~ **superseded by D1b below**.
 - D2 KMS: production currently has **one customer-managed key**. Keep the Encryption Standard's key-separation design (data / backup / audit-log keys) as written, and record in docs/05 (environment to-do) that the AWS change is still to be made. Control notes and the system description describe the target design the same way.
 - D3 Logging/telemetry claims: **keep VPC Flow Logs only**. Remove IAM Access Analyzer, DocumentDB audit logging, VPC endpoints and S3 MFA-delete wherever they appear.
 - D4 Device controls: **drop the compliance-platform device-agent bullet** everywhere. Endpoint control = **FileVault full-disk encryption** (macOS) on personnel devices, plus browser SSO with MFA. State FileVault wherever endpoint encryption is discussed (AUP, Code of Conduct, Access Control, Data Classification, system description).
@@ -49,3 +49,7 @@ scratch/quality-sweep/records-v2/. Each is final unless marked OPEN.
 ## Round 3 (2026-10-31, 23:22)
 - D14 **closed**: two-flow framing adopted (independent controller for compiled data; processor for customer-uploaded data). CCPA: Deal Intelligence does not meet the business thresholds (Mo: well under the 50 %-of-revenue test for California personal information); no data-broker registration. Applied to the DSR procedure and the DPA template.
 - D17/minutes: confirmed; markers resolved with the audited current-state facts, re-submitted.
+
+## Round 4 (2026-10-31, 23:31)
+- D1b Staging: **separate AWS account** in the same AWS Organization (supersedes D1). Reasons: hard isolation of prod data/keys/IAM from a single-operator deploy mistake; matches the "distinct accounts" claim the policies originally made and what an auditor expects for CC6.1/CC8.1; own KMS keys and secrets by construction; the NAT is a t3.micro and DocumentDB is serverless with a small synthetic dataset, so the cost is ~$15-25/mo rather than the ~$30-40 first estimated. The staging account is **outside the SOC 2 system boundary**; the monthly configuration-check Lambda runs in the production account only.
+- Wording applied to 9 documents: "staging stage of the same stack" -> a staging environment in a separate AWS account. Environment work: create the member account, SSO/role, CloudTrail trail, cross-account ECR pull, parameterise the 11 hardcoded `*-production-*` names (docs/05).

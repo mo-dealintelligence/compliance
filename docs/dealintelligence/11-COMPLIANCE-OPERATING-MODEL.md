@@ -98,3 +98,5 @@ record; DSR → DSR record; emergency change → PR with "emergency" label.
 After step 3 the Type II evidence machine is running; start the observation window one month later.
 
 *2026‑10‑31 (round 2): Security Hub removed (D12) — M1/M3, the monthly rows and §3/§4 updated to the configuration‑check Lambda + CloudTrail‑EventBridge rule; "Availability record (monthly)" task row added (D13b). No daily checks rule unchanged.*
+
+> Staging (2026-10-31): the staging environment lives in a **separate AWS account** outside the SOC 2 boundary, so the monthly configuration-check Lambda and the evidence sweep cover the production account only.

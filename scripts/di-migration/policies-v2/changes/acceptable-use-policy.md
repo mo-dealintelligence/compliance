@@ -54,3 +54,5 @@
 
 - D12: Security Hub removed. §4 CEO duty "CloudWatch logs and Security Hub findings" → "CloudWatch logs, the monthly configuration-check record, and CloudTrail event alerts"; §10.1 monitoring list: "Security Hub findings and alerts" and the generic "Automated compliance checks via Lambda functions" bullets replaced by the CloudTrail-EventBridge real-time alert and the monthly configuration-check Lambda record.
 - D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.
+
+- D1 revised (Mo, 2026-10-31): staging moves to a **separate AWS account** in the same Organization; wording updated from "staging stage of the same stack" to a staging environment/account.

@@ -30,7 +30,7 @@ This standard applies to:
    - API development (`di-backend-api-prod`)
    - Frontend applications served via CloudFront
    - Infrastructure as Code (CloudFormation templates deployed via the Serverless Framework)
-- All development environments (development, the staging stage, production)
+- All development environments (development, the staging AWS account, production)
 - GitHub repositories (`dealintelligence/di-backend-api`) and GitHub Actions CI/CD pipelines
 - Third-party libraries and dependencies
 - All personnel involved in software development, testing, and deployment
@@ -137,7 +137,7 @@ All architectural designs incorporate:
 - Production deployments require:
    - Successful completion of all security tests
    - Deployment only from a green CI run on `main`, approved via the GitHub Actions workflow
-   - Deployment to the staging stage first
+   - Deployment to the staging environment first
    - Documented automated rollback procedures
 - Infrastructure changes use Infrastructure as Code (CloudFormation via the Serverless Framework)
 - Secrets are managed in Secrets Manager or Parameter Store

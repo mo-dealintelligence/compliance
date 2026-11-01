@@ -65,3 +65,5 @@ Output: `policies-v2/encryption-and-cryptographic-controls-standard.md`
 
 - D12: Security Hub removed. §11.2 step 1 "Assess the current encryption status via Security Hub" → latest monthly configuration-check record and the AWS console; §12.1 "Security Hub encryption checks" → the monthly configuration-check Lambda (KMS key rotation and CloudTrail log-file validation named as the encryption-relevant checklist items) plus the CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert on KMS key disable; §17.1 "Continuous Security Hub checks, reviewed monthly" → monthly configuration-check record (KMS key rotation); §17.2 "Security Hub compliance reports" → "Monthly configuration-check records".
 - D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.
+
+- D1 revised (Mo, 2026-10-31): staging moves to a **separate AWS account** in the same Organization; wording updated from "staging stage of the same stack" to a staging environment/account.

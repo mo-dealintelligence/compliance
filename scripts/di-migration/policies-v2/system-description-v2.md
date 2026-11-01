@@ -132,7 +132,7 @@ The production environment is the CloudFormation stack `di-backend-api-prod` in 
 | Route 53 | DNS only | — |
 | KMS, ACM | Key management; TLS certificates | Regional customer-managed keys with annual rotation: a production data key (DocumentDB, S3, Lambda environment variables), a backup key, and an audit-log key (CloudTrail and CloudWatch Logs), as set out in the Encryption and Cryptographic Controls Standard; ACM-managed certificates |
 
-A staging stage of the same CloudFormation stack is used for pre-production validation. It holds no production customer data (scrubbed or synthetic data only) and is separated from production by distinct stack stages, resource naming, and access control policies. The staging stage is outside the system boundary (Section 4).
+A staging environment, deployed from the same CloudFormation templates into a separate AWS account in the same AWS Organization, is used for pre-production validation. It holds no production customer data (scrubbed or synthetic data only) and has its own network, database, keys, and secrets; no credential grants access to both accounts' workloads. The staging account is outside the system boundary (Section 4).
 
 ### 3.2 Software
 
@@ -221,11 +221,11 @@ The system under examination is the production platform described in Section 3: 
 - **Data:** all business contact information, processing data, and customer data collected, processed, stored, transmitted, retained, and disposed of by the platform (Section 3.5), including collection through API endpoints, storage in DocumentDB, transmission over TLS, retention under the Data Retention and Disposal Policy, and disposal by cryptographic erasure.
 - **People:** the CEO and the Go-to-Market Contractor (Section 3.3), including execution of the controls in the compliance platform's control register, incident response, change management, access reviews, monitoring, vulnerability management, risk assessment, and data subject request handling under GDPR and CCPA.
 - **Authentication and access:** PropelAuth as the authentication subservice organization under an executed data processing agreement; the authentication flows between end users and the platform; administrative access to AWS; API authentication for integrations; monitoring of authentication events; provisioning, deprovisioning, and quarterly access certification.
-- **Change management:** the `dealintelligence/di-backend-api` repository and its branch protection, the GitHub Actions pipeline, the staging stage used for validation, deployment from a green CI run, rollback by Lambda versioned deployments and `serverless rollback`, CloudFormation via the Serverless Framework, and ECR image scanning. Audit trails are the Git commit history and pull request records.
+- **Change management:** the `dealintelligence/di-backend-api` repository and its branch protection, the GitHub Actions pipeline, the staging environment used for validation, deployment from a green CI run, rollback by Lambda versioned deployments and `serverless rollback`, CloudFormation via the Serverless Framework, and ECR image scanning. Audit trails are the Git commit history and pull request records.
 
 ### 4.2 Out of scope
 
-- The staging stage of the CloudFormation stack, its data, and personal credentials used for it.
+- The separate staging AWS account, its data, and personal credentials used for it.
 - Customer-controlled integrations, including Slack, CRM systems, and other tools configured by customers, and the customer infrastructure that consumes platform data through the API.
 - Customer-owned data held in third-party systems integrated through APIs, and personal information unrelated to business activities.
 - Customer-managed identity providers integrated through SAML or OAuth, and authentication for customer downstream systems.
@@ -409,7 +409,7 @@ Periodic:
 
 **Data protection.** KMS encryption of DocumentDB; TLS for all data in transit; [CONFIRM: field-level encryption for sensitive personal information]; data sanitization standards for complete removal of sensitive data; automated disposal by scheduled Lambda under the retention policy.
 
-**Change management.** Pull request on the protected `main` branch with required GitHub Actions checks (Black, isort, Flake8, Bandit, pytest, Trivy, TruffleHog) and no direct pushes; validation in the staging stage; deployment only from a green CI run; rollback by `serverless rollback`; emergency changes submitted as pull requests labelled `emergency` with post-hoc review within 5 business days; all infrastructure defined in CloudFormation.
+**Change management.** Pull request on the protected `main` branch with required GitHub Actions checks (Black, isort, Flake8, Bandit, pytest, Trivy, TruffleHog) and no direct pushes; validation in the staging environment; deployment only from a green CI run; rollback by `serverless rollback`; emergency changes submitted as pull requests labelled `emergency` with post-hoc review within 5 business days; all infrastructure defined in CloudFormation.
 
 **Application security.** Input validation against injection; output encoding against cross-site scripting; automated error detection and data quarantine; security event classification; automated responses including account lockout and suspicious activity quarantine.
 
@@ -435,7 +435,7 @@ Periodic:
 
 [CONFIRM: significant changes to the system during the period, if any] During the period [CONFIRM: period start] to [CONFIRM: period end], Deal Intelligence LLC made no changes to the system that were significant to the achievement of its service commitments and system requirements for Security, Availability, or Confidentiality.
 
-[If changes are to be disclosed, replace the paragraph above with, for each change: the nature of the change, when it took effect, and its effect on the system, the controls, or the service commitments and system requirements. Changes adopted since the SOC 2 Type I report (as of March 2, 2026) — including the pull-request workflow with required CI checks, the staging stage, Multi-AZ DocumentDB, 90-day backup retention, 7-year CloudTrail retention, ECR scan-on-push, and secrets rotation — should be listed here if they took effect within the period.]
+[If changes are to be disclosed, replace the paragraph above with, for each change: the nature of the change, when it took effect, and its effect on the system, the controls, or the service commitments and system requirements. Changes adopted since the SOC 2 Type I report (as of March 2, 2026) — including the pull-request workflow with required CI checks, the staging environment, Multi-AZ DocumentDB, 90-day backup retention, 7-year CloudTrail retention, ECR scan-on-push, and secrets rotation — should be listed here if they took effect within the period.]
 
 ---
 
@@ -465,4 +465,4 @@ Deal Intelligence LLC
 | Version | Date | Summary |
 |---|---|---|
 | 1.0 | November 23, 2025 | Draft system description generated in the prior compliance tool; basis of the SOC 2 Type I report (as of March 2, 2026). |
-| 2.0 | <to be set at publication> | Scope narrowed to Security, Availability, and Confidentiality; claims aligned to the target environment (PR workflow, staging stage, Multi-AZ DocumentDB, 90-day backups, 7-year CloudTrail, ECR scan-on-push, secrets rotation); unevidenced numbers and controls removed; roles stated with compensating controls for segregation of duties; other vendors, system incidents, changes in the period, network diagram reference, and management's assertion added; restructured to the DC 200 order with duplicated architecture text removed; wording hygiene per RULEBOOK R0–R8; decisions of 2026-10-31 applied (KMS key-separation target design, FileVault endpoint encryption, availability measured monthly over all minutes excluding announced maintenance, other vendors stated as not processing customer data). |
+| 2.0 | <to be set at publication> | Scope narrowed to Security, Availability, and Confidentiality; claims aligned to the target environment (PR workflow, staging environment, Multi-AZ DocumentDB, 90-day backups, 7-year CloudTrail, ECR scan-on-push, secrets rotation); unevidenced numbers and controls removed; roles stated with compensating controls for segregation of duties; other vendors, system incidents, changes in the period, network diagram reference, and management's assertion added; restructured to the DC 200 order with duplicated architecture text removed; wording hygiene per RULEBOOK R0–R8; decisions of 2026-10-31 applied (KMS key-separation target design, FileVault endpoint encryption, availability measured monthly over all minutes excluding announced maintenance, other vendors stated as not processing customer data). |

@@ -75,12 +75,12 @@ Keep these claims as written (tighten numbers to the target value):
 - **Pull-request workflow** on a protected `main`: PR required, CI status
   checks required (lint, tests, Bandit, Trivy, TruffleHog), no direct
   pushes; deploy only from a green CI run.
-- A **staging stage** of the same CloudFormation stack for pre-production
-  validation, with no production data (scrubbed or synthetic). Do **not**
-  claim a separate AWS account; say "a staging stage" and nothing about
-  accounts. (Decision on separate account pending — write
-  `[CONFIRM: separate account vs same account]` only in CHANGES.md, not in
-  the policy.)
+- A **staging environment** deployed from the same CloudFormation templates
+  into a **separate AWS account** in the same AWS Organization, with no
+  production data (scrubbed or synthetic). Its own network, database, keys
+  and secrets; the staging account is outside the SOC 2 system boundary.
+  (Mo, 2026-10-31 — supersedes the earlier "same account, staging stage"
+  wording; see DECISIONS-2026-10-31.md D1b.)
 - Secrets rotation: Secrets Manager rotation on the DocumentDB credential;
   API key rotation per calendar.
 - CloudTrail logs retained 7 years in S3 (lifecycle to Glacier, Object

@@ -139,7 +139,7 @@ Audit Log Encryption Key
 └── CloudTrail/CloudWatch Logs Key
 ```
 
-The staging stage uses its own key, separate from production.
+The staging environment uses its own key in the staging AWS account, separate from production.
 
 ### 7.2 Key rotation
 
@@ -237,7 +237,7 @@ For systems that need an encryption upgrade:
 
 1. Assess the current encryption status from the latest monthly configuration-check record and the AWS console
 2. Plan the migration for a maintenance window
-3. Test the encryption in the staging stage
+3. Test the encryption in the staging environment
 4. Implement with rollback procedures per the Change Management Policy
 
 ## 12. Monitoring and validation
@@ -393,4 +393,4 @@ The CEO reviews this standard annually and updates it for:
 | Version | Date | Author | Summary |
 |---|---|---|---|
 | 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
-| 2.0 | <to be set at publication> | Mo Messidi | Typed as Standard; exception approver set to CEO; volume, replication, private-connectivity, multi-region key, image-integrity and certificate-binding claims removed in favor of the regional KMS key, ACM certificates, TLS 1.2+ and ECR scan-on-push; corrected the availability-zone key-replica statement (KMS is regional); staging key statement limited to "the staging stage uses its own key"; rotation table tied to Secrets Manager and the API key rotation calendar; integration-guidelines reference redirected after merge |
+| 2.0 | <to be set at publication> | Mo Messidi | Typed as Standard; exception approver set to CEO; volume, replication, private-connectivity, multi-region key, image-integrity and certificate-binding claims removed in favor of the regional KMS key, ACM certificates, TLS 1.2+ and ECR scan-on-push; corrected the availability-zone key-replica statement (KMS is regional); staging key statement limited to "the staging environment uses its own key"; rotation table tied to Secrets Manager and the API key rotation calendar; integration-guidelines reference redirected after merge |

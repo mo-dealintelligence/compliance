@@ -53,3 +53,5 @@
 ## Decisions applied (2026-10-31, round 2)
 
 - D12: Security Hub removed — §4.1 infrastructure row "Security Hub configuration checks" → monthly configuration-check Lambda; §4.5.2 monthly review now covers CloudWatch metrics and the monthly configuration-check record, with real-time alerting on security-relevant CloudTrail events via EventBridge → breach-detection Lambda → SNS; §5.1 toolchain row "Security Hub" → "Configuration-check Lambda" (monthly schedule); §5.2 breach-detection Lambda described as triggered by CloudTrail events via EventBridge
+
+- D1 revised (Mo, 2026-10-31): staging moves to a **separate AWS account** in the same Organization; wording updated from "staging stage of the same stack" to a staging environment/account.

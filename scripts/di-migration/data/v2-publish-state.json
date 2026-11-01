@@ -1,18 +1,8 @@
 {
   "policyVersions": {
-    "access-control-and-authentication-policy": {
-      "policyId": "pol_6ae44365e620da64444d0e00",
-      "versionId": "pv_6ae6d08785e9881bde25f069",
-      "submitted": true
-    },
     "business-continuity-plan": {
       "policyId": "pol_6ae44366d11a465e7feb8921",
       "versionId": "pv_6ae6d09e38910ec964c0aa1b",
-      "submitted": true
-    },
-    "change-management-policy": {
-      "policyId": "pol_6ae443686f8d68455fdb1286",
-      "versionId": "pv_6ae6d09f0643f5c7d7df2c90",
       "submitted": true
     },
     "code-of-conduct": {
@@ -30,19 +20,9 @@
       "versionId": "pv_6ae6d0a2b757319fb5905252",
       "submitted": true
     },
-    "information-security-policy": {
-      "policyId": "pol_6ae4436becd8f1329f5c4435",
-      "versionId": "pv_6ae6d0a3eddb3193210c684c",
-      "submitted": true
-    },
     "risk-assessment-procedure": {
       "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
       "versionId": "pv_6ae6d0a53742a470b639cb33",
-      "submitted": true
-    },
-    "acceptable-use-policy": {
-      "policyId": "pol_6ae4b06f354c8f288b5bef13",
-      "versionId": "pv_6ae6d0a7fbcb248caf9649ac",
       "submitted": true
     },
     "api-security-and-rate-limiting-standard": {
@@ -50,24 +30,9 @@
       "versionId": "pv_6ae6d0a88399a166c805ff93",
       "submitted": true
     },
-    "cloud-infrastructure-security-policy": {
-      "policyId": "pol_6ae4b07083de4536842df831",
-      "versionId": "pv_6ae6d0a989debd2768f76d0a",
-      "submitted": true
-    },
-    "encryption-and-cryptographic-controls-standard": {
-      "policyId": "pol_6ae4b0731bc70fde67761439",
-      "versionId": "pv_6ae6d0ab86c3560157046fe2",
-      "submitted": true
-    },
     "penetration-testing-and-security-assessment-procedure": {
       "policyId": "pol_6ae4b0736b59d86e5fd802bd",
       "versionId": "pv_6ae6d0ac75c55566b3f4deb0",
-      "submitted": true
-    },
-    "secure-software-development-lifecycle-sdlc-standard": {
-      "policyId": "pol_6ae4b0741fc138e373b15873",
-      "versionId": "pv_6ae6d0adbf39441d06afe76b",
       "submitted": true
     },
     "security-awareness-training-program": {
@@ -90,11 +55,6 @@
       "versionId": "pv_6ae6d0b172950601039cd8e1",
       "submitted": true
     },
-    "vulnerability-management-procedure": {
-      "policyId": "pol_6ae4b0792126ae8bbd6f91f2",
-      "versionId": "pv_6ae6d0b3011c6fa40c5e3217",
-      "submitted": true
-    },
     "data-classification-and-handling-standard": {
       "policyId": "pol_6ae4b07aae52026d8aa8d504",
       "versionId": "pv_6ae6d0b4c03736862b72cbe7",
@@ -108,6 +68,46 @@
     "data-subject-rights-request-procedure": {
       "policyId": "pol_6ae4b072957f1afd8b70bdea",
       "versionId": "pv_6ae6db255733e9a6c2fff04d",
+      "submitted": true
+    },
+    "access-control-and-authentication-policy": {
+      "policyId": "pol_6ae44365e620da64444d0e00",
+      "versionId": "pv_6ae6dd2a84a89bbb378dd97d",
+      "submitted": true
+    },
+    "change-management-policy": {
+      "policyId": "pol_6ae443686f8d68455fdb1286",
+      "versionId": "pv_6ae6dd2b0cfc7f65599d42bd",
+      "submitted": true
+    },
+    "information-security-policy": {
+      "policyId": "pol_6ae4436becd8f1329f5c4435",
+      "versionId": "pv_6ae6dd2c4ebef52aae924507",
+      "submitted": true
+    },
+    "acceptable-use-policy": {
+      "policyId": "pol_6ae4b06f354c8f288b5bef13",
+      "versionId": "pv_6ae6dd2d3d39670bb4e9b193",
+      "submitted": true
+    },
+    "cloud-infrastructure-security-policy": {
+      "policyId": "pol_6ae4b07083de4536842df831",
+      "versionId": "pv_6ae6dd2f658f7042a7112c89",
+      "submitted": true
+    },
+    "encryption-and-cryptographic-controls-standard": {
+      "policyId": "pol_6ae4b0731bc70fde67761439",
+      "versionId": "pv_6ae6dd305e3e345019b3a961",
+      "submitted": true
+    },
+    "secure-software-development-lifecycle-sdlc-standard": {
+      "policyId": "pol_6ae4b0741fc138e373b15873",
+      "versionId": "pv_6ae6dd319c420b09826e9462",
+      "submitted": true
+    },
+    "vulnerability-management-procedure": {
+      "policyId": "pol_6ae4b0792126ae8bbd6f91f2",
+      "versionId": "pv_6ae6dd323fb2ff25508e31f8",
       "submitted": true
     }
   },
@@ -376,6 +376,46 @@
     {
       "policyId": "pol_6ae4436c1e8dc2e3d8176b36",
       "versionId": "pv_6ae6d0a4612dca4cced4e3f9",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae4b06f354c8f288b5bef13",
+      "versionId": "pv_6ae6d0a7fbcb248caf9649ac",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae44365e620da64444d0e00",
+      "versionId": "pv_6ae6d08785e9881bde25f069",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae4b07083de4536842df831",
+      "versionId": "pv_6ae6d0a989debd2768f76d0a",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae443686f8d68455fdb1286",
+      "versionId": "pv_6ae6d09f0643f5c7d7df2c90",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae4b0731bc70fde67761439",
+      "versionId": "pv_6ae6d0ab86c3560157046fe2",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae4436becd8f1329f5c4435",
+      "versionId": "pv_6ae6d0a3eddb3193210c684c",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae4b0741fc138e373b15873",
+      "versionId": "pv_6ae6d0adbf39441d06afe76b",
+      "submitted": true
+    },
+    {
+      "policyId": "pol_6ae4b0792126ae8bbd6f91f2",
+      "versionId": "pv_6ae6d0b3011c6fa40c5e3217",
       "submitted": true
     }
   ],

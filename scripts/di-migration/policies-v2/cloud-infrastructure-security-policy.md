@@ -240,7 +240,7 @@ All infrastructure changes follow the Change Management Policy:
 
 - CloudFormation templates (deployed via the Serverless Framework) provision the infrastructure
 - All IaC templates are version-controlled in the `dealintelligence/di-backend-api` repository
-- Changes are validated in a staging stage of the same CloudFormation stack, containing no production data, before production
+- Changes are validated in a staging environment deployed from the same CloudFormation templates into a separate AWS account, containing no production data, before production
 - Production deployments require a pull request with required CI status checks on the protected `main` branch and deploy only from a green CI run
 - Rollback via `serverless rollback`
 

@@ -157,7 +157,7 @@ Before approval, all normal and emergency changes undergo:
 
 - Customer notification for maintenance windows (minimum 72 hours for planned changes)
 - Backup verification per the Business Continuity Plan
-- Validation in the staging stage of the CloudFormation stack (no production data; scrubbed or synthetic data only)
+- Validation in the staging environment in a separate AWS account (no production data; scrubbed or synthetic data only)
 - Implementation checklist review
 
 #### 5.4.2 Implementation

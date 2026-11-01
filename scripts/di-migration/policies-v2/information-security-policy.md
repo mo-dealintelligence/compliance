@@ -130,7 +130,7 @@ All changes to production systems follow the Change Management Policy:
 - Pre-commit hooks for security validation
 - GitHub Actions CI/CD pipeline with automated testing
 - Branch protection on `main` requiring a pull request with required CI status checks (lint, tests, Bandit, Trivy, TruffleHog); no direct pushes
-- Deployment to a staging stage before production release
+- Deployment to a staging environment in a separate AWS account before production release
 - Production deployments only from a green CI run
 
 ### 5.5 Security monitoring and incident response

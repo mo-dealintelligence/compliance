@@ -50,3 +50,5 @@ No new CONFIRM items.
 
 - D12: Security Hub removed. §4 CEO duties now "CloudTrail, the monthly configuration-check Lambda, and the CloudTrail-EventBridge alerting rule"; §7.3 monthly findings review replaced by the monthly configuration-check Lambda record (checklist items relevant to access: root MFA, IAM password policy, CloudTrail) and real-time CloudTrail-EventBridge → breach-detection Lambda → SNS alerting for root sign-in and IAM changes; §11.1 "Continuous monitoring via Security Hub" → monthly configuration-check record; revision-history summary reworded.
 - D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.
+
+- D1 revised (Mo, 2026-10-31): staging moves to a **separate AWS account** in the same Organization; wording updated from "staging stage of the same stack" to a staging environment/account.

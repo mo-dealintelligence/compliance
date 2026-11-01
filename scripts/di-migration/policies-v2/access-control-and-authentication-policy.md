@@ -30,7 +30,7 @@ This policy applies to:
 - All user accounts and authentication mechanisms
 - All personnel requiring system access, including contractors and third-party service providers
 - All devices and network connections used to access company resources
-- Both the production (di-backend-api-prod) and staging stages of the stack
+- Both the production AWS account (stack di-backend-api-prod) and the separate staging AWS account
 
 ## 3. Policy statement
 
