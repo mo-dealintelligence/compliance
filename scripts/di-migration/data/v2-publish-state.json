@@ -1,0 +1,234 @@
+{
+  "policyVersions": {
+    "access-control-and-authentication-policy": {
+      "policyId": "pol_6ae44365e620da64444d0e00",
+      "versionId": "pv_6ae6d08785e9881bde25f069",
+      "submitted": true
+    },
+    "business-continuity-plan": {
+      "policyId": "pol_6ae44366d11a465e7feb8921",
+      "versionId": "pv_6ae6d09e38910ec964c0aa1b",
+      "submitted": true
+    },
+    "change-management-policy": {
+      "policyId": "pol_6ae443686f8d68455fdb1286",
+      "versionId": "pv_6ae6d09f0643f5c7d7df2c90",
+      "submitted": true
+    },
+    "code-of-conduct": {
+      "policyId": "pol_6ae443682481c533869a5ba9",
+      "versionId": "pv_6ae6d0a0a3d5fb4acf86788d",
+      "submitted": true
+    },
+    "data-retention-and-disposal-policy": {
+      "policyId": "pol_6ae4436aaf41169d5bc6babf",
+      "versionId": "pv_6ae6d0a144dbc85d0c8c2f0a",
+      "submitted": true
+    },
+    "incident-response-procedure": {
+      "policyId": "pol_6ae4436bdb34e80d0fff1be9",
+      "versionId": "pv_6ae6d0a2b757319fb5905252",
+      "submitted": true
+    },
+    "information-security-policy": {
+      "policyId": "pol_6ae4436becd8f1329f5c4435",
+      "versionId": "pv_6ae6d0a3eddb3193210c684c",
+      "submitted": true
+    },
+    "privacy-notice-and-data-processing-agreement-template": {
+      "policyId": "pol_6ae4436c1e8dc2e3d8176b36",
+      "versionId": "pv_6ae6d0a4612dca4cced4e3f9",
+      "submitted": true
+    },
+    "risk-assessment-procedure": {
+      "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
+      "versionId": "pv_6ae6d0a53742a470b639cb33",
+      "submitted": true
+    },
+    "acceptable-use-policy": {
+      "policyId": "pol_6ae4b06f354c8f288b5bef13",
+      "versionId": "pv_6ae6d0a7fbcb248caf9649ac",
+      "submitted": true
+    },
+    "api-security-and-rate-limiting-standard": {
+      "policyId": "pol_6ae4b070c7eacdf89b833940",
+      "versionId": "pv_6ae6d0a88399a166c805ff93",
+      "submitted": true
+    },
+    "cloud-infrastructure-security-policy": {
+      "policyId": "pol_6ae4b07083de4536842df831",
+      "versionId": "pv_6ae6d0a989debd2768f76d0a",
+      "submitted": true
+    },
+    "data-subject-rights-request-procedure": {
+      "policyId": "pol_6ae4b072957f1afd8b70bdea",
+      "versionId": "pv_6ae6d0aa0b84034877fdc6f3",
+      "submitted": true
+    },
+    "encryption-and-cryptographic-controls-standard": {
+      "policyId": "pol_6ae4b0731bc70fde67761439",
+      "versionId": "pv_6ae6d0ab86c3560157046fe2",
+      "submitted": true
+    },
+    "penetration-testing-and-security-assessment-procedure": {
+      "policyId": "pol_6ae4b0736b59d86e5fd802bd",
+      "versionId": "pv_6ae6d0ac75c55566b3f4deb0",
+      "submitted": true
+    },
+    "secure-software-development-lifecycle-sdlc-standard": {
+      "policyId": "pol_6ae4b0741fc138e373b15873",
+      "versionId": "pv_6ae6d0adbf39441d06afe76b",
+      "submitted": true
+    },
+    "security-awareness-training-program": {
+      "policyId": "pol_6ae4b0759b3eb6f5c90818af",
+      "versionId": "pv_6ae6d0ae3c5f2bf638e88312",
+      "submitted": true
+    },
+    "service-level-agreement-sla-management-policy": {
+      "policyId": "pol_6ae4b076672bc62bb20ef768",
+      "versionId": "pv_6ae6d0af6861e09415e69f54",
+      "submitted": true
+    },
+    "system-monitoring-and-logging-procedure": {
+      "policyId": "pol_6ae4b076ff7e86d64fa2a57c",
+      "versionId": "pv_6ae6d0b02f12cb2d59653102",
+      "submitted": true
+    },
+    "vendor-management-policy": {
+      "policyId": "pol_6ae4b07801b7be7ceae3a8ec",
+      "versionId": "pv_6ae6d0b172950601039cd8e1",
+      "submitted": true
+    },
+    "vulnerability-management-procedure": {
+      "policyId": "pol_6ae4b0792126ae8bbd6f91f2",
+      "versionId": "pv_6ae6d0b3011c6fa40c5e3217",
+      "submitted": true
+    },
+    "data-classification-and-handling-standard": {
+      "policyId": "pol_6ae4b07aae52026d8aa8d504",
+      "versionId": "pv_6ae6d0b4c03736862b72cbe7",
+      "submitted": true
+    }
+  },
+  "controls": [],
+  "tasks": [
+    "tsk_6ae4462cb56809fa463973b9",
+    "tsk_6ae444bc3f15dc23dccec164",
+    "tsk_6ae444c3546fe1eb4c5b4baa",
+    "tsk_6ae444c60fda138fbd504ace",
+    "tsk_6ae444c8993db6438c273a18",
+    "tsk_6ae444cdfb7b143b2457bc72",
+    "tsk_6ae444cfe501a351b7d1c460",
+    "tsk_6ae444d5367ee4b55f9e7d75",
+    "tsk_6ae444d7533a601cced5f441",
+    "tsk_6ae444db10c758f7b4eb2bdc",
+    "tsk_6ae444e1c9143d62486189ee",
+    "tsk_6ae444ebf6be2a04e8f76b3e",
+    "tsk_6ae444fcdaab2433054f2873",
+    "tsk_6ae445052e299c11cb1ab1d4",
+    "tsk_6ae4450f39b97e60a1e07181",
+    "tsk_6ae44560f3b3973fc64aff02",
+    "tsk_6ae445641e1f09041e584cfe",
+    "tsk_6ae4456baba402296ae727d1",
+    "tsk_6ae4457169bc4cd8e68111be",
+    "tsk_6ae4457c904a374dd0cbd73a",
+    "tsk_6ae445803dfc7ebc896f9e3d",
+    "tsk_6ae44583e20d884bafc136ad",
+    "tsk_6ae445886efe315e02f31c38",
+    "tsk_6ae4458d4ef150b3b92dd543",
+    "tsk_6ae445981e718c509d1449c8",
+    "tsk_6ae4459eff771225daa8346e",
+    "tsk_6ae445a29752946f965f0bfd",
+    "tsk_6ae445a59a2ba92fdb39222d",
+    "tsk_6ae445a84c763c257071adae",
+    "tsk_6ae445af53a46de0664b4c6e",
+    "tsk_6ae445bcc8330fa58429820e",
+    "tsk_6ae445c0084d6211482e2eab",
+    "tsk_6ae445c5703cfdd8137b0037",
+    "tsk_6ae445c8696cd03c5b791864",
+    "tsk_6ae445ccf97916a02c3794a5",
+    "tsk_6ae445d12126864c631d7688",
+    "tsk_6ae445d43966e9fd006e4248",
+    "tsk_6ae445d71fe5e65faec9add5",
+    "tsk_6ae445fa39cd961b8d2308b3",
+    "tsk_6ae445fd3a6b86d10d6bfdc8",
+    "tsk_6ae44600cbed9cfeb9721f8a",
+    "tsk_6ae446218dc419db1d6198b8",
+    "tsk_6ae446253b877d421053618d",
+    "tsk_6ae446415194b9768e79f0ba",
+    "tsk_6ae446458e9e36c3d85a5f7b",
+    "tsk_6ae4464716aa37e19eb4a707",
+    "tsk_6ae4464a125c05c764ecb3d3",
+    "tsk_6ae4464d495555d34cf7333f",
+    "tsk_6ae44656e6b6662077c28607",
+    "tsk_6ae4465d905686bbaed81b7d"
+  ],
+  "newTasks": {
+    "Availability record (monthly)": "tsk_6ae6d0def985ad20b182979b"
+  },
+  "risks": [
+    "rsk_6ae4b0ed4b75bcffbc40d4db",
+    "rsk_6ae44677d90983dded2e3924",
+    "rsk_6ae44677ee4c16e89f414239",
+    "rsk_6ae4467687c58cec1d7cbb79",
+    "rsk_6ae4467603cb938df8e33de2",
+    "rsk_6ae4467643b88095c5b12882",
+    "rsk_6ae44676d35dcb7389034b5d"
+  ],
+  "vendors": [
+    "vnd_6ae446759b7c398bc3d487b2",
+    "vnd_6ae44675796854ef087c95bd",
+    "vnd_6ae4467450298b59b87f2ed7",
+    "vnd_6ae446749e04b7e96266dd1a",
+    "vnd_6ae446740e46b93b0694af79"
+  ],
+  "people": [
+    "mem_6ae44677fb589e11ee8795cb"
+  ],
+  "context": [
+    "ctx_6ae4467a11a0f73a4469b1cd",
+    "ctx_6ae4467a997bc87734a00db9",
+    "ctx_6ae44679adfe6e7474a57d5d",
+    "ctx_6ae4467999fa2ef21b09779b",
+    "ctx_6ae44679e2621a71c0853187",
+    "ctx_6ae44678c2b732d987f6d0fa",
+    "ctx_6ae4467805be439197021862",
+    "ctx_6ae43d221a8d934f7b43facf",
+    "ctx_6ae43d220c17609277b54689",
+    "ctx_6ae43d22aa10e685567e25ae",
+    "ctx_6ae43d2271b191a10f8a9db3",
+    "ctx_6ae43948bc1c823b62e62234"
+  ],
+  "contextDeleted": [
+    "ctx_6ae4467aa2b2f5daf5418873"
+  ],
+  "policyMeta": [
+    "pol_6ae4b07aae52026d8aa8d504",
+    "pol_6ae4b0792126ae8bbd6f91f2",
+    "pol_6ae4b07801b7be7ceae3a8ec",
+    "pol_6ae4b07766e6db3c5083d3a4",
+    "pol_6ae4b076ff7e86d64fa2a57c",
+    "pol_6ae4b076672bc62bb20ef768",
+    "pol_6ae4b0759b3eb6f5c90818af",
+    "pol_6ae4b0741fc138e373b15873",
+    "pol_6ae4b0736b59d86e5fd802bd",
+    "pol_6ae4b0731bc70fde67761439",
+    "pol_6ae4b072957f1afd8b70bdea",
+    "pol_6ae4b07083de4536842df831",
+    "pol_6ae4b070c7eacdf89b833940",
+    "pol_6ae4b06f354c8f288b5bef13",
+    "pol_6ae4436d9ac4cbab5ee6a7d6",
+    "pol_6ae4436c1e8dc2e3d8176b36",
+    "pol_6ae4436becd8f1329f5c4435",
+    "pol_6ae4436bdb34e80d0fff1be9",
+    "pol_6ae4436aaf41169d5bc6babf",
+    "pol_6ae443693ca45e3e03dc6e03",
+    "pol_6ae443682481c533869a5ba9",
+    "pol_6ae443686f8d68455fdb1286",
+    "pol_6ae44366d11a465e7feb8921",
+    "pol_6ae44365e620da64444d0e00"
+  ],
+  "archived": [],
+  "minutes": "evs_6ae6d106abe18ac7d3dea789"
+}
