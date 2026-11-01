@@ -72,7 +72,7 @@ class Canvas:
 
     def boundary(self, x, y, w, h, label, color="#444", at="top"):
         self.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="4" ry="4" fill="none" '
-                      f'stroke="{color}" stroke-width="1.6" stroke-dasharray="8 5"/>')
+                      f'stroke="{color}" stroke-width="1.0" stroke-dasharray="10 6"/>')
         self.text(x + 16, y + 22 if at == "top" else y + h - 13, label, 12.5, "start", "bold", color)
 
     def arrow(self, pts, label=None, lx=None, ly=None, anchor="middle"):
@@ -130,7 +130,7 @@ def build_internal():
 
     A = 336
     c.p.append(f'<rect x="50" y="{A}" width="1440" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
-               'stroke-width="1.7" stroke-dasharray="8 5"/>')
+               'stroke-width="1.0" stroke-dasharray="10 6"/>')
     c.text(66, A + 756, "AWS account 164482277879 — us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
     c.node(100, A - 34, 560, 68, "CloudFront + WAF", "api.dealintelligence.io · mcp.dealintelligence.io · self-managed WAF", BND, "AWSWAF")
@@ -196,7 +196,7 @@ def build_customer():
 
     A = 336
     c.p.append(f'<rect x="50" y="{A}" width="1100" height="400" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
-               'stroke-width="1.7" stroke-dasharray="8 5"/>')
+               'stroke-width="1.0" stroke-dasharray="10 6"/>')
     c.text(66, A + 386, "Deal Intelligence — AWS, us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
     c.node(100, A - 34, 460, 68, "CloudFront + WAF", "api.dealintelligence.io · mcp.dealintelligence.io", BND, "AWSWAF")
