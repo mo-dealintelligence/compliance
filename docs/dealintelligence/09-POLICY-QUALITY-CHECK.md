@@ -194,3 +194,31 @@ inherited from Google) · auth SLA 99.95 % headroom.
 Data Classification Policy → Standard · Third‑Party Integration Guidelines →
 API Security + Vendor Management · Vendor Management §11 → delete · Training
 Program → one page.
+
+### H5. Mo's calls on the "amend" items (2026-10-31) — low cost, still compliant
+
+Principle: SOC 2 asks for the criterion to be met, not for a named product.
+Each row names the compensating control the policy should cite instead.
+
+| Claim in policies | Decision | What the policy says instead (compensating control) | Criteria still met by |
+|---|---|---|---|
+| AWS WAF on CloudFront | remove | CloudFront + AWS Shield Standard (DDoS), TLS 1.2+, origin access restricted to function URLs; API rate limiting 100 rpm in middleware | CC6.6 boundary protection, A1.1 |
+| GuardDuty | remove | Security Hub (foundational best practices) + CloudTrail + breach‑detection Lambda on Security Hub findings → SNS | CC7.2 monitoring, CC7.3 evaluation |
+| AWS Config (drift detection, rules, auto‑remediation) | remove | CloudFormation is the only change path (`serverless deploy`), drift checked by the deploy; Lambda checks (access review, retention enforcement); Security Hub config checks | CC8.1 change mgmt, CC6.8 |
+| Inspector / EC2 / EBS / CloudWatch Agent | remove EC2 language | the only instance is the NAT instance acting as bastion (SSM Session Manager, no SSH keys, no public services); workloads are Lambda/Fargate; vulnerability scanning = ECR scan‑on‑push + Dependabot + Trivy in CI | CC7.1 vulnerability mgmt, CC6.6 |
+| Route 53 multi‑region health checks | remove | CloudWatch alarms on API errors/latency; single region us‑east‑1 by design (state in BCP) | A1.1, A1.2 |
+| Transit Gateway, PrivateLink, cross‑region replication, KMS multi‑region keys | remove | single VPC, single region; KMS regional key with annual rotation | CC6.1, CC6.7 |
+| Image signing, certificate pinning, mutual TLS | remove | ECR scan‑on‑push; ACM‑managed certificates; TLS 1.2+ | CC6.7, CC8.1 |
+| Synthetics canaries, status page, customer‑portal SLA reports | remove | CloudWatch alarms + monthly availability from CloudWatch metrics; email notice for maintenance | A1.1 |
+| Blue‑green / canary deploys, load balancers, circuit breakers | remove | Lambda versioned deploys with rollback via `serverless rollback`; reserved concurrency | A1.2, CC8.1 |
+| Phishing sims, LMS quizzes, newsletters, champions, surveys | remove | Comp training module (videos + certificate) at onboarding and annually; contractor acknowledgment | CC1.4, CC2.2 |
+| Quarterly tabletop + annual simulation; 3‑person IRT; 24/7 15‑min response; cyber‑insurance; encrypted messaging; playbooks | reword | annual tabletop/BCP test recorded in Comp; CEO responds; business‑hours targets with Security Hub/SNS paging for P1 | CC7.4, CC7.5, A1.3 |
+| Classification tags / metadata fields / email markings | remove | handling rules by tier; data lives in known collections; CloudFormation tags on resources only | C1.1 |
+| API tiers, WebSockets, DLQs, DAST, 80 % coverage | remove | one rate tier (100 rpm); CI = Black/isort/Flake8/Bandit/pytest/Trivy/TruffleHog | CC8.1, PI1.x |
+| Legal‑hold Lambda, 7‑year S3 log archive, KMS "segment" rotation, Terraform | reword | 90‑day CloudWatch; CloudTrail bucket lifecycle + Object Lock (H1, cheap) covers the 7‑year audit‑log claim; CloudFormation | CC7.2, C1.2 |
+| Automated DSR deletion / EventBridge deadlines / PropelAuth flags | reword | manual DSR runbook with dated log in Comp (the `access-request`/DSR record) | P5–P6 |
+| Secrets rotation (quarterly DB creds, 90‑day API keys) | keep claim, **do it** (H1) | Secrets Manager rotation on the DB secret; key rotation calendar in Comp tasks | CC6.1 |
+
+Open from Mo's note: "Route 53 is new" — confirm whether that means keep
+Route 53 for DNS only (yes, it is used) and drop only the multi‑region
+health‑check claim (assumed above).
