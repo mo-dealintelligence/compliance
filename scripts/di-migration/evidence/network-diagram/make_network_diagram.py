@@ -141,7 +141,6 @@ def build_internal():
     c.node(128, 486, 310, 64, "Lambda app", "FastAPI", INT, "AWSLambda")
     c.node(508, 486, 330, 64, "Lambda mcp", "MCP server", INT, "AWSLambda")
     c.node(128, 586, 310, 64, "Lambda orchestrator", None, INT, "AWSLambda")
-    c.node(508, 586, 330, 64, "Scheduled Lambdas", None, INT, "AWSLambda")
     c.cyl(230, 786, 500, 80, "DocumentDB", "di-backend-production-cluster", "AmazonDocumentDB")
 
     c.boundary(890, 446, 546, 520, "Public subnet — 10.0.100.0/24 (us-east-1a)", "#555")
@@ -164,11 +163,11 @@ def build_internal():
     c.arrow([(438, 518), (462, 518), (462, 786)], "TCP 27017", 455, 700, "end")
     c.arrow([(508, 530), (484, 530), (484, 786)], "TCP 27017", 492, 700, "start")
     c.arrow([(283, 650), (283, 786)], "TCP 27017", 295, 740, "start")
-    c.arrow([(673, 650), (673, 786)], "TCP 27017", 685, 710, "start")
     # orchestrator -> Fargate
     c.arrow([(360, 650), (360, 672), (1163, 672), (1163, 550)], "ECS RunTask", 1000, 664, "start")
-    # Lambdas out through the NAT
-    c.arrow([(838, 618), (1430, 618), (1430, A + 34)], "HTTPS 443", 1300, 610, "start")
+    # Lambda app + mcp out through the NAT (shared trunk)
+    c.arrow([(420, 550), (420, 568), (1430, 568), (1430, A + 34)], "HTTPS 443", 1300, 560, "start")
+    c.p.append('<path d="M760,550 L760,568" fill="none" stroke="#1a1a1a" stroke-width="1.1"/>')
     c.arrow([(1100, A - 16), (950, A - 16), (950, ey + eh)], "HTTPS 443", 958, 274, "start")
     c.arrow([(1137, A - 34), (1137, ey + eh)], "HTTPS 443", 1145, 274, "start")
     # Fargate: API calls back in through CloudFront
