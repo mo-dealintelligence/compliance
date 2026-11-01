@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseEnumPipe,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -22,6 +23,7 @@ import { RequirePermission } from '../auth/require-permission.decorator';
 import { OrganizationId } from '../auth/auth-context.decorator';
 import { ControlsService } from './controls.service';
 import { CreateControlDto } from './dto/create-control.dto';
+import { UpdateControlDto } from './dto/update-control.dto';
 import { LinkPoliciesDto } from './dto/link-policies.dto';
 import { LinkTasksDto } from './dto/link-tasks.dto';
 import { LinkRequirementsToControlDto } from './dto/link-requirements.dto';
@@ -192,6 +194,18 @@ export class ControlsController {
       formType,
       frameworkInstanceId,
     );
+  }
+
+  @Patch(':id')
+  @RequirePermission('control', 'update')
+  @ApiOperation({ summary: 'Update a control name and/or description' })
+  @ApiParam({ name: 'id', description: 'Control ID' })
+  async update(
+    @OrganizationId() organizationId: string,
+    @Param('id') id: string,
+    @Body() dto: UpdateControlDto,
+  ) {
+    return this.controlsService.update(id, organizationId, dto);
   }
 
   @Delete(':id')

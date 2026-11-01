@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { db, EvidenceFormType, Prisma } from '@db';
 import { CreateControlDto } from './dto/create-control.dto';
+import { UpdateControlDto } from './dto/update-control.dto';
 import { deduplicateById, deduplicateByFormType } from '../utils/deduplicate';
 import { syncDirectLinksToCustomFrameworks } from './sync-custom-framework-links';
 
@@ -906,5 +907,24 @@ export class ControlsService {
     });
 
     return { success: true };
+  }
+
+  async update(controlId: string, organizationId: string, dto: UpdateControlDto) {
+    const control = await db.control.findUnique({
+      where: { id: controlId, organizationId },
+    });
+    if (!control) {
+      throw new NotFoundException('Control not found');
+    }
+    if (dto.name === undefined && dto.description === undefined) {
+      throw new BadRequestException('Provide name and/or description');
+    }
+    return db.control.update({
+      where: { id: controlId },
+      data: {
+        ...(dto.name !== undefined ? { name: dto.name } : {}),
+        ...(dto.description !== undefined ? { description: dto.description } : {}),
+      },
+    });
   }
 }
