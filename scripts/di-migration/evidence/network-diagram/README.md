@@ -3,7 +3,7 @@
 | File | Audience |
 |---|---|
 | `di-backend-network-internal-2026-11-01.png` | Engineering, auditor. Every system and every connection. |
-| `di-backend-network-customer-2026-11-01.png` | Customers. Their systems are the only outside parties; no data vendors, no operator path. |
+| `di-backend-network-customer-2026-11-01.png` | Customers. Customer systems are the only outside parties; no operator path. |
 
 Drawn to the usual network-flow-diagram conventions (PCI DSS 1.2.3/1.2.4 style):
 
@@ -13,7 +13,7 @@ Drawn to the usual network-flow-diagram conventions (PCI DSS 1.2.3/1.2.4 style):
 - Arrows are connections, drawn from the side that opens the connection, labelled with
   protocol and port. Solid = application traffic. Dashed = administrative access
   (operator → SSM → bastion → DocumentDB).
-- Third parties are labelled by name and the protocol used to reach them.
+- Outside systems are labelled by name and the protocol used to reach them (customer CRMs and Slack via the NAT).
 - Version, date, and owner are in the header.
 
 No authentication detail is on the diagram (that belongs in the data-flow diagram and the
@@ -30,5 +30,5 @@ the Lambdas, and a t3.micro NAT instance instead of a NAT Gateway. In policy tex
 
 Facts as of 2026-11-01 from `serverless.yml` (CIDRs), DNS, and
 `di-backend-api/docs/infra-edge-review-2026-11-01.md`. Fargate tasks run in the public
-subnet and reach data vendors on their own public IP, not through the NAT; their calls
+subnet; their calls
 back to the API go through CloudFront like any other client.

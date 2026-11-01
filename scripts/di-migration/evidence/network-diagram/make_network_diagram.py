@@ -119,16 +119,14 @@ def build_internal():
              f"Production · AWS account 164482277879 · us-east-1 · v2.0 · {DATE} · owner: CEO")
 
     c.boundary(50, 124, 1440, 118, "Internet")
-    ey, eh, ew, gap = 158, 64, 168, 12
-    xs = [72 + i * (ew + gap) for i in range(8)]
+    ey, eh, ew, gap = 158, 64, 226, 12
+    xs = [72 + i * (ew + gap) for i in range(6)]
     c.node(xs[0], ey, ew, eh, "Web app", "browser · Netlify-hosted", EXT, "Client")
     c.node(xs[1], ey, ew, eh, "REST API clients", "Clay · integrations", EXT, "Client")
     c.node(xs[2], ey, ew, eh, "MCP clients", None, EXT, "Users")
-    c.node(xs[3], ey, ew, eh, "Data vendors", None, EXT, "Internetalt1")
-    c.node(xs[4], ey, ew, eh, "Customer CRMs", "HubSpot · Salesforce", EXT, "Client")
-    c.node(xs[5], ey, ew, eh, "Slack", None, EXT, "Client")
-    c.node(xs[6], ey, ew, eh, "Google Workspace", None, EXT, "Client")
-    c.node(xs[7], ey, ew, eh, "Operator", "console · CLI · SSM", EXT, "Users")
+    c.node(xs[3], ey, ew, eh, "Customer CRMs", "HubSpot · Salesforce", EXT, "Client")
+    c.node(xs[4], ey, ew, eh, "Slack", None, EXT, "Client")
+    c.node(xs[5], ey, ew, eh, "Operator", "console · CLI · SSM", EXT, "Users")
 
     A = 336
     c.p.append(f'<rect x="50" y="{A}" width="1440" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
@@ -157,9 +155,9 @@ def build_internal():
         c.node(104 + i * (sw + 16), 992, sw, 54, t, None, SUP, ic)
 
     # ingress
-    c.arrow([(xs[0] + 84, ey + eh), (200, A - 34)], "HTTPS 443", 120, 296, "start")
-    c.arrow([(xs[1] + 84, ey + eh), (330, A - 34)], "HTTPS 443", 340, 296, "start")
-    c.arrow([(xs[2] + 84, ey + eh), (460, A - 34)], "HTTPS 443", 480, 296, "start")
+    c.arrow([(xs[0] + 113, ey + eh), (200, A - 34)], "HTTPS 443", 120, 296, "start")
+    c.arrow([(xs[1] + 113, ey + eh), (360, A - 34)], "HTTPS 443", 372, 296, "start")
+    c.arrow([(xs[2] + 113, ey + eh), (520, A - 34)], "HTTPS 443", 600, 296, "start")
     c.arrow([(250, A + 34), (250, 486)], "HTTPS 443", 262, 440, "start")
     c.arrow([(640, A + 34), (640, 486)], "HTTPS 443", 652, 440, "start")
     # database
@@ -171,14 +169,12 @@ def build_internal():
     c.arrow([(360, 650), (360, 672), (1163, 672), (1163, 550)], "ECS RunTask", 1000, 664, "start")
     # Lambdas out through the NAT
     c.arrow([(838, 618), (1430, 618), (1430, A + 34)], "HTTPS 443", 1300, 610, "start")
-    c.arrow([(1180, A - 34), (xs[4] + 84, ey + eh)], "HTTPS 443", 1060, 296, "end")
-    c.arrow([(1230, A - 34), (xs[5] + 84, ey + eh)], "HTTPS 443", 1180, 268, "start")
-    c.arrow([(1300, A - 34), (xs[6] + 84, ey + eh)], "HTTPS 443", 1310, 296, "start")
-    # Fargate: API calls back in through CloudFront; data vendors directly (public IP, no NAT)
+    c.arrow([(1180, A - 34), (xs[3] + 113, ey + eh)], "HTTPS 443", 1020, 296, "end")
+    c.arrow([(1280, A - 34), (xs[4] + 113, ey + eh)], "HTTPS 443", 1290, 296, "start")
+    # Fargate: API calls back in through CloudFront
     c.arrow([(916, 506), (876, 506), (876, 400), (620, 400), (620, A + 34)], "HTTPS 443", 700, 394, "start")
-    c.arrow([(1000, 486), (1000, 282), (xs[3] + 84, 282), (xs[3] + 84, ey + eh)], "HTTPS 443", 1010, 440, "start")
     # administrative access
-    dashed(c, [(xs[7] + 84, ey + eh), (xs[7] + 84, 282), (1478, 282), (1478, 732), (1410, 732)], "SSM · HTTPS 443", 1470, 690, "end")
+    dashed(c, [(xs[5] + 113, ey + eh), (xs[5] + 113, 282), (1478, 282), (1478, 732), (1410, 732)], "SSM · HTTPS 443", 1470, 690, "end")
     dashed(c, [(916, 748), (560, 748), (560, 786)], "TCP 27017", 800, 742, "middle")
 
     legend(c, 70, 1140)
@@ -188,15 +184,15 @@ def build_internal():
 def build_customer():
     c = Canvas(1200, 820)
     c.header("Deal Intelligence — Network Flow Diagram",
-             f"How your systems connect to the Deal Intelligence platform · v2.0 · {DATE}")
+             f"Customer connections · v2.0 · {DATE}")
 
-    c.boundary(50, 124, 1100, 118, "Your systems")
+    c.boundary(50, 124, 1100, 118, "Customer systems")
     ey, eh = 158, 64
     c.node(76, ey, 200, eh, "Web app", "browser", EXT, "Client")
     c.node(300, ey, 200, eh, "REST API clients", "Clay · integrations", EXT, "Client")
     c.node(524, ey, 180, eh, "MCP clients", None, EXT, "Users")
-    c.node(728, ey, 190, eh, "Your CRM", "HubSpot · Salesforce", EXT, "Client")
-    c.node(942, ey, 180, eh, "Your Slack", None, EXT, "Client")
+    c.node(728, ey, 190, eh, "Customer CRM", "HubSpot · Salesforce", EXT, "Client")
+    c.node(942, ey, 180, eh, "Customer Slack", None, EXT, "Client")
 
     A = 336
     c.p.append(f'<rect x="50" y="{A}" width="1100" height="400" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
@@ -208,7 +204,7 @@ def build_customer():
 
     c.boundary(80, 426, 1040, 260, "Private network", "#2f855a")
     c.node(150, 476, 300, 68, "API", "Lambda", INT, "AWSLambda")
-    c.cyl(620, 468, 400, 84, "Your data", "DocumentDB · encrypted · 35-day backups", "AmazonDocumentDB")
+    c.cyl(620, 468, 400, 84, "Customer data", "DocumentDB · encrypted · 35-day backups", "AmazonDocumentDB")
 
     c.arrow([(176, ey + eh), (200, A - 34)], "HTTPS 443", 118, 296, "start")
     c.arrow([(400, ey + eh), (330, A - 34)], "HTTPS 443", 380, 296, "start")
