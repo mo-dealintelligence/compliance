@@ -1,5 +1,12 @@
 {
- "submissions": {},
+ "submissions": {
+  "board-meeting-q4-2025": "evs_6ae6a1ca770199432de3c57e",
+  "performance-evaluation-ceo-2025": "evs_6ae6a1cb0e099a66af4ab4f4",
+  "bcp-full-test-2026-02": "evs_6ae6a1cd696788b8501d17be",
+  "rbac-matrix-2026-11-01": "evs_6ae6a1cd4fd9cb15281874ff",
+  "infrastructure-inventory-2026-11-01": "evs_6ae6a1ce164e9167573cc300",
+  "network-diagram-2026-10-31": "evs_6ae6a2d2afd1b014fb174d79"
+ },
  "links": {
   "board_meeting": [
    "CC1.2",
@@ -63,6 +70,14 @@
    "PI1.5.1",
    "PI1.5.2",
    "PI1.5.3"
+  ],
+  "network_diagram": [
+   "CC2.1.1",
+   "CC6.1.3",
+   "CC6.3.3",
+   "CC6.6",
+   "CC6.6.1",
+   "CC6.6.3"
   ]
  }
 }
