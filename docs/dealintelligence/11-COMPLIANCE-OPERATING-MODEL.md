@@ -6,13 +6,13 @@ API, manual controls pushed to the longest cadence the criteria allow, and
 the manual ones batched so they are done in one sitting.
 
 Target steady state: **~1 hour per quarter + ~2 days per year of Mo's time.**
-Everything else runs on its own and lands in Comp with a timestamp.
+Everything else runs on its own and lands in Comp with a timestamp. Nothing runs more often than monthly — no daily checks, automated or not (Mo's call; alerts on critical Security Hub findings are the only real‑time path).
 
 ## 1. The four mechanisms (build once)
 
 | # | Mechanism | What it produces | Cost | Build effort |
 |---|---|---|---|---|
-| M1 | **Comp integrations** — GitHub, AWS (read‑only role), Google Workspace | daily pass/fail per check, attached to controls (branch protection, 2FA, Dependabot, code scanning; CloudTrail, SGs, IAM, KMS rotation, S3 encryption/public access; Workspace 2‑step, user list) | $0 | ~3 h total; AWS needs the CloudShell role (you) |
+| M1 | **Comp integrations** — GitHub, AWS (read‑only role), Google Workspace, schedule set to **monthly** (Mo: no daily checks; monthly gives the auditor 12 dated points per control, which is enough) | monthly pass/fail per check, attached to controls (branch protection, 2FA, Dependabot, code scanning; CloudTrail, SGs, IAM, KMS rotation, S3 encryption/public access; Workspace 2‑step, user list) | $0 | ~3 h total; AWS needs the CloudShell role (you) |
 | M2 | **Scheduled Chrome evidence run** (Claude scheduled task on the Mac, signed‑in browser) | screenshots from `evidence/shot-list.json` uploaded to the right Comp task, run log `runs/<date>.json` | $0 | shot list + uploader exist; needs one successful manual run with AWS console signed in, then schedule |
 | M3 | **Evidence‑poster Lambdas** in di‑backend‑api (EventBridge → Lambda → Comp API) | structured records in Comp forms/tasks: access‑review export (IAM + PropelAuth + Workspace users), retention purge count, backup‑restore test result, Security Hub summary, monthly availability % | cents | 1–2 days once; reuses the existing `accessReview` and `dataRetentionEnforcement` Lambdas (add a "post to Comp" step) |
 | M4 | **Comp task schedule** (already running: 12‑hourly cron flips due tasks to `todo`, Monday reminder email) | the manual calendar below, with dated completion as evidence | $0 | set frequencies/review dates once (script) |
@@ -23,7 +23,7 @@ Cadences below are the longest an auditor will accept for a one‑person
 company given what the policies say; where a policy says something shorter,
 the policy line to amend is noted.
 
-### Continuous / daily — zero touch (M1, M3)
+### Monthly automated configuration checks — zero touch (M1)
 CloudTrail on, SGs not open, IAM password policy/MFA, KMS rotation, S3
 encryption + block public access, branch protection, 2FA, Dependabot, code
 scanning, Workspace 2‑step, employee list sync, ECR scan results, Security
@@ -75,7 +75,7 @@ record; DSR → DSR record; emergency change → PR with "emergency" label.
 - Incident Response: "quarterly tabletop + annual simulation" → annual tabletop.
 - Security Awareness: training within 5 days / quizzes / phishing → onboarding + annual videos.
 - BCP: quarterly restore test stays (automated); failover test semi‑annual → covered by the same automated restore (reword).
-- Monitoring: "daily security alert review" → automated daily checks + monthly reviewed record.
+- Monitoring: "daily security alert review" → Security Hub/SNS alerting on critical findings + monthly reviewed record (no daily checks).
 - Change Mgmt: 48‑h CAB review → PR + CI gate, self‑approval allowed for sole operator, emergency label.
 - Vendor: quarterly performance/SLA reviews → annual review + continuous availability record.
 
