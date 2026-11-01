@@ -219,6 +219,14 @@ Each row names the compensating control the policy should cite instead.
 | Automated DSR deletion / EventBridge deadlines / PropelAuth flags | reword | manual DSR runbook with dated log in Comp (the `access-request`/DSR record) | P5–P6 |
 | Secrets rotation (quarterly DB creds, 90‑day API keys) | keep claim, **do it** (H1) | Secrets Manager rotation on the DB secret; key rotation calendar in Comp tasks | CC6.1 |
 
+Scope change 2026-10-31 (applies to the amendment pass): Processing
+Integrity and Privacy are out of the Type II scope. In the policy edits,
+drop the PI1.x and P1–P8 criteria references (e.g. the `PI1.x` and `P5–P6`
+rows above become CC8.1-only and GDPR/CCPA-only respectively), and keep the
+privacy documents (DPA template, DSR procedure, privacy notice, LIA/RoPA) as
+GDPR/CCPA documents rather than SOC 2 Privacy evidence. All 24 policies stay;
+none was linked only from a PI/P control.
+
 Open from Mo's note: "Route 53 is new" — confirm whether that means keep
 Route 53 for DNS only (yes, it is used) and drop only the multi‑region
 health‑check claim (assumed above).

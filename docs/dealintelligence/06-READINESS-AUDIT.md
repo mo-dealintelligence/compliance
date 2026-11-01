@@ -10,6 +10,15 @@ against the Comp account), and the evidence pass in Chrome.
 
 ## Verdict
 
+> **Scope change 2026-10-31.** Processing Integrity and Privacy were removed
+> from the Type II scope (now Security + Availability + Confidentiality).
+> Comp holds 136 controls and 50 evidence tasks; the 75 PI/P controls and 6
+> evidence tasks that only they cited were exported verbatim to Google Drive
+> ("Compliance / SOC 2 descoped — Processing Integrity and Privacy
+> (2026-10-31)") and `scripts/di-migration/scratch/descoping-pi-privacy/`
+> before deletion (`import/descope-pi-privacy.ts`). Counts below are as of
+> the 2026-10-30 audit.
+
 **Usable today for policies, risks, vendors, people and controls. Not yet
 "official" — eight items block a clean cut-over, all of them small.** Nothing
 needs re-architecture. The content is in (211 verbatim controls mapped to the

@@ -8,6 +8,11 @@ the manual ones batched so they are done in one sitting.
 Target steady state: **~1 hour per quarter + ~2 days per year of Mo's time.**
 Everything else runs on its own and lands in Comp with a timestamp. Nothing runs more often than monthly — no daily checks, automated or not (Mo's call; alerts on critical Security Hub findings are the only real‑time path).
 
+Scope (2026-10-31): Type II = Security + Availability + Confidentiality.
+Processing Integrity and Privacy controls were removed from Comp (archived in
+Drive); the privacy row in the annual list below is the GDPR/CCPA obligation,
+not a SOC 2 Privacy criterion.
+
 ## 1. The four mechanisms (build once)
 
 | # | Mechanism | What it produces | Cost | Build effort |
