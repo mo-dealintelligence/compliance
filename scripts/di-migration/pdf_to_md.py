@@ -42,8 +42,16 @@ DATE = r"(?:N/A|[A-Z][a-z]+ \d{1,2}, \d{4}(?: at \d{1,2}:\d{2} [AP]M)?)"
 REPLACEMENTS = [
     (re.compile(r"the organization's risk assessment module in Humadroid", re.I), "the risk register in the compliance platform"),
     (re.compile(r"in Humadroid's (Incident Reporting system|risk assessment module)", re.I), r"in the compliance platform's \1"),
-    (re.compile(r"Humadroid's", re.I), "the compliance platform's"),
-    (re.compile(r"\bHumadroid\b", re.I), "the compliance platform"),
+    # "the Humadroid compliance platform" / "the organization's Humadroid Risk Assessment module" must not
+    # become "the the compliance platform compliance platform" / "the organization's the compliance platform".
+    (re.compile(r"\b(the|The)\s+Humadr(?:oi|io)d\s+(?:compliance\s+)?platform\b"), r"\1 compliance platform"),
+    (re.compile(r"\bHumadr(?:oi|io)d\s+compliance\s+platform\b", re.I), "the compliance platform"),
+    (re.compile(r"\bHumadr(?:oi|io)d\s+platform\b", re.I), "the compliance platform"),
+    (re.compile(r"\bHumadr(?:oi|io)d\s+module\b", re.I), "the compliance platform"),
+    (re.compile(r"\b(the|The)\s+Humadr(?:oi|io)d\b"), r"\1 compliance platform"),
+    (re.compile(r"(organization's|standardized|our)\s+Humadr(?:oi|io)d\b", re.I), r"\1 compliance platform"),
+    (re.compile(r"Humadr(?:oi|io)d's", re.I), "the compliance platform's"),
+    (re.compile(r"\bHumadr(?:oi|io)d\b", re.I), "the compliance platform"),
     (re.compile(r"\\?\[Current\s*(?:<br>)?\s*Date\]"), "{{EFFECTIVE_DATE}}"),
     (re.compile(r"\\?\[Original\s*(?:<br>)?\s*Date\]"), "{{ORIGINAL_DATE}}"),
     (re.compile(r"\\?\[Current Date \+ 1 Year\]"), "{{REVIEW_DATE}}"),

@@ -1,0 +1,15 @@
+Review each policy file in full. For EACH file return a block:
+
+### <file>
+- Title / version / effective / review date / owner / acknowledgment as stated in frontmatter or body
+- Purpose fit: does the document actually do what its title says (policy = rules; procedure = steps; standard = requirements)? 1-2 lines.
+- Specific to Deal Intelligence? Note concrete system names used (AWS services, PropelAuth, GitHub, DocumentDB, Humadroid, CloudWatch, etc.) vs generic "the company" boilerplate. Estimate % of text that is generic.
+- Roles referenced that may not exist in a 1-person + 1-contractor company (CISO, Security Team, HR, Board, DPO, Legal, IT department, managers, "employees") — list them verbatim.
+- Every NUMERIC or TIME commitment (retention days, backup retention, notification hours, review cadence, password length, MFA rules, session timeouts, SLA %, RTO/RPO, patch SLAs, training frequency, access review cadence, log retention, key rotation, pentest frequency, etc.) — list each as "topic: value" so they can be cross-checked across documents.
+- Claims about tooling/process that would need to be TRUE in production (e.g. staging environment, branch protection, PR reviews, multi-AZ, separate accounts, EDR, MDM, SIEM, WAF, DLP) — list verbatim-ish.
+- Placeholders, template leftovers, typos, broken references ([Current Date], TBD, "Humadriod", Company Name, lorem, duplicate paragraphs, references to documents that don't exist in this set).
+- Internal contradictions within the document.
+- Verdict: KEEP / FIX (what) / MERGE with / DROP — with one-line reason an auditor would care about.
+
+Be concrete and quote short phrases. Do not pad. The 24 documents in this set are: access-control-and-authentication-policy, business-continuity-plan, change-management-policy, code-of-conduct, data-classification-policy, data-retention-and-disposal-policy, incident-response-procedure, information-security-policy, privacy-notice-and-data-processing-agreement-template, risk-assessment-procedure, acceptable-use-policy, api-security-and-rate-limiting-standard, cloud-infrastructure-security-policy, data-classification-and-handling-standard, data-subject-rights-request-procedure, encryption-and-cryptographic-controls-standard, penetration-testing-and-security-assessment-procedure, secure-software-development-lifecycle-sdlc-standard, security-awareness-training-program, service-level-agreement-sla-management-policy, system-monitoring-and-logging-procedure, third-party-integration-security-guidelines, vendor-management-policy, vulnerability-management-procedure.
+Context: Deal Intelligence LLC is a single-member LLC (Mo Messidi, CEO/sole operator) with one GTM contractor (William). Production is one AWS account (Lambda, Fargate, DocumentDB, CloudFront, S3, KMS, CloudTrail, Security Hub), PropelAuth for customer auth (Google SSO only), GitHub Actions CI, Google Workspace. Known realities: no branch protection, direct pushes to main, CI failing, DocumentDB MultiAZ=false, backups 35 days, CloudWatch logs 90 days, no staging environment evidenced, no separate non-prod AWS account evidenced.
