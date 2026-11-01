@@ -72,12 +72,12 @@ class Canvas:
 
     def boundary(self, x, y, w, h, label, color="#444", at="top"):
         self.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="4" ry="4" fill="none" '
-                      f'stroke="{color}" stroke-width="1.0" stroke-dasharray="10 6"/>')
+                      f'stroke="{color}" stroke-width="2.6" stroke-dasharray="12 6"/>')
         self.text(x + 16, y + 22 if at == "top" else y + h - 13, label, 12.5, "start", "bold", color)
 
     def arrow(self, pts, label=None, lx=None, ly=None, anchor="middle"):
         path = "M" + " L".join(f"{x},{y}" for x, y in pts)
-        self.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#a)"/>')
+        self.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.1" marker-end="url(#a)"/>')
         if label:
             self.text(lx, ly, label, 10.5, anchor, fill="#222")
 
@@ -89,7 +89,7 @@ class Canvas:
     def save(self, stem):
         svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{self.w}" height="{self.h}" viewBox="0 0 {self.w} {self.h}">'
                f'<rect width="{self.w}" height="{self.h}" fill="#fff"/><defs><marker id="a" viewBox="0 0 10 10" refX="9" '
-               'refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" '
+               'refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" '
                'fill="#1a1a1a"/></marker></defs>' + "".join(self.p) + "</svg>")
         (HERE / f"{stem}.svg").write_text(svg)
         import cairosvg
@@ -99,16 +99,16 @@ class Canvas:
 
 
 def legend(c, x, y):
-    c.p.append(f'<line x1="{x}" y1="{y-4}" x2="{x+30}" y2="{y-4}" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#a)"/>')
+    c.p.append(f'<line x1="{x}" y1="{y-4}" x2="{x+30}" y2="{y-4}" stroke="#1a1a1a" stroke-width="1.1" marker-end="url(#a)"/>')
     c.text(x + 38, y, "network connection — from the side that opens it, with protocol and port", 10.5, "start", fill="#333")
-    c.p.append(f'<line x1="{x}" y1="{y+14}" x2="{x+30}" y2="{y+14}" stroke="#1a1a1a" stroke-width="1.8" '
+    c.p.append(f'<line x1="{x}" y1="{y+14}" x2="{x+30}" y2="{y+14}" stroke="#1a1a1a" stroke-width="1.1" '
                'stroke-dasharray="5 4" marker-end="url(#a)"/>')
     c.text(x + 38, y + 18, "administrative access", 10.5, "start", fill="#333")
 
 
 def dashed(c, pts, label=None, lx=None, ly=None, anchor="middle"):
     path = "M" + " L".join(f"{x},{y}" for x, y in pts)
-    c.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#a)"/>')
+    c.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.1" stroke-dasharray="5 4" marker-end="url(#a)"/>')
     if label:
         c.text(lx, ly, label, 10.5, anchor, fill="#222")
 
@@ -130,7 +130,7 @@ def build_internal():
 
     A = 336
     c.p.append(f'<rect x="50" y="{A}" width="1440" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
-               'stroke-width="1.0" stroke-dasharray="10 6"/>')
+               'stroke-width="2.6" stroke-dasharray="12 6"/>')
     c.text(66, A + 756, "AWS account 164482277879 — us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
     c.node(100, A - 34, 560, 68, "CloudFront + WAF", "api.dealintelligence.io · mcp.dealintelligence.io · self-managed WAF", BND, "AWSWAF")
@@ -196,7 +196,7 @@ def build_customer():
 
     A = 336
     c.p.append(f'<rect x="50" y="{A}" width="1100" height="400" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
-               'stroke-width="1.0" stroke-dasharray="10 6"/>')
+               'stroke-width="2.6" stroke-dasharray="12 6"/>')
     c.text(66, A + 386, "Deal Intelligence — AWS, us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
     c.node(100, A - 34, 460, 68, "CloudFront + WAF", "api.dealintelligence.io · mcp.dealintelligence.io", BND, "AWSWAF")
