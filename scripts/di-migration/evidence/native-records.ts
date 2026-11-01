@@ -3,7 +3,7 @@
  * documents and links the matching form types to the controls that cite them.
  *
  *   COMP_API_URL=https://api.compliance.dealintelligence.io COMP_API_KEY=... \
- *   bun run scripts/di-migration/evidence/native-records.ts [--link-only] [--inventory <dir>]
+ *   bun run scripts/di-migration/evidence/native-records.ts [--link-only] [--inventory <dir>] [--network-diagram <png>]
  *
  * Records created (idempotent — keyed in data/native-records-state.json):
  *   board-meeting                   ← board-management-meeting-minutes-q4-2025-v1.0.pdf
@@ -24,6 +24,8 @@ const args = process.argv.slice(2);
 const linkOnly = args.includes('--link-only');
 const invIdx = args.indexOf('--inventory');
 const inventoryDir = invIdx >= 0 ? args[invIdx + 1] : undefined;
+const ndIdx = args.indexOf('--network-diagram');
+const networkDiagramPath = ndIdx >= 0 ? args[ndIdx + 1] : undefined;
 
 const dataDir = new URL('../data/', import.meta.url).pathname;
 const statePath = join(dataDir, 'native-records-state.json');
@@ -80,6 +82,7 @@ const formTypeByEvidence: Record<string, RegExp> = {
   tabletop_exercise: /humadroid_bcp_test_results/i,
   rbac_matrix: /propelauth_roles|aws_iam_(users|roles)/i,
   infrastructure_inventory: /aws_(lambda_functions|documentdb_cluster|vpc_list|s3_buckets|ecr_repositories)/i,
+  network_diagram: /aws_(vpc_list|vpc_subnets|security_groups)/i,
 };
 
 async function linkFormTypes() {
@@ -204,7 +207,18 @@ async function infrastructureInventory() {
   });
 }
 
+async function networkDiagram() {
+  if (!networkDiagramPath) return;
+  const stamp = networkDiagramPath.match(/(\d{4}-\d{2}-\d{2})/)?.[1] ?? today;
+  const diagramFile = await uploadFile('network-diagram', networkDiagramPath, 'image/png');
+  await submit(`network-diagram-${stamp}`, 'network-diagram', {
+    submissionDate: new Date().toISOString(),
+    diagramFile,
+  });
+}
+
 await linkFormTypes();
+if (networkDiagramPath) await networkDiagram();
 if (!linkOnly) {
   await boardMeeting();
   await performanceEvaluation();
