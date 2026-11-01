@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "security-awareness-training-program-v1.0.pdf"
 ---
 
@@ -66,5 +66,5 @@ This program is reviewed annually and updated for changes in the threat landscap
 
 |**Version**|**Date**|**Author**|**Summary**|
 |---|---|---|---|
-|1.0|November 13, 2025|mo@dealintelligence.io|Initial audited version|
-|2.0|<to be set at publication>|mo@dealintelligence.io|Reduced to one page: onboarding and annual training in the compliance platform portal, completion certificate as evidence, contractor acknowledgment; phishing simulations, quizzes, pass marks, newsletters, security champions, surveys, role-based modules and access-suspension schedule removed|
+|1.0|November 13, 2025|Mo Messidi|Initial audited version|
+|2.0|<to be set at publication>|Mo Messidi|Reduced to one page: onboarding and annual training in the compliance platform portal, completion certificate as evidence, contractor acknowledgment; phishing simulations, quizzes, pass marks, newsletters, security champions, surveys, role-based modules and access-suspension schedule removed|

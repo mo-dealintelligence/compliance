@@ -210,7 +210,7 @@ Knowledge:
 Remote work:
 - Maintain a secure home office environment.
 - Access company systems only through browser single sign-on (Google Workspace) with MFA. [CONFIRM: v1 read "encrypted connections (VPN when required)"; R4 removes VPN]
-- Maintain physical security of any device used for work.
+- Maintain physical security of any device used for work, and keep FileVault full-disk encryption enabled on any macOS device used for work.
 - Follow the remote work requirements in the Acceptable Use Policy.
 
 Communication and availability:
@@ -255,4 +255,4 @@ By signing below, the contractor acknowledges:
 | Version | Date | Author | Changes |
 |---|---|---|---|
 | 1.0 | [CONFIRM: date] | Mo Messidi | Initial job description |
-| 2.0 | [CONFIRM: date] | Mo Messidi | Recruiting copy removed; access level added; training and remote-access wording per RULEBOOK R4; Ethics Policy reference removed (not in the document set) |
+| 2.0 | [CONFIRM: date] | Mo Messidi | Recruiting copy removed; access level added; training and remote-access wording per RULEBOOK R4; Ethics Policy reference removed (not in the document set); FileVault full-disk encryption stated as the device control (D4) |

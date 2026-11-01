@@ -26,7 +26,7 @@ This policy applies to all information assets owned, processed, stored, or trans
 - **Market intelligence data**: competitor interaction data, lead qualification status, sourcing dates
 - **User account data**: customer account credentials, authentication records, access logs
 - **System and application data**: configuration files, application logs, API transaction records
-- **Audit logs and security records**: CloudTrail logs, CloudWatch metrics, Security Hub findings
+- **Audit logs and security records**: CloudTrail logs, CloudWatch metrics, monthly configuration-check records
 - **Database backups and archives**: DocumentDB backups, infrastructure snapshots
 - **Development artifacts**: code repositories, container images (ECR), deployment records
 
@@ -56,7 +56,7 @@ Data classification tiers that inform retention decisions are defined in the Dat
 - **Policy owner**: the CEO
 - **Technical implementation**: the CEO
 - **Compliance monitoring**: tracked in the compliance platform
-- **Audit**: annual review of retention practices by the CEO; independent review by the external SOC 2 auditor
+- **Audit**: annual policy review by the CEO (§12.1); independent review by the external SOC 2 auditor
 
 ## 5. Data retention schedule
 
@@ -74,7 +74,7 @@ Retention periods are based on legal requirements, regulatory obligations, busin
 |**Competitor interaction data**|24 months from last update|Platform functionality|GDPR Art. 6(1)(f)|
 |**Audit logs (CloudTrail)**|7 years|SOC 2 requirement, security investigations|SOC 2 CC7.2, CC7.3|
 |**Application logs (CloudWatch)**|90 days|Operational monitoring, compliance|SOC 2 CC7.2|
-|**Security Hub findings**|7 years [CONFIRM: retention mechanism — Security Hub itself retains findings for 90 days]|Incident investigation, compliance|SOC 2 CC7.4, CC7.5|
+|**Configuration-check records (monthly, compliance platform)**|7 years|Incident investigation, compliance|SOC 2 CC7.4, CC7.5|
 |**Database backups (DocumentDB)**|90 days|Disaster recovery, business continuity|SOC 2 A1.2|
 |**Container images (ECR)**|90 days after deprecation|Rollback capability, audit trail|SOC 2 CC8.1|
 |**Authentication records**|2 years|Access review, security monitoring|SOC 2 CC6.1, CC6.2|
@@ -247,7 +247,6 @@ Cryptographic erasure is the preferred method for bulk disposal because it makes
 |Log retention enforcement|Continuous|CloudWatch policy|Automatic log purge|
 |Backup expiration|Daily|DocumentDB/S3 lifecycle|Automatic backup deletion|
 |Image cleanup|Daily|ECR lifecycle|Remove deprecated images|
-|Consent record review|Monthly|EventBridge|Flag expired consent for review|
 
 ### 7.3 Retention enforcement Lambda function
 
@@ -315,41 +314,13 @@ Sub-processor obligations are set in Data Processing Agreements, as described in
 
 Monitoring procedures are in the System Monitoring and Logging Procedure.
 
-### 9.2 Quarterly review
-
-The CEO:
-
-- Verifies that the automated retention processes are functioning
-- Reviews exception logs and manual interventions
-- Confirms that legal holds are current and justified
-- Validates disposal certificates for any physical media
-
-### 9.3 Annual audit
-
-The CEO:
-
-- Reviews whether the retention schedule is still appropriate
-- Verifies the effectiveness of the disposal methods
-- Assesses changes in regulatory requirements
-- Updates retention periods as needed
-
-### 9.4 Audit evidence
+### 9.2 Audit evidence
 
 - Automated deletion logs (CloudWatch, CloudTrail)
 - Retention policy configurations (CloudFormation)
 - Legal hold records in the compliance platform
 - Data subject request records
 - Disposal verification reports
-
-### 9.5 Reporting
-
-Monthly retention compliance reports include:
-
-- Volume of data deleted by category
-- Exceptions and manual interventions
-- Legal hold status
-- Data subject erasure requests processed
-- Compliance metrics and trends
 
 ## 10. Retention incidents
 

@@ -2,7 +2,7 @@
   {
     "id": "vnd_6ae446759b7c398bc3d487b2",
     "name": "Resend",
-    "description": "Transactional email delivery for the compliance platform (notifications, sign-in links). Receives recipient addresses and message content at send time only; holds no platform data. Not a sub-processor. Reviewed annually by the CEO per the Vendor Management Policy.",
+    "description": "Transactional email delivery for the compliance platform (notifications, sign-in links). Receives recipient addresses and message content at send time only; holds no platform data. Vendor — does not process customer data; not a sub-processor. Reviewed annually by the CEO per the Vendor Management Policy.",
     "category": "software_as_a_service",
     "status": "assessed",
     "inherentProbability": "unlikely",
@@ -31,7 +31,7 @@
   {
     "id": "vnd_6ae44675796854ef087c95bd",
     "name": "Google Workspace",
-    "description": "Personnel email, calendar, and document storage for Deal Intelligence LLC, and the identity provider for personnel single sign-on with MFA enforced. Does not host platform customer data. Not a sub-processor. Reviewed annually by the CEO (SOC 2 report and terms) per the Vendor Management Policy.",
+    "description": "Personnel email, calendar, and document storage for Deal Intelligence LLC, and the identity provider for personnel single sign-on with MFA enforced. Vendor — does not process customer data; not a sub-processor; customer Google sign-in is handled by PropelAuth. Reviewed annually by the CEO (SOC 2 report and terms) per the Vendor Management Policy.",
     "category": "software_as_a_service",
     "status": "assessed",
     "inherentProbability": "unlikely",
@@ -60,7 +60,7 @@
   {
     "id": "vnd_6ae4467450298b59b87f2ed7",
     "name": "GitHub",
-    "description": "Source control for dealintelligence/di-backend-api, GitHub Actions CI, Dependabot, code and secret scanning, and branch protection on main. No customer data enters the repository or CI. Not a sub-processor. Reviewed annually by the CEO (SOC 2 report and terms) per the Vendor Management Policy.",
+    "description": "Source control for dealintelligence/di-backend-api, GitHub Actions CI, Dependabot, code and secret scanning, and branch protection on main. No customer data enters the repository or CI. Vendor — does not process customer data; not a sub-processor. Reviewed annually by the CEO (SOC 2 report and terms) per the Vendor Management Policy.",
     "category": "software_as_a_service",
     "status": "assessed",
     "inherentProbability": "possible",
@@ -118,7 +118,7 @@
   {
     "id": "vnd_6ae446740e46b93b0694af79",
     "name": "Amazon Web Services",
-    "description": "Cloud hosting and encrypted storage for the Deal Intelligence platform in us-east-1: Lambda, Fargate, DocumentDB, S3, CloudFront, VPC, KMS, CloudTrail, Security Hub. Sub-processor under a Data Processing Agreement; carve-out in the SOC 2 examination. Reviewed annually by the CEO (SOC 2 / ISO 27001 reports and terms) per the Vendor Management Policy.",
+    "description": "Cloud hosting and encrypted storage for the Deal Intelligence platform in us-east-1: Lambda, Fargate, DocumentDB, S3, CloudFront, VPC, KMS, CloudTrail, EventBridge, SNS. Sub-processor under a Data Processing Agreement; carve-out in the SOC 2 examination. Reviewed annually by the CEO (SOC 2 / ISO 27001 reports and terms) per the Vendor Management Policy.",
     "category": "cloud",
     "status": "assessed",
     "inherentProbability": "possible",

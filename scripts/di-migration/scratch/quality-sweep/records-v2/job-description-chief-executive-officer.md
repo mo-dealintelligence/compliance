@@ -108,7 +108,8 @@ Monitoring and incident response:
 - Maintain CloudWatch monitoring and alarms with 90-day log retention.
 - Maintain the audit-logging middleware for all API requests.
 - Maintain CloudTrail for AWS API calls.
-- Review Security Hub findings monthly; critical findings alert in real time via SNS.
+- Review the monthly configuration-check record posted by the configuration-check Lambda and remediate any failed item; security-relevant CloudTrail events alert in real time via EventBridge, the breach-detection Lambda, and SNS.
+- Record the monthly availability figure in the compliance platform task "Availability record (monthly)".
 - Act as incident commander per the Incident Response Procedure.
 - Notify affected customers within 48 hours of a confirmed breach.
 - Record incidents in the compliance platform.
@@ -153,7 +154,7 @@ Technical knowledge:
 - AWS: Lambda, Fargate, DocumentDB, ECS, VPC, CloudFront, CloudWatch, CloudTrail.
 - The programming languages used for platform development.
 - Infrastructure as code: CloudFormation via the Serverless Framework.
-- Security tooling: Security Hub, vulnerability scanners, SIEM concepts.
+- Security tooling: CloudTrail and EventBridge event rules, vulnerability scanners (ECR scan-on-push, Dependabot, Trivy), SIEM concepts.
 - CI/CD: GitHub Actions, automated testing, deployment pipelines.
 - Authentication: JWT, OAuth, MFA.
 
@@ -193,10 +194,9 @@ Matters recorded in the management meeting minutes:
 | SOC 2 Type II status | Maintained |
 | Security incidents (P1/P2) | 0 per quarter |
 | Vulnerability remediation (Critical) | Within 24 hours |
-| Vulnerability remediation (High) | Within 7 days [CONFIRM: R5 sets High at 30 days and dependency CVEs rated Critical at 7 days; v1 target kept] |
+| Vulnerability remediation (High) | Within 30 days |
 | Access review completion | 100 % quarterly |
 | Security training completion | 100 % annually |
-| Control automation rate | ≥ 86 % [CONFIRM: R4 strikes the "86 % control automation" claim; keep as a personal target or remove] |
 
 ### 6.2 Operational
 
@@ -244,4 +244,4 @@ By accepting this position, the CEO acknowledges:
 | Version | Date | Author | Changes |
 |---|---|---|---|
 | 1.0 | [CONFIRM: date] | Mo Messidi | Initial job description |
-| 2.0 | [CONFIRM: date] | Mo Messidi | Recruiting copy removed; access level added; role, product, and number wording per RULEBOOK R2, R4, R5; references to documents not in the set removed |
+| 2.0 | [CONFIRM: date] | Mo Messidi | Recruiting copy removed; access level added; role, product, and number wording per RULEBOOK R2, R4, R5; references to documents not in the set removed; control-automation metric struck (D17); High-severity remediation target set to 30 days (D8); Security Hub review replaced by the monthly configuration-check record and real-time CloudTrail-EventBridge alerts, monthly availability record added (D12, D13b) |

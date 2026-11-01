@@ -42,3 +42,14 @@
 ### CONFIRM (new)
 
 - §17 Document approval table has empty Name and Signature cells (the rubric wants no empty cells). Left as is because the row is the R2 "single CEO row with [CONFIRM: date]" — confirm whether the approval is recorded in the compliance platform instead, in which case the table can be dropped and the italic line kept.
+
+## Decisions applied (2026-10-31)
+
+- D15: §10.1 sub-processors reduced to AWS and PropelAuth; Google Workspace, GitHub, Resend and HubSpot stated as vendors that do not process customer data, not sub-processors (revision-history summary updated to match)
+- D22: author set to Mo Messidi (frontmatter and revision history)
+- D25: cut §14 quarterly exception review
+- D7: no change needed — §7.3 and §8.1 already use the 48-hour-commitment wording
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed — §9.1 continuous monitoring → CloudWatch alarms and CloudTrail event alerting, with the monthly availability figure and the monthly configuration-check record recorded in the compliance platform

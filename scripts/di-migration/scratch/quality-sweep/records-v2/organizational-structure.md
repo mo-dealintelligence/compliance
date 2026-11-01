@@ -30,7 +30,7 @@ External parties: the external SOC 2 auditor, the penetration-test vendor, and t
 
 The CEO owns every policy and control, approves exceptions, acts as incident commander, and is the data protection contact. Governance decisions are recorded in the quarterly management meeting minutes. Automation and AWS-managed services carry out most control execution; the compliance platform is the control register and holds the dated evidence.
 
-Because the CEO is the only role with production access, segregation of duties between development, change approval, and production operation is achieved through compensating controls: a pull request with required CI status checks on the protected `main` branch, a logged self-review in each pull request, automated checks (Security Hub, CloudTrail) with critical findings alerting via SNS, and independent review by the external SOC 2 auditor.
+Because the CEO is the only role with production access, segregation of duties between development, change approval, and production operation is achieved through compensating controls: a pull request with required CI status checks on the protected `main` branch, a logged self-review in each pull request, automated checks (the monthly configuration-check Lambda, CloudTrail) with security-relevant events alerting via SNS in real time, and independent review by the external SOC 2 auditor.
 
 ## 4. Responsibilities of the CEO
 
@@ -74,7 +74,7 @@ Customer acquisition, sales and marketing, customer support, and market intellig
 ### 5.1 Infrastructure and platform services (AWS)
 
 - Compute and data: Lambda, Fargate, DocumentDB.
-- Security services: KMS, Security Hub, CloudTrail, CloudWatch.
+- Security services: KMS, CloudTrail, EventBridge, SNS, CloudWatch.
 - Content delivery and networking: CloudFront, VPC.
 
 ### 5.2 Sub-processors
@@ -84,8 +84,10 @@ Customer acquisition, sales and marketing, customer support, and market intellig
 
 ### 5.3 Other vendors
 
+Vendors that do not process customer data (not sub-processors):
+
 - GitHub: source control and GitHub Actions CI.
-- Google Workspace: personnel email and identity.
+- Google Workspace: personnel email and identity; customer Google sign-in is handled by PropelAuth.
 - Resend: transactional email.
 - The compliance platform: self-hosted on AWS; risk register, incident records, business continuity records, vendor assessments, and asset inventory.
 
@@ -103,7 +105,7 @@ The CEO has direct oversight of all compliance activities.
 ### 6.1 Security controls
 
 - Implementation of technical and administrative controls.
-- Monitoring of control effectiveness in the compliance platform's control register. [CONFIRM: v1 read "current 86% automation rate" — struck per R4]
+- Monitoring of control effectiveness in the compliance platform's control register.
 - Remediation of control gaps (2 controls planned for Q1–Q2 2026).
 - Security awareness training per the Security Awareness Training Program.
 
@@ -155,4 +157,4 @@ The CEO is accountable to:
 | Version | Date | Author | Changes |
 |---|---|---|---|
 | 1.0 | November 30, 2025 | Mo Messidi | Initial document |
-| 2.0 | [CONFIRM: date] | Mo Messidi | Roles listed by title with access level; "founder/owner" → CEO; Go-to-Market Contractor added; size language and resource counts removed per RULEBOOK R2 and R4; compensating controls stated |
+| 2.0 | [CONFIRM: date] | Mo Messidi | Roles listed by title with access level; "founder/owner" → CEO; Go-to-Market Contractor added; size language and resource counts removed per RULEBOOK R2 and R4; compensating controls stated; "86 % automation rate" struck (D17); other vendors stated as non-sub-processors (D15); Security Hub replaced by the configuration-check Lambda and CloudTrail-EventBridge alerting (D12) |

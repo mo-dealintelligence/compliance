@@ -50,3 +50,12 @@
 
 - §9.2/§9.3: the quarterly review and annual audit now name the CEO as the actor (v1/v2 left the subject implicit; the roles table assigns "audits retention practices" to the CEO). Confirm.
 - §8.1: the erasure steps now name the CEO as the actor (roles table: "handles data subject requests"). Confirm.
+
+## Decisions applied (2026-10-31)
+
+- D25: cut §7.2 monthly consent-record review row; cut §9.2 quarterly review (section deleted); cut §9.3 annual retention audit (section deleted, annual policy review in §12.1 remains; §4 "Audit" bullet now points to §12.1); cut §9.5 monthly retention compliance reports (section deleted); §9.4 renumbered to §9.2
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §2 data-category list "Security Hub findings" → "monthly configuration-check records"; §2.1 schedule row "Security Hub findings — 7 years [CONFIRM: Security Hub retains 90 days]" → "Configuration-check records (monthly, compliance platform) — 7 years". The CONFIRM is resolved: the record is now a dated pass/fail document posted to the compliance platform, so 7 years (matching the other compliance-platform records) no longer depends on a native AWS retention limit.
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.

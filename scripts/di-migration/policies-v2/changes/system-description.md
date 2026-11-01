@@ -199,3 +199,17 @@ Rubric Q1–Q5 applied on top of R0–R8. Word count 11,038 → 6,902. No commit
 12. `[CONFIRM: significant changes to the system during the period, if any]` — Section 9 (new). If changes are disclosed, list the nature, timing, and effect of each.
 13. Frontmatter `acknowledgment` field is absent (check.py hard finding) — add `acknowledgment: "None"` or whatever value the author decides; not edited in the sweep.
 14. Section 2.2 keeps "99.9 % during standard business hours" verbatim from v1; the Service Level Agreement (SLA) Management Policy measures availability monthly over total minutes without a business-hours qualifier. Reconcile before publication (meaning not changed in the sweep).
+
+## Decisions applied (2026-10-31)
+
+- D2: §2.6, §3.1 (DocumentDB, KMS rows) describe the target key-separation design (production data key, backup key, audit-log key) per the Encryption Standard
+- D4: §4.2 out-of-scope item names FileVault full-disk encryption (macOS); §7.5 access control states FileVault on personnel devices with browser SSO + MFA
+- D13: §2.2 availability restated as 99.9 % measured monthly over all minutes, excluding announced maintenance windows ("during standard business hours" deleted; CONFIRM item 14 resolved)
+- D15: §5.4 other-vendors paragraph kept; now states none of them processes customer data and that the sub-processor list is AWS and PropelAuth only; GitHub/Resend/HubSpot sentences say so explicitly; Resend and CRM [CONFIRM] items resolved
+- D22: author set to Mo Messidi
+- D12: Security Hub wording unchanged
+- D25: no cut needed — all cadences in §7.4 are in the doc-11 calendar
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed throughout — §2.6 logging-and-monitoring row, §3.1 infrastructure table (Security Hub row → Configuration-check Lambda row with the fixed checklist; EventBridge row now names the rule on security-relevant CloudTrail events), §3.3 security-and-monitoring row, §4 system requirement 2, §4.3 document-index row for the System Monitoring and Logging Procedure, §5.1 AWS services list (Security Hub dropped), §5.2 control-dependency sentence (breach-detection Lambda triggered by CloudTrail events via EventBridge), §5.3 AWS CSOC row (monitoring services → CloudWatch, CloudTrail, ECR scanning), §7.2 fraud-risk bullet, §7.3 internal-communication bullet, §7.4 continuous bullet (breach-detection Lambda on CloudTrail events) and periodic bullet (monthly configuration-check record replaces the monthly Security Hub review). Round-1 "D12: Security Hub wording unchanged" entry is superseded.

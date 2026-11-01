@@ -45,3 +45,15 @@
 ### CONFIRM (new)
 
 - None added.
+
+## Decisions applied (2026-10-31)
+
+- D4: §4.3 Confidential handling — added FileVault full-disk encryption (macOS) on personnel devices that access the data
+- D22: author set to Mo Messidi (frontmatter and revision history)
+- D25: cut §11.1 quarterly exception review
+- D15: no list change needed — §7.2 points to the Vendor Management Policy list
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §5 Restricted-tier handling "Continuous monitoring via Security Hub" → "Monthly configuration-check record and real-time CloudTrail event alerts"; §9.1 monthly findings bullet split into the monthly configuration-check Lambda record (public-S3 and KMS-rotation checklist items named, as the data-relevant ones) and the CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert; §9.3 breach-detection bullet reworded to the CloudTrail-EventBridge path.
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document (controller/processor framing lives in the DSR procedure and DPA); nothing to apply.

@@ -41,3 +41,16 @@
 
 - §3 "Authorized user" is defined as an individual authenticated "through PropelAuth" — PropelAuth authenticates customers, while personnel sign in through Google Workspace (§5.1). Confirm whether the definition should read "through Google Workspace sign-in or PropelAuth".
 - §11.1 "Anonymous reporting channels if available" — confirm whether an anonymous channel exists; if not, the bullet should be removed rather than hedged.
+
+## Decisions applied (2026-10-31)
+
+- D4: §7.1 device encryption stated as FileVault full-disk encryption (macOS); compliance-platform device-agent bullet dropped (revision-history summary updated to match)
+- D5: §11.1 anonymous reporting channel removed; reporting is direct notification to the CEO by email
+- D15: §8.2 sub-processors reduced to AWS and PropelAuth; Google Workspace, GitHub, Resend, HubSpot and the compliance platform listed as approved vendors that do not process customer data
+- D22: author set to Mo Messidi
+- D25: cut §11.3 quarterly compliance reports, §12.2 quarterly exception review
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §4 CEO duty "CloudWatch logs and Security Hub findings" → "CloudWatch logs, the monthly configuration-check record, and CloudTrail event alerts"; §10.1 monitoring list: "Security Hub findings and alerts" and the generic "Automated compliance checks via Lambda functions" bullets replaced by the CloudTrail-EventBridge real-time alert and the monthly configuration-check Lambda record.
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.

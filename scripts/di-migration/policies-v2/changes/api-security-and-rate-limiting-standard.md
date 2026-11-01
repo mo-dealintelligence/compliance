@@ -55,3 +55,15 @@
 - §7 "Third-party API integration security" (PropelAuth, customer-controlled integrations) overlaps §8.5 "Customer-controlled integrations" after the R7 merge. Confirm whether §7.2 should be folded into §8.5 (left as is — both lists carry distinct commitments).
 
 - R4/Q2 (post-sweep, settled from serverless.yml: 'API Gateway not used - using Lambda Function URL + CloudFront'): every 'API Gateway' reference replaced with CloudFront → Lambda function URL / middleware.
+
+## Decisions applied (2026-10-31)
+
+- D8: §11.2 removed the "impact assessment within 4 business hours" triage clock (steps renumbered)
+- D22: author set to Mo Messidi (frontmatter and revision history)
+- D25: cut §3.2 "monthly" certificate expiration monitoring (CloudWatch monitoring kept, no cadence); §8 integration access review folded into the quarterly access review; cut §8.2 quarterly credential rotation; deleted §13.2 quarterly capacity reviews (§13 now a single section)
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §1 CC7.1 mapping now "CloudWatch, the monthly configuration-check Lambda, and CloudTrail event alerting"; §5.3 Security monitoring: the "Security Hub findings for API vulnerabilities, reviewed monthly" bullet replaced by the monthly configuration-check Lambda record (public-S3 and open-security-group checklist items named), the CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert, and the unchanged vulnerability-awareness stack (ECR scan-on-push, Dependabot, code scanning, Trivy); §7 alert table "Authentication failures → Security Hub finding" → "CloudWatch alarm" (Security Hub never emitted that signal; CloudWatch alarm is the same mechanism as the response-time row — [CONFIRM: alarm exists]); §8 operational-phase bullet "Monthly review of Security Hub findings affecting integrations" deleted — the configuration checklist has no integration-specific item, so there is no replacement record (D25 logic); revision-history summary reworded.
+- D13b: §13 "99.9 % API availability, measured monthly" now points to the SLA Management Policy's measurement rule and the monthly availability record (the compliance-platform task is defined there).
+- D11b, D14: no insurance or controller/processor text in this document; nothing to apply.

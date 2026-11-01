@@ -43,3 +43,15 @@
 ### CONFIRM (new)
 
 - None added. Existing CONFIRM items above still stand.
+
+## Decisions applied (2026-10-31)
+
+- D3: removed IAM Access Analyzer findings from §7.1 monthly security review
+- D11: §6.1 vendor insurance — dropped the $1 million figure; professional liability insurance required without an amount
+- D22: author set to Mo Messidi
+- D25: cut §2/§5.2 "quarterly" automated security assessments (retitled "Automated security assessments"; continuous scanning kept); cut §5.2 manual reviews (SG/NACL audits, CloudFormation template analysis, secrets review) — kept only the quarterly access review; deleted §7.2 quarterly configuration reviews (incl. KMS key-policy/rotation audit) and renumbered §7.3→§7.2; cut §8 monthly metrics and quarterly trend analysis; cut §10.1 "trending data" and configuration review checklists
+
+## Decisions applied (2026-10-31, round 2)
+
+- D11b: §6.1 "Vendors must carry professional liability insurance" deleted — no insurance requirement remains anywhere in the document (CONFIRM item on §6.1 resolved)
+- D12: Security Hub removed — §5.2 continuous FSBP checks → monthly configuration-check Lambda against the fixed checklist, posting a dated pass/fail record to the compliance platform; §5.2 "Security Hub configuration checks" → the monthly configuration-check Lambda; §5.3 real-time detection → security-relevant CloudTrail events via EventBridge rule → breach-detection Lambda → SNS alert to the CEO; §5.3 "Security Hub findings aggregation and prioritization" → monthly configuration-check record review; §7.1 monthly review item "Security Hub findings and their remediation" → the monthly configuration-check record and remediation of failed checks; §14 v2.0 revision entry reworded accordingly (CONFIRM item on §2/§5.2 "monthly Security Hub review" now reads as the monthly configuration-check record)

@@ -2,7 +2,7 @@
   {
     "id": "tsk_6ae4462cb56809fa463973b9",
     "title": "macOS FileVault status screenshot",
-    "description": "Screenshot of System Settings showing FileVault enabled on the CEO's laptop. Cadence: quarterly (evidence sweep). [CONFIRM: also capture the Go-to-Market Contractor's device, or rely on the compliance platform device agent]\n\nSupports: C1.1.3, CC6.4.2, CC6.7.3, CC6.8.1\nSource file: macos_filevault_status.png",
+    "description": "Screenshot of System Settings showing FileVault full-disk encryption enabled on each personnel macOS device (CEO; Go-to-Market Contractor). Cadence: quarterly (evidence sweep).\n\nSupports: C1.1.3, CC6.4.2, CC6.7.3, CC6.8.1\nSource file: macos_filevault_status.png",
     "status": "todo",
     "createdAt": "2026-10-30T07:24:27.987Z",
     "updatedAt": "2026-10-30T14:31:35.897Z",
@@ -208,8 +208,8 @@
   },
   {
     "id": "tsk_6ae4458d4ef150b3b92dd543",
-    "title": "Security Hub findings screenshot",
-    "description": "Screenshot of the Security Hub findings list filtered to open findings by severity, as input to the monthly Security Hub review record. Cadence: monthly (automated evidence run).\n\nSupports: CC3.1, CC3.1.2, CC3.3.2, CC3.4, CC4.1.2, CC4.2, CC4.2.1, CC6.8, CC6.8.1, CC7.1, CC7.1.2, CC7.3, CC7.4\nSource file: aws_securityhub_findings.png",
+    "title": "Configuration-check record (monthly)",
+    "description": "Dated pass/fail record posted by the scheduled configuration-check Lambda, which runs monthly against a fixed checklist: CloudTrail enabled and log-file validation on; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention and Multi-AZ. Each failed item is reviewed by the CEO and tracked to remediation. Cadence: monthly (automated evidence run).\n\nSupports: CC3.1, CC3.1.2, CC3.3.2, CC3.4, CC4.1.2, CC4.2, CC4.2.1, CC6.8, CC6.8.1, CC7.1, CC7.1.2, CC7.3, CC7.4\nSource file: aws_securityhub_findings.png",
     "status": "done",
     "createdAt": "2026-10-30T07:21:49.131Z",
     "updatedAt": "2026-10-30T07:21:59.374Z",
@@ -217,8 +217,8 @@
   },
   {
     "id": "tsk_6ae445981e718c509d1449c8",
-    "title": "Security Hub summary screenshot",
-    "description": "Screenshot of the Security Hub summary showing the Foundational Security Best Practices standard enabled and the security score. Cadence: monthly (automated evidence run).\n\nSupports: CC3.2, CC3.3, CC3.4, CC3.4.1, CC4.1, CC5.1.2, CC7.1.1\nSource file: aws_securityhub_overview.png",
+    "title": "Security-event alert rule screenshot",
+    "description": "Screenshot of the EventBridge rule that matches security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) with the breach-detection Lambda as target, and the SNS subscription that alerts the CEO in real time. Cadence: monthly (automated evidence run).\n\nSupports: CC3.2, CC3.3, CC3.4, CC3.4.1, CC4.1, CC5.1.2, CC7.1.1\nSource file: aws_securityhub_overview.png",
     "status": "done",
     "createdAt": "2026-10-30T07:21:59.779Z",
     "updatedAt": "2026-10-30T07:22:05.403Z",
@@ -447,6 +447,18 @@
     "status": "done",
     "createdAt": "2026-10-30T07:25:16.811Z",
     "updatedAt": "2026-10-30T07:25:23.563Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": null,
+    "new": true,
+    "title": "Availability record (monthly)",
+    "description": "Monthly availability record for the Deal Intelligence platform: the month's uptime percentage against the 99.9 % commitment, measured over all minutes from CloudWatch metrics excluding announced maintenance windows, the minutes of unplanned downtime, and any customer-facing incident. Prepared by the CEO from the CloudWatch availability metrics; the Monday reminder email covers this task. Cadence: monthly (automated evidence run).\n\nSupports: A1.1, A1.1.1, A1.2, A1.2.3, CC7.2.2",
+    "frequency": "monthly",
+    "owner": "CEO",
+    "status": "todo",
+    "createdAt": null,
+    "updatedAt": null,
     "taskTemplateId": null
   }
 ]

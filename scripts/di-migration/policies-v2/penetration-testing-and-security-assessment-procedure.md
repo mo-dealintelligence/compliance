@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "penetration-testing-and-security-assessment-procedure-v1.0.pdf"
 ---
 
@@ -23,7 +23,7 @@ It implements the assessment requirements of the Information Security Policy and
 This procedure applies to:
 
 - Annual third-party penetration testing of production AWS infrastructure
-- Quarterly automated security assessments of the platform
+- Automated security assessments of the platform
 - API endpoint security testing for customer-facing interfaces
 - Web application security assessments of the PropelAuth-integrated authentication system
 - Infrastructure security reviews of AWS resources documented in the CloudFormation stack di-backend-api-prod
@@ -94,30 +94,27 @@ Excluded from scope:
 - Scheduled during the maintenance windows defined in the Change Management Policy
 - Minimum 30 days' advance notice to customers for any service impact
 
-### 5.2 Quarterly automated security assessments
+### 5.2 Automated security assessments
 
 **Automated scanning**
 
-- Continuous Security Hub checks against the Foundational Security Best Practices, reviewed monthly
+- Monthly configuration-check Lambda run against a fixed checklist (CloudTrail enabled and log-file validation, no public S3 buckets, no security groups open to 0.0.0.0/0 on administrative ports, root account MFA, IAM password policy, KMS key rotation, ECR scan-on-push, DocumentDB backup retention and Multi-AZ), posting a dated pass/fail record to the compliance platform
 - Container image scanning in ECR with each deployment (scan-on-push)
 - Dependency vulnerability checks via GitHub Dependabot and code scanning, and Trivy in GitHub Actions
-- Infrastructure configuration checks via CloudFormation drift reporting and Security Hub configuration checks
+- Infrastructure configuration checks via CloudFormation drift reporting and the monthly configuration-check Lambda
 
-**Manual reviews**
+**Access review**
 
-- Quarterly review of IAM policies and access permissions
-- Security group and network ACL configuration audits
-- CloudFormation template security analysis
-- Secrets management review for API keys and credentials
+- Quarterly access review of IAM policies and access permissions (scheduled Lambda check), recorded in the compliance platform
 
 ### 5.3 Continuous security monitoring
 
 Assessment activity uses the monitoring defined in the System Monitoring and Logging Procedure:
 
-- Real-time detection via Security Hub findings routed to SNS by the breach-detection Lambda
+- Real-time detection of security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) via an EventBridge rule that triggers the breach-detection Lambda, which sends an SNS alert to the CEO
 - CloudTrail analysis for unauthorized access attempts
 - CloudWatch alerts for security anomalies
-- Security Hub findings aggregation and prioritization
+- Monthly configuration-check record review and prioritization of failed checks
 
 ## 6. Penetration testing process
 
@@ -128,7 +125,6 @@ Assessment activity uses the monitoring defined in the System Monitoring and Log
 - Vendors must hold SOC 2 or ISO 27001 certification
 - Vendors must have expertise in AWS cloud security and serverless architectures
 - A non-disclosure agreement is executed per the Vendor Management Policy
-- Vendors must carry professional liability insurance of at least $1 million
 
 **Scoping documentation**
 
@@ -195,23 +191,12 @@ Assessment activity uses the monitoring defined in the System Monitoring and Log
 
 The CEO conducts a monthly security review and records it in the compliance platform. The review covers:
 
-- Security Hub findings and their remediation
+- The monthly configuration-check record and remediation of failed checks
 - Container vulnerability scan results from ECR
 - GitHub Dependabot alerts for code dependencies
 - CloudFormation drift reporting
-- IAM Access Analyzer findings
 
-### 7.2 Configuration reviews
-
-Quarterly configuration assessments cover:
-
-- VPC security group rules against the principle of least privilege
-- S3 bucket policies and public access blocks
-- KMS key policies and rotation schedules
-- Lambda function permissions and resource policies
-- CloudFront and Lambda function URL security configurations
-
-### 7.3 Code security reviews
+### 7.2 Code security reviews
 
 Code security reviews follow the Secure Software Development Lifecycle (SDLC) Standard:
 
@@ -242,8 +227,6 @@ Assessment findings are managed according to the Vulnerability Management Proced
 
 - Findings logged in GitHub Issues with security labels
 - Remediation progress tracked in the compliance platform
-- Monthly metrics reported, including mean time to remediation
-- Quarterly trend analysis of vulnerability categories
 
 ## 9. Third-party integration security
 
@@ -262,8 +245,7 @@ Security assessments evaluate integrations per the Integration security section 
 The following assessment records are maintained for audit purposes:
 
 - Penetration testing reports and remediation evidence
-- Vulnerability scan results and trending data
-- Configuration review checklists and findings
+- Vulnerability scan results
 - Remediation validation and retesting results
 - Risk acceptance documentation for exceptions
 
@@ -312,4 +294,4 @@ This procedure is reviewed annually or upon:
 |**Version**|**Date**|**Summary**|
 |---|---|---|
 |1.0|November 13, 2025|Initial release|
-|2.0|<to be set at publication>|Roles consolidated to CEO plus external parties; budget, KPI and program-maturity sections removed; automated scanning and monitoring claims restated as Security Hub, CloudFormation drift reporting, ECR scan-on-push, Dependabot/code scanning and Trivy; remediation timelines aligned; annual third-party test retained|
+|2.0|<to be set at publication>|Roles consolidated to CEO plus external parties; budget, KPI and program-maturity sections removed; automated scanning and monitoring claims restated as the monthly configuration-check Lambda, CloudTrail-EventBridge event alerting, CloudFormation drift reporting, ECR scan-on-push, Dependabot/code scanning and Trivy; remediation timelines aligned; annual third-party test retained|

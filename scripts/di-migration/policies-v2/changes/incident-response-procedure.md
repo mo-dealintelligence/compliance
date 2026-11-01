@@ -40,3 +40,16 @@
 - Kept: 48 h / 72 h notification figures, 4-business-hour P1 acknowledgement, all KPIs, 7-year evidence retention, escalation triggers.
 
 No new CONFIRM items.
+
+## Decisions applied (2026-10-31)
+
+- D3: §8.3 "S3 bucket with versioning and MFA delete" → "S3 bucket with versioning".
+- D8: cut the 2-hour isolation/containment clock: §7.2 escalation trigger "Inability to contain the incident within 2 hours" removed; §10.1 "Mean time to contain (MTTC): target < 2 hours" removed. §5.2.1 / §7.1 / §10.1 P1 acknowledgement within 4 business hours kept (R4 response target, not the 4-hour triage clock).
+- D10: §6.1 internal 30-minute P1 updates kept and noted as internal; §6.1 and §6.2.1 cross-reference the SLA Management Policy's customer-facing cadence (every 2 hours for P1); SLA Management Policy added to §12 Related documents.
+- D25: cut §9.2 quarterly review of incident metrics and trends; cut §9.2 monthly update of contact lists and escalation paths; cut §10.2 monthly incident summary. Kept: §9.1 annual tabletop, §9.2 annual procedure review, §10.2 quarterly trend analysis recorded in the management meeting minutes (quarterly risk review / management meeting), §10.2 annual program review.
+- D12: §7.1 P4 monthly Security Hub findings review unchanged.
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §1 detection-capabilities sentence, §5.1.2 detection list (Security Hub aggregation bullet → CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert with the event list; monthly configuration-check record added as the drift-detection source), §5.2 triage step "Review the Security Hub findings" → SNS alert / triggering CloudTrail event / failed configuration-check item, §5.2 evidence step "Screenshot Security Hub findings" → capture the alert, CloudTrail event record and configuration-check record, §6 improvement action "Enhance detection rules in Security Hub" → extend the EventBridge rule or the checklist, §7.1 severity matrix (P1/P2 handling "Security Hub/SNS" → "CloudTrail-EventBridge/SNS"; P4 acknowledgement target "Monthly Security Hub findings review" → "Monthly configuration-check review", handled when the record is posted), §10.1 MTTD KPI reworded.
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.

@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "encryption-and-cryptographic-controls-standard-v1.0.pdf"
 ---
 
@@ -111,7 +111,6 @@ See the API Security and Rate Limiting Standard.
 
 Internal VPC traffic uses:
 
-- VPC endpoints for AWS service communications
 - A single VPC in a single region (us-east-1); encryption at rest uses a KMS regional customer-managed key with annual rotation
 - Security groups that restrict protocols to encrypted variants only
 
@@ -236,7 +235,7 @@ All cryptographic implementations:
 
 For systems that need an encryption upgrade:
 
-1. Assess the current encryption status via Security Hub
+1. Assess the current encryption status from the latest monthly configuration-check record and the AWS console
 2. Plan the migration for a maintenance window
 3. Test the encryption in the staging stage
 4. Implement with rollback procedures per the Change Management Policy
@@ -247,10 +246,9 @@ For systems that need an encryption upgrade:
 
 Encryption compliance is monitored through:
 
-- Security Hub encryption checks
+- The monthly configuration-check Lambda, whose fixed checklist includes KMS key rotation and CloudTrail log-file validation, with a dated pass/fail record posted to the compliance platform
+- KMS key disable events in CloudTrail trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
 - CloudWatch alarms on KMS key deletion attempts
-- Monthly TLS configuration scans
-- Quarterly encryption audit reports
 
 See the System Monitoring and Logging Procedure.
 
@@ -332,8 +330,7 @@ Personnel implementing cryptographic controls complete annual security awareness
 ### 17.1 Assessments
 
 - Annual penetration testing of TLS implementations (see the Penetration Testing and Security Assessment Procedure)
-- Continuous Security Hub checks, reviewed monthly and recorded in the compliance platform
-- Semi-annual key rotation audits
+- Monthly configuration-check record (KMS key rotation) in the compliance platform
 - Continuous monitoring via CloudWatch metrics
 
 ### 17.2 Audit evidence
@@ -341,7 +338,7 @@ Personnel implementing cryptographic controls complete annual security awareness
 - KMS key rotation logs in CloudTrail
 - Certificate issuance and renewal records
 - Encryption configuration screenshots
-- Security Hub compliance reports
+- Monthly configuration-check records
 
 ## 18. Exceptions and review
 
@@ -353,7 +350,6 @@ A deviation from this standard requires:
 - A risk assessment in the risk assessment module of the compliance platform
 - Defined compensating controls
 - CEO approval
-- Quarterly review for continued necessity
 
 ### 18.2 Legacy system exceptions
 
@@ -396,5 +392,5 @@ The CEO reviews this standard annually and updates it for:
 
 | Version | Date | Author | Summary |
 |---|---|---|---|
-| 1.0 | November 13, 2025 | mo@dealintelligence.io | Initial audited release |
-| 2.0 | <to be set at publication> | mo@dealintelligence.io | Typed as Standard; exception approver set to CEO; volume, replication, private-connectivity, multi-region key, image-integrity and certificate-binding claims removed in favor of the regional KMS key, ACM certificates, TLS 1.2+ and ECR scan-on-push; corrected the availability-zone key-replica statement (KMS is regional); staging key statement limited to "the staging stage uses its own key"; rotation table tied to Secrets Manager and the API key rotation calendar; integration-guidelines reference redirected after merge |
+| 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
+| 2.0 | <to be set at publication> | Mo Messidi | Typed as Standard; exception approver set to CEO; volume, replication, private-connectivity, multi-region key, image-integrity and certificate-binding claims removed in favor of the regional KMS key, ACM certificates, TLS 1.2+ and ECR scan-on-push; corrected the availability-zone key-replica statement (KMS is regional); staging key statement limited to "the staging stage uses its own key"; rotation table tied to Secrets Manager and the API key rotation calendar; integration-guidelines reference redirected after merge |

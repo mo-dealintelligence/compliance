@@ -13,6 +13,9 @@ Rules applied (see policies-v2/RULEBOOK.md and QUALITY-RUBRIC.md Q4):
   * The "Implementation:" note is replaced by the hand-written text in
     IMPL, keyed by the control's identifier prefix (e.g. "CC6.1.2").
   * Names are never changed (v1 names are truncated at ~110 chars; left as is).
+  * Mo's decisions (policies-v2/DECISIONS-2026-10-31.md) are applied to the
+    Implementation note after IMPL as exact-string replacements in DECISIONS
+    (asserted to match) and recorded in the control's notes field.
 
 Run:  python3 -I scratch/quality-sweep/rewrite_controls.py
 """
@@ -256,7 +259,7 @@ IMPL = {
     "A1.2.3": (
         "DocumentDB runs Multi-AZ with automatic failover; the compliance platform BCP dashboard records an RTO of 2 hours for AWS infrastructure, and the BCP full test executed February 4, 2026 completed with a 100 % success rate. "
         "Evidence: AWS DocumentDB Cluster, Compliance Platform Bcp Dashboard, Compliance Platform Bcp Test Results.",
-        ["humadroid", "r4", "confirm"], "\"across 3 availability zones\" -> Multi-AZ per R3 wording; \"Q1 2025\" test label dropped in favour of the execution date (see CONFIRM)."),
+        ["humadroid", "r4"], "\"across 3 availability zones\" -> Multi-AZ per R3 wording; \"Q1 2025\" test label dropped in favour of the execution date (D18)."),
     "A1.2": (
         "AWS data centers are SOC 2 attested; DocumentDB runs Multi-AZ with daily snapshots retained 90 days and point-in-time recovery enabled. "
         "Evidence: AWS DocumentDB Backups, AWS DocumentDB Cluster.",
@@ -264,15 +267,15 @@ IMPL = {
     "A1.3.1": (
         "The BCP full test (plan: AWS Service Disruption Recovery; scenario: full system recovery from backups using infrastructure as code) was executed February 4, 2026 with the CEO as coordinator. "
         "Evidence: AWS DocumentDB Backups, Compliance Platform Bcp Test Results.",
-        ["role", "confirm"], "Coordinator named by role instead of person; \"Q1 2025\" label dropped (CONFIRM)."),
+        ["role"], "Coordinator named by role instead of person; \"Q1 2025\" label dropped (D18)."),
     "A1.3.2": (
         "Test results are recorded in the compliance platform BCP test record: status Completed, success rate 100 %, system recovered successfully, plan status Active, one exercise to date. "
         "Evidence: Compliance Platform Bcp Test Results.",
-        ["humadroid", "confirm"], "\"Q1 2025\" label dropped (CONFIRM)."),
+        ["humadroid"], "\"Q1 2025\" label dropped (D18)."),
     "A1.3": (
         "The BCP full test executed February 4, 2026 (full system recovery from backups using infrastructure as code) completed with status Completed and a 100 % success rate. "
         "Evidence: AWS DocumentDB Backups, Compliance Platform Bcp Test Results.",
-        ["confirm"], "\"Q1 2025\" label dropped (CONFIRM)."),
+        [], "\"Q1 2025\" label dropped (D18)."),
     "C1.1.1": (
         "The Data Classification and Handling Standard defines four tiers (Public, Internal, Confidential, Restricted) with criteria per tier; personnel acknowledge it in the compliance platform portal.",
         ["specific"], "Tier names taken from the C1.1 note; acknowledgment mechanism per R6/R8."),
@@ -430,7 +433,7 @@ IMPL = {
     "CC3.3.2": (
         "CloudTrail logs all API activity and Security Hub aggregates findings; the breach-detection Lambda routes critical findings to SNS for review. "
         "Evidence: AWS CloudTrail Trails, AWS Securityhub Findings.",
-        ["r4"], "GuardDuty -> Security Hub + CloudTrail + breach-detection Lambda (R4)."),
+        ["r4"], "GuardDuty removed (R4); detection = CloudTrail + EventBridge security-event rule + breach-detection Lambda, and the monthly configuration-check Lambda (D12)."),
     "CC3.3": (
         "Fraud risk is assessed under the Risk Assessment Procedure; the compliance platform risk register includes a People Risk category covering insider threats. "
         "Evidence: AWS Securityhub Overview, Compliance Platform Risk Register.",
@@ -623,7 +626,7 @@ IMPL = {
     "CC6.8.1": (
         "macOS XProtect and Gatekeeper and FileVault protect devices, with the compliance platform device agent where deployed; ECR scan-on-push, Dependabot, and Security Hub cover containers and code. "
         "Evidence: GitHub Dependabot, AWS ECR Repositories, AWS Securityhub Findings, MacOS FileVault Status.",
-        ["r4"], "Device agent per R4."),
+        ["r4"], "R4 device-agent wording superseded by D4 (FileVault only)."),
     "CC6.8.2": (
         "Dependabot proposes dependency updates that merge through the pull-request CI gate; critical dependency CVEs are remediated within 7 days. "
         "Evidence: GitHub Dependabot, GitHub Secret Scanning.",
@@ -706,7 +709,7 @@ IMPL = {
     "CC7.5.2": (
         "The BCP full test of February 4, 2026 exercised incident recovery (full system recovery from backups using infrastructure as code); backup restores are tested quarterly and the BCP annually. "
         "Evidence: AWS DocumentDB Backups, Compliance Platform Bcp Test Results.",
-        ["r5", "confirm"], "Quarterly restore test per R3/R5; \"Q1 2025\" label dropped (CONFIRM)."),
+        ["r5"], "Quarterly restore test per R3/R5; \"Q1 2025\" label dropped (D18)."),
     "CC7.5": (
         "Recovery follows the Business Continuity Plan: restore DocumentDB from backups or point-in-time recovery and redeploy with CloudFormation; CloudWatch and CloudTrail verify the restored system. "
         "Evidence: AWS CloudTrail Trails, AWS CloudWatch Log Groups, CloudTrail Events, Lambda App Events.",
@@ -738,7 +741,7 @@ IMPL = {
     "CC9.1.3": (
         "The BCP full test executed February 4, 2026 (full system recovery from backups using infrastructure as code) completed with a 100 % success rate; backup restores are tested quarterly. "
         "Evidence: AWS DocumentDB Backups, Compliance Platform Bcp Test Results.",
-        ["r5", "confirm"], "\"Q1 2025\" label dropped (CONFIRM)."),
+        ["r5"], "\"Q1 2025\" label dropped (D18)."),
     "CC9.1": (
         "The Business Continuity Plan sets RTO/RPO; the compliance platform BCP dashboard holds 8 processes (7 critical) and 8 active plans, backed by Multi-AZ DocumentDB with 90-day automated backups. "
         "Evidence: AWS DocumentDB Backups, AWS DocumentDB Cluster, Compliance Platform Bcp Dashboard.",
@@ -760,14 +763,158 @@ IMPL = {
         ["humadroid", "r5"], "Vendor count 2 -> 5."),
 }
 
+# ---------------------------------------------------------------------------
+# Mo's decisions (policies-v2/DECISIONS-2026-10-31.md), applied to the
+# Implementation note after IMPL: control prefix -> list of (old, new, decision).
+# Exact-string replacements, asserted to match, so a later IMPL edit cannot
+# silently drop a decision. Decisions with nothing to apply in the control
+# notes (D3, D5, D8) are listed in CHANGES-controls.md.
+# ---------------------------------------------------------------------------
+DECISIONS = {
+    # D4: no compliance-platform device agent; endpoint control = FileVault
+    "CC6.8.1": [
+        ("macOS XProtect and Gatekeeper and FileVault protect devices, with the compliance platform device agent where deployed;",
+         "FileVault full-disk encryption, XProtect, and Gatekeeper protect personnel macOS devices;", "D4"),
+        ("ECR scan-on-push, Dependabot, and Security Hub cover containers and code.",
+         "ECR scan-on-push, Dependabot and code scanning, and Trivy in CI cover containers and code.", "D12"),  # D12
+    ],
+    # D15: sub-processors are AWS and PropelAuth only; the other three are vendors
+    "CC3.2.2": [
+        ("holds 5 vendors (AWS, PropelAuth, GitHub, Google Workspace, Resend) with risk tiers;",
+         "holds 5 vendors with risk tiers: AWS and PropelAuth as sub-processors, and GitHub, Google Workspace, and Resend as vendors that do not process customer data;", "D15"),
+    ],
+    "CC9.2": [
+        ("tracks 5 vendors (AWS, PropelAuth, GitHub, Google Workspace, Resend) with risk tiers and assessment status.",
+         "tracks 5 vendors with risk tiers and assessment status: AWS and PropelAuth as sub-processors, and GitHub, Google Workspace, and Resend as vendors that do not process customer data.", "D15"),
+    ],
+    # D25: cadences with no scheduled record in docs/11 §2 are cut
+    "A1.1.2": [
+        ("DocumentDB storage growth is tracked in the cluster console; capacity is reviewed annually in the quarterly management meeting.",
+         "DocumentDB storage growth is tracked in the cluster console.", "D25"),
+    ],
+    "CC1.3.1": [
+        ("documented in the organizational structure, reviewed annually.",
+         "documented in the organizational structure.", "D25"),
+    ],
+    "CC2.1.1": [
+        ("is exported with the AWS CLI and reviewed annually in the Q4 management meeting.",
+         "is exported with the AWS CLI and refreshed annually.", "D25"),
+    ],
+    "CC6.1.1": [
+        ("and the asset inventory is reviewed annually in the Q4 management meeting.",
+         "and the asset inventory is refreshed annually.", "D25"),
+    ],
+    # D12: Security Hub removed; replacement = monthly configuration-check Lambda
+    # (dated pass/fail record in the compliance platform) + CloudTrail-EventBridge
+    # security-event rule -> breach-detection Lambda -> SNS in real time
+    "CC3.1.2": [
+        ("Security Hub findings and the annual risk assessment identify threats;",
+         "The monthly configuration-check record, real-time security-event alerts from CloudTrail via EventBridge, and the annual risk assessment identify threats;", "D12"),
+    ],
+    "CC3.3.2": [
+        ("CloudTrail logs all API activity and Security Hub aggregates findings; the breach-detection Lambda routes critical findings to SNS for review.",
+         "CloudTrail logs all API activity; security-relevant events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) trigger an EventBridge rule to the breach-detection Lambda, which alerts the CEO via SNS in real time, and the monthly configuration-check Lambda records a pass/fail checklist in the compliance platform.", "D12"),
+    ],
+    "CC3.4.1": [
+        ("Security Hub flags configuration changes and new vulnerabilities,",
+         "The monthly configuration-check Lambda and the CloudTrail-EventBridge security-event rule flag configuration changes, Dependabot and ECR scan-on-push flag new vulnerabilities,", "D12"),
+    ],
+    "CC3.4": [
+        ("Security Hub monitors for significant configuration changes,",
+         "The CloudTrail-EventBridge security-event rule and the monthly configuration-check Lambda detect significant configuration changes,", "D12"),
+    ],
+    "CC4.1.2": [
+        ("Security Hub and Dependabot provide continuous vulnerability scanning (21 Dependabot alerts tracked),",
+         "ECR scan-on-push, Dependabot and code scanning, and Trivy in CI provide continuous vulnerability scanning (21 Dependabot alerts tracked), the configuration-check Lambda runs monthly,", "D12"),
+    ],
+    "CC4.1": [
+        ("CloudWatch and Security Hub provide continuous monitoring,",
+         "CloudWatch and the CloudTrail-EventBridge security-event rule provide continuous monitoring, the configuration-check Lambda posts a monthly pass/fail record,", "D12"),
+    ],
+    "CC4.2.1": [
+        ("Security Hub findings carry a severity, an owner (the CEO), and a remediation date; they are reviewed monthly and tracked in the compliance platform.",
+         "Failed items in the monthly configuration-check record and security-event alerts carry a severity, an owner (the CEO), and a remediation date; they are reviewed monthly and tracked in the compliance platform.", "D12"),
+    ],
+    "CC4.2.2": [
+        ("Critical Security Hub findings alert the CEO in real time via SNS; other findings are reviewed monthly,",
+         "Security-relevant CloudTrail events alert the CEO in real time via EventBridge, the breach-detection Lambda, and SNS; the configuration-check record is reviewed monthly,", "D12"),
+    ],
+    "CC4.2": [
+        ("Security Hub identifies deficiencies,",
+         "The monthly configuration-check record and real-time security-event alerts identify deficiencies,", "D12"),
+    ],
+    "CC5.1.2": [
+        ("Detective controls are CloudWatch alarms, Security Hub findings, and CloudTrail, with the breach-detection Lambda routing critical findings to SNS.",
+         "Detective controls are CloudWatch alarms, CloudTrail, the monthly configuration-check Lambda, and the EventBridge security-event rule that routes security-relevant CloudTrail events through the breach-detection Lambda to SNS.", "D12"),
+    ],
+    "CC5.1": [
+        ("detective: CloudWatch, Security Hub, and CloudTrail;",
+         "detective: CloudWatch, CloudTrail with the EventBridge security-event rule, and the monthly configuration-check Lambda;", "D12"),
+    ],
+    "CC6.6.3": [
+        ("Security Hub, CloudTrail, and the breach-detection Lambda detect threats and route critical findings to SNS;",
+         "Security-relevant CloudTrail events trigger an EventBridge rule to the breach-detection Lambda, which alerts the CEO via SNS in real time;", "D12"),
+    ],
+    "CC6.8": [
+        ("and Trivy runs in CI; Security Hub aggregates findings.",
+         "and Trivy runs in CI.", "D12"),
+    ],
+    "CC7.1.1": [
+        ("Security Hub configuration checks and CloudTrail detect unplanned changes.",
+         "the monthly configuration-check Lambda (CloudTrail, S3 public access, security groups, root MFA, IAM password policy, KMS rotation, ECR scan-on-push, DocumentDB backups and Multi-AZ) and the CloudTrail-EventBridge security-event rule detect unplanned changes.", "D12"),
+    ],
+    "CC7.1.2": [
+        ("Dependabot and Security Hub scan continuously, and Security Hub findings are reviewed monthly with critical findings alerting in real time.",
+         "Dependabot, code scanning, ECR scan-on-push, and Trivy in CI scan continuously; the configuration-check Lambda posts a monthly pass/fail record that is reviewed monthly, and security-relevant CloudTrail events alert in real time.", "D12"),
+    ],
+    "CC7.1": [
+        ("Security Hub, ECR scan-on-push, Dependabot, code scanning, and Trivy in CI detect new vulnerabilities; CloudTrail detects configuration changes.",
+         "ECR scan-on-push, Dependabot, code scanning, and Trivy in CI detect new vulnerabilities; the monthly configuration-check Lambda and the CloudTrail-EventBridge security-event rule detect configuration changes.", "D12"),
+    ],
+    "CC7.2.1": [
+        ("and Security Hub aggregates findings.",
+         "and the configuration-check Lambda posts a monthly pass/fail record to the compliance platform.", "D12"),
+    ],
+    "CC7.2.2": [
+        ("critical Security Hub findings are routed to SNS in real time.",
+         "security-relevant CloudTrail events are routed through EventBridge and the breach-detection Lambda to SNS in real time.", "D12"),
+    ],
+    "CC7.2.3": [
+        ("The CEO reviews Security Hub findings monthly and receives SNS alerts in real time;",
+         "The CEO reviews the configuration-check record monthly and receives SNS security-event alerts in real time;", "D12"),
+    ],
+    "CC7.3": [
+        ("Security Hub findings and SNS alerts are evaluated against CloudTrail and VPC Flow Logs;",
+         "Security-event SNS alerts and failed configuration-check items are evaluated against CloudTrail and VPC Flow Logs;", "D12"),
+    ],
+    "CC7.4": [
+        ("and Security Hub provides detection.",
+         "and the CloudTrail-EventBridge security-event rule and the monthly configuration-check Lambda provide detection.", "D12"),
+    ],
+}
+
+# D12: tasks retitled in records-v2/tasks-v2.json; Evidence lists cite the new titles.
+# Key = v1 task title as linked in data/controls.json (what the Evidence check
+# validates against); value = v2 title. Several v1 tasks may collapse into one
+# v2 title; the Evidence list is de-duplicated.
+EVIDENCE_RENAMES = {
+    "AWS Securityhub Findings": "Configuration-check record (monthly)",
+    "AWS Securityhub Overview": "Configuration-check record (monthly)",
+}
+
 BANNED = re.compile(
-    r"Humadroid|GuardDuty|AWS Config\b|\bWAF\b|Inspector|\bEC2\b|multi-region|Given the organization's (size|small)|"
+    r"Humadroid|GuardDuty|AWS Config\b|Security ?Hub|FSBP|Foundational Security|\bWAF\b|Inspector|\bEC2\b|multi-region|Given the organization's (size|small)|"
     r"small (remote )?team|small (company|organization)|of this size|2-5 employees|all employees|"
-    r"Board of Directors|board meeting|7-day|team member",
+    r"Board of Directors|board meeting|7-day|team member|device agent|Access Analyzer|audit logging enabled|VPC endpoint|MFA.delete|anonymous",
     re.I,
 )
 # the AICPA criterion text legitimately says "board of directors"; allow in REQ only for CC1.2
-ALLOWED_REQ = {"CC1.2": [re.compile(r"board of directors", re.I)]}
+# the AICPA guidance text for CC2.2 suggests "anonymous hotlines" as an example;
+# D5 (no anonymous channel exists) governs the Implementation note, not the criterion text
+ALLOWED_REQ = {
+    "CC1.2": [re.compile(r"board of directors", re.I)],
+    "CC2.2": [re.compile(r"anonymous", re.I)],
+}
 
 
 def prefix(name: str) -> str:
@@ -777,7 +924,7 @@ def prefix(name: str) -> str:
 def main() -> int:
     controls = json.loads(SRC.read_text())
     out, problems = [], []
-    used_req, used_impl = set(), set()
+    used_req, used_impl, used_dec = set(), set(), set()
     for c in controls:
         pfx = prefix(c["name"])
         desc = c["description"]
@@ -801,12 +948,31 @@ def main() -> int:
         else:
             impl_new, tags, extra = IMPL[pfx]
             used_impl.add(pfx)
-        # evidence references must point at linked tasks
+        decisions = []
+        for old, new, dec in DECISIONS.get(pfx, []):
+            if old not in impl_new:
+                problems.append(f"{pfx}: decision {dec} edit not found: {old[:60]!r}")
+                continue
+            impl_new = impl_new.replace(old, new, 1)
+            decisions.append(dec)
+            used_dec.add(pfx)
+        # evidence references must point at linked tasks (v1 titles); D12
+        # renames are applied here and the v1 title is what is validated
         if "Evidence:" in impl_new:
-            ev = impl_new.split("Evidence:", 1)[1].strip().rstrip(".")
-            for item in [e.strip() for e in ev.split(",")]:
+            head, ev = impl_new.split("Evidence:", 1)
+            items, seen = [], set()
+            for item in [e.strip() for e in ev.strip().rstrip(".").split(",")]:
                 if item not in c["tasks"]:
                     problems.append(f"{pfx}: evidence {item!r} not in tasks {c['tasks']}")
+                if item in EVIDENCE_RENAMES:
+                    item = EVIDENCE_RENAMES[item]
+                    if "D12" not in decisions:
+                        decisions.append("D12")
+                        used_dec.add(pfx)
+                if item not in seen:
+                    seen.add(item)
+                    items.append(item)
+            impl_new = head + "Evidence: " + ", ".join(items) + "."
         new_desc = req_new.rstrip() + "\n\nImplementation: " + impl_new.strip()
         for m in BANNED.finditer(new_desc):
             if any(a.search(m.group(0)) for a in ALLOWED_REQ.get(pfx, [])):
@@ -816,7 +982,9 @@ def main() -> int:
         note_bits = []
         if rules:
             note_bits.append("Requirement: " + ", ".join(sorted(set(rules))) + " edit(s).")
-        note_bits.append("Implementation: " + ", ".join(tags) + ("; " + extra if extra else "."))
+        note_bits.append("Implementation: " + (", ".join(tags) or "none") + ("; " + extra if extra else "."))
+        if decisions:
+            note_bits.append("Decisions applied: " + ", ".join(decisions) + ".")
         out.append({
             "id": c["id"],
             "name": c["name"],
@@ -830,6 +998,9 @@ def main() -> int:
     for k in IMPL:
         if k not in used_impl:
             problems.append(f"IMPL key {k} matched no control")
+    for k in DECISIONS:
+        if k not in used_dec:
+            problems.append(f"DECISIONS key {k} matched no control")
     if problems:
         print("\n".join(problems), file=sys.stderr)
         return 1

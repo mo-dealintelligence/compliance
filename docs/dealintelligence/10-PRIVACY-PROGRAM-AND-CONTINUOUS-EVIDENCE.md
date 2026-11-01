@@ -114,7 +114,7 @@ Reversing my earlier "skip": for a Type II the daily timestamped check is exactl
 Each run is stored with a timestamp and attached to the mapped controls; the auditor can pick any date.
 
 **Layer 3 — Scheduled screenshot run (Chrome) for what has no API.**
-Keep the shot list but change cadence by control: monthly for monitoring/alarms/Security Hub/ECR scan results; quarterly for the rest; and run it on a schedule, not by hand. Each run writes `runs/<date>.json` and attaches to tasks — that log is itself evidence of the control operating.
+Keep the shot list but change cadence by control: monthly for monitoring/alarms/Security Hub/ECR scan results; quarterly for the rest; and run it on a schedule, not by hand. *(Note 2026‑10‑31, round 2 — D12: Security Hub is removed; the two Security Hub shots become the "Configuration-check record (monthly)" posted by the configuration‑check Lambda (no screenshot) and the security‑event EventBridge rule screenshot; see docs/11 M3.)* Each run writes `runs/<date>.json` and attaches to tasks — that log is itself evidence of the control operating.
 
 **Layer 4 — Recurring manual controls as Comp tasks with real completion.**
 Tasks already have frequency + review dates; the task‑schedule cron flips them to `todo` and emails you. The evidence is the dated completion plus the artifact (access‑review export, training certificate, policy re‑publish, restore‑test record, tabletop form). The population of these is Comp's own task history.

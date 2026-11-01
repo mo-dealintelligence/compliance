@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "cloud-infrastructure-security-policy-v1.0.pdf"
 ---
 
@@ -53,7 +53,7 @@ The CEO owns this policy and is the only role with administrative access to the 
 - Monitors infrastructure performance and security metrics
 - Maintains the encryption and access controls required by this policy
 - Maintains infrastructure documentation and configuration baselines
-- Configures Security Hub and related security services
+- Configures the configuration-check Lambda, the CloudTrail-EventBridge alerting rule, and related security services
 - Reviews and responds to infrastructure security findings
 - Manages IAM policies and service roles
 - Conducts infrastructure security assessments
@@ -133,7 +133,6 @@ DocumentDB access is restricted through:
 - Security group rules limiting access to authorized application services
 - Database user authentication with strong passwords
 - Connection encryption enforced at the database level
-- Audit logging of all database operations
 
 ### 5.3 Container security
 
@@ -197,12 +196,10 @@ Infrastructure logging follows the System Monitoring and Logging Procedure:
 
 Security monitoring runs through:
 
-- Security Hub (AWS Foundational Security Best Practices) for centralized security findings, including configuration checks
-- CloudTrail for AWS API activity
-- The breach-detection Lambda function that routes Security Hub findings to SNS
+- A scheduled configuration-check Lambda that runs monthly against a fixed checklist (CloudTrail enabled and log-file validation on; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention and Multi-AZ) and posts a dated pass/fail record to the compliance platform
+- CloudTrail for AWS API activity; security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
 - Scheduled Lambda checks (access review, retention enforcement)
 - CloudWatch alarms for security events
-- SNS notifications for critical findings in real time; all Security Hub findings reviewed monthly, with the review recorded in the compliance platform
 - Security events recorded in the incident reporting module of the compliance platform
 
 #### 5.5.3 Performance monitoring
@@ -251,7 +248,7 @@ All infrastructure changes follow the Change Management Policy:
 
 - Baseline configurations are documented for all infrastructure components
 - CloudFormation (`serverless deploy`) is the only change path and reports configuration drift
-- Security Hub configuration checks and scheduled Lambda checks detect non-compliant resources
+- The monthly configuration-check Lambda and the other scheduled Lambda checks detect non-compliant resources
 - Configurations are reviewed and updated regularly
 
 ### 5.8 Vulnerability management
@@ -262,7 +259,7 @@ Infrastructure vulnerability management follows the Vulnerability Management Pro
 - Automated vulnerability scanning through ECR scan-on-push, GitHub Dependabot and code scanning, and Trivy in CI
 - Patch management for managed services
 - Prioritization of security findings by severity
-- Remediation tracking in Security Hub
+- Remediation tracked in the compliance platform
 
 ### 5.9 Third-party services
 
@@ -288,7 +285,7 @@ The infrastructure supports GDPR and CCPA compliance through:
 
 - Immediate enforcement for all new infrastructure deployments
 - Review and remediation of existing infrastructure within 30 days
-- Monthly review of Security Hub findings, recorded in the compliance platform
+- Monthly configuration-check record in the compliance platform
 - Annual third-party penetration test
 
 ### 6.2 Policy violations
@@ -342,5 +339,5 @@ The next review date is recorded in the compliance platform and aligned with the
 
 | Version | Date | Author | Summary |
 |---|---|---|---|
-| 1.0 | November 13, 2025 | mo@dealintelligence.io | Initial audited release |
-| 2.0 | <to be set at publication> | mo@dealintelligence.io | Roles reduced to CEO / Go-to-Market Contractor; SOC 2 scope set to Security, Availability, Confidentiality; perimeter, threat-detection, configuration-compliance, instance, image-integrity and deployment claims replaced by the controls in place (CloudFront + Shield Standard, Security Hub + breach-detection Lambda, CloudFormation drift reporting, ECR scan-on-push, Lambda versioned deployments); log retention split (CloudWatch 90 days, CloudTrail 7 years); single-region statement added |
+| 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
+| 2.0 | <to be set at publication> | Mo Messidi | Roles reduced to CEO / Go-to-Market Contractor; SOC 2 scope set to Security, Availability, Confidentiality; perimeter, threat-detection, configuration-compliance, instance, image-integrity and deployment claims replaced by the controls in place (CloudFront + Shield Standard, monthly configuration-check Lambda + CloudTrail-EventBridge breach-detection alerting, CloudFormation drift reporting, ECR scan-on-push, Lambda versioned deployments); log retention split (CloudWatch 90 days, CloudTrail 7 years); single-region statement added |

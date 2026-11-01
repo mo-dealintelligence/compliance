@@ -29,3 +29,10 @@
 - Kept: disciplinary steps and anonymous-channel bullet (existing CONFIRM items), acknowledgment wording.
 
 No new CONFIRM items.
+
+## Decisions applied (2026-10-31)
+
+- D4: §5.2 new bullet "Access company data only from a device with FileVault full-disk encryption (macOS) enabled, through browser SSO with MFA".
+- D5: §7.1 "Anonymous reporting channels, when available" removed; reporting goes to the CEO by email.
+- D6: §7.1 CEO reporting channel given the address compliance@dealintelligence.io.
+- Closes the existing CONFIRM item on the anonymous channel.

@@ -60,3 +60,13 @@ Output: `policies-v2/system-monitoring-and-logging-procedure.md`
 - §10.1 weekly performance trend analysis, monthly access pattern review, and quarterly security posture assessment are cadences carried from v1; confirm a record exists for each.
 
 - R4/Q2 (post-sweep, settled from serverless.yml: 'API Gateway not used - using Lambda Function URL + CloudFront'): every 'API Gateway' reference replaced with CloudFront → Lambda function URL / middleware.
+
+## Decisions applied (2026-10-31)
+
+- D3: removed §4.1 DocumentDB database audit logs row; §6.3 "S3 bucket versioning and MFA delete protection" reduced to "S3 bucket versioning"
+- D22: author set to "Mo Messidi" (frontmatter and revision history)
+- D25: cut §7.3 quarterly capacity review (section deleted); cut §10.1 weekly performance trend analysis, §10.1 monthly access-pattern review, §10.1 quarterly security-posture assessment; cut §10.2 monthly executive dashboard and quarterly SOC 2 evidence-collection reports; cut §14.1 quarterly exception review
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed — §1 scope names the configuration-check and breach-detection Lambda functions instead of Security Hub; §4.1 retention table row "Security Hub findings, 90 days, console" → configuration-check records, 7 years, compliance platform (matches the Data Retention and Disposal Policy); §5.3 retitled "Configuration checks and security event alerting" and rewritten as the monthly configuration-check Lambda with the fixed checklist and dated pass/fail record, plus the CloudTrail → EventBridge → breach-detection Lambda → SNS real-time path (FSBP / CIS Benchmark / custom standards claims dropped); §3 CEO duty and §10.1 monthly review now name the configuration-check record and security alerts; §8.2 breach-detection Lambda triggered by EventBridge on CloudTrail events; §8.3 "Security Hub configuration checks and compliance scores" folded into the scheduled Lambda checks and the compliance-platform line now holds the monthly configuration-check record; §13.1 stack lists the configuration-check and breach-detection Lambdas; §13.3 Lambda list adds the monthly configuration check

@@ -53,3 +53,15 @@ Output: `policies-v2/encryption-and-cryptographic-controls-standard.md`
 
 - §3 Roles and responsibilities is new text (R2 role set applied to this standard); confirm the wording.
 - §13.1 step 5 "Notifies affected customers within 48 hours if data confidentiality is affected" — matches R5; confirm it should remain in this standard as well as in the Incident Response Procedure.
+
+## Decisions applied (2026-10-31)
+
+- D2: §7.1 key-separation design kept as written (environment to-do recorded in docs/05, not here)
+- D3: removed §6.2 "VPC endpoints for AWS service communications"
+- D22: author set to "Mo Messidi" (frontmatter and revision history)
+- D25: cut §12.1 monthly TLS configuration scans and quarterly encryption audit reports; cut §17.1 semi-annual key-rotation audits; cut §18.1 quarterly exception review
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §11.2 step 1 "Assess the current encryption status via Security Hub" → latest monthly configuration-check record and the AWS console; §12.1 "Security Hub encryption checks" → the monthly configuration-check Lambda (KMS key rotation and CloudTrail log-file validation named as the encryption-relevant checklist items) plus the CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert on KMS key disable; §17.1 "Continuous Security Hub checks, reviewed monthly" → monthly configuration-check record (KMS key rotation); §17.2 "Security Hub compliance reports" → "Monthly configuration-check records".
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.

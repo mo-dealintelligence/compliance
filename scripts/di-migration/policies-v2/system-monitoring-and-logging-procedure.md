@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "system-monitoring-and-logging-procedure-v1.0.pdf"
 ---
 
@@ -16,7 +16,7 @@ source: "system-monitoring-and-logging-procedure-v1.0.pdf"
 
 This procedure sets the monitoring, logging, and audit requirements for all information systems and infrastructure components at Deal Intelligence LLC. It gives continuous visibility into system operations, security events, and performance, and supports the SOC 2 Trust Services Criteria for Security (CC6.1, CC7.1), Availability (A1.2), and Confidentiality (C1.1).
 
-It implements the monitoring requirements of the Information Security Policy for CloudWatch, CloudTrail, Security Hub, and the related monitoring services in the AWS infrastructure.
+It implements the monitoring requirements of the Information Security Policy for CloudWatch, CloudTrail, the configuration-check and breach-detection Lambda functions, and the related monitoring services in the AWS infrastructure.
 
 ## 2. Scope
 
@@ -39,7 +39,7 @@ This procedure applies to:
 - Defines custom metrics and alarms
 - Approves monitoring configuration changes
 - Responds to operational alerts
-- Reviews security alerts and trends, and performs the monthly recorded review of security findings and alerts
+- Reviews security alerts and trends, and performs the monthly recorded review of the configuration-check record and security alerts
 - Generates compliance reports and maintains the SOC 2 evidence
 
 ### 3.2 All personnel (including the Go-to-Market Contractor)
@@ -60,10 +60,9 @@ The following systems generate and retain logs under this procedure:
 |CloudTrail|API calls and management events|7 years|S3 bucket with KMS encryption, lifecycle to Glacier, Object Lock|
 |CloudWatch Logs|Application and system logs|90 days|CloudWatch log groups|
 |VPC Flow Logs|Network traffic metadata|90 days|CloudWatch Logs|
-|DocumentDB|Database audit logs|90 days|CloudWatch Logs|
 |Lambda functions|Execution logs and errors|90 days|CloudWatch Logs|
 |CloudFront and Lambda function URLs|Request/response logs|90 days|CloudWatch Logs|
-|Security Hub|Security findings|90 days|Security Hub console|
+|Configuration-check Lambda|Monthly pass/fail configuration-check records|7 years (as compliance evidence)|Compliance platform|
 |PropelAuth|Authentication events|30 days|PropelAuth dashboard + CloudWatch|
 
 ### 4.2 Log content
@@ -116,15 +115,22 @@ Rate-limiting configuration is in the API Security and Rate Limiting Standard.
 
 All alarm notifications are delivered in real time via SNS to the CEO. Response targets are in §9.3.
 
-### 5.3 Security Hub
+### 5.3 Configuration checks and security event alerting
 
-Security Hub continuously checks:
+A scheduled configuration-check Lambda runs monthly against a fixed checklist:
 
-- Compliance with the AWS Foundational Security Best Practices
-- CIS AWS Foundations Benchmark adherence
-- Custom security standards for SOC 2 requirements
+- CloudTrail enabled and log-file validation on
+- No public S3 buckets
+- No security groups open to 0.0.0.0/0 on administrative ports
+- Root account MFA
+- IAM password policy
+- KMS key rotation
+- ECR scan-on-push
+- DocumentDB backup retention and Multi-AZ
 
-Security findings trigger the breach-detection Lambda function defined in the Incident Response Procedure, which routes Security Hub findings to SNS. Critical findings alert in real time; all Security Hub findings are reviewed monthly, and the review is recorded in the compliance platform.
+The Lambda posts a dated pass/fail record to the compliance platform; the CEO reviews the record monthly and remediates failed checks.
+
+Security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) trigger an EventBridge rule that invokes the breach-detection Lambda function defined in the Incident Response Procedure, which sends an SNS alert to the CEO in real time.
 
 ## 6. Log management
 
@@ -150,7 +156,7 @@ Log integrity and confidentiality are protected through:
 - KMS encryption of logs at rest, per the Encryption and Cryptographic Controls Standard
 - IAM policies restricting log access to authorized personnel
 - CloudTrail log file validation for tamper detection
-- S3 bucket versioning and MFA delete protection
+- S3 bucket versioning
 - CloudTrail bucket lifecycle policy and S3 Object Lock for the 7-year retention
 
 ## 7. Performance monitoring
@@ -177,16 +183,6 @@ The CEO monitors:
 - CloudFront cache hit ratios
 - S3 request metrics and data transfer
 
-### 7.3 Capacity planning
-
-The quarterly capacity review covers:
-
-- Historical usage trends and growth patterns
-- Reserved concurrency utilization (current: 100)
-- Database storage growth projections
-- Cost optimization opportunities
-- Performance bottlenecks
-
 ## 8. Security monitoring
 
 ### 8.1 Threat detection
@@ -203,17 +199,16 @@ Continuous security monitoring covers:
 
 The breach-detection Lambda function:
 
-- Processes Security Hub findings in real time
+- Is triggered in real time by an EventBridge rule on security-relevant CloudTrail events
 - Triggers SNS notifications for high-severity events
 - Supports the CEO in recording resulting incidents in the incident reporting module of the compliance platform
 
 ### 8.3 Compliance monitoring
 
 - CloudFormation (`serverless deploy`) is the only change path and reports configuration drift
-- Security Hub configuration checks and compliance scores
-- Scheduled Lambda checks (access review, retention enforcement)
+- Scheduled Lambda checks (monthly configuration check, access review, retention enforcement)
 - Automated policy violation detection
-- The compliance platform as the control register (controls, evidence, tasks), holding the monthly recorded review of Security Hub findings
+- The compliance platform as the control register (controls, evidence, tasks), holding the monthly configuration-check record and its review
 
 Vulnerability scanning and remediation are in the Vulnerability Management Procedure.
 
@@ -246,15 +241,10 @@ To prevent alert fatigue:
 
 ### 10.1 Regular analysis
 
-- Real-time SNS alerting on critical security alerts and anomalies, with a monthly recorded review of all security findings
-- Weekly performance trend analysis
-- Monthly access pattern review
-- Quarterly security posture assessment
+- Real-time SNS alerting on critical security alerts and anomalies, with a monthly recorded review of the configuration-check record and security alerts
 
 ### 10.2 Reports
 
-- **Executive dashboard**: monthly KPIs and security metrics
-- **Compliance reports**: quarterly SOC 2 evidence collection
 - **Incident reports**: as required by the Incident Response Procedure
 - **Availability reports**: the monthly availability figure computed from CloudWatch metrics and recorded in the compliance platform
 
@@ -310,7 +300,8 @@ Log retention follows the Data Retention and Disposal Policy (CloudWatch Logs 90
 
 - **CloudWatch**: core monitoring and logging platform
 - **CloudTrail**: API activity and compliance logging
-- **Security Hub**: security posture management and configuration checks
+- **Configuration-check Lambda**: monthly AWS configuration checks against a fixed checklist
+- **Breach-detection Lambda**: real-time alerting on security-relevant CloudTrail events via EventBridge and SNS
 - **CloudFormation**: configuration drift reporting via `serverless deploy`
 - **PropelAuth**: authentication event monitoring
 
@@ -326,7 +317,7 @@ Log retention follows the Data Retention and Disposal Policy (CloudWatch Logs 90
 
 - **Compliance platform incident reporting module**: security incident documentation
 - **SNS topics**: alert distribution and notification
-- **Lambda functions**: breach detection and scheduled checks (access review, retention enforcement)
+- **Lambda functions**: breach detection and scheduled checks (monthly configuration check, access review, retention enforcement)
 - **S3 buckets**: long-term CloudTrail log archival (7 years, Object Lock)
 - **EventBridge**: event-driven automation
 
@@ -339,7 +330,6 @@ An exception to the monitoring requirements is:
 - Documented with its business justification
 - Risk-assessed for security impact
 - Approved by the CEO
-- Reviewed quarterly for continued necessity
 - Tracked in the risk assessment module of the compliance platform
 
 ### 14.2 Review
@@ -371,5 +361,5 @@ The CEO reviews this procedure annually and updates it for:
 
 | Version | Date | Author | Summary |
 |---|---|---|---|
-| 1.0 | November 13, 2025 | mo@dealintelligence.io | Initial audited release |
-| 2.0 | <to be set at publication> | mo@dealintelligence.io | Roles reduced to CEO / all personnel; Processing Integrity mapping removed; CloudTrail retention corrected to 7 years; instance-agent, DNS health-check, synthetic-monitoring, configuration-compliance, cross-account and scaling claims removed in favor of the controls in place; daily alert review replaced by real-time SNS alerting plus a monthly recorded review; response targets aligned with the Incident Response Procedure |
+| 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
+| 2.0 | <to be set at publication> | Mo Messidi | Roles reduced to CEO / all personnel; Processing Integrity mapping removed; CloudTrail retention corrected to 7 years; instance-agent, DNS health-check, synthetic-monitoring, configuration-compliance, cross-account and scaling claims removed in favor of the controls in place; daily alert review replaced by real-time SNS alerting plus a monthly recorded review; response targets aligned with the Incident Response Procedure |

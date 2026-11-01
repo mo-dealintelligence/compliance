@@ -34,3 +34,7 @@ Rewritten to one page per R7; the v1 16-section document is reduced to Purpose, 
 ### CONFIRM (new)
 
 - None added.
+
+## Decisions applied (2026-10-31)
+
+- D22: author set to Mo Messidi (frontmatter and revision history)

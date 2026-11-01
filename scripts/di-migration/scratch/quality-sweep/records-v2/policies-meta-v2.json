@@ -12,7 +12,7 @@
   {
     "id": "pol_6ae4b0792126ae8bbd6f91f2",
     "name": "Vulnerability Management Procedure",
-    "description": "How vulnerabilities are found (ECR scan-on-push, Dependabot, Trivy in CI, Security Hub) and remediated: Critical within 24 hours, dependency CVEs rated Critical within 7 days, High 30 days, Medium 90 days. Owner: CEO; reviewed annually.",
+    "description": "How vulnerabilities are found (ECR scan-on-push, Dependabot and code scanning, Trivy in CI, the monthly configuration-check Lambda) and remediated: Critical within 24 hours, dependency CVEs rated Critical within 7 days, High 30 days, Medium 90 days. Owner: CEO; reviewed annually.",
     "status": "published",
     "frequency": "yearly",
     "department": "it",
@@ -42,7 +42,7 @@
   {
     "id": "pol_6ae4b076ff7e86d64fa2a57c",
     "name": "System Monitoring and Logging Procedure",
-    "description": "Monitoring and logging requirements: CloudWatch alarms and 90-day log retention, CloudTrail with 7-year retention, Security Hub with real-time SNS alerting for critical findings and a monthly reviewed record. Owner: CEO; reviewed annually.",
+    "description": "Monitoring and logging requirements: CloudWatch alarms and 90-day log retention, CloudTrail with 7-year retention, an EventBridge rule on security-relevant CloudTrail events with real-time SNS alerting via the breach-detection Lambda, and the monthly configuration-check record. Owner: CEO; reviewed annually.",
     "status": "published",
     "frequency": "yearly",
     "department": "it",
@@ -52,7 +52,7 @@
   {
     "id": "pol_6ae4b076672bc62bb20ef768",
     "name": "Service Level Agreement (SLA) Management Policy",
-    "description": "The 99.9 % platform availability commitment, how it is measured monthly from CloudWatch metrics, maintenance notice by email, and the monthly availability record in the compliance platform. Owner: CEO; reviewed annually.",
+    "description": "The 99.9 % platform availability commitment, measured monthly over all minutes from CloudWatch metrics excluding announced maintenance windows, maintenance notice by email, and the monthly availability record in the compliance platform. Owner: CEO; reviewed annually.",
     "status": "published",
     "frequency": "yearly",
     "department": "it",
@@ -112,7 +112,7 @@
   {
     "id": "pol_6ae4b07083de4536842df831",
     "name": "Cloud Infrastructure Security Policy",
-    "description": "Security requirements for the AWS environment in us-east-1: VPC isolation, IAM least privilege with MFA, CloudFormation via the Serverless Framework as the only change path, Security Hub and CloudTrail. Owner: CEO; reviewed annually.",
+    "description": "Security requirements for the AWS environment in us-east-1: VPC isolation, IAM least privilege with MFA, CloudFormation via the Serverless Framework as the only change path, CloudTrail with the EventBridge security-event rule, and the monthly configuration-check Lambda. Owner: CEO; reviewed annually.",
     "status": "published",
     "frequency": "yearly",
     "department": "it",
@@ -132,7 +132,7 @@
   {
     "id": "pol_6ae4b06f354c8f288b5bef13",
     "name": "Acceptable Use Policy",
-    "description": "Rules for use of Deal Intelligence systems and data by all personnel: approved tools, MFA, browser SSO through Google Workspace, device security, prohibited activities. Acknowledged annually in the compliance platform portal. Owner: CEO.",
+    "description": "Rules for use of Deal Intelligence systems and data by all personnel: approved tools, MFA, browser SSO through Google Workspace, FileVault full-disk encryption on personnel devices, prohibited activities. Acknowledged annually in the compliance platform portal. Owner: CEO.",
     "status": "published",
     "frequency": "yearly",
     "department": "hr",

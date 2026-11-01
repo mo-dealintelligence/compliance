@@ -54,3 +54,13 @@ Output: `policies-v2/cloud-infrastructure-security-policy.md`
 ### New CONFIRM items
 
 - §6.1 "Review and remediation of existing infrastructure within 30 days" is an implementation-timeline commitment carried from v1; it reads as stale once the policy is republished. Confirm whether to keep it.
+
+## Decisions applied (2026-10-31)
+
+- D3: removed §5.2.3 "Audit logging of all database operations" (DocumentDB audit logging)
+- D22: author set to "Mo Messidi" (frontmatter and revision history)
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §4.1 CEO duty "Configures Security Hub and related security services" → configuration-check Lambda and CloudTrail-EventBridge rule; §5.5.2 Security monitoring: the Security Hub (FSBP) bullet, the "routes Security Hub findings to SNS" bullet and the "all Security Hub findings reviewed monthly" bullet replaced by the full D12 replacement text (monthly configuration-check Lambda with the fixed checklist and dated pass/fail record; CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert) — this is the canonical statement for the infrastructure policy, so the whole checklist is listed here; §5.7.2 "Security Hub configuration checks" → "the monthly configuration-check Lambda"; §5.8 "Remediation tracking in Security Hub" → "Remediation tracked in the compliance platform"; §6.1 monthly review bullet → monthly configuration-check record; revision-history summary reworded.
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.

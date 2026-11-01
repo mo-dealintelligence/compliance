@@ -22,17 +22,6 @@
     "updatedAt": "2026-10-30T07:25:46.120Z"
   },
   {
-    "id": "ctx_6ae4467aa2b2f5daf5418873",
-    "organizationId": "org_6ae43948f44032b0bb39e61f",
-    "question": "How many employees do you have?",
-    "answer": "Mo Messidi, Chief Executive Officer (CEO); William Wickey, Go-to-Market Contractor. [CONFIRM: duplicate of the onboarding field \"How many employees do you have?\" (answer 2); delete this entry or keep as the role list]",
-    "tags": [
-      "people"
-    ],
-    "createdAt": "2026-10-30T07:25:45.797Z",
-    "updatedAt": "2026-10-30T07:25:45.797Z"
-  },
-  {
     "id": "ctx_6ae44679adfe6e7474a57d5d",
     "organizationId": "org_6ae43948f44032b0bb39e61f",
     "question": "Subservice Organizations",
@@ -58,7 +47,7 @@
     "id": "ctx_6ae44679e2621a71c0853187",
     "organizationId": "org_6ae43948f44032b0bb39e61f",
     "question": "System Description",
-    "answer": "The in-scope system is the Deal Intelligence platform in AWS us-east-1: Lambda functions and Fargate containers (ECS) for compute, DocumentDB (Multi-AZ, KMS encryption, daily backups retained 90 days with point-in-time recovery), S3, CloudFront with AWS Shield Standard, EventBridge schedules, and a VPC with private subnets and no direct internet access to the database. Infrastructure is defined in CloudFormation via the Serverless Framework (stack di-backend-api-prod) and deployed by GitHub Actions from the dealintelligence/di-backend-api repository (pull request and CI status checks required on the protected main branch). Customer authentication is PropelAuth (JWT) with Google Workspace single sign-on, so customer MFA is inherited from Google Workspace; RBAC provides company- and user-level data isolation. Monitoring: CloudWatch (90-day log retention; alarms on API errors and latency), CloudTrail (7-year retention in S3), Security Hub with critical findings routed to SNS. The platform processes business contact information and competitor interaction data; active leads are retained 24 months and customer account data for the duration of the relationship plus 24 months. Subservice organizations: AWS and PropelAuth (carve-out). The compliance platform is self-hosted on AWS, holds compliance records only, and is outside the system boundary. Trust services categories: Security, Availability, Confidentiality.",
+    "answer": "The in-scope system is the Deal Intelligence platform in AWS us-east-1: Lambda functions and Fargate containers (ECS) for compute, DocumentDB (Multi-AZ, KMS encryption, daily backups retained 90 days with point-in-time recovery), S3, CloudFront with AWS Shield Standard, EventBridge schedules, and a VPC with private subnets and no direct internet access to the database. Infrastructure is defined in CloudFormation via the Serverless Framework (stack di-backend-api-prod) and deployed by GitHub Actions from the dealintelligence/di-backend-api repository (pull request and CI status checks required on the protected main branch). Customer authentication is PropelAuth (JWT) with Google Workspace single sign-on, so customer MFA is inherited from Google Workspace; RBAC provides company- and user-level data isolation. Monitoring: CloudWatch (90-day log retention; alarms on API errors and latency), CloudTrail (7-year retention in S3), a scheduled configuration-check Lambda that runs monthly against a fixed checklist and posts a dated pass/fail record to the compliance platform, and an EventBridge rule that routes security-relevant CloudTrail events through the breach-detection Lambda to an SNS alert to the CEO in real time. The platform processes business contact information and competitor interaction data; active leads are retained 24 months and customer account data for the duration of the relationship plus 24 months. Subservice organizations: AWS and PropelAuth (carve-out). The compliance platform is self-hosted on AWS, holds compliance records only, and is outside the system boundary. Trust services categories: Security, Availability, Confidentiality.",
     "tags": [
       "system-description"
     ],
@@ -223,7 +212,7 @@
     "id": "ctx_6ae43d2271b191a10f8a9db3",
     "organizationId": "org_6ae43948f44032b0bb39e61f",
     "question": "How do your team members sign in to work tools?",
-    "answer": "Google Workspace,Email/Password",
+    "answer": "Google Workspace SSO and email/password, both with 2FA",
     "tags": [
       "onboarding"
     ],

@@ -1,8 +1,7 @@
 ---
 title: "Ethics and Privacy Training Completion Certificate - William Wickey"
 doc_type: "Record"
-version: "2.0"
-supersedes: "1.0"
+version: "1.0"
 acknowledgment: "None"
 effective_date: "N/A"
 review_date: "N/A"
@@ -10,6 +9,8 @@ finalized_at: "February 02, 2026 at 01:37 AM"
 author: "Mo Messidi"
 source: "ethics-and-privacy-training-completion-certificate-william-wickey-v1.0.pdf"
 ---
+
+> Corrected 2026-10-31: formatting and wording only — title and position set to the role name, the unreadable checkbox export replaced with CONFIRM markers, the P6.1 mapping dropped, the "Privacy Policy" reference pointed to the Privacy Notice and Data Processing Agreement Template; scores, dates, and signatures are as issued.
 
 # Ethics and Privacy Training Completion Certificate - William Wickey
 
@@ -173,4 +174,3 @@ This certificate is:
 | Version | Date | Author | Changes |
 |---|---|---|---|
 | 1.0 | December 9, 2025 | Mo Messidi | Certificate as issued |
-| 2.0 | [CONFIRM: date] | Mo Messidi | Title and position set to the role name; unreadable checkbox export replaced with CONFIRM markers; P6.1 mapping dropped per RULEBOOK R1; "Privacy Policy" reference pointed to the Privacy Notice and Data Processing Agreement Template; no change to scores, dates, or signatures |

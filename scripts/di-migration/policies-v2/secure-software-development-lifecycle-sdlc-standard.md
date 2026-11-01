@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "secure-software-development-lifecycle-sdlc-standard-v1.0.pdf"
 ---
 
@@ -40,7 +40,7 @@ This standard applies to:
 
 ### 3.1 Chief Executive Officer (CEO)
 
-**Mo Messidi**, as CEO:
+The CEO:
 
 - Sets and maintains the secure coding standards and guidelines
 - Approves architectural security designs
@@ -90,7 +90,7 @@ All architectural designs incorporate:
 |---|---|---|
 |Node.js/TypeScript|Input validation, parameterized queries, JWT validation|[CONFIRM: ESLint security rules — not in the GitHub Actions CI set]|
 |Python (Lambda)|Input sanitization, boto3 secure defaults, secrets management|Black, isort, Flake8, and Bandit in GitHub Actions|
-|Infrastructure (CloudFormation)|Least-privilege IAM, encrypted storage, VPC isolation|CloudFormation (`serverless deploy`) as the only change path; Security Hub configuration checks|
+|Infrastructure (CloudFormation)|Least-privilege IAM, encrypted storage, VPC isolation|CloudFormation (`serverless deploy`) as the only change path; monthly configuration-check Lambda|
 |Container (Docker)|Non-root users, minimal base images, no secrets in images|ECR scan-on-push; Trivy in GitHub Actions|
 
 #### 4.2.2 Code review
@@ -106,7 +106,7 @@ All architectural designs incorporate:
 #### 4.2.3 Dependency management
 
 - Dependencies are tracked in `package.json` and `requirements.txt`
-- GitHub Dependabot alerts are reviewed weekly
+- GitHub Dependabot alerts are reviewed by the CEO
 - Dependency CVEs rated critical are remediated within 7 days; critical vulnerabilities that are actively exploited are remediated within 24 hours
 - High-severity vulnerabilities are remediated within 30 days
 - Medium-severity vulnerabilities are remediated within 90 days
@@ -168,8 +168,7 @@ Before deployment:
 
 #### 4.5.2 Continuous security monitoring
 
-- CloudWatch and Security Hub findings are reviewed monthly and the review recorded; critical findings alert in real time via SNS
-- Container vulnerability scans are reviewed weekly
+- CloudWatch metrics and the monthly configuration-check record are reviewed monthly and the review recorded in the compliance platform; security-relevant CloudTrail events alert the CEO in real time via EventBridge, the breach-detection Lambda and SNS
 - Security metrics tracked:
    - Time to remediate vulnerabilities
    - Number of security findings by severity
@@ -184,7 +183,7 @@ Before deployment:
 |---|---|---|
 |GitHub Actions|CI/CD security scanning (Black, isort, Flake8, Bandit, pytest, Trivy, TruffleHog)|Every commit/PR|
 |GitHub Dependabot|Dependency vulnerability alerts|Continuous scans|
-|Security Hub|Centralized security findings|Continuous monitoring|
+|Configuration-check Lambda|Monthly AWS configuration checks against a fixed checklist, with a dated pass/fail record in the compliance platform|Monthly schedule|
 |ECR image scanning|Container vulnerability detection|On image push|
 |CloudFormation (Serverless Framework)|Infrastructure as Code; only change path, reports drift|Deployment|
 |Pre-commit hooks|Local security checks|Before commit|
@@ -195,7 +194,7 @@ Before deployment:
 - Pre-commit hooks for secret detection and linting
 - GitHub Actions workflows for SAST and dependency checking
 - Scheduled Lambda functions for security monitoring per the System Monitoring and Logging Procedure
-- The breach-detection Lambda function that routes Security Hub findings to SNS
+- The breach-detection Lambda function, triggered by an EventBridge rule on security-relevant CloudTrail events, that sends SNS alerts to the CEO
 - SNS notifications for critical security events
 
 ## 6. Secure development training
@@ -224,27 +223,16 @@ All personnel with development access complete:
 
 ## 8. Compliance and monitoring
 
-### 8.1 Compliance verification
-
-- Quarterly review of SDLC security control effectiveness
-- Annual assessment against SOC 2 CC3.4
-- Monthly vulnerability metrics review
-- Weekly Dependabot alert review
-
-### 8.2 Key performance indicators
+### 8.1 Key performance indicators
 
 |**Metric**|**Target**|**Measurement frequency**|
 |---|---|---|
-|Critical vulnerabilities open > 24 hours|0|Weekly|
-|High vulnerabilities open > 30 days|< 5|Weekly|
-|Failed deployments due to security|< 10 %|Monthly|
 |Pull requests merged with passing CI status checks|100 %|Per deployment|
 
-### 8.3 Continuous improvement
+### 8.2 Continuous improvement
 
 - Post-incident reviews identify SDLC improvements per the Incident Response Procedure
 - Annual penetration test findings drive security enhancements
-- Security metrics are reviewed quarterly for trends
 - Industry best practices are evaluated for adoption
 
 ## 9. Exceptions and review
@@ -256,7 +244,6 @@ An exception to this standard is:
 - Documented with its business justification
 - Risk-assessed per the Risk Assessment Procedure
 - Approved by the CEO
-- Reviewed quarterly for continued necessity
 - Tracked in the compliance platform
 
 ### 9.2 Review

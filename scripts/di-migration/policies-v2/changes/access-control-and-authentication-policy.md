@@ -37,3 +37,16 @@
 - Kept: password rules, session timeouts, 30-day exception limit, Approval table with [CONFIRM: date], §14 owner/version footer (matches frontmatter).
 
 No new CONFIRM items.
+
+## Decisions applied (2026-10-31)
+
+- D1: §2 "production (di-backend-api-prod) and non-production environments" → "production (di-backend-api-prod) and staging stages of the stack".
+- D4: FileVault full-disk encryption (macOS) stated as the endpoint control: §4.2 Go-to-Market Contractor accesses company data through browser SSO with MFA "from a device with FileVault full-disk encryption (macOS) enabled"; §4.3 new bullet "Using only personnel devices with FileVault full-disk encryption (macOS) enabled to access company resources".
+- D21: §14 "Policy owner: Mo Messidi, Chief Executive Officer" → "Chief Executive Officer" (name kept in the §15 approval row).
+- D25: cut §5.2.3 quarterly review of security configuration changes (bullet now "logged in CloudTrail"); cut §8.1 monthly review of security group rules and network ACLs; cut §11.1 quarterly compliance assessments by the CEO. Kept: §5.3.2/§8.1 quarterly access reviews, §8.1 semi-annual privileged-access audit, §8.1 annual third-party access assessment, §11.1 annual SOC 2 audit, §12 annual refresher training.
+- D12: §7.3 / §11.1 Security Hub wording unchanged.
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §4 CEO duties now "CloudTrail, the monthly configuration-check Lambda, and the CloudTrail-EventBridge alerting rule"; §7.3 monthly findings review replaced by the monthly configuration-check Lambda record (checklist items relevant to access: root MFA, IAM password policy, CloudTrail) and real-time CloudTrail-EventBridge → breach-detection Lambda → SNS alerting for root sign-in and IAM changes; §11.1 "Continuous monitoring via Security Hub" → monthly configuration-check record; revision-history summary reworded.
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.

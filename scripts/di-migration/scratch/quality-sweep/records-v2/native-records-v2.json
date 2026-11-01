@@ -5,7 +5,7 @@
       "submissionDate": "2025-12-09T22:00:00.000Z",
       "date": "2025-12-09",
       "attendees": "Mo Messidi (Chief Executive Officer); William Wickey (Go-to-Market Contractor). Quorum established.",
-      "meetingMinutes": "Q4 2025 quarterly management meeting — Deal Intelligence LLC\nSource: board-management-meeting-minutes-q4-2025-v1.0.pdf (audited record, finalized 2026-02-02); text as revised in scratch/quality-sweep/records-v2/board-management-meeting-minutes-q4-2025.md\n\n<minutes body: docBody('board-management-meeting-minutes-q4-2025') from the revised markdown>",
+      "meetingMinutes": "Q4 2025 quarterly management meeting — Deal Intelligence LLC\nSource: board-management-meeting-minutes-q4-2025-v1.0.pdf (audited record, finalized 2026-02-02); historical record, not edited (D17) — text as in data/markdown/board-management-meeting-minutes-q4-2025.md plus the one-line 'Corrected 2026-10-31' note in scratch/quality-sweep/records-v2/\n\n<minutes body: docBody('board-management-meeting-minutes-q4-2025') from the v1 markdown, unchanged>",
       "meetingMinutesApprovedBy": "Mo Messidi (CEO, meeting recorder)",
       "approvedDate": "2026-02-02"
     }
@@ -18,19 +18,20 @@
       "manager": "Self-evaluation — CEO; management review recorded in the Q4 2025 management meeting minutes",
       "reviewPeriodTo": "2025-12-09",
       "overallRating": "exceeds-expectations",
-      "managerComments": "Annual Performance Evaluation — CEO, period 2025-01-01 to 2025-12-09. Composite rating 4.95/5 (Exceptional).\n\n<summary: §8.2 of the revised evaluation markdown>\n\nAreas for improvement: control automation 86 % → 95 % (Q2 2026); 2 remaining SOC 2 controls (Q1–Q2 2026); penetration testing cadence (Q2 2026). Full record: annual-performance-evaluation-ceo-v1.0.pdf.",
+      "managerComments": "Annual Performance Evaluation — CEO, period 2025-01-01 to 2025-12-09. Composite rating 4.95/5 (Exceptional).\n\n<summary: section 8.2 of the v1 evaluation markdown (data/markdown/annual-performance-evaluation-ceo.md), unchanged — historical record (D17)>\n\nAreas for improvement: control automation 86 % → 95 % (Q2 2026); 2 remaining SOC 2 controls (Q1–Q2 2026); penetration testing cadence (Q2 2026). Full record: annual-performance-evaluation-ceo-v1.0.pdf.",
       "managerSignature": "Mo Messidi",
       "managerSignatureDate": "2025-12-09"
     }
   },
   "bcp-full-test-2026-02": {
     "formType": "tabletop-exercise",
+    "name": "BCP full test 2026-02-04",
     "payload": {
       "submissionDate": "2026-02-04T08:25:00.000Z",
       "exerciseDate": "2026-02-04",
       "facilitator": "Mo Messidi (CEO, exercise coordinator)",
       "scenarioType": "custom",
-      "scenarioDescription": "AWS service disruption — full systems recovery from backups using infrastructure as code (CloudFormation via the Serverless Framework, serverless.yml). Plan: \"AWS Service Disruption Recovery\" (process: AWS Infrastructure Operations). Type: full recovery test, not a discussion-only tabletop.",
+      "scenarioDescription": "BCP full test 2026-02-04. AWS service disruption — full systems recovery from backups using infrastructure as code (CloudFormation via the Serverless Framework, serverless.yml). Plan: \"AWS Service Disruption Recovery\" (process: AWS Infrastructure Operations). Type: full recovery test, not a discussion-only tabletop.",
       "attendees": [
         {
           "name": "Mo Messidi",

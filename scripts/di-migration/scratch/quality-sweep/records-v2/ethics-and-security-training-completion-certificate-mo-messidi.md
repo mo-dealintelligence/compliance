@@ -1,8 +1,7 @@
 ---
 title: "Ethics and Security Training Completion Certificate - Mo Messidi"
 doc_type: "Record"
-version: "2.0"
-supersedes: "1.0"
+version: "1.1"
 acknowledgment: "None"
 effective_date: "N/A"
 review_date: "N/A"
@@ -10,6 +9,8 @@ finalized_at: "February 02, 2026 at 01:56 AM"
 author: "Mo Messidi"
 source: "ethics-and-security-training-completion-certificate-mo-messidi-v1.0.pdf"
 ---
+
+> Corrected 2026-10-31: formatting and wording only — size language removed, references to documents not in the set replaced, the incident-response drill item stated as the annual tabletop exercise and the undefined "Quarterly Security Updates Review" item removed; scores, hours, dates, and signatures are as issued.
 
 # Ethics and Security Training Completion Certificate - Mo Messidi
 
@@ -225,13 +226,10 @@ Retained per the Data Retention and Disposal Policy:
 |---|---|---|
 | Annual training refresher | December 9, 2026 | Scheduled |
 | Policy updates acknowledgment | As released | Ongoing |
-| Annual tabletop exercise participation | Annual [CONFIRM: v1 read "Incident Response Drill Participation — Semi-Annual"; R5 sets the tabletop at annual] | Scheduled |
-
-[CONFIRM: v1 also listed "Quarterly Security Updates Review — Quarterly — Ongoing"; no policy defines this item — keep or remove]
+| Annual tabletop exercise participation | Annual | Scheduled |
 
 ## 10. Revision history
 
 | Version | Date | Author | Changes |
 |---|---|---|---|
 | 1.1 | December 9, 2025 | Mo Messidi | Certificate as issued (v1 body stated "Document Version 1.1") |
-| 2.0 | [CONFIRM: date] | Mo Messidi | Formatting; size language removed per RULEBOOK R2; references to documents not in the set replaced; no change to scores, dates, or signatures |

@@ -35,3 +35,14 @@
 - Kept: all scales, thresholds, the current-key-risks table, treatment options, KRIs, acceptance criteria.
 
 No new CONFIRM items.
+
+## Decisions applied (2026-10-31)
+
+- D25: cut §6.2 weekly CloudWatch metrics analysis and the monthly vulnerability scan review (monthly line now Security Hub findings review only); cut §8.2 monthly operational reports block. Kept: §4.1/§8.1/§8.2/§9 quarterly risk reporting and review (quarterly risk review and management meeting), §6.1 annual risk assessment, §6.2 quarterly review of control evidence and tasks.
+- D12: §6.2 monthly Security Hub findings review unchanged.
+- D19: concerns the risk-register record, not this procedure; nothing changed here.
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed — §5.1.2 "Security Hub findings analysis" → monthly configuration-check record analysis and real-time CloudTrail event alerts; §6.1 step 2 "Review Security Hub findings" → review of the monthly configuration-check records, CloudTrail event alerts and CloudWatch metrics; §6.2 real-time row → security-relevant CloudTrail events via EventBridge → breach-detection Lambda → SNS to the CEO, monthly row → configuration-check Lambda pass/fail record reviewed and recorded in the compliance platform; revision-history v2.0 entry reworded
+- D11b: not applicable here — §5.3 "Transfer: share the risk through insurance or contractual agreements" is a generic risk-treatment option, not an insurance claim or vendor requirement; left as is

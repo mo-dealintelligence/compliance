@@ -37,7 +37,7 @@ The plan covers scenarios from minor service degradation to a complete regional 
 
 ### 3.1 Chief Executive Officer (CEO)
 
-The Chief Executive Officer (CEO), Mo Messidi, holds all three BCP roles.
+The Chief Executive Officer (CEO) holds all three BCP roles.
 
 As **business continuity coordinator**, the CEO:
 
@@ -118,10 +118,10 @@ Critical data assets:
 ### 5.3 Monitoring and early warning
 
 - CloudWatch monitoring with automated alerting
-- Security Hub findings for threat detection
 - SNS notifications for critical events
 - Resource utilization monitoring and capacity planning
-- The breach-detection Lambda function that routes Security Hub findings to SNS
+- Security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) routed by an EventBridge rule to the breach-detection Lambda, which alerts the CEO via SNS in real time
+- Monthly configuration-check Lambda run against a fixed checklist (including DocumentDB backup retention and Multi-AZ), with a dated pass/fail record posted to the compliance platform
 
 ## 6. Response procedures
 
@@ -262,10 +262,7 @@ AWS service contingency:
 | Test type | Frequency | Scope | Responsible party |
 |---|---|---|---|
 | Backup restoration | Quarterly | Database recovery validation (automated, recorded in the compliance platform) | CEO |
-| Failover testing | Semi-annually | AZ failover procedures | CEO |
 | Full BCP exercise | Annually | Complete plan activation | CEO |
-| Communication test | Quarterly | Notification systems | CEO |
-| Vendor coordination | Annually | Third-party response | CEO |
 
 ### 8.2 Plan maintenance
 
@@ -291,7 +288,6 @@ Update process:
 
 - Annual BCP awareness training for all personnel
 - Technical recovery procedures exercised by the CEO through the quarterly backup restoration test
-- Vendor coordination procedures reviewed semi-annually
 - Integration with the Security Awareness Training Program
 
 ## 9. Communication plan
@@ -310,7 +306,7 @@ During a disruption:
 Customer notification:
 
 - Initial notification within 2 hours of the disruption
-- Updates every 4 hours or on a significant status change
+- Updates at the cadence in the Service Level Agreement (SLA) Management Policy (every 2 hours for P1 incidents) or on a significant status change
 - Final resolution notice with an impact summary
 - Follow-up communication within 48 hours
 
@@ -346,7 +342,6 @@ Internal reporting:
 - BCP test results documented in the compliance platform
 - Annual effectiveness review recorded in the management meeting minutes
 - Incident activation reports within 24 hours
-- Quarterly metrics on recovery objectives
 
 External reporting:
 

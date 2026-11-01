@@ -71,6 +71,7 @@ This Code applies to all Deal Intelligence personnel, including:
 - Report security incidents immediately using the compliance platform Incident Reporting system
 - Follow the Access Control and Authentication Policy, including MFA usage
 - Protect authentication credentials and never share access
+- Access company data only from a device with FileVault full-disk encryption (macOS) enabled, through browser SSO with MFA
 - Complete the mandatory Security Awareness Training Program
 
 ### 5.3 Privacy compliance
@@ -109,9 +110,8 @@ All personnel must report:
 
 Reports are made through:
 
-- The CEO
+- The CEO, by email to compliance@dealintelligence.io
 - The compliance platform Incident Reporting system, for security incidents
-- Anonymous reporting channels, when available
 
 ### 7.2 Non-retaliation
 

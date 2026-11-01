@@ -50,7 +50,7 @@ Excluded from this policy:
 
 **Pull-request review**: The change review and approval mechanism for all production changes: a pull request against the protected `main` branch of the `dealintelligence/di-backend-api` repository, with required GitHub Actions CI status checks (lint, tests, Bandit, Trivy, TruffleHog), a logged self-review in the pull request, and merge by the Chief Executive Officer (CEO) as final approver. Direct pushes to `main` are not permitted.
 
-**Change window**: A pre-scheduled maintenance period communicated to customers, typically during off-peak hours (2:00 AM – 6:00 AM EST).
+**Change window**: A pre-scheduled maintenance period communicated to customers, during off-peak hours (07:00–11:00 UTC / 02:00–06:00 ET).
 
 ## 4. Roles and responsibilities
 
@@ -214,7 +214,7 @@ Emergency changes follow an expedited process while maintaining control.
 - Branch protection on `main` requiring a pull request and required CI status checks (lint, tests, Bandit, Trivy, TruffleHog); no direct pushes
 - Pre-commit hooks for security and quality checks
 - CloudFormation (`serverless deploy`) as the only infrastructure change path, with drift reporting
-- Security Hub configuration checks for compliance monitoring
+- The monthly configuration-check Lambda, which verifies the fixed infrastructure checklist after changes and posts a dated pass/fail record to the compliance platform; security-relevant CloudTrail events (IAM policy or user changes, security-group changes, among others) alert the CEO in real time via EventBridge, the breach-detection Lambda, and SNS
 
 ### 7.2 Documentation and tracking
 
@@ -225,7 +225,7 @@ Emergency changes follow an expedited process while maintaining control.
 
 ## 8. Metrics and reporting
 
-Monthly change management metrics include:
+Change management metrics, drawn from GitHub and CloudTrail records, include:
 
 - Total changes by category (standard, normal, emergency)
 - Change success rate (successful changes / total changes)
@@ -235,7 +235,7 @@ Monthly change management metrics include:
 - Compliance with change windows
 - Customer-impacting incidents caused by changes
 
-The CEO reviews the metrics monthly, and they are included in the quarterly compliance reviews.
+The CEO reviews the metrics at the quarterly management meeting.
 
 ## 9. Audit trail
 

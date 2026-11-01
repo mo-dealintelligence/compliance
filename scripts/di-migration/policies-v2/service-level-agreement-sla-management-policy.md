@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "service-level-agreement-sla-management-policy-v1.0.pdf"
 ---
 
@@ -56,7 +56,7 @@ Deal Intelligence commits to the following targets:
 
 |**Service component**|**SLA target**|**Measurement period**|**Calculation method**|
 |---|---|---|---|
-|Platform availability|99.9 %|Monthly|(Total minutes − downtime minutes) / total minutes × 100|
+|Platform availability|99.9 %|Monthly|(Total minutes − downtime minutes) / total minutes × 100, measured over all minutes in the month, excluding announced maintenance windows (§4.2)|
 |API response time|< 2 seconds|95th percentile|CloudWatch metrics aggregation|
 |Data processing accuracy|99.5 %|Monthly|Validated records / total processed records × 100|
 |Lead delivery time|< 24 hours|Per request|Time from request to delivery completion|
@@ -97,7 +97,7 @@ Service levels are monitored continuously through:
 
 ### 6.1 Availability record and customer communication
 
-The monthly availability figure is computed from CloudWatch metrics and recorded in the compliance platform, together with:
+The monthly availability figure is computed from CloudWatch metrics and recorded in the compliance platform by the CEO, as the scheduled monthly compliance-platform task "Availability record (monthly)" (owner: CEO, covered by the Monday reminder email), together with:
 
 - Overall platform availability percentage
 - API performance metrics (response times, error rates)
@@ -106,15 +106,6 @@ The monthly availability figure is computed from CloudWatch metrics and recorded
 - Planned maintenance schedule for the coming month
 
 Customers are notified of planned maintenance by email.
-
-### 6.2 Internal review
-
-The monthly internal SLA review in the compliance platform covers:
-
-- Service level achievement against targets
-- Trend analysis of performance metrics
-- Capacity planning recommendations
-- Risk indicators per the Risk Assessment Procedure
 
 ## 7. Service credits
 
@@ -146,12 +137,12 @@ Service incidents are classified per the Incident Response Procedure:
 |P3 (Medium)|Limited functionality|24 hours|
 |P4 (Low)|Minor issues|72 hours|
 
-P1 incidents are acknowledged by the CEO within 4 business hours, with Security Hub/SNS paging for critical findings. Response targets for other severities are in the Incident Response Procedure.
+P1 incidents are acknowledged by the CEO within 4 business hours, with SNS paging to the CEO on security-relevant CloudTrail events and CloudWatch alarms. Response targets for other severities are in the Incident Response Procedure.
 
 ### 8.2 Communication during incidents
 
 - Initial notification by email after acknowledgment of a P1 incident (§8.1)
-- Status updates every 2 hours during an active incident
+- Status updates to customers every 2 hours during an active P1 incident (the internal update cadence of every 30 minutes is set in the Incident Response Procedure)
 - Root cause analysis within 48 hours of resolution
 - Post-incident report sent to affected customers by email
 
@@ -159,7 +150,7 @@ P1 incidents are acknowledged by the CEO within 4 business hours, with Security 
 
 ### 9.1 Scheduled maintenance
 
-- **Standard window**: Sunday 02:00–06:00 UTC
+- **Standard window**: Sunday 07:00–11:00 UTC (02:00–06:00 ET), the change window defined in the Change Management Policy
 - **Notification**: 72 hours' advance notice by email
 - **Emergency maintenance**: 24 hours' notice where possible
 - **Tracking**: recorded in the compliance platform
@@ -261,5 +252,5 @@ This policy is maintained in the compliance platform. The CEO reviews it annuall
 
 | Version | Date | Author | Summary |
 |---|---|---|---|
-| 1.0 | November 13, 2025 | mo@dealintelligence.io | Initial audited release |
-| 2.0 | <to be set at publication> | mo@dealintelligence.io | Processing Integrity mapping removed; authentication availability deferred to PropelAuth's own SLA; synthetic monitoring, customer-facing SLA reports and public status communications, deployment-strategy and dependency-check claims replaced by CloudWatch alarms, the monthly availability record and Lambda versioned deployments; response commitment replaced by 4-business-hour P1 acknowledgment; roles reduced to CEO / Go-to-Market Contractor; export footer removed; policy review set to annual |
+| 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
+| 2.0 | <to be set at publication> | Mo Messidi | Processing Integrity mapping removed; authentication availability deferred to PropelAuth's own SLA; synthetic monitoring, customer-facing SLA reports and public status communications, deployment-strategy and dependency-check claims replaced by CloudWatch alarms, the monthly availability record and Lambda versioned deployments; response commitment replaced by 4-business-hour P1 acknowledgment; roles reduced to CEO / Go-to-Market Contractor; export footer removed; policy review set to annual |

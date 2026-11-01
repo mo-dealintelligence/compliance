@@ -6,7 +6,7 @@ supersedes: "1.0 (draft of November 23, 2025)"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
 acknowledgment: "None"
-author: "Deal Intelligence LLC"
+author: "Mo Messidi"
 source: "data/system-description-draft-nov2025.md, amended per policies-v2/RULEBOOK.md"
 trust_services_categories: "Security, Availability, Confidentiality"
 ---
@@ -63,7 +63,7 @@ Deal Intelligence makes commitments to customers in service agreements, data pro
 
 ### 2.2 Availability commitments
 
-- Platform availability of 99.9 % during standard business hours, as defined in customer service level agreements. Authentication availability is provided by PropelAuth under its own SLA.
+- Platform availability of 99.9 %, measured monthly over all minutes and excluding announced maintenance windows, as defined in customer service level agreements. Authentication availability is provided by PropelAuth under its own SLA.
 - Planned maintenance windows are communicated by email 72 hours in advance.
 - Recovery time objectives are defined contractually and in the Business Continuity Plan.
 
@@ -92,11 +92,11 @@ To meet these commitments the organization has defined the following system requ
 |---|---|
 | Authentication and access | PropelAuth JWT with Google Workspace single sign-on; role-based access control; session timeouts; quarterly automated access reviews by Lambda; personnel multi-factor authentication enforced in Google Workspace, GitHub, and AWS |
 | Network isolation | Single VPC with private subnets; no direct database access from outside the VPC; CloudFront with AWS Shield Standard in front of the API, origin access restricted to the Lambda function URLs |
-| Encryption | DocumentDB encrypted with a regional KMS customer-managed key rotated annually; TLS 1.2 or higher with ACM-managed certificates |
+| Encryption | DocumentDB encrypted with a regional KMS customer-managed production data key; separate customer-managed keys for backups and for audit logs (CloudTrail and CloudWatch Logs), all rotated annually; TLS 1.2 or higher with ACM-managed certificates |
 | Secrets | Credentials in AWS Secrets Manager; rotation enabled on the DocumentDB credential; API keys rotated per a documented calendar |
 | Infrastructure as code | All production resources defined in the CloudFormation stack `di-backend-api-prod`, deployed by `serverless deploy`, which is the only change path and reports drift |
 | Change control | Pull request on the protected `main` branch of `dealintelligence/di-backend-api`; required GitHub Actions status checks; no direct pushes; deployment only from a green CI run |
-| Logging and monitoring | CloudWatch logs and alarms (90-day retention); CloudTrail (7-year retention); Security Hub findings alerted in real time via SNS and reviewed monthly; API request logging in middleware |
+| Logging and monitoring | CloudWatch logs and alarms (90-day retention); CloudTrail (7-year retention) with security-relevant events alerted in real time via EventBridge, the breach-detection Lambda and SNS; monthly configuration-check Lambda with a dated pass/fail record in the compliance platform; API request logging in middleware |
 | Vulnerability management | ECR scan-on-push on all repositories; GitHub Dependabot and code scanning; Trivy in CI; annual third-party penetration test |
 | Resilience and recovery | Multi-AZ DocumentDB with automatic failover; daily automated backups retained 90 days with point-in-time recovery; Lambda reserved concurrency and versioned deployments with rollback; quarterly backup-restore test; annual tabletop exercise |
 | Third parties | Vendor Management Policy: executed data processing agreements, security assessment, and annual review of PropelAuth and AWS |
@@ -117,20 +117,20 @@ The production environment is the CloudFormation stack `di-backend-api-prod` in 
 |---|---|---|
 | Lambda | API request processing and scheduled jobs (access review, retention enforcement, breach detection) | 900-second timeout; reserved concurrency of 100; versioned deployments with rollback via `serverless rollback` |
 | Fargate (ECS) | Batch processing with extended execution times | Tasks launched on schedule by EventBridge |
-| DocumentDB | Persistent storage of customer and operational data | Multi-AZ: second instance in another Availability Zone with automatic failover; encrypted with a regional KMS customer-managed key (annual rotation); daily automated backups retained 90 days; point-in-time recovery enabled; private subnets only |
+| DocumentDB | Persistent storage of customer and operational data | Multi-AZ: second instance in another Availability Zone with automatic failover; encrypted with the regional KMS customer-managed production data key (annual rotation); daily automated backups retained 90 days, encrypted with a separate backup key; point-in-time recovery enabled; private subnets only |
 | ECR | Container image storage | Scan-on-push enabled on all repositories |
-| EventBridge | Scheduling of batch jobs and control Lambda functions | — |
+| EventBridge | Scheduling of batch jobs and control Lambda functions; rule on security-relevant CloudTrail events | Triggers the breach-detection Lambda on root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, and security-group changes |
 | CloudFront | Content delivery and API edge, caching static assets and API responses | AWS Shield Standard; TLS 1.2 or higher; origin access restricted to the Lambda function URLs |
 | VPC | Network isolation | Private subnets for database and compute; no public database endpoints |
 | NAT instance | Outbound traffic and bastion access | The only instance in the environment; accessed through SSM Session Manager; no SSH keys, no public services |
 | CloudWatch | Metrics, logs, alarms | 90-day log retention; alarms on API errors and latency (p95 greater than 2 seconds) |
 | CloudTrail | AWS API audit log | Retained 7 years in S3 with lifecycle transition to Glacier and Object Lock |
-| Security Hub | Security findings (Foundational Security Best Practices) | Critical findings routed to SNS by the breach-detection Lambda |
+| Configuration-check Lambda | Monthly AWS configuration checks against a fixed checklist (CloudTrail enabled and log-file validation; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention and Multi-AZ) | Scheduled monthly by EventBridge; posts a dated pass/fail record to the compliance platform |
 | Secrets Manager | Credential storage and rotation | Rotation enabled on the DocumentDB credential |
 | SNS | Security and availability alerting to the Chief Executive Officer (CEO) | — |
 | S3 | CloudTrail archive and platform object storage | — |
 | Route 53 | DNS only | — |
-| KMS, ACM | Key management; TLS certificates | Regional customer-managed key with annual rotation; ACM-managed certificates |
+| KMS, ACM | Key management; TLS certificates | Regional customer-managed keys with annual rotation: a production data key (DocumentDB, S3, Lambda environment variables), a backup key, and an audit-log key (CloudTrail and CloudWatch Logs), as set out in the Encryption and Cryptographic Controls Standard; ACM-managed certificates |
 
 A staging stage of the same CloudFormation stack is used for pre-production validation. It holds no production customer data (scrubbed or synthetic data only) and is separated from production by distinct stack stages, resource naming, and access control policies. The staging stage is outside the system boundary (Section 4).
 
@@ -140,7 +140,7 @@ A staging stage of the same CloudFormation stack is used for pre-production vali
 |---|---|
 | Platform runtime | Custom application code in the `dealintelligence/di-backend-api` repository, running on the Lambda runtime and in Fargate containers; CloudFormation templates deployed via the Serverless Framework |
 | Authentication | PropelAuth (JWT issuance and validation, Google Workspace single sign-on, role management, session management) |
-| Security and monitoring | Security Hub (Foundational Security Best Practices); CloudWatch; CloudTrail; a custom breach-detection Lambda that routes Security Hub findings to SNS |
+| Security and monitoring | CloudWatch; CloudTrail; a custom breach-detection Lambda triggered by an EventBridge rule on security-relevant CloudTrail events and alerting via SNS; a monthly configuration-check Lambda against a fixed checklist |
 | Development and CI | GitHub (source control, Dependabot, code scanning); GitHub Actions running Black, isort, Flake8, Bandit, pytest, Trivy, and TruffleHog on every pull request. TruffleHog secret scanning prevents secrets entering the repository [CONFIRM: whether pre-commit hooks are also configured locally] |
 | Business operations | CRM integrations; Slack for operational notifications; Resend for transactional email; the compliance platform for policies, the control register, evidence, acknowledgments, training records, and incident records |
 
@@ -156,7 +156,7 @@ External parties supporting the control environment are the external SOC 2 audit
 **Segregation of duties.** Because production access is held by one role, the organization does not segregate development, change approval, and production operation across separate personnel. The compensating controls are:
 
 1. every change to `dealintelligence/di-backend-api` is made by pull request on the protected `main` branch, passes the required CI status checks, and carries a logged self-review before merge;
-2. all production activity is logged by CloudTrail and evaluated by Security Hub, with critical findings alerted in real time via SNS and all findings reviewed monthly;
+2. all production activity is logged by CloudTrail, with security-relevant events alerted in real time via EventBridge, the breach-detection Lambda and SNS, and the AWS configuration checked monthly by the configuration-check Lambda against a fixed checklist, with the pass/fail record reviewed and recorded in the compliance platform;
 3. control execution, evidence, and acknowledgments are recorded with dates in the compliance platform; and
 4. the external SOC 2 auditor independently reviews controls and evidence.
 
@@ -185,7 +185,7 @@ The control environment is governed by the documents below, each owned by the CE
 | Secure Software Development Lifecycle (SDLC) Standard | Standard | Secure development and CI security checks |
 | Incident Response Procedure | Procedure | Detection, containment, eradication, recovery, 48-hour customer notification |
 | Risk Assessment Procedure | Procedure | Risk identification, analysis, and treatment |
-| System Monitoring and Logging Procedure | Procedure | CloudWatch, CloudTrail, Security Hub monitoring and log retention |
+| System Monitoring and Logging Procedure | Procedure | CloudWatch, CloudTrail, CloudTrail event alerting, monthly configuration checks and log retention |
 | Vulnerability Management Procedure | Procedure | Scanning sources and remediation timelines |
 | Penetration Testing and Security Assessment Procedure | Procedure | Annual third-party penetration test |
 | Data Subject Rights Request Procedure | Procedure | GDPR and CCPA request handling |
@@ -230,7 +230,7 @@ The system under examination is the production platform described in Section 3: 
 - Customer-owned data held in third-party systems integrated through APIs, and personal information unrelated to business activities.
 - Customer-managed identity providers integrated through SAML or OAuth, and authentication for customer downstream systems.
 - Updates to third-party services outside the organization's control.
-- Physical security of home office environments beyond the endpoint encryption requirements of the Acceptable Use Policy; physical datacenter security is the responsibility of AWS.
+- Physical security of home office environments beyond the FileVault full-disk encryption (macOS) requirement of the Acceptable Use Policy; physical datacenter security is the responsibility of AWS.
 - Personal devices not used for production access or customer data processing.
 - External platforms, such as LinkedIn, from which public business information is sourced.
 
@@ -252,12 +252,12 @@ Vendor oversight consists of the annual review of attestation reports and terms,
 
 | Vendor | Classification | Services provided | Attestation |
 |---|---|---|---|
-| Amazon Web Services (AWS) | Infrastructure provider — Risk: Critical | Compute (Lambda, Fargate/ECS), DocumentDB, VPC, KMS, CloudFront, CloudWatch, CloudTrail, Security Hub, ECR, Secrets Manager, S3, SNS, EventBridge, Route 53 (DNS only) | Vendor's own SOC 2 |
+| Amazon Web Services (AWS) | Infrastructure provider — Risk: Critical | Compute (Lambda, Fargate/ECS), DocumentDB, VPC, KMS, CloudFront, CloudWatch, CloudTrail, ECR, Secrets Manager, S3, SNS, EventBridge, Route 53 (DNS only) | Vendor's own SOC 2 |
 | PropelAuth | Critical business service — Risk: Critical | JWT authentication, Google Workspace single sign-on, role-based access control, user management, session management, token generation and validation | Vendor's own SOC 2 |
 
 Both are classified as critical-risk vendors. The data processing agreements with both define control responsibilities and include 30 days' advance notice of sub-processor changes, a right to audit, and incident notification requirements supporting the organization's 48-hour breach notification commitment. Oversight includes annual security assessments recorded in the compliance platform, review of SOC reports and certifications, monitoring of security advisories and incident notifications, tracking of SLA compliance through CloudWatch metrics and PropelAuth's service status, and contingency plans for vendor service disruption in the Business Continuity Plan. Vendor risks are recorded in the risk register.
 
-The organization's controls depend on these vendors at defined points: the quarterly access review Lambda reads PropelAuth user data; CloudWatch alarms consume AWS infrastructure metrics; the breach-detection Lambda is triggered by Security Hub findings.
+The organization's controls depend on these vendors at defined points: the quarterly access review Lambda reads PropelAuth user data; CloudWatch alarms consume AWS infrastructure metrics; the breach-detection Lambda is triggered by CloudTrail events delivered through EventBridge.
 
 ### 5.3 Complementary subservice organization controls (CSOCs)
 
@@ -265,19 +265,19 @@ The organization's controls are designed on the assumption that the following co
 
 | Subservice organization | Complementary controls expected | Applicable criteria |
 |---|---|---|
-| AWS | Physical and environmental security of data centers, including 24/7 monitoring, multi-factor authentication for facility access, fire suppression, climate control, and power redundancy; network isolation and DDoS protection (Shield Standard); KMS key management and storage encryption; encryption in transit (TLS 1.2 or higher); Availability Zone redundancy and managed backup infrastructure within us-east-1; monitoring services (CloudWatch, Security Hub, ECR scanning); controlled change management of AWS services; compliance with SOC 2 and ISO 27001 | CC6.1, CC6.4, CC6.6, CC6.7, CC7.1, CC7.2, CC7.3, CC8.1, A1.1, A1.2, A1.3, C1.1 |
+| AWS | Physical and environmental security of data centers, including 24/7 monitoring, multi-factor authentication for facility access, fire suppression, climate control, and power redundancy; network isolation and DDoS protection (Shield Standard); KMS key management and storage encryption; encryption in transit (TLS 1.2 or higher); Availability Zone redundancy and managed backup infrastructure within us-east-1; monitoring services (CloudWatch, CloudTrail, ECR scanning); controlled change management of AWS services; compliance with SOC 2 and ISO 27001 | CC6.1, CC6.4, CC6.6, CC6.7, CC7.1, CC7.2, CC7.3, CC8.1, A1.1, A1.2, A1.3, C1.1 |
 | PropelAuth | Secure JWT token generation and validation; Google Workspace single sign-on (through which multi-factor authentication is inherited from the customer's Google Workspace); rate limiting and account lockout against brute force; secure session handling with timeout policies, token refresh, and protection against session hijacking; encryption of user profile data and authentication logs at rest and in transit; secure disposal of tokens and session data; redundant infrastructure with automatic failover under PropelAuth's own SLA; compliance with privacy regulations under the data processing agreement, supporting GDPR and CCPA obligations | CC6.1, CC6.2, CC6.3, CC6.5, A1.1, C1.2 |
 
 ### 5.4 Other vendors (not subservice organizations)
 
-The following vendors support operation of the system but are not subservice organizations under the AICPA Description Criteria: their controls are not necessary, in combination with Deal Intelligence's controls, to achieve the service commitments and system requirements for Security, Availability, and Confidentiality of the production platform. Each is subject to the Vendor Management Policy, annual review of attestation reports and terms, and, where personal data is processed, a data processing agreement.
+The following vendors support operation of the system but are not subservice organizations under the AICPA Description Criteria: their controls are not necessary, in combination with Deal Intelligence's controls, to achieve the service commitments and system requirements for Security, Availability, and Confidentiality of the production platform. None of them processes customer data; they are vendors under the Vendor Management Policy, not sub-processors, and the customer-facing sub-processor list names AWS and PropelAuth only. Each is subject to annual review of attestation reports and terms.
 
-- **GitHub (source control and continuous integration).** Hosts the `dealintelligence/di-backend-api` repository and runs the GitHub Actions pipeline. Production data never enters the repository or the CI environment. The change-management controls that rely on GitHub (branch protection, required status checks, pull request records) are Deal Intelligence's own controls, configured and evidenced by Deal Intelligence, and are tested in this examination. GitHub's own security is covered by its SOC 2 report, reviewed annually.
+- **GitHub (source control and continuous integration).** Hosts the `dealintelligence/di-backend-api` repository and runs the GitHub Actions pipeline. Production data never enters the repository or the CI environment; GitHub does not process customer data. The change-management controls that rely on GitHub (branch protection, required status checks, pull request records) are Deal Intelligence's own controls, configured and evidenced by Deal Intelligence, and are tested in this examination. GitHub's own security is covered by its SOC 2 report, reviewed annually.
 - **Google Workspace (workforce identity and email).** Provides personnel email and the identity provider for personnel single sign-on, with multi-factor authentication enforced for all personnel accounts. It does not host or process platform customer data. Personnel access control, MFA enforcement, and account provisioning and deprovisioning are Deal Intelligence's own controls, evidenced from the Google Workspace administration console, and are tested in this examination. Google's own security is covered by its SOC 2 report, reviewed annually.
-- **Resend (transactional email).** Delivers transactional email (notifications and account messages) on behalf of the platform. Resend receives recipient addresses and message content only at the time of sending and does not host platform data; its availability is not required to deliver the platform's market intelligence services. [CONFIRM: that Resend sends only transactional notifications and that no lead records are included in message bodies.]
+- **Resend (transactional email).** Delivers transactional email (notifications and account messages) on behalf of the platform. Resend receives recipient addresses and message content only at the time of sending; it does not process customer data and does not host platform data, and its availability is not required to deliver the platform's market intelligence services.
 - **The compliance platform (self-hosted on AWS, records only).** Holds policies, the control register, evidence, acknowledgments, training records, incident records, and the network diagram. It is self-hosted in Deal Intelligence's AWS environment, holds compliance records only, and does not store, process, or transmit customer data; it is not a vendor-operated service and therefore not a subservice organization. [CONFIRM: that the compliance platform deployment holds no customer data and that its hosting is within the in-scope AWS account.]
 
-CRM tooling and Slack are used for business operations and operational notifications; they do not host platform data and are outside the system boundary (Section 4). [CONFIRM: whether any CRM or notification vendor receives customer data in a way that would require listing as a sub-processor.]
+HubSpot (CRM) and Slack are used for business operations and operational notifications; they do not process customer data, do not host platform data, and are outside the system boundary (Section 4).
 
 ---
 
@@ -374,13 +374,13 @@ The control framework is maintained in the compliance platform, which is the con
 
 - The Risk Assessment Procedure is executed at least annually. It documents objectives and risk tolerance, maintains a risk register (including data breach, unauthorized access, and service availability risks), rates likelihood and impact, and records treatment decisions. Findings are tracked in the compliance platform.
 - Change impact assessments are performed as part of the annual risk assessment and whenever a significant change is introduced, covering technology, regulatory, and threat changes.
-- Fraud risk is addressed through CloudWatch and Security Hub monitoring for anomalous activity.
+- Fraud risk is addressed through CloudWatch monitoring and real-time alerting on security-relevant CloudTrail events.
 - Business disruption scenarios are identified, mitigated, and tested under the Business Continuity Plan.
 - Vendor risk is assessed annually for all sub-processors (CC9.2); PropelAuth and AWS are authorized to handle customer data under data processing agreements. Customer-controlled integrations (Slack, CRM) leave data-sharing decisions with the customer.
 
 ### 7.3 Information and communication
 
-- Internal: CloudWatch metrics, alarms, and logs (90-day retention); Security Hub aggregation; EventBridge schedules for control Lambda functions (quarterly access reviews, retention enforcement, breach detection); SNS alerts to the CEO.
+- Internal: CloudWatch metrics, alarms, and logs (90-day retention); EventBridge schedules and rules for control Lambda functions (quarterly access reviews, retention enforcement, monthly configuration checks, breach detection on security-relevant CloudTrail events); SNS alerts to the CEO.
 - External: customer incident notification within 48 hours and supervisory authority notification within 72 hours where GDPR applies, under the Incident Response Procedure; privacy notices and data processing agreements stating security commitments; 30 days' notice of sub-processor changes; maintenance notices by email 72 hours in advance.
 - The compliance platform is the repository for incident records, control documentation, and the audit trail of related communications.
 
@@ -389,14 +389,14 @@ The control framework is maintained in the compliance platform, which is the con
 Continuous:
 
 - CloudWatch alarms on infrastructure performance, API errors, and latency (p95 greater than 2 seconds);
-- the breach-detection Lambda, triggered by Security Hub findings and routing critical findings to SNS in real time;
+- the breach-detection Lambda, triggered by an EventBridge rule on security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) and alerting the CEO via SNS in real time;
 - ECR scan-on-push on all container images;
 - rate limiting (100 requests per minute per API key); and
 - PII sanitization in logs.
 
 Periodic:
 
-- Security Hub findings reviewed monthly, with the review recorded in the compliance platform;
+- the monthly configuration-check Lambda run against the fixed checklist, with the dated pass/fail record posted to and reviewed in the compliance platform;
 - quarterly automated access reviews by Lambda; semi-annual privileged-access audits;
 - vulnerability assessment under the Vulnerability Management Procedure and an annual third-party penetration test;
 - quarterly backup-restore tests and an annual tabletop exercise;
@@ -405,7 +405,7 @@ Periodic:
 
 ### 7.5 Control activities
 
-**Access control.** PropelAuth JWT authentication with Google Workspace single sign-on (multi-factor authentication inherited from Google Workspace); role-based access control with least privilege; user registration and identity verification before access is granted; VPC isolation with private subnets; quarterly automated access reviews by Lambda; personnel MFA enforced in Google Workspace, GitHub, and AWS.
+**Access control.** PropelAuth JWT authentication with Google Workspace single sign-on (multi-factor authentication inherited from Google Workspace); role-based access control with least privilege; user registration and identity verification before access is granted; VPC isolation with private subnets; quarterly automated access reviews by Lambda; personnel MFA enforced in Google Workspace, GitHub, and AWS; company data accessed only through browser SSO with MFA from personnel devices with FileVault full-disk encryption (macOS).
 
 **Data protection.** KMS encryption of DocumentDB; TLS for all data in transit; [CONFIRM: field-level encryption for sensitive personal information]; data sanitization standards for complete removal of sensitive data; automated disposal by scheduled Lambda under the retention policy.
 
@@ -465,4 +465,4 @@ Deal Intelligence LLC
 | Version | Date | Summary |
 |---|---|---|
 | 1.0 | November 23, 2025 | Draft system description generated in the prior compliance tool; basis of the SOC 2 Type I report (as of March 2, 2026). |
-| 2.0 | <to be set at publication> | Scope narrowed to Security, Availability, and Confidentiality; claims aligned to the target environment (PR workflow, staging stage, Multi-AZ DocumentDB, 90-day backups, 7-year CloudTrail, ECR scan-on-push, secrets rotation); unevidenced numbers and controls removed; roles stated with compensating controls for segregation of duties; other vendors, system incidents, changes in the period, network diagram reference, and management's assertion added; restructured to the DC 200 order with duplicated architecture text removed; wording hygiene per RULEBOOK R0–R8. |
+| 2.0 | <to be set at publication> | Scope narrowed to Security, Availability, and Confidentiality; claims aligned to the target environment (PR workflow, staging stage, Multi-AZ DocumentDB, 90-day backups, 7-year CloudTrail, ECR scan-on-push, secrets rotation); unevidenced numbers and controls removed; roles stated with compensating controls for segregation of duties; other vendors, system incidents, changes in the period, network diagram reference, and management's assertion added; restructured to the DC 200 order with duplicated architecture text removed; wording hygiene per RULEBOOK R0–R8; decisions of 2026-10-31 applied (KMS key-separation target design, FileVault endpoint encryption, availability measured monthly over all minutes excluding announced maintenance, other vendors stated as not processing customer data). |

@@ -1,8 +1,7 @@
 ---
-title: "Management Meeting Minutes - Q4 2025"
+title: "Document Control"
 doc_type: "Record"
-version: "2.0"
-supersedes: "1.0"
+version: "1.0"
 acknowledgment: "None"
 effective_date: "N/A"
 review_date: "N/A"
@@ -11,344 +10,365 @@ author: "Mo Messidi"
 source: "board-management-meeting-minutes-q4-2025-v1.0.pdf"
 ---
 
-# Management Meeting Minutes - Q4 2025
+> Corrected 2026-10-31: historical record, kept as finalized on February 2, 2026 — figures (including the 86 % control-automation value) and decisions are as recorded; read "Quarterly Board Meeting" / "Board" as the quarterly management meeting, "Head of GTM" as the Go-to-Market Contractor, "PropelAuth MFA" as Google Workspace single sign-on with MFA inherited through PropelAuth, "load balancing" as Lambda versioned deployments with rollback, "Trust Services Category, Criteria, Related Controls and Evidence" as the compliance platform's control register, and the Processing Integrity and Privacy rows as the scope at the time (now Security, Availability, and Confidentiality).
+## Meeting Information
 
-## 1. Meeting information
+**Meeting Type** : [X] Quarterly Board Meeting [ ] Annual Meeting [ ] Special Meeting
 
-| Field | Detail |
-|---|---|
-| Meeting type | Quarterly management meeting |
-| Date | December 9, 2025 |
-| Time | 2:00 PM – 4:00 PM PST (22:00 – 00:00 UTC) |
-| Location | Video conference |
-| Called by | Mo Messidi, Chief Executive Officer (CEO) |
-| Purpose | Quarterly review of financial performance, operations, security and compliance, risks, and strategic initiatives |
+**Meeting Date** : December 9, 2025 **Meeting Time** : 2:00 PM - 4:00 PM PST **Location** : [ ] In-Person [X] Video Conference [ ] Phone Conference
 
-## 2. Attendees
+**Meeting Called By** : Mo Messidi (CEO)
 
-| Role | Name | Present |
-|---|---|---|
-| CEO | Mo Messidi | Yes |
-| Go-to-Market Contractor | William Wickey | Yes |
+**Meeting Purpose** : Quarterly review of financial performance, operational status, security and compliance posture, risk assessment, and strategic initiatives in alignment with SOC 2 Trust Services Criteria governance requirements.
 
-Absent: none. Quorum: yes, per the Deal Intelligence LLC operating agreement.
+## Attendees
 
-## 3. Agenda
+**Present** : - [X] CEO: Mo Messidi - [X] Contractor: William Wickey (Head of GTM) - [ ] External Advisor: N/A - [ ] Other: N/A
 
-1. Call to order
-2. Review of previous meeting minutes
-3. Financial review
-4. Operational updates
-5. Security and compliance review
-6. Risk assessment review
-7. Strategic initiatives
-8. Action items review
-9. New business
-10. Next meeting date
+**Absent** : - None
+
+**Quorum** : [X] Yes [ ] No
+
+_Note: Quorum established per Deal Intelligence LLC operating agreement requirements._
+
+## Agenda
+
+1. Call to Order
+
+2. Review of Previous Meeting Minutes
+
+3. Financial Review
+
+4. Operational Updates
+
+5. Security and Compliance Review
+
+6. Risk Assessment Review
+
+7. Strategic Initiatives
+
+8. Action Items Review
+
+9. New Business
+
+10. Next Meeting Date
+
 11. Adjournment
 
-## 4. Minutes
+## Meeting Minutes
 
-### 4.1 Call to order
+## 1. Call to Order
 
-The CEO called the meeting to order at 2:00 PM PST and confirmed that notice had been given to all required attendees.
+Meeting called to order at 2:00 PM PST by Mo Messidi (CEO).
 
-### 4.2 Review of previous meeting minutes
+CEO confirmed that proper notice was provided to all required attendees and that the meeting was being conducted in accordance with governance requirements supporting SOC 2 compliance objectives.
 
-| Field | Detail |
+## 2. Review of Previous Meeting Minutes
+
+**Previous Meeting Date** : September 15, 2025 (Q3 2025)
+
+**Minutes Reviewed** : [X] Yes [ ] No [ ] N/A (First Meeting)
+
+**Minutes Approved** : [X] Yes [ ] No [ ] Amendments Required
+
+**Amendments** (if any): No amendments required. Q3 2025 minutes approved as written.
+
+**Motion** : Mo Messidi moved to approve Q3 2025 minutes. William Wickey seconded. Motion carried unanimously.
+
+**Previous Action Items Status** : | Action Item | Owner | Status | Notes | |-------------|-------|--------|------| | Complete SOC 2 readiness assessment | Mo Messidi | Completed | 86% control automation achieved | | Finalize vendor DPAs | Mo Messidi | Completed | PropelAuth and AWS agreements in place | | Implement quarterly access reviews | Mo Messidi | Completed | Automated Lambda function deployed |
+
+## 3. Financial Review
+
+**Period Covered** : October 1, 2025 – December 9, 2025
+
+### 3.1 Revenue Summary
+
+|**Metric**|**Status**|**Notes**|
+|---|---|---|
+|Total Revenue|Confidential|On track with projections|
+|Growth vs. Previous Period|On track|Positive trajectory|
+
+|**Metric**|**Status**|**Notes**|
+|---|---|---|
+|Key Revenue Drivers|—|New customer acquisition, existing customer expansion, feature adoption|
+
+### 3.2 Expense Summary
+
+|**Category**|**Monthly Amount**|**Status**|
+|---|---|---|
+|Infrastructure (AWS)|~$2,000|Within budget|
+|Personnel|Confidential|Within budget|
+|Tools/Software|~$500|PropelAuth, monitoring tools, development tools|
+|Compliance Platform|Included above|the compliance platform subscription|
+|**Total Expenses**|Within budget|No variances requiring board attention|
+
+### 3.3 Financial Decisions
+
+**Motion** : None required. Financial performance reviewed and acknowledged.
+
+**Discussion Points** : - Infrastructure costs remain stable with current AWS resource utilization - No significant budget variances identified - Compliance-related expenditures aligned with SOC 2 Type II certification timeline
+
+## 4. Operational Updates
+
+### 4.1 Platform Performance
+
+|**Metric**|**Target**|**Actual**|**Status**|
+|---|---|---|---|
+|System Uptime|99.9%|99.95%|✓Exceeding SLA|
+|API Response Time|<500ms|<300ms avg|✓Within target|
+|Incident Count (P1/P2)|0|0|✓No critical incidents|
+
+_Reference: Performance monitoring conducted per Service Level Agreement (SLA) Management_ _<u>Policy</u>_
+
+### 4.2 Infrastructure Status
+
+**AWS Infrastructure Health** : - Multi-AZ deployment (us-east-1a, us-east-1b) operating normally - DocumentDB cluster healthy with KMS encryption active - Lambda functions performing within reserved concurrency limits (100) - CloudFront CDN distribution active with no reported issues - VPC security groups and private subnets properly configured
+
+_Reference: Infrastructure managed per Cloud Infrastructure Security Policy and Infrastructure and_ _<u>Recovery Policy</u>_
+
+### 4.3 Customer Operations
+
+|**Metric**|**Q4 Status**|
 |---|---|
-| Previous meeting | September 15, 2025 (Q3 2025) |
-| Minutes reviewed | Yes |
-| Minutes approved | Yes, as written; no amendments |
+|Active Customers|Growing|
+|Customer Support Tickets|Within normal range|
+|Data Subject Requests|0 pending|
+|Customer Complaints|None|
 
-**Motion:** Mo Messidi moved to approve the Q3 2025 minutes. William Wickey seconded. Motion carried unanimously.
+_Reference: Data subject requests handled per Data Subject Rights Request Procedure_
 
-**Status of previous action items:**
+## 5. Security and Compliance Review
 
-| Action item | Owner | Status | Notes |
-|---|---|---|---|
-| Complete SOC 2 readiness assessment | Mo Messidi | Completed | Control register established in the compliance platform [CONFIRM: v1 note read "86% control automation achieved" — kept as a number elsewhere in this record; see CHANGES] |
-| Finalize vendor DPAs | Mo Messidi | Completed | PropelAuth and AWS agreements in place |
-| Implement quarterly access reviews | Mo Messidi | Completed | Access-review Lambda function deployed |
+### 5.1 SOC 2 Compliance Status
 
-### 4.3 Financial review
+**Trust Services Criteria Coverage** :
 
-Period covered: October 1, 2025 – December 9, 2025.
-
-**Revenue**
-
-| Metric | Status | Notes |
+|**Criteria**|**Status**|**Notes**|
 |---|---|---|
-| Total revenue | Confidential | On track with projections |
-| Growth vs. previous period | On track | Positive trajectory |
-| Key revenue drivers | — | New customer acquisition, existing customer expansion, feature adoption |
+|Security (Required)|✓Implemented|Core controls operational|
+|Availability|✓Implemented|99.9% SLA maintained|
+|Processing Integrity|✓Implemented|Data validation controls active|
+|Confidentiality|✓Implemented|Encryption and access controls in place|
+|Privacy|✓Implemented|GDPR/CCPA controls operational|
 
-**Expenses**
+**Control Automation Rate** : 86% (target: maintain or improve)
 
-| Category | Monthly amount | Status |
+**Planned Controls for Q1-Q2 2026** : 2 low-impact gaps identified and scheduled for remediation
+
+_Reference: Control mapping documented in Trust Services Category, Criteria, Related Controls_ _<u>and Evidence</u>_
+
+### 5.2 Security Incidents
+
+**Reporting Period** : October 1, 2025 – December 9, 2025
+
+|**Incident Type**|**Count**|**Status**|
 |---|---|---|
-| Infrastructure (AWS) | ~$2,000 | Within budget |
-| Personnel | Confidential | Within budget |
-| Tools and software | ~$500 | PropelAuth, monitoring tools, development tools |
-| Compliance platform | Included above | Compliance platform subscription |
-| Total expenses | Within budget | No variances requiring management attention |
+|Security Breaches|0|—|
+|Unauthorized Access Attempts|0 confirmed|Monitoring active|
+|Data Loss Events|0|—|
+|Availability Incidents|0|—|
 
-**Financial decisions:** none required. Financial performance reviewed and acknowledged.
+**Incident Response Readiness** : - Automated breach detection Lambda function operational - SNS security alerts configured and tested - 48-hour customer notification capability confirmed - Incident reporting tracked via the compliance platform's Incident Reporting system
 
-Discussion points:
-- Infrastructure costs stable at current AWS resource utilization.
-- No significant budget variances identified.
-- Compliance expenditure aligned with the SOC 2 Type II timeline.
+_Reference: Incident Response Procedure_
 
-### 4.4 Operational updates
+### 5.3 Access Control Review
 
-**Platform performance**
+**Quarterly Access Review Status** : Completed (automated via Lambda function)
 
-| Metric | Target | Actual | Status |
+|**Review Area**|**Status**|**Findings**|
+|---|---|---|
+|User Access Rights|✓Reviewed|No unauthorized access identified|
+|Privileged Accounts|✓Reviewed|Appropriate restrictions in place|
+|Terminated User Access|✓Verified|No orphaned accounts|
+|MFA Enforcement|✓Verified|Available for all users via PropelAuth|
+
+_Reference:_ _<u>Access Control and Authentication Policy</u>_
+
+### 5.4 Vulnerability Management
+
+|**Activity**|**Status**|**Notes**|
+|---|---|---|
+|ECR Container Scanning|Active|No critical vulnerabilities|
+|Dependency Scanning|Active|GitHub Actions pipeline|
+
+|**Activity**|**Status**|**Notes**|
+|---|---|---|
+|Security Hub Findings|Reviewed|No high-severity findings|
+|Penetration Testing|Scheduled|Annual test planned per policy|
+
+_Reference: Vulnerability Management Procedure and Penetration Testing and Security_ _<u>Assessment Procedure</u>_
+
+### 5.5 Privacy and Data Protection
+
+**GDPR/CCPA Compliance Status** : - Data Processing Agreements in place with all sub-processors - Privacy notices current and accessible - Data subject request procedures operational - 24-month retention policy enforced for active leads
+
+_Reference: Data Retention and Disposal Policy and Privacy Notice and Data Processing_ _<u>Agreement Template</u>_
+
+## 6. Risk Assessment Review
+
+### 6.1 Risk Register Summary
+
+**Risk Assessment Method** : Quarterly review utilizing the compliance platform's Risk Assessment module
+
+|**Risk Category**|**Risk Level**|**Mitigation Status**|**Trend**|
 |---|---|---|---|
-| System uptime | 99.9 % | 99.95 % | Exceeding SLA |
-| API response time | < 500 ms | < 300 ms average | Within target |
-| Incident count (P1/P2) | 0 | 0 | No critical incidents |
+|Data Breach|Medium|Mitigated|Stable ↔|
+|Unauthorized Access|Medium|Mitigated|Stable ↔|
+|Service Availability|Low|Mitigated|Improved ↓|
+|Third-Party/Vendor|Low|Mitigated|Stable ↔|
+|Regulatory Non-Compliance|Low|Mitigated|Stable ↔|
 
-Reference: Service Level Agreement (SLA) Management Policy.
+### 6.2 Key Risk Mitigations in Place
 
-**Infrastructure status**
-
-- Multi-AZ deployment (us-east-1a, us-east-1b) operating normally.
-- DocumentDB cluster healthy with KMS encryption active.
-- Lambda functions performing within reserved concurrency limits (100).
-- CloudFront distribution active with no reported issues.
-- VPC security groups and private subnets configured as designed.
-
-Reference: Cloud Infrastructure Security Policy.
-
-**Customer operations**
-
-| Metric | Q4 status |
+|**Risk**|**Primary Mitigations**|
 |---|---|
-| Active customers | Growing |
-| Customer support tickets | Within normal range |
-| Data subject requests | 0 pending |
-| Customer complaints | None |
+|Data Breach|KMS encryption, VPC isolation, audit logging, PII sanitization|
+|Unauthorized Access|PropelAuth MFA, RBAC, quarterly access reviews, session timeouts|
+|Service Availability|Multi-AZ deployment, daily backups, load balancing, 99.9% SLA|
 
-Reference: Data Subject Rights Request Procedure.
+**Risk Primary Mitigations** Third-Party Risk Minimal sub-processor model (2), DPAs, vendor assessments
 
-### 4.5 Security and compliance review
+_Reference: Risk Assessment Procedure_
 
-**SOC 2 status**
+### 6.3 Risk Decisions
 
-| Trust services category | Status | Notes |
+**Board Acknowledgment** : The board reviewed and acknowledged the current risk posture. No additional risk treatment decisions required at this time.
+
+**Motion** : Mo Messidi moved to accept the Q4 2025 risk assessment findings. William Wickey seconded. Motion carried unanimously.
+
+## 7. Strategic Initiatives
+
+### 7.1 SOC 2 Type II Certification
+
+|**Milestone**|**Target Date**|**Status**|
 |---|---|---|
-| Security | Implemented | Core controls operational |
-| Availability | Implemented | 99.9 % SLA maintained |
-| Confidentiality | Implemented | Encryption and access controls in place |
+|Policy Framework Complete|Q4 2025|✓Completed|
+|Control Implementation|Q4 2025|✓86% automated|
+|Gap Remediation|Q1-Q2 2026|In progress (2 items)|
+|Type II Audit Period|2026|Planned|
+|Certification Target|2026|On track|
 
-Control automation rate: 86 % (target: maintain or improve). [CONFIRM: R4 strikes the "86 % control automation" claim from policies; it is kept here as the metric recorded at the meeting — confirm keep or strike]
+### 7.2 Platform Development
 
-Planned controls for Q1–Q2 2026: 2 low-impact gaps identified and scheduled for remediation.
-
-Reference: control register in the compliance platform.
-
-**Security incidents** (October 1, 2025 – December 9, 2025)
-
-| Incident type | Count | Status |
+|**Initiative**|**Status**|**Notes**|
 |---|---|---|
-| Security breaches | 0 | — |
-| Unauthorized access attempts | 0 confirmed | Monitoring active |
-| Data loss events | 0 | — |
-| Availability incidents | 0 | — |
+|Feature Enhancements|On track|Per product roadmap|
+|Security Improvements|Ongoing|Continuous improvement|
+|Infrastructure Optimization|Ongoing|Cost and performance monitoring|
 
-Incident response readiness:
-- Breach-detection Lambda function operational (routes Security Hub findings to SNS).
-- SNS security alerts configured and tested.
-- 48-hour customer notification capability confirmed.
-- Incidents recorded in the compliance platform.
+### 7.3 Business Development
 
-Reference: Incident Response Procedure.
-
-**Access control review** — quarterly access review completed (access-review Lambda function).
-
-| Review area | Status | Findings |
+|**Initiative**|**Owner**|**Status**|
 |---|---|---|
-| User access rights | Reviewed | No unauthorized access identified |
-| Privileged accounts | Reviewed | Appropriate restrictions in place |
-| Terminated user access | Verified | No orphaned accounts |
-| MFA enforcement | Verified | Customer MFA inherited from Google Workspace sign-in via PropelAuth; personnel MFA enforced in Google Workspace, GitHub, and AWS [CONFIRM: v1 finding read "Available for all users via PropelAuth"] |
+|Customer Acquisition|William Wickey|Active|
+|Market Expansion|William Wickey|Planning|
+|Partnership Development|Mo Messidi|Evaluating|
 
-Reference: Access Control and Authentication Policy.
+## 8. Action Items Review
 
-**Vulnerability management**
+### 8.1 Completed Action Items from Q3 2025
 
-| Activity | Status | Notes |
+|**Action Item**|**Owner**|**Completion Date**|
 |---|---|---|
-| ECR container scanning | Active | No critical vulnerabilities |
-| Dependency scanning | Active | Dependabot and GitHub Actions pipeline |
-| Security Hub findings | Reviewed | No high-severity findings |
-| Penetration testing | Scheduled | Annual test planned per policy |
+|Deploy automated access review Lambda|Mo Messidi|October 2025|
+|Complete vendor DPA renewals|Mo Messidi|November 2025|
+|Update incident response procedures|Mo Messidi|November 2025|
 
-Reference: Vulnerability Management Procedure; Penetration Testing and Security Assessment Procedure.
+### 8.2 New Action Items for Q1 2026
 
-**Privacy and data protection (GDPR/CCPA)**
-
-- Data Processing Agreements in place with all sub-processors.
-- Privacy notices current and accessible.
-- Data subject request procedure operational.
-- 24-month retention enforced for active leads.
-- GDPR/CCPA controls operational.
-
-Reference: Data Retention and Disposal Policy; Privacy Notice and Data Processing Agreement Template.
-
-### 4.6 Risk assessment review
-
-**Risk register summary** — quarterly review in the compliance platform's risk register.
-
-| Risk category | Risk level | Mitigation status | Trend |
+|**Action Item**|**Owner**|**Due Date**|**Priority**|
 |---|---|---|---|
-| Data breach | Medium | Mitigated | Stable |
-| Unauthorized access | Medium | Mitigated | Stable |
-| Service availability | Low | Mitigated | Improved |
-| Third-party/vendor | Low | Mitigated | Stable |
-| Regulatory non-compliance | Low | Mitigated | Stable |
+|Complete 2 remaining control implementations|Mo Messidi|Q1 2026|Medium|
+|Conduct annual penetration test|Mo Messidi|Q1 2026|High|
+|Review and update Business Continuity Plan|Mo Messidi|Q1 2026|Medium|
+|Complete annual security awareness training|Mo Messidi|Q1 2026|High|
+|Prepare for SOC 2 Type II audit engagement|Mo Messidi|Q2 2026|High|
 
-**Key risk mitigations in place**
+_Reference: Training requirements per Security Awareness Training Program_
 
-| Risk | Primary mitigations |
+## 9. New Business
+
+### 9.1 Items Raised
+
+|**Topic**|**Discussion**|**Decision/Action**|
+|---|---|---|
+|Q1 2026 backup restoration test|Quarterly test due per BCP|Schedule for January 2026|
+
+|**Topic**|**Discussion**|**Decision/Action**|
+|---|---|---|
+|Annual policy review cycle|Policies due for annual review|Begin review cycle Q1 2026|
+|Ethics violation log review|2025 log reviewed|No violations reported|
+
+_Reference: Ethics Violation Log - 2025 and Business Continuity Plan_
+
+### 9.2 Vendor Management Update
+
+**Current Sub-Processors** :
+
+|**Vendor**|**Service**|**DPA Status**|**Last Assessment**|
+|---|---|---|---|
+|AWS|Infrastructure|✓Active|Q4 2025|
+|PropelAuth|Authentication|✓Active|Q4 2025|
+
+**Vendor Changes** : None. 30-day notice requirement maintained per policy.
+
+_Reference: Vendor Management Policy_
+
+## 10. Next Meeting Date
+
+**Next Quarterly Meeting** : March 2026 (Q1 2026 Review)
+
+**Proposed Date** : Week of March 9, 2026
+
+**Proposed Agenda Items** : - Q1 2026 financial review - SOC 2 Type II audit preparation status - Annual penetration test results - Policy annual review status - Risk assessment update
+
+## 11. Adjournment
+
+**Motion to Adjourn** : Mo Messidi moved to adjourn. William Wickey seconded.
+
+**Meeting Adjourned** : 3:45 PM PST
+
+## Approvals
+
+|**Role**|**Name**|**Signature**|**Date**|
+|---|---|---|---|
+|CEO|Mo Messidi|_________________|________|
+|Meeting Recorder|Mo Messidi|_________________|________|
+
+## Appendices
+
+## Appendix A: Related Documents
+
+The following documents were referenced during this meeting:
+
+- <u>Information Security Policy</u>
+
+- <u>Access Control and Authentication Policy</u>
+
+- <u>Incident Response Procedure</u>
+
+- <u>Risk Assessment Procedure</u>
+
+- <u>Business Continuity Plan</u>
+
+- <u>Vendor Management Policy</u>
+
+- <u>Change Management Policy</u>
+
+## Appendix B: Compliance Framework Alignment
+
+This meeting and its documentation support the following SOC 2 Trust Services Criteria:
+
+|**Criteria**|**Relevance**|
 |---|---|
-| Data breach | KMS encryption, VPC isolation, audit logging, PII sanitization |
-| Unauthorized access | Google Workspace SSO with inherited MFA via PropelAuth, RBAC, quarterly access reviews, session timeouts |
-| Service availability | Multi-AZ deployment, daily backups, Lambda versioned deployments with rollback, 99.9 % SLA |
-| Third-party risk | Minimal sub-processor model (2), DPAs, vendor assessments |
+|CC1.1|Demonstrates commitment to integrity and ethical values through governance oversight|
+|CC1.2|Board exercises oversight of internal control system|
+|CC1.3|Management establishes structure, reporting lines, and responsibilities|
+|CC2.1|Information communicated internally to support functioning of internal control|
+|CC3.1|Risk assessment process identifies and assesses risks|
+|CC4.1|Monitoring activities evaluate whether controls are present and functioning|
 
-Reference: Risk Assessment Procedure.
+_Document maintained in accordance with Deal Intelligence LLC governance requirements and SOC 2 compliance objectives._
 
-**Risk decisions:** management reviewed and acknowledged the current risk posture. No additional risk treatment decisions required at this time.
-
-**Motion:** Mo Messidi moved to accept the Q4 2025 risk assessment findings. William Wickey seconded. Motion carried unanimously.
-
-### 4.7 Strategic initiatives
-
-**SOC 2 Type II**
-
-| Milestone | Target date | Status |
-|---|---|---|
-| Policy framework complete | Q4 2025 | Completed |
-| Control implementation | Q4 2025 | 86 % automated [CONFIRM: see §4.5] |
-| Gap remediation | Q1–Q2 2026 | In progress (2 items) |
-| Type II audit period | 2026 | Planned |
-| Certification target | 2026 | On track |
-
-**Platform development**
-
-| Initiative | Status | Notes |
-|---|---|---|
-| Feature enhancements | On track | Per product roadmap |
-| Security improvements | Ongoing | Continuous improvement |
-| Infrastructure optimization | Ongoing | Cost and performance monitoring |
-
-**Business development**
-
-| Initiative | Owner | Status |
-|---|---|---|
-| Customer acquisition | William Wickey | Active |
-| Market expansion | William Wickey | Planning |
-| Partnership development | Mo Messidi | Evaluating |
-
-### 4.8 Action items review
-
-**Completed action items from Q3 2025**
-
-| Action item | Owner | Completion date |
-|---|---|---|
-| Deploy access-review Lambda function | Mo Messidi | October 2025 |
-| Complete vendor DPA renewals | Mo Messidi | November 2025 |
-| Update incident response procedures | Mo Messidi | November 2025 |
-
-**New action items for Q1 2026**
-
-| Action item | Owner | Due date | Priority |
-|---|---|---|---|
-| Complete 2 remaining control implementations | Mo Messidi | Q1 2026 | Medium |
-| Conduct annual penetration test | Mo Messidi | Q1 2026 | High |
-| Review and update Business Continuity Plan | Mo Messidi | Q1 2026 | Medium |
-| Complete annual security awareness training | Mo Messidi | Q1 2026 | High |
-| Prepare for SOC 2 Type II audit engagement | Mo Messidi | Q2 2026 | High |
-
-Reference: Security Awareness Training Program.
-
-### 4.9 New business
-
-**Items raised**
-
-| Topic | Discussion | Decision/action |
-|---|---|---|
-| Q1 2026 backup restoration test | Quarterly test due per the Business Continuity Plan | Schedule for January 2026 |
-| Annual policy review cycle | Policies due for annual review | Begin review cycle Q1 2026 |
-| Ethics violation log review | 2025 log reviewed | No violations reported |
-
-Reference: Ethics Violation Log - 2025; Business Continuity Plan.
-
-**Vendor management update** — current sub-processors:
-
-| Vendor | Service | DPA status | Last assessment |
-|---|---|---|---|
-| AWS | Infrastructure | Active | Q4 2025 |
-| PropelAuth | Authentication | Active | Q4 2025 |
-
-Vendor changes: none. 30-day notice requirement maintained per policy.
-
-Reference: Vendor Management Policy.
-
-### 4.10 Next meeting date
-
-| Field | Detail |
-|---|---|
-| Next quarterly meeting | March 2026 (Q1 2026 review) |
-| Proposed date | Week of March 9, 2026 |
-
-Proposed agenda items:
-- Q1 2026 financial review
-- SOC 2 Type II audit preparation status
-- Annual penetration test results
-- Policy annual review status
-- Risk assessment update
-
-### 4.11 Adjournment
-
-**Motion to adjourn:** Mo Messidi moved to adjourn. William Wickey seconded.
-
-Meeting adjourned at 3:45 PM PST (23:45 UTC).
-
-## 5. Approvals
-
-| Role | Name | Signature | Date |
-|---|---|---|---|
-| CEO | Mo Messidi | _________________ | ________ |
-| Meeting recorder | Mo Messidi | _________________ | ________ |
-
-## 6. Related documents
-
-- Information Security Policy
-- Access Control and Authentication Policy
-- Incident Response Procedure
-- Risk Assessment Procedure
-- Business Continuity Plan
-- Vendor Management Policy
-- Change Management Policy
-
-## 7. SOC 2 criteria supported
-
-| Criteria | Relevance |
-|---|---|
-| CC1.1 | Commitment to integrity and ethical values through management oversight |
-| CC1.2 | Management oversight of the internal control system |
-| CC1.3 | Management establishes structure, reporting lines, and responsibilities |
-| CC2.1 | Information communicated internally to support the functioning of internal control |
-| CC3.1 | Risk assessment process identifies and assesses risks |
-| CC4.1 | Monitoring activities evaluate whether controls are present and functioning |
-
-## 8. Revision history
-
-| Version | Date | Author | Changes |
-|---|---|---|---|
-| 1.0 | December 9, 2025 (finalized February 2, 2026) | Mo Messidi | Q4 2025 minutes |
-| 2.0 | [CONFIRM: date] | Mo Messidi | Reformatted as minutes; SOC 2 scope aligned to Security, Availability, and Confidentiality; role wording per RULEBOOK R2; removed products per R4; no change to decisions, dates, or figures |
+**Document Information**

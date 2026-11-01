@@ -6,7 +6,7 @@ supersedes: "1.1"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "acceptable-use-policy-v1.1.pdf"
 ---
 
@@ -65,7 +65,7 @@ The policy covers production and non-production environments as documented in th
 - Enforces compliance through disciplinary measures
 - Allocates resources for policy implementation and monitoring
 - Reviews policy effectiveness annually
-- Monitors compliance through CloudWatch logs and Security Hub findings
+- Monitors compliance through CloudWatch logs, the monthly configuration-check record, and CloudTrail event alerts
 - Investigates policy violations reported through the Incident Reporting system in the compliance platform
 - Maintains the technical controls that enforce acceptable use requirements
 - Provides guidance on acceptable use questions and edge cases
@@ -153,9 +153,8 @@ Deal Intelligence operates remotely. Users must meet the following requirements.
 
 ### 7.1 Device security
 
-- Use full-disk encryption on all devices accessing company systems
+- Use FileVault full-disk encryption (macOS) on all devices accessing company systems
 - Maintain current operating system patches and security updates
-- Run the device agent of the compliance platform where deployed
 - Enable automatic screen locks with password protection
 - Report lost or stolen devices immediately
 
@@ -190,7 +189,7 @@ Users with AWS access must:
 
 Users must:
 
-- Use only approved sub-processors (AWS, PropelAuth, Google Workspace, GitHub, Resend, and the compliance platform, which is self-hosted on AWS)
+- Use only approved sub-processors (AWS and PropelAuth) and approved vendors (Google Workspace, GitHub, Resend, HubSpot, and the compliance platform, which is self-hosted on AWS); the vendors do not process customer data
 - Follow the Vendor Management Policy and the Integration security section of the API Security and Rate Limiting Standard
 - Not integrate unauthorized third-party services
 - Apply the security requirements to customer-controlled integrations (Slack, CRM)
@@ -226,9 +225,8 @@ Deal Intelligence monitors system usage through:
 
 - CloudWatch logs with 90-day retention
 - API request audit logging middleware
-- CloudTrail for AWS API calls
-- Security Hub findings and alerts
-- Automated compliance checks via Lambda functions
+- CloudTrail for AWS API calls, with security-relevant events (root sign-in, IAM changes, CloudTrail stop/delete, KMS key disable, security-group changes) alerted to the CEO in real time via EventBridge, the breach-detection Lambda, and SNS
+- Monthly configuration-check Lambda run against a fixed checklist, with a dated pass/fail record posted to the compliance platform
 
 ### 10.2 Compliance verification
 
@@ -247,8 +245,7 @@ Compliance is verified through:
 Policy violations are reported through:
 
 - The Incident Reporting system in the compliance platform
-- Direct notification to the CEO
-- Anonymous reporting channels if available
+- Direct notification to the CEO by email
 
 ### 11.2 Consequences
 
@@ -268,7 +265,6 @@ All reported violations are:
 - Investigated within 24 hours of the report
 - Documented with findings and remediation actions
 - Reviewed for process improvements
-- Included in quarterly compliance reports
 
 ## 12. Exceptions
 
@@ -287,7 +283,6 @@ Exceptions to this policy require:
 Approved exceptions are:
 
 - Documented in the risk register in the compliance platform's risk assessment module
-- Reviewed quarterly for continued necessity
 - Monitored for compliance with compensating controls
 - Revoked when the business need no longer exists
 
@@ -328,4 +323,4 @@ All users must:
 |---|---|---|
 |1.0|November 13, 2025|Initial release|
 |1.1|November 13, 2025|Audited release|
-|2.0|<to be set at publication>|Roles consolidated to CEO and Go-to-Market Contractor; remote-access and device requirements restated as browser SSO and AWS console/CLI with MFA plus the compliance platform device agent; MFA wording aligned; direct production database access limited to the CEO via SSM Session Manager; sub-processor list updated|
+|2.0|<to be set at publication>|Roles consolidated to CEO and Go-to-Market Contractor; remote-access and device requirements restated as browser SSO and AWS console/CLI with MFA plus FileVault full-disk encryption; MFA wording aligned; direct production database access limited to the CEO via SSM Session Manager; sub-processor list updated|

@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "vendor-management-policy-v1.0.pdf"
 ---
 
@@ -155,7 +155,7 @@ Reference: Service Level Agreement (SLA) Management Policy
 
 **Annual reviews**: Security assessment of all critical vendors, including performance metrics and SLA compliance verification
 
-**Continuous monitoring**: Real-time monitoring of AWS infrastructure through CloudWatch and Security Hub, with the monthly availability figure recorded in the compliance platform
+**Continuous monitoring**: Real-time monitoring of AWS infrastructure through CloudWatch alarms and CloudTrail event alerting, with the monthly availability figure and the monthly configuration-check record recorded in the compliance platform
 
 ### 9.2 Performance monitoring
 
@@ -184,10 +184,9 @@ Reference: Risk Assessment Procedure
 Deal Intelligence maintains a minimal sub-processor model with the following approved sub-processors:
 
 1. **AWS**: Cloud infrastructure and platform services, including hosting of the compliance platform, which is self-hosted on AWS
-2. **PropelAuth**: Authentication and identity management services
-3. **Google Workspace**: Email, identity (SSO), and document collaboration services
-4. **GitHub**: Source code hosting and CI (GitHub Actions)
-5. **Resend**: Transactional email delivery
+2. **PropelAuth**: Authentication and identity management services (customer sign-in through Google is provided via PropelAuth)
+
+Google Workspace (personnel email, identity and documents), GitHub (source code hosting and CI), Resend (transactional email delivery) and HubSpot (CRM) do not process customer data. They are managed as vendors under this policy and are not sub-processors.
 
 ### 10.2 Sub-processor changes
 
@@ -277,7 +276,6 @@ Any exception to this policy must be:
 - Documented with business justification
 - Risk assessed, with mitigation controls defined
 - Approved by the CEO
-- Reviewed quarterly for continued necessity
 - Tracked in the risk register
 
 ## 15. Review
@@ -314,5 +312,5 @@ _This document is maintained in the compliance platform and subject to version c
 
 |**Version**|**Date**|**Author**|**Summary**|
 |---|---|---|---|
-|1.0|November 13, 2025|mo@dealintelligence.io|Initial audited version|
-|2.0|<to be set at publication>|mo@dealintelligence.io|Scope aligned to Security, Availability and Confidentiality; sub-processor list updated (AWS, PropelAuth, Google Workspace, GitHub, Resend, compliance platform self-hosted on AWS); annual vendor reviews; Cloud Infrastructure Governance section removed; on-site audits removed; roles consolidated to CEO; vendor-assessment and DPA content merged in from the Third-Party Integration Security Guidelines|
+|1.0|November 13, 2025|Mo Messidi|Initial audited version|
+|2.0|<to be set at publication>|Mo Messidi|Scope aligned to Security, Availability and Confidentiality; sub-processor list reduced to AWS and PropelAuth (Google Workspace, GitHub, Resend and HubSpot listed as vendors that do not process customer data); annual vendor reviews; Cloud Infrastructure Governance section removed; on-site audits removed; roles consolidated to CEO; vendor-assessment and DPA content merged in from the Third-Party Integration Security Guidelines|

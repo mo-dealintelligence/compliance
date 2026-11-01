@@ -46,3 +46,14 @@
 
 - §3 Change window "2:00 AM – 6:00 AM EST" kept as v1. The rubric asks for UTC (with local time alongside for customer-facing windows); EST vs EDT is ambiguous so no conversion was made — confirm the intended window (e.g. 07:00–11:00 UTC) and whether it should be stated in both.
 - §5.5 "Updates the configuration management database" kept verbatim; confirm a CMDB exists (or that this means the CloudFormation stack / compliance platform asset list) and reword accordingly.
+
+## Decisions applied (2026-10-31)
+
+- D9: §3 change window "2:00 AM – 6:00 AM EST" → "07:00–11:00 UTC / 02:00–06:00 ET".
+- D25: cut §8 monthly change-management metrics review and the "quarterly compliance reviews"; metrics list kept (drawn from GitHub and CloudTrail records) and now reviewed at the quarterly management meeting (doc-11 calendar).
+- D12: §7.1 Security Hub configuration checks unchanged.
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §7.1 tooling bullet "Security Hub configuration checks for compliance monitoring" → the monthly configuration-check Lambda record plus the CloudTrail-EventBridge real-time alert for IAM and security-group changes (the two checklist/alert items that catch unauthorized infrastructure change).
+- D11b, D13b, D14: no insurance, availability-measurement or controller/processor text in this document; nothing to apply.

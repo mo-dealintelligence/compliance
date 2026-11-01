@@ -38,3 +38,17 @@
 - Kept: all RTO/RPO/MTD values, 02:00 UTC backup time, test schedule, notification timings, contact placeholders, Appendix A "24/7" for AWS Support (whitelisted vendor fact).
 
 No new CONFIRM items.
+
+## Decisions applied (2026-10-31)
+
+- D10: §9.2 customer updates "every 4 hours" → cross-referenced to the SLA Management Policy cadence (every 2 hours for P1 incidents); §9.1 internal 30-minute updates kept (matches the IR procedure).
+- D21: §3.1 "The Chief Executive Officer (CEO), Mo Messidi, holds all three BCP roles" → title only. Appendix A emergency contact list left with the name (contact directory, not policy prose).
+- D25: cut §8.1 semi-annual failover testing, quarterly communication test, annual vendor coordination test (table now: quarterly backup restoration, annual full BCP exercise); cut §8.3 semi-annual vendor coordination procedure review; cut §10.2 quarterly metrics on recovery objectives. Kept: quarterly backup restoration test, annual full BCP exercise, annual plan review, annual effectiveness review in the management meeting minutes, annual BCP awareness training.
+- D2: §7.1 "customer-managed KMS keys" kept (target key design per the Encryption Standard).
+- D18/D24: concern the BCP test record, not this plan; nothing changed here.
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed. §5.3 Monitoring and early warning: "Security Hub findings for threat detection" and "breach-detection Lambda function that routes Security Hub findings to SNS" replaced by the CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert and the monthly configuration-check Lambda record (checklist includes DocumentDB backup retention and Multi-AZ, which is the BCP-relevant part).
+- D13b: the BCP states the 99.9 % SLA but does not define its measurement or record; measurement and the monthly "Availability record (monthly)" task live in the SLA Management Policy. Nothing to apply here.
+- D11b, D14: no insurance or controller/processor text in this document; nothing to apply.

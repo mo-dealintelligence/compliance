@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-FILES = sorted(p for p in HERE.glob("*.md") if p.name not in {"RULEBOOK.md", "CHANGES.md"} and ".MERGED." not in p.name)
+FILES = sorted(p for p in HERE.glob("*.md") if p.name not in {"RULEBOOK.md", "CHANGES.md", "DECISIONS-2026-10-31.md"} and ".MERGED." not in p.name)
 
 HARD = {
     "R2 size": [r"\bsolo\b", r"\bsole operator", r"\bsole[- ]person", r"\bone[- ]person\b", r"\bsingle[- ]person\b",

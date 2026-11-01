@@ -54,3 +54,16 @@ Output: `policies-v2/service-level-agreement-sla-management-policy.md`
 - §5.1/§5.2 reference "API Gateway" metrics; the Cloud Infrastructure Security Policy describes CloudFront in front of Lambda function URLs. Confirm the metric source name.
 
 - R4/Q2 (post-sweep, settled from serverless.yml: 'API Gateway not used - using Lambda Function URL + CloudFront'): every 'API Gateway' reference replaced with CloudFront → Lambda function URL / middleware.
+
+## Decisions applied (2026-10-31)
+
+- D9: §9.1 standard maintenance window set to Sunday 07:00–11:00 UTC (02:00–06:00 ET), referencing the Change Management Policy change window
+- D10: §8.2 customer status updates every 2 hours kept, with a cross-reference to the 30-minute internal cadence in the Incident Response Procedure
+- D13: §4.1 availability calculation stated as measured over all minutes in the month, excluding announced maintenance windows (§4.2)
+- D22: author set to "Mo Messidi" (frontmatter and revision history)
+- D25: cut §6.2 monthly internal SLA review (section deleted; the monthly availability record in §6.1 remains)
+
+## Decisions applied (2026-10-31, round 2)
+
+- D13b: §6.1 states that the monthly availability record is the scheduled compliance-platform task "Availability record (monthly)" (owner CEO, monthly frequency, covered by the Monday reminder email)
+- D12: Security Hub removed — §8.1 P1 paging "Security Hub/SNS paging for critical findings" → SNS paging to the CEO on security-relevant CloudTrail events and CloudWatch alarms

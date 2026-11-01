@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "data-subject-rights-request-procedure-v1.0.pdf"
 ---
 
@@ -16,7 +16,7 @@ source: "data-subject-rights-request-procedure-v1.0.pdf"
 
 This procedure defines how Deal Intelligence LLC receives, validates, processes, and responds to data subject requests under the General Data Protection Regulation (GDPR) Articles 15–22 and the California Consumer Privacy Act (CCPA) Sections 1798.100–1798.130, while maintaining the security and integrity of the platform.
 
-Deal Intelligence acts as a data controller for the business contact information it compiles and delivers through the platform, and as a data processor for data that customers upload to or hold within their own accounts (see Section 7.2). [CONFIRM: controller/processor framing — v1 did not state it explicitly]
+Deal Intelligence acts as a data controller for the business contact information it compiles and delivers through the platform, and as a data processor for data that customers upload to or hold within their own accounts (see Section 7.2). [CONFIRM: D14 open — pending investigation]
 
 This procedure implements the privacy principles of the Information Security Policy and the technical controls of the Data Retention and Disposal Policy for timely, compliant responses to data subject requests.
 
@@ -72,6 +72,7 @@ Deal Intelligence recognizes the following rights for EU data subjects:
 |Access (Article 15)|Obtain confirmation and a copy of personal data|30 days|
 |Rectification (Article 16)|Correct inaccurate personal data|30 days|
 |Erasure (Article 17)|Delete personal data ("right to be forgotten")|30 days|
+|Restriction (Article 18)|Restrict processing of personal data while accuracy or an objection is being verified|30 days|
 |Portability (Article 20)|Receive data in a machine-readable format|30 days|
 |Objection (Article 21)|Object to processing based on legitimate interests|30 days|
 |Automated decision-making (Article 22)|Not be subject to solely automated decisions|30 days|
@@ -200,6 +201,22 @@ Requests must include:
    - Provide via a secure download link (7-day expiration)
    - Include a data dictionary and field descriptions
 
+### 6.5 Restriction requests
+
+**Timeline**: 30 days
+
+**Process** (manual):
+
+1. **Assessment (days 1–5)**
+   - Confirm the ground for restriction (contested accuracy, pending objection, unlawful processing, or data needed for legal claims)
+   - Locate the records in DocumentDB by email address and company domain
+2. **Restriction execution (days 6–15)**
+   - The CEO manually marks the records as restricted so that they are excluded from lead delivery and further processing, other than storage, until the restriction is lifted
+   - Record the restriction as a dated entry in the compliance platform
+3. **Confirmation (days 16–30)**
+   - Notify the data subject that the restriction is in place
+   - Notify the data subject before the restriction is lifted
+
 ## 7. Special considerations
 
 ### 7.1 Third-party data
@@ -263,7 +280,7 @@ The CEO processes every request through the same manual runbook:
 
 1. **Verify identity** per Section 5.2
 2. **Locate records**: DocumentDB collections by email address and company domain; the PropelAuth user; the HubSpot CRM record
-3. **Act**: export, rectify, or delete per Section 6
+3. **Act**: export, rectify, restrict, or delete per Section 6
 4. **Record**: a dated entry in the compliance platform with the request type, date received, action taken, and date completed
 
 ### 9.2 Manual oversight
@@ -283,28 +300,7 @@ The compliance platform provides:
 - An audit trail for all request activities
 - Compliance reporting and metrics
 
-## 10. Metrics and reporting
-
-### 10.1 Key performance indicators
-
-|**Metric**|**Target**|**Measurement frequency**|
-|---|---|---|
-|Average response time|<20 days|Monthly|
-|On-time response rate|>95 %|Monthly|
-|Request volume|Baseline tracking|Monthly|
-|Denial rate|<5 %|Quarterly|
-|Extension rate|<10 %|Quarterly|
-
-### 10.2 Compliance reporting
-
-Monthly reports recorded in the compliance platform include:
-
-- Total requests by type and jurisdiction
-- Response time distribution
-- Exemption and denial analysis
-- Process improvement opportunities
-
-## 11. Training and awareness
+## 10. Training and awareness
 
 All personnel involved in data subject request processing must:
 
@@ -312,7 +308,7 @@ All personnel involved in data subject request processing must:
 - Understand GDPR and CCPA requirements
 - Practice identity verification procedures
 
-## 12. Integration with incident response
+## 11. Integration with incident response
 
 Data subject requests may trigger broader actions:
 
@@ -320,7 +316,7 @@ Data subject requests may trigger broader actions:
 - Access requests may reveal unauthorized processing requiring investigation
 - Patterns of requests are monitored via the System Monitoring and Logging Procedure
 
-## 13. Review
+## 12. Review
 
 This procedure is reviewed annually and updated for:
 
@@ -331,7 +327,7 @@ This procedure is reviewed annually and updated for:
 
 The next scheduled review date is 12 months from the initial approval date, with interim updates as required by regulatory changes or operational improvements identified through the compliance platform metrics.
 
-## 14. Related documents
+## 13. Related documents
 
 - Information Security Policy
 - Data Retention and Disposal Policy
@@ -344,9 +340,9 @@ The next scheduled review date is 12 months from the initial approval date, with
 - System Monitoring and Logging Procedure
 - Vendor Management Policy
 
-## 15. Revision history
+## 14. Revision history
 
 | Version | Date | Author | Summary of change |
 |---|---|---|---|
-| 1.0 | November 13, 2025 | mo@dealintelligence.io | Initial audited release |
-| 2.0 | <to be set at publication> | mo@dealintelligence.io | Scope limited to GDPR and CCPA; roles consolidated to CEO and Go-to-Market Contractor; automated DSR processing replaced by the manual runbook (DocumentDB, PropelAuth, HubSpot, compliance platform entry); 72-hour restriction commitment removed; contact address corrected to privacy@dealintelligence.io; controller/processor roles stated |
+| 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
+| 2.0 | <to be set at publication> | Mo Messidi | Scope limited to GDPR and CCPA; roles consolidated to CEO and Go-to-Market Contractor; automated DSR processing replaced by the manual runbook (DocumentDB, PropelAuth, HubSpot, compliance platform entry); restriction (Art. 18) row restored at 30 days with a manual step; contact address corrected to privacy@dealintelligence.io; controller/processor roles stated |

@@ -41,3 +41,14 @@
 ### CONFIRM (new)
 
 - None added.
+
+## Decisions applied (2026-10-31)
+
+- D14: §1 controller/processor framing confirmed; [CONFIRM] tag removed
+- D16: §4.1 GDPR Art. 18 restriction row restored at 30 days; new §6.5 manual restriction process; §9.1 runbook "Act" step includes restrict (revision-history summary updated)
+- D22: author set to Mo Messidi (frontmatter and revision history)
+- D25: deleted §10 Metrics and reporting (monthly/quarterly KPI table rows and monthly compliance reports); §§11–15 renumbered to 10–14
+
+## Decisions applied (2026-10-31, round 2)
+
+- D14: marked OPEN — `[CONFIRM: D14 open — pending investigation]` appended to the §1 controller/processor framing sentence; applied text kept unchanged pending the investigation

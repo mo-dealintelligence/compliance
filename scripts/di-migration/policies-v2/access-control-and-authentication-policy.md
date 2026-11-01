@@ -30,7 +30,7 @@ This policy applies to:
 - All user accounts and authentication mechanisms
 - All personnel requiring system access, including contractors and third-party service providers
 - All devices and network connections used to access company resources
-- Both the production (di-backend-api-prod) and non-production environments
+- Both the production (di-backend-api-prod) and staging stages of the stack
 
 ## 3. Policy statement
 
@@ -50,7 +50,7 @@ The Chief Executive Officer (CEO) owns this policy and is the only role with pro
 - Conducting quarterly access reviews via automated Lambda functions
 - Managing PropelAuth configuration and security settings
 - Monitoring access logs and investigating anomalies
-- Operating the AWS security services (Security Hub, CloudTrail)
+- Operating the AWS security services (CloudTrail, the monthly configuration-check Lambda, and the CloudTrail-EventBridge alerting rule)
 - Provisioning and deprovisioning user accounts
 - Configuring role-based access controls in PropelAuth
 - Managing AWS IAM roles and policies
@@ -62,7 +62,7 @@ The Chief Executive Officer (CEO) owns this policy and is the only role with pro
 The Go-to-Market Contractor:
 
 - Holds no production access (no AWS, GitHub, DocumentDB, or PropelAuth administrative access)
-- Accesses company data only through browser SSO (Google Workspace) with MFA
+- Accesses company data only through browser SSO (Google Workspace) with MFA, from a device with FileVault full-disk encryption (macOS) enabled
 - Completes onboarding, security awareness training, and policy acknowledgments in the compliance platform portal
 
 ### 4.3 All users
@@ -70,6 +70,7 @@ The Go-to-Market Contractor:
 All personnel with system access are responsible for:
 
 - Protecting authentication credentials
+- Using only personnel devices with FileVault full-disk encryption (macOS) enabled to access company resources
 - Reporting suspected unauthorized access
 - Complying with the Acceptable Use Policy
 - Completing security awareness training per the Security Awareness Training Program
@@ -126,7 +127,7 @@ The Go-to-Market Contractor holds no Administrator or Developer role.
 
 - Production deployment proceeds only through a pull request on the protected `main` branch with required CI status checks passing and a logged self-review in the pull request; deployment history is retained in GitHub Actions and CloudTrail and is independently reviewed by the external SOC 2 auditor
 - Database schema changes require CEO approval
-- Security configuration changes are logged and reviewed quarterly
+- Security configuration changes are logged in CloudTrail
 
 ### 5.3 Account management
 
@@ -198,9 +199,8 @@ All access attempts are logged with:
 
 ### 7.3 Security monitoring
 
-- Security Hub findings reviewed monthly (recorded); critical findings alert in real time via SNS
-- Automated breach-detection Lambda functions
-- SNS alerts for suspicious activity
+- Monthly configuration-check Lambda run against the fixed checklist (root account MFA, IAM password policy, CloudTrail enabled and log-file validation on, among other items), with a dated pass/fail record posted to the compliance platform
+- Security-relevant CloudTrail events (root sign-in, IAM policy or user changes) trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
 - Failed authentication attempts monitored
 - Privilege escalation attempts flagged
 
@@ -213,7 +213,6 @@ Detailed monitoring procedures are in the System Monitoring and Logging Procedur
 - Quarterly automated access reviews via Lambda function
 - Semi-annual privileged access audit by the CEO
 - Annual third-party access assessment per the Vendor Management Policy
-- Monthly review of security group rules and network ACLs
 
 ### 8.2 Review documentation
 
@@ -256,9 +255,8 @@ Access control incidents are managed according to the Incident Response Procedur
 
 ### 11.1 Compliance monitoring
 
-- Quarterly compliance assessments by the CEO
 - Annual SOC 2 audit validation
-- Continuous monitoring via Security Hub
+- Monthly configuration-check record in the compliance platform
 - Automated compliance checks in the CI/CD pipeline
 
 ### 11.2 Exception management
@@ -303,7 +301,7 @@ This policy is reviewed annually and updated as needed to reflect:
 - Results of access control audits
 - Changes in the threat landscape
 
-**Policy owner:** Mo Messidi, Chief Executive Officer
+**Policy owner:** Chief Executive Officer
 **Last review date:** <to be set at publication>
 **Next review date:** <one year after effective date>
 **Version:** 2.0
@@ -321,4 +319,4 @@ This policy has been reviewed and approved by:
 | Version | Date | Author | Summary of change |
 |---|---|---|---|
 | 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
-| 2.0 | <to be set at publication> | Mo Messidi | Roles consolidated to CEO and Go-to-Market Contractor; MFA described as Google Workspace / GitHub / AWS enforcement; segregation of duties restated as the PR + CI-gate control; Security Hub review monthly with real-time SNS alerting; bastion and sub-processor wording aligned to the operated environment |
+| 2.0 | <to be set at publication> | Mo Messidi | Roles consolidated to CEO and Go-to-Market Contractor; MFA described as Google Workspace / GitHub / AWS enforcement; segregation of duties restated as the PR + CI-gate control; monthly configuration-check Lambda record with real-time CloudTrail-EventBridge alerting; bastion and sub-processor wording aligned to the operated environment |

@@ -43,3 +43,13 @@
 
 - §3.1 names "Mo Messidi" as CEO; no other v2 policy names a person in the roles section. Confirm whether to keep the name here (left unchanged).
 - §4.2.3 and §4.5.1 both carry the remediation timelines (dependency CVEs vs security patches); they agree with R5 but the Vulnerability Management Procedure is the single source. Confirm whether to keep both lists.
+
+## Decisions applied (2026-10-31)
+
+- D21: §3.1 "Mo Messidi, as CEO" replaced by "The CEO"
+- D22: author set to "Mo Messidi" (frontmatter)
+- D25: cut §4.2.3 weekly Dependabot alert review (now "reviewed by the CEO", no cadence); cut §4.5.2 weekly container-scan review; cut §8.1 compliance verification (quarterly SDLC control review, annual CC3.4 assessment, monthly vulnerability-metrics review, weekly Dependabot review — section deleted); removed the weekly/monthly KPI rows from the key-performance-indicators table (critical open > 24 h, high open > 30 d, failed deployments), keeping the per-deployment PR/CI row; cut §8.3 quarterly security-metrics trend review; cut §9.1 quarterly exception review; §8.2/§8.3 renumbered to §8.1/§8.2
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed — §4.1 infrastructure row "Security Hub configuration checks" → monthly configuration-check Lambda; §4.5.2 monthly review now covers CloudWatch metrics and the monthly configuration-check record, with real-time alerting on security-relevant CloudTrail events via EventBridge → breach-detection Lambda → SNS; §5.1 toolchain row "Security Hub" → "Configuration-check Lambda" (monthly schedule); §5.2 breach-detection Lambda described as triggered by CloudTrail events via EventBridge

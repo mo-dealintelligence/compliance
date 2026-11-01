@@ -16,7 +16,7 @@ source: "incident-response-procedure-v1.0.pdf"
 
 This procedure sets out how Deal Intelligence LLC detects, responds to, and recovers from security incidents that could affect its platform, customer data, or service commitments. It provides for rapid containment, thorough investigation, and effective remediation in compliance with SOC 2 Trust Services Criteria CC7.3–CC7.5 (incident response), GDPR Article 33, and CCPA Section 1798.150.
 
-The procedure implements the incident response requirements of the Information Security Policy and works with the Risk Assessment Procedure for post-incident risk evaluation. It uses the automated detection capabilities (Security Hub findings and the Lambda-based breach detection) to meet the 48-hour customer notification commitment.
+The procedure implements the incident response requirements of the Information Security Policy and works with the Risk Assessment Procedure for post-incident risk evaluation. It uses the automated detection capabilities (CloudTrail event alerting through EventBridge and the Lambda-based breach detection, plus the monthly configuration-check record) to meet the 48-hour customer notification commitment.
 
 ## 2. Scope
 
@@ -103,7 +103,7 @@ This procedure, together with the Business Continuity Plan and the severity matr
 
 Automated detection systems:
 
-- Security Hub findings aggregation and alerting
+- Security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes), which trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
 - The Lambda-based breach detection function, monitoring for:
   - Unusual data access patterns
   - Failed authentication attempts exceeding thresholds
@@ -111,6 +111,7 @@ Automated detection systems:
   - Database query anomalies
 - CloudWatch alarms for service degradation
 - Container vulnerability scanning alerts from ECR
+- The monthly configuration-check Lambda, whose dated pass/fail record in the compliance platform surfaces configuration drift (public S3 buckets, open security groups, disabled CloudTrail, and the other checklist items) for review
 
 #### 5.1.3 Communication channels
 
@@ -125,7 +126,7 @@ Automated detection systems:
 On detection of a potential security event through automated monitoring or manual reporting:
 
 1. **Event triage** (P1 events acknowledged within 4 business hours; other severities per section 7.1)
-   - Review the Security Hub findings or alert details
+   - Review the SNS alert and the triggering CloudTrail event, or the failed configuration-check item
    - Query CloudWatch logs for related events
    - Check CloudTrail for unauthorized API calls
    - Assess potential customer impact
@@ -147,7 +148,7 @@ On detection of a potential security event through automated monitoring or manua
    - Capture CloudTrail audit logs
    - Preserve Lambda function logs and execution history
    - Document API request logs from the audit middleware
-   - Screenshot Security Hub findings and alerts
+   - Capture the SNS alert, the triggering CloudTrail event record, and the configuration-check record where relevant
    - Collect container logs from Fargate
 3. **Impact assessment**
    - Business contact information exposure analysis
@@ -218,7 +219,7 @@ Short-term containment (P3 and P4):
    - Process gap identification
 3. **Improvement actions**
    - Update this procedure
-   - Enhance detection rules in Security Hub
+   - Extend the CloudTrail-EventBridge rule or the configuration-check checklist
    - Modify the Lambda breach detection logic
    - Update the risk register per the Risk Assessment Procedure
    - Schedule security awareness training per the Security Awareness Training Program
@@ -240,6 +241,8 @@ During an incident, the incident record is updated:
 - Hourly for P2 incidents
 - Daily for P3 and P4 incidents
 
+These are internal update intervals. Customer-facing status updates follow the Service Level Agreement (SLA) Management Policy (every 2 hours for P1 incidents).
+
 Communication methods:
 
 - SNS notifications for automated alerts
@@ -258,7 +261,7 @@ Data breach notification (within 48 hours):
 - Recommended customer actions
 - Contact information for questions
 
-Service disruption notification:
+Service disruption notification (status updates every 2 hours for P1 incidents, per the Service Level Agreement (SLA) Management Policy):
 
 - Expected resolution timeframe
 - Workaround procedures, if available
@@ -289,14 +292,13 @@ CCPA:
 
 | Severity | Customer impact | Data impact | Service impact | Acknowledgement target | Handling |
 |---|---|---|---|---|---|
-| P1 (Critical) | Multiple customers affected | Confirmed data breach | Complete service outage | 4 business hours | Real-time Security Hub/SNS alert to the CEO; Incident Commander role activated |
-| P2 (High) | Single customer affected | Suspected data breach | Partial service degradation | 1 business day | Real-time Security Hub/SNS alert to the CEO; Incident Commander role activated |
+| P1 (Critical) | Multiple customers affected | Confirmed data breach | Complete service outage | 4 business hours | Real-time CloudTrail-EventBridge/SNS alert to the CEO; Incident Commander role activated |
+| P2 (High) | Single customer affected | Suspected data breach | Partial service degradation | 1 business day | Real-time CloudTrail-EventBridge/SNS alert to the CEO; Incident Commander role activated |
 | P3 (Medium) | No direct customer impact | Data integrity concerns | Minor feature unavailability | 5 business days | Handled by the CEO; recorded in the compliance platform |
-| P4 (Low) | No customer impact | No data impact | No service impact | Monthly Security Hub findings review | Reviewed by the CEO at the monthly findings review |
+| P4 (Low) | No customer impact | No data impact | No service impact | Monthly configuration-check review | Reviewed by the CEO when the monthly configuration-check record is posted |
 
 ### 7.2 Escalation triggers
 
-- Inability to contain the incident within 2 hours
 - Evidence of a deliberate attack or insider threat
 - Media or public attention
 - Regulatory inquiry or investigation
@@ -322,7 +324,7 @@ CCPA:
 
 ### 8.3 Evidence storage
 
-- Primary: S3 bucket with versioning and MFA delete
+- Primary: S3 bucket with versioning
 - Encryption: KMS customer-managed keys
 - Access: restricted to the CEO
 - Backup: S3 versioning within the single region (us-east-1)
@@ -343,8 +345,6 @@ Annual tabletop exercise (recorded in the compliance platform):
 ### 9.2 Procedure maintenance
 
 - Annual review and update of this procedure
-- Quarterly review of incident metrics and trends
-- Monthly update of contact lists and escalation paths
 - Updates based on lessons learned
 - Integration with updates to related policies and procedures
 
@@ -352,16 +352,14 @@ Annual tabletop exercise (recorded in the compliance platform):
 
 ### 10.1 Key performance indicators
 
-- Mean time to detect (MTTD): critical findings alerted in real time via Security Hub/SNS
+- Mean time to detect (MTTD): security-relevant CloudTrail events alerted in real time via EventBridge/SNS
 - Mean time to acknowledge (MTTA): target < 4 business hours for P1
-- Mean time to contain (MTTC): target < 2 hours from acknowledgement
 - Mean time to resolve (MTTRes): target < 24 hours
 - Customer notification compliance: 100 % within 48 hours
 - Post-incident review completion: 100 % within 5 business days
 
 ### 10.2 Reporting requirements
 
-- Monthly incident summary recorded in the compliance platform
 - Quarterly trend analysis for risk assessment updates, recorded in the management meeting minutes
 - Annual incident response program review
 - SOC 2 audit evidence compilation
@@ -391,6 +389,7 @@ The recovery time objectives (RTO) and recovery point objectives (RPO) defined i
 - Privacy Notice and Data Processing Agreement Template
 - Risk Assessment Procedure
 - Security Awareness Training Program
+- Service Level Agreement (SLA) Management Policy
 - System Monitoring and Logging Procedure
 - Vulnerability Management Procedure
 

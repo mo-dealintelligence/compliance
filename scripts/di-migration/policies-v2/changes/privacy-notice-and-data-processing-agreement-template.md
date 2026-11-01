@@ -45,3 +45,15 @@ Contractual register kept: "shall" retained inside the DPA clauses (§4.1, §4.2
 ### CONFIRM (new)
 
 - Frontmatter `author` and the Revision history Author column read "Mo Messidi" while every other v2 document uses "mo@dealintelligence.io". Left untouched (frontmatter is out of sweep scope) — confirm which form the set should use.
+
+## Decisions applied (2026-10-31)
+
+- D14: §4 preamble states processor terms (§§4.1–4.9) apply to customer account data and new §4.10 independent-controllers clause covers compiled business contact information; §4.1 "Personal Data" redefined accordingly (revision-history summary updated)
+- D15: §3.4 and §4.5 sub-processor lists reduced to AWS and PropelAuth (compliance platform folded under AWS self-hosting); Google Workspace, GitHub, Resend and HubSpot stated as vendors that do not process customer data
+- D22: no change — author already Mo Messidi
+- D25: §4.3 quarterly risk assessments restated as annual risk assessment + quarterly risk review; cut §4.7 quarterly security assessments; cut §10.2 quarterly privacy assessments and semi-annual consent audit
+
+## Decisions applied (2026-10-31, round 2)
+
+- D12: Security Hub removed — §3.5 security monitoring → CloudWatch alarms, a monthly configuration-check Lambda and real-time alerting on security-relevant CloudTrail events; §4.3 technical measures "Security Hub continuous monitoring" → monthly configuration-check Lambda recorded in the compliance platform, with CloudTrail real-time event alerting
+- D14: marked OPEN — `[CONFIRM: D14 open — pending investigation]` added to the §4 preamble (processor / independent-controller split) and at the top of §4.10; applied text kept unchanged pending the investigation

@@ -88,7 +88,7 @@ Risks are identified through three channels.
 
 #### 5.1.2 Continuous risk monitoring
 
-- Security Hub findings analysis
+- Monthly configuration-check record analysis and real-time CloudTrail event alerts
 - CloudWatch alerts and metrics review
 - Container vulnerability scanning results from ECR
 - Incident trends from the Incident Reporting system in the compliance platform
@@ -167,7 +167,7 @@ Treatment plans specify:
    - Identify stakeholders and schedule sessions
 2. **Information gathering** (weeks 2–3)
    - Inventory all systems via the CloudFormation documentation
-   - Review Security Hub findings and CloudWatch metrics
+   - Review the monthly configuration-check records, CloudTrail event alerts and CloudWatch metrics
    - Analyze incident reports from the compliance platform
    - Evaluate vendor assessments
 3. **Risk identification** (week 4)
@@ -192,9 +192,8 @@ Treatment plans specify:
 
 ### 6.2 Continuous risk monitoring
 
-- **Real time**: Critical Security Hub findings alerted via SNS
-- **Weekly**: CloudWatch metrics analysis
-- **Monthly**: Security Hub findings review (recorded); vulnerability scan review
+- **Real time**: Security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) alerted to the CEO via EventBridge, the breach-detection Lambda and SNS
+- **Monthly**: Configuration-check Lambda run against the fixed checklist, with the dated pass/fail record reviewed and remediated (recorded in the compliance platform)
 - **Quarterly**: Review of control evidence and tasks in the compliance platform
 - **Ad hoc**: Change-triggered assessments
 
@@ -256,13 +255,6 @@ Management report (quarterly, recorded in the management meeting minutes):
 - Control effectiveness metrics
 - Compliance status against the SOC 2 criteria
 
-Operational reports (monthly):
-
-- New risks identified
-- Treatment plan progress
-- Control evidence results
-- Incident correlation analysis
-
 Annual risk assessment report:
 
 - Full risk landscape
@@ -319,4 +311,4 @@ Accepted risks are:
 | Version | Date | Author | Summary of change |
 |---|---|---|---|
 | 1.0 | November 13, 2025 | Mo Messidi | Initial procedure |
-| 2.0 | <to be set at publication> | Mo Messidi | Scope limited to Security, Availability, and Confidentiality; roles consolidated to the CEO; the compliance platform stated as the control register and source of control effectiveness; Security Hub review monthly with real-time critical alerting |
+| 2.0 | <to be set at publication> | Mo Messidi | Scope limited to Security, Availability, and Confidentiality; roles consolidated to the CEO; the compliance platform stated as the control register and source of control effectiveness; monthly configuration-check record with real-time CloudTrail event alerting |

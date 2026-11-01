@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "data-classification-and-handling-standard-v1.0.pdf"
 ---
 
@@ -91,6 +91,7 @@ Deal Intelligence uses a four-tier classification system aligned with its busine
 - **Handling requirements**:
   - Role-based access control (RBAC) enforcement
   - Encryption at rest using KMS
+  - FileVault full-disk encryption (macOS) on personnel devices that access the data
   - TLS 1.2+ for data in transit
   - Audit logging of all access via CloudWatch
   - PII sanitization in logs
@@ -110,7 +111,7 @@ Deal Intelligence uses a four-tier classification system aligned with its busine
   - AES-256 encryption mandatory per the Encryption and Cryptographic Controls Standard
   - Stored in Secrets Manager or KMS-encrypted DocumentDB only
   - VPC-isolated database with no direct access
-  - Continuous monitoring via Security Hub
+  - Monthly configuration-check record and real-time CloudTrail event alerts
   - PII sanitization in logs
   - Immediate incident response per the Incident Response Procedure
 
@@ -205,7 +206,8 @@ Complete retention and disposal procedures are in the Data Retention and Disposa
 ### 9.1 Continuous monitoring
 
 - CloudWatch monitoring with real-time alerts
-- Security Hub findings reviewed monthly; critical findings alert in real time via SNS through the breach-detection Lambda
+- Monthly configuration-check Lambda run against a fixed checklist (including no public S3 buckets and KMS key rotation), with a dated pass/fail record posted to the compliance platform
+- Security-relevant CloudTrail events (root sign-in, IAM policy or user changes, KMS key disable, among others) trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
 - Container vulnerability scanning in ECR
 - Rate limiting enforcement (100 requests/minute)
 
@@ -219,7 +221,7 @@ Complete retention and disposal procedures are in the Data Retention and Disposa
 ### 9.3 Incident response
 
 - 48-hour breach notification to affected customers for incidents involving Confidential or Restricted data; 72-hour notification to the supervisory authority where GDPR applies
-- Breach detection via Security Hub findings routed to SNS by the breach-detection Lambda
+- Breach detection via security-relevant CloudTrail events routed by EventBridge to the breach-detection Lambda, which alerts the CEO via SNS
 - SNS security alerts for classification violations
 - Post-hoc review within 5 business days for emergency changes
 - Incidents documented using the compliance platform's Incident Reporting forms
@@ -248,7 +250,6 @@ The full training program is in the Security Awareness Training Program.
 - A risk assessment is required for all exceptions
 - Exceptions are approved by the CEO
 - Compensating controls must be implemented
-- Exceptions are reviewed quarterly
 
 ### 11.2 Violation consequences
 
@@ -349,5 +350,5 @@ _This document is classified as Internal and is handled accordingly._
 
 | Version | Date | Author | Summary of change |
 |---|---|---|---|
-| 1.0 | November 13, 2025 | mo@dealintelligence.io | Initial audited release |
-| 2.0 | <to be set at publication> | mo@dealintelligence.io | Data Classification Policy merged in (decision tree, data element reference and quick reference card as Appendices A to C); business contact information classified Confidential; scope limited to Security, Availability and Confidentiality; classification metadata fields, resource tags and email markings removed in favor of handling rules by tier; roles consolidated to CEO and Go-to-Market Contractor; retention schedule referenced to Data Retention and Disposal Policy; notification, review and MFA wording aligned |
+| 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
+| 2.0 | <to be set at publication> | Mo Messidi | Data Classification Policy merged in (decision tree, data element reference and quick reference card as Appendices A to C); business contact information classified Confidential; scope limited to Security, Availability and Confidentiality; classification metadata fields, resource tags and email markings removed in favor of handling rules by tier; roles consolidated to CEO and Go-to-Market Contractor; retention schedule referenced to Data Retention and Disposal Policy; notification, review and MFA wording aligned |

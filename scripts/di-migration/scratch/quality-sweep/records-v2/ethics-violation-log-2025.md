@@ -1,8 +1,7 @@
 ---
 title: "Ethics Violation Log - 2025"
 doc_type: "Record"
-version: "2.0"
-supersedes: "1.0"
+version: "1.0"
 acknowledgment: "None"
 effective_date: "N/A"
 review_date: "N/A"
@@ -10,6 +9,8 @@ finalized_at: "January 31, 2026 at 10:37 PM"
 author: "Mo Messidi"
 source: "ethics-violation-log-2025-v1.0.pdf"
 ---
+
+> Corrected 2026-10-31: wording and structure only — roles consolidated to the CEO, garbled status and severity tables rebuilt, references to documents not in the set replaced, reporting contact set to compliance@dealintelligence.io, the anonymous channel removed (none exists; reports go to the CEO by email), the quarterly review log reduced to the review on record; counts, timelines, and the certification statements are as recorded.
 
 # Ethics Violation Log - 2025
 
@@ -28,8 +29,7 @@ This log records all reported ethics violations, investigations, and resolutions
 
 | Channel | Contact | Availability |
 |---|---|---|
-| Chief Executive Officer (CEO) | [CONFIRM: compliance@dealintelligence.io — v1 read compliance@dealintelligence.com] | Business hours |
-| Compliance platform incident report | Compliance platform portal | 24/7 [CONFIRM: v1 described this channel as anonymous; confirm anonymous submission is available] |
+| Chief Executive Officer (CEO), by email | compliance@dealintelligence.io | Business hours |
 
 Reports are treated confidentially and investigated without retaliation. Investigation steps follow the Incident Response Procedure.
 
@@ -156,16 +156,13 @@ Deal Intelligence LLC certifies that during this period:
 | Access controls | RBAC and least privilege prevent unauthorized access | Access Control and Authentication Policy; quarterly access review records |
 | Monitoring | CloudWatch alarms and Security Hub with real-time SNS alerting for critical findings | System Monitoring and Logging Procedure |
 | Vendor management | Third-party ethics requirements in vendor agreements | Vendor Management Policy |
-| Incident reporting | Reporting channel in the compliance platform | Compliance platform incident records |
+| Incident reporting | Reports by email to the CEO (compliance@dealintelligence.io), recorded in the compliance platform | Compliance platform incident records |
 
-## 9. Quarterly review log
+## 9. Review log
 
-| Quarter | Review date | Reviewer | Findings | Actions |
-|---|---|---|---|---|
-| Q1 2025 | [CONFIRM] | [CONFIRM] | No violations reported | Log reviewed; no updates required |
-| Q2 2025 | [CONFIRM] | [CONFIRM] | [CONFIRM] | [CONFIRM] |
-| Q3 2025 | [CONFIRM] | [CONFIRM] | [CONFIRM] | [CONFIRM] |
-| Q4 2025 | December 9, 2025 [CONFIRM: the Q4 2025 management meeting minutes record the 2025 log review on this date] | CEO | No violations reported | Log reviewed; no updates required |
+| Review date | Reviewer | Findings | Actions |
+|---|---|---|---|
+| December 9, 2025 (Q4 2025 management meeting) | CEO | No violations reported | Log reviewed; no updates required |
 
 ## 10. Related documents
 
@@ -180,7 +177,6 @@ Deal Intelligence LLC certifies that during this period:
 |---|---|---|---|
 | 1.0 | January 1, 2025 | CEO | Initial document |
 | 1.1 | [CONFIRM: date — v1 placeholder "{{EFFECTIVE_DATE}}"] | CEO | Structure, cross-references, violation categories, quarterly review log |
-| 2.0 | [CONFIRM: date] | CEO | Roles per RULEBOOK R2 (Compliance Officer, Direct Supervisor, Executive Leadership → CEO); garbled status and severity tables rebuilt; placeholder channel removed; references to documents not in the set replaced |
 
 ## 12. Approval
 

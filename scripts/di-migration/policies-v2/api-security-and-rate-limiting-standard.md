@@ -6,7 +6,7 @@ supersedes: "1.0"
 acknowledgment: "Explicit"
 effective_date: "<to be set at publication>"
 review_date: "<one year after effective date>"
-author: "mo@dealintelligence.io"
+author: "Mo Messidi"
 source: "api-security-and-rate-limiting-standard-v1.0.pdf"
 ---
 
@@ -14,7 +14,7 @@ source: "api-security-and-rate-limiting-standard-v1.0.pdf"
 
 ## 1. Purpose
 
-This standard sets the mandatory requirements for securing the application programming interfaces (APIs) of Deal Intelligence LLC's B2B market intelligence platform and for rate limiting API traffic. It protects business contact information and customer data transmitted through APIs while maintaining service availability. It supports SOC 2 Trust Services Criteria CC6.1 (logical access controls through JWT authentication), CC6.6 (encryption of data in transit via TLS), CC7.1 (security monitoring through CloudWatch and Security Hub), and A1.2 (availability through rate limiting).
+This standard sets the mandatory requirements for securing the application programming interfaces (APIs) of Deal Intelligence LLC's B2B market intelligence platform and for rate limiting API traffic. It protects business contact information and customer data transmitted through APIs while maintaining service availability. It supports SOC 2 Trust Services Criteria CC6.1 (logical access controls through JWT authentication), CC6.6 (encryption of data in transit via TLS), CC7.1 (security monitoring through CloudWatch, the monthly configuration-check Lambda, and CloudTrail event alerting), and A1.2 (availability through rate limiting).
 
 The standard implements the API security requirements of the Information Security Policy and complements the Cloud Infrastructure Security Policy with specific rules for API endpoints, authentication mechanisms, traffic management, and the security of third-party integrations (Section 8).
 
@@ -67,7 +67,7 @@ All API communications enforce the encryption requirements of the Encryption and
 - ACM for automatic certificate renewal
 - Certificate transparency logging enabled
 - CAA DNS records restricting certificate issuance to Amazon
-- Monthly certificate expiration monitoring via CloudWatch
+- Certificate expiration monitoring via CloudWatch
 
 ### 3.3 Input validation and sanitization
 
@@ -157,8 +157,9 @@ API performance metrics are tracked via CloudWatch:
 
 Continuous security monitoring is implemented through:
 
-- Security Hub findings for API vulnerabilities, reviewed monthly and recorded in the compliance platform; critical findings alert in real time via SNS
-- CloudTrail logging of all CloudFront and Lambda configuration changes
+- Monthly configuration-check Lambda run against a fixed checklist (including no public S3 buckets and no security groups open to 0.0.0.0/0 on administrative ports), with a dated pass/fail record posted to the compliance platform
+- CloudTrail logging of all CloudFront and Lambda configuration changes; security-relevant CloudTrail events (IAM policy or user changes, security-group changes, among others) trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
+- API vulnerability awareness through ECR scan-on-push, GitHub Dependabot and code scanning, and Trivy in CI
 - Automated alerting for anomalous API usage patterns
 - The Incident Response Procedure for confirmed security events
 
@@ -219,7 +220,7 @@ The CEO:
 - Manages API keys and authentication credentials in Secrets Manager
 - Reviews integration audit logs via CloudWatch
 - Investigates anomalous integration behavior
-- Conducts quarterly integration access reviews
+- Reviews integration access as part of the quarterly access review
 
 ### 8.1 Authentication standards
 
@@ -238,7 +239,6 @@ Integration credentials are managed as follows:
 - Stored in Secrets Manager with automatic rotation
 - No hardcoded credentials in Lambda functions or containers
 - Unique credentials per integration instance
-- Quarterly credential rotation for long-lived tokens
 - Immediate revocation upon a security incident
 
 ### 8.3 Data exchange security
@@ -302,7 +302,7 @@ Thresholds are defined in the System Monitoring and Logging Procedure:
 |**Metric**|**Threshold**|**Alert method**|
 |---|---|---|
 |API error rate|>5 % over 5 minutes|SNS notification|
-|Authentication failures|>10 per minute|Security Hub finding|
+|Authentication failures|>10 per minute|CloudWatch alarm|
 |Response time|p95 > 2 seconds|CloudWatch alarm|
 |Data volume|>1 GB per hour|Billing alert|
 |Certificate expiry|<30 days|CloudWatch alarm|
@@ -346,7 +346,6 @@ Integration vulnerabilities are managed per the Vulnerability Management Procedu
 
 **Operational phase** — active integrations require:
 
-- Monthly review of Security Hub findings affecting integrations
 - Quarterly access and permission reviews
 - Annual vendor reassessment per the Vendor Management Policy
 - Continuous monitoring via CloudWatch
@@ -432,9 +431,8 @@ Upon detection of an API security incident:
 1. Immediate containment by revoking the API key, blocking at the middleware rate limiter or CloudFront, or isolating the affected integration
 2. Credential rotation for compromised authentication tokens and affected integration points
 3. Incident logged in the compliance platform Incident Reporting system
-4. Impact assessment within 4 business hours
-5. Customer notification within 48 hours if data is affected
-6. Post-incident review per the Incident Response Procedure, including third-party vendor involvement and vendor reassessment per the Vendor Management Policy where a third-party service was breached
+4. Customer notification within 48 hours if data is affected
+5. Post-incident review per the Incident Response Procedure, including third-party vendor involvement and vendor reassessment per the Vendor Management Policy where a third-party service was breached
 
 ## 12. Data protection requirements
 
@@ -447,23 +445,12 @@ API operations comply with GDPR and CCPA through:
 
 ## 13. Performance and availability
 
-### 13.1 Service level objectives
-
 API performance targets are aligned with the Service Level Agreement (SLA) Management Policy:
 
-- 99.9 % API availability, measured monthly
+- 99.9 % API availability, measured monthly as defined in the Service Level Agreement (SLA) Management Policy and recorded in the monthly availability record
 - p95 latency under 2 seconds
 - Error rate below 0.1 % for valid requests
 - Rate limit accuracy within 5 % tolerance
-
-### 13.2 Capacity planning
-
-Quarterly capacity reviews assess:
-
-- API request volume trends
-- Lambda concurrent execution metrics
-- Rate limiting (HTTP 429) statistics
-- Infrastructure scaling requirements
 
 ## 14. Review
 
@@ -499,5 +486,5 @@ The next scheduled review date is recorded in the compliance platform, which not
 
 |**Version**|**Date**|**Author**|**Summary**|
 |---|---|---|---|
-|1.0|November 13, 2025|mo@dealintelligence.io|Initial audited version|
-|2.0|<to be set at publication>|mo@dealintelligence.io|Scope aligned to Security, Availability and Confidentiality; single 100 requests/minute rate tier enforced in middleware; usage plans, WebSockets, DLQs, DAST and coverage targets removed; p95 > 2 s latency alert; monthly Security Hub review; NoSQL input-validation wording; Third-Party Integration Security Guidelines merged in as section 8 (Integration security)|
+|1.0|November 13, 2025|Mo Messidi|Initial audited version|
+|2.0|<to be set at publication>|Mo Messidi|Scope aligned to Security, Availability and Confidentiality; single 100 requests/minute rate tier enforced in middleware; usage plans, WebSockets, DLQs, DAST and coverage targets removed; p95 > 2 s latency alert; monthly configuration-check Lambda record and CloudTrail-EventBridge alerting in place of Security Hub; NoSQL input-validation wording; Third-Party Integration Security Guidelines merged in as section 8 (Integration security)|

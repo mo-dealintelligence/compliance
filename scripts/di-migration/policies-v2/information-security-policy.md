@@ -138,8 +138,8 @@ All changes to production systems follow the Change Management Policy:
 Security monitoring is maintained through:
 
 - 24/7 CloudWatch monitoring with 90-day log retention
-- CloudTrail audit logging for all AWS API calls
-- Security Hub for automated threat detection, with critical findings alerted in real time via SNS and all findings reviewed monthly
+- CloudTrail audit logging for all AWS API calls; security-relevant events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
+- A scheduled configuration-check Lambda that runs monthly against a fixed checklist and posts a dated pass/fail record to the compliance platform
 - Rate limiting (100 requests per minute)
 - Container vulnerability scanning in ECR
 
@@ -220,7 +220,7 @@ All personnel comply with the Acceptable Use Policy on the appropriate use of De
 
 - Controls, evidence, and tasks are tracked in the compliance platform as the control register
 - An annual security assessment is performed
-- Continuous monitoring runs through CloudWatch and Security Hub
+- Continuous monitoring runs through CloudWatch and CloudTrail event alerting, with the monthly configuration-check record as the recurring evidence
 - Vulnerability assessments are performed per the Vulnerability Management Procedure
 
 ### 6.2 Policy review
@@ -233,7 +233,6 @@ All personnel comply with the Acceptable Use Policy on the appropriate use of De
 ### 6.3 Audit and compliance
 
 - Annual SOC 2 Type II audit
-- Quarterly internal compliance assessments
 - Evidence collection and retention per the System Monitoring and Logging Procedure
 - Management review of security metrics and KPIs
 

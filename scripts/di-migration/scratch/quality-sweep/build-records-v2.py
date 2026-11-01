@@ -4,7 +4,10 @@
 Reads scratch/quality-sweep/data/*.json (live platform dump) and writes the
 revised copies to scratch/quality-sweep/records-v2/*-v2.json, same shape as
 the inputs, text fields only. Rules: policies-v2/RULEBOOK.md (R1, R2, R4, R5,
-R8) and scratch/quality-sweep/QUALITY-RUBRIC.md (Q1, Q2, Q4, Q5).
+R8) and scratch/quality-sweep/QUALITY-RUBRIC.md (Q1, Q2, Q4, Q5), plus Mo's
+decisions in policies-v2/DECISIONS-2026-10-31.md (marked "D<n>" inline below;
+see records-v2/CHANGES-records.md "Decisions applied"), including the
+second-round answers (D12 Security Hub removed, D13b availability task, D23).
 
     python3 -I scratch/quality-sweep/build-records-v2.py
 """
@@ -36,14 +39,15 @@ RISKS = {
         "title": "EXTERNAL_VENDOR-002 AWS critical vendor dependency",
         "description": (
             "Deal Intelligence runs the whole production platform (Lambda, DocumentDB, S3, CloudFront, KMS, "
-            "CloudTrail, Security Hub) on AWS in us-east-1. A prolonged regional AWS outage, account compromise "
+            "CloudTrail) on AWS in us-east-1. A prolonged regional AWS outage, account compromise "
             "or suspension, or a material change in AWS terms would halt service delivery and could expose "
             "customer data. Affects: availability (99.9 % commitment), confidentiality of customer data. AWS is "
             "one of two sub-processors (with PropelAuth) and is covered by a Data Processing Agreement. "
             "Treatment: Multi-AZ DocumentDB in us-east-1; daily automated backups retained 90 days with "
             "point-in-time recovery; quarterly backup-restore test via infrastructure as code (CloudFormation "
             "through the Serverless Framework), recorded in the compliance platform; root-account MFA and "
-            "least-privilege IAM; CloudTrail and Security Hub with critical findings alerting via SNS; annual "
+            "least-privilege IAM; CloudTrail with security-relevant events alerting the CEO via SNS in real time "
+            "(EventBridge rule and breach-detection Lambda) and a monthly configuration-check record; annual "
             "vendor review of AWS SOC 2 / ISO 27001 reports per the Vendor Management Policy; single region "
             "by design as stated in the Business Continuity Plan. Owner: CEO."
         ),
@@ -56,7 +60,8 @@ RISKS = {
             "data; 48-hour customer breach-notification commitment. Treatment: personnel MFA enforced in Google "
             "Workspace, GitHub, and AWS, customer MFA inherited from Google Workspace sign-in via PropelAuth; "
             "least-privilege IAM and RBAC; VPC isolation; KMS encryption at rest and TLS 1.2+ in transit; "
-            "Security Hub and CloudTrail monitoring with critical findings alerting via SNS; quarterly access "
+            "CloudTrail monitoring with security-relevant events alerting via SNS in real time and a monthly "
+            "configuration-check record in the compliance platform; quarterly access "
             "reviews via the access-review Lambda; Dependabot, ECR scan-on-push, and Trivy in CI. Owner: CEO."
         ),
     },
@@ -80,8 +85,8 @@ RISKS = {
             "Affects: availability, incident response, SOC 2 control operation. Score 32.0 (probability 4, "
             "impact 3: legal 3, financial 2, reputational 3). Treatment: compensating controls per the "
             "Organizational Structure — pull request with required CI status checks on the protected main "
-            "branch and a logged self-review; automated checks (Security Hub, CloudTrail) with critical findings "
-            "alerting via SNS; dated control records in the compliance platform; independent review by the "
+            "branch and a logged self-review; automated checks (the monthly configuration-check Lambda, CloudTrail) "
+            "with security-relevant events alerting via SNS in real time; dated control records in the compliance platform; independent review by the "
             "external SOC 2 auditor. Treatment action (planned, due December 31 [CONFIRM: year]): document all "
             "critical processes, establish emergency access procedures with a trusted third party, and create "
             "a knowledge-transfer repository. Owner: CEO."
@@ -112,7 +117,8 @@ RISKS = {
             "Detection of and response to a security incident may be delayed when the CEO, as incident commander, "
             "is unavailable, affecting the 48-hour customer notification commitment and SOC 2 CC7.3–CC7.5. "
             "Affects: incident response targets; customer and regulatory notification. Treatment: breach-detection "
-            "Lambda that routes Security Hub findings to SNS in real time; Incident Response Procedure (P1 "
+            "Lambda, triggered by an EventBridge rule on security-relevant CloudTrail events, that alerts the CEO "
+            "via SNS in real time; Incident Response Procedure (P1 "
             "acknowledged within 4 business hours); AWS Support escalation path; annual tabletop exercise "
             "recorded in the compliance platform. Owner: CEO."
         ),
@@ -127,21 +133,25 @@ dump("risks-v2.json", risks)
 # ---------------------------------------------------------------------------
 # vendors.json — description only
 # ---------------------------------------------------------------------------
+# D15: sub-processors are AWS and PropelAuth only; Google Workspace, GitHub and
+# Resend are vendors that do not process customer data (HubSpot is not in the register).
 VENDORS = {
     "Resend": (
         "Transactional email delivery for the compliance platform (notifications, sign-in links). Receives "
-        "recipient addresses and message content at send time only; holds no platform data. Not a sub-processor. "
+        "recipient addresses and message content at send time only; holds no platform data. Vendor — does not "
+        "process customer data; not a sub-processor. "
         "Reviewed annually by the CEO per the Vendor Management Policy."
     ),
     "Google Workspace": (
         "Personnel email, calendar, and document storage for Deal Intelligence LLC, and the identity provider for "
-        "personnel single sign-on with MFA enforced. Does not host platform customer data. Not a sub-processor. "
+        "personnel single sign-on with MFA enforced. Vendor — does not process customer data; not a sub-processor; "
+        "customer Google sign-in is handled by PropelAuth. "
         "Reviewed annually by the CEO (SOC 2 report and terms) per the Vendor Management Policy."
     ),
     "GitHub": (
         "Source control for dealintelligence/di-backend-api, GitHub Actions CI, Dependabot, code and secret "
-        "scanning, and branch protection on main. No customer data enters the repository or CI. Not a "
-        "sub-processor. Reviewed annually by the CEO (SOC 2 report and terms) per the Vendor Management Policy."
+        "scanning, and branch protection on main. No customer data enters the repository or CI. Vendor — does "
+        "not process customer data; not a sub-processor. Reviewed annually by the CEO (SOC 2 report and terms) per the Vendor Management Policy."
     ),
     "PropelAuth": (
         "Authentication and identity management for the Deal Intelligence platform: JWT issuance, Google Workspace "
@@ -151,7 +161,7 @@ VENDORS = {
     ),
     "Amazon Web Services": (
         "Cloud hosting and encrypted storage for the Deal Intelligence platform in us-east-1: Lambda, Fargate, "
-        "DocumentDB, S3, CloudFront, VPC, KMS, CloudTrail, Security Hub. Sub-processor under a Data Processing "
+        "DocumentDB, S3, CloudFront, VPC, KMS, CloudTrail, EventBridge, SNS. Sub-processor under a Data Processing "
         "Agreement; carve-out in the SOC 2 examination. Reviewed annually by the CEO (SOC 2 / ISO 27001 reports "
         "and terms) per the Vendor Management Policy."
     ),
@@ -180,10 +190,11 @@ CONTEXT = {
     # people-tagged
     "ctx_6ae4467a11a0f73a4469b1cd": "Mo Messidi, Chief Executive Officer (CEO).",
     "ctx_6ae4467a997bc87734a00db9": "Mo Messidi, Chief Executive Officer (CEO).",
-    "ctx_6ae4467aa2b2f5daf5418873": (
-        "Mo Messidi, Chief Executive Officer (CEO); William Wickey, Go-to-Market Contractor. "
-        "[CONFIRM: duplicate of the onboarding field \"How many employees do you have?\" (answer 2); delete this entry or keep as the role list]"
-    ),
+    # D23: ctx_6ae4467aa2b2f5daf5418873 (people-tagged duplicate of "How many
+    # employees do you have?") is deleted; the onboarding entry whose answer is
+    # the number (ctx_6ae43d2299a8b3b62cbc3b9b, "2") is kept — see CONTEXT_DELETE.
+    # D23: sign-in method
+    "ctx_6ae43d2271b191a10f8a9db3": "Google Workspace SSO and email/password, both with 2FA",
     # vendors
     "ctx_6ae44679adfe6e7474a57d5d": (
         "Amazon Web Services (infrastructure hosting) and PropelAuth (authentication) are the two subservice "
@@ -207,7 +218,10 @@ CONTEXT = {
         "protected main branch). Customer authentication is PropelAuth (JWT) with Google Workspace single sign-on, "
         "so customer MFA is inherited from Google Workspace; RBAC provides company- and user-level data isolation. "
         "Monitoring: CloudWatch (90-day log retention; alarms on API errors and latency), CloudTrail (7-year "
-        "retention in S3), Security Hub with critical findings routed to SNS. The platform processes business "
+        "retention in S3), a scheduled configuration-check Lambda that runs monthly against a fixed checklist and "
+        "posts a dated pass/fail record to the compliance platform, and an EventBridge rule that routes "
+        "security-relevant CloudTrail events through the breach-detection Lambda to an SNS alert to the CEO in "
+        "real time. The platform processes business "
         "contact information and competitor interaction data; active leads are retained 24 months and customer "
         "account data for the duration of the relationship plus 24 months. Subservice organizations: AWS and "
         "PropelAuth (carve-out). The compliance platform is self-hosted on AWS, holds compliance records only, and "
@@ -241,10 +255,12 @@ CONTEXT = {
     "ctx_6ae43d22aa10e685567e25ae": json.dumps([{"name": "Mo Messidi", "title": "CEO"}]),
     "ctx_6ae43948bc1c823b62e62234": "SOC 2 (Security, Availability, Confidentiality)",
 }
+CONTEXT_DELETE = {"ctx_6ae4467aa2b2f5daf5418873"}  # D23: duplicate "How many employees do you have?"
 context = load("context.json")
 for c in context:
     if c["id"] in CONTEXT:
         c["answer"] = CONTEXT[c["id"]]
+context = [c for c in context if c["id"] not in CONTEXT_DELETE]
 dump("context-v2.json", context)
 
 # ---------------------------------------------------------------------------
@@ -259,7 +275,7 @@ ANNUAL = "Cadence: annual (compliance week)."
 TASKS = {
     "MacOS FileVault Status": (
         "macOS FileVault status screenshot",
-        f"Screenshot of System Settings showing FileVault enabled on the CEO's laptop. {QUARTERLY} [CONFIRM: also capture the Go-to-Market Contractor's device, or rely on the compliance platform device agent]",
+        f"Screenshot of System Settings showing FileVault full-disk encryption enabled on each personnel macOS device (CEO; Go-to-Market Contractor). {QUARTERLY}",  # D4
     ),
     "GitHub Actions Workflows": (
         "GitHub Actions workflows screenshot",
@@ -349,13 +365,16 @@ TASKS = {
         "VPC security groups screenshot",
         f"Screenshot of the security groups list with inbound and outbound rules showing no open administrative ports and database access limited to the VPC. {MONTHLY}",
     ),
+    # D12: Security Hub removed. The findings task becomes the configuration-check
+    # record; the summary task becomes the record of the real-time half of the
+    # replacement control (EventBridge rule -> breach-detection Lambda -> SNS).
     "AWS Securityhub Findings": (
-        "Security Hub findings screenshot",
-        f"Screenshot of the Security Hub findings list filtered to open findings by severity, as input to the monthly Security Hub review record. {MONTHLY}",
+        "Configuration-check record (monthly)",
+        f"Dated pass/fail record posted by the scheduled configuration-check Lambda, which runs monthly against a fixed checklist: CloudTrail enabled and log-file validation on; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention and Multi-AZ. Each failed item is reviewed by the CEO and tracked to remediation. {MONTHLY}",
     ),
     "AWS Securityhub Overview": (
-        "Security Hub summary screenshot",
-        f"Screenshot of the Security Hub summary showing the Foundational Security Best Practices standard enabled and the security score. {MONTHLY}",
+        "Security-event alert rule screenshot",
+        f"Screenshot of the EventBridge rule that matches security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) with the breach-detection Lambda as target, and the SNS subscription that alerts the CEO in real time. {MONTHLY}",
     ),
     "AWS SNS Topics": (
         "SNS topics screenshot",
@@ -478,26 +497,50 @@ for t in tasks:
     tail = [s for s in (sup, f"Source file: {src.group(1).strip()}" if src else None) if s]
     t["title"] = new_title
     t["description"] = new_desc + ("\n\n" + "\n".join(tail) if tail else "")
+
+# D13b: a monthly "Availability record (monthly)" task must exist (owner CEO).
+# None does in the live dump, so it is appended with "new": true for the apply
+# step to create (no id yet; frequency monthly; status todo).
+if not any("vailability record" in t["title"] for t in tasks):
+    tasks.append({
+        "id": None,
+        "new": True,
+        "title": "Availability record (monthly)",
+        "description": (
+            "Monthly availability record for the Deal Intelligence platform: the month's uptime percentage against "
+            "the 99.9 % commitment, measured over all minutes from CloudWatch metrics excluding announced maintenance "
+            "windows, the minutes of unplanned downtime, and any customer-facing incident. Prepared by the CEO from "
+            "the CloudWatch availability metrics; the Monday reminder email covers this task. "
+            f"{MONTHLY}\n\nSupports: A1.1, A1.1.1, A1.2, A1.2.3, CC7.2.2"
+        ),
+        "frequency": "monthly",
+        "owner": "CEO",
+        "status": "todo",
+        "createdAt": None,
+        "updatedAt": None,
+        "taskTemplateId": None,
+    })
 dump("tasks-v2.json", tasks)
 
 # ---------------------------------------------------------------------------
 # policies-meta.json — description only (name/frequency/department unchanged)
 # ---------------------------------------------------------------------------
+# D4 (FileVault wording in the AUP line) and D13 (availability measurement in the SLA line) applied.
 POLICY_DESC = {
     "Data Classification and Handling Standard": "Classification tiers and handling rules for the data the platform processes; business contact data is Confidential. Single classification document (the Data Classification Policy is merged into it). Owner: CEO; reviewed annually.",
-    "Vulnerability Management Procedure": "How vulnerabilities are found (ECR scan-on-push, Dependabot, Trivy in CI, Security Hub) and remediated: Critical within 24 hours, dependency CVEs rated Critical within 7 days, High 30 days, Medium 90 days. Owner: CEO; reviewed annually.",
+    "Vulnerability Management Procedure": "How vulnerabilities are found (ECR scan-on-push, Dependabot and code scanning, Trivy in CI, the monthly configuration-check Lambda) and remediated: Critical within 24 hours, dependency CVEs rated Critical within 7 days, High 30 days, Medium 90 days. Owner: CEO; reviewed annually.",
     "Vendor Management Policy": "Assessment, Data Processing Agreements, and annual review of vendors and the two sub-processors (AWS, PropelAuth); 30-day customer notice for sub-processor changes. Owner: CEO; reviewed annually.",
     "Third-Party Integration Security Guidelines": "Merged: integration patterns moved to the API Security and Rate Limiting Standard (Integration security section) and assessment/DPA content to the Vendor Management Policy. [CONFIRM: archive this policy in the platform]",
-    "System Monitoring and Logging Procedure": "Monitoring and logging requirements: CloudWatch alarms and 90-day log retention, CloudTrail with 7-year retention, Security Hub with real-time SNS alerting for critical findings and a monthly reviewed record. Owner: CEO; reviewed annually.",
-    "Service Level Agreement (SLA) Management Policy": "The 99.9 % platform availability commitment, how it is measured monthly from CloudWatch metrics, maintenance notice by email, and the monthly availability record in the compliance platform. Owner: CEO; reviewed annually.",
+    "System Monitoring and Logging Procedure": "Monitoring and logging requirements: CloudWatch alarms and 90-day log retention, CloudTrail with 7-year retention, an EventBridge rule on security-relevant CloudTrail events with real-time SNS alerting via the breach-detection Lambda, and the monthly configuration-check record. Owner: CEO; reviewed annually.",
+    "Service Level Agreement (SLA) Management Policy": "The 99.9 % platform availability commitment, measured monthly over all minutes from CloudWatch metrics excluding announced maintenance windows, maintenance notice by email, and the monthly availability record in the compliance platform. Owner: CEO; reviewed annually.",
     "Security Awareness Training Program": "Security awareness and ethics training in the compliance platform portal at onboarding and annually for all personnel, with the completion certificate as evidence. Owner: CEO; reviewed annually.",
     "Secure Software Development Lifecycle (SDLC) Standard": "Security requirements through design, development, testing, and deployment of the platform: pull-request workflow on protected main, CI checks (Black, isort, Flake8, Bandit, pytest, Trivy, TruffleHog), staging-stage validation. Owner: CEO; reviewed annually.",
     "Penetration Testing and Security Assessment Procedure": "Annual third-party penetration test and internal security assessments, with findings remediated per the Vulnerability Management Procedure. Owner: CEO; reviewed annually.",
     "Encryption and Cryptographic Controls Standard": "Encryption at rest with a regional KMS customer-managed key (annual rotation), TLS 1.2+ in transit with ACM certificates, and key management rules. Owner: CEO; reviewed annually.",
     "Data Subject Rights Request Procedure": "Receiving, verifying, and fulfilling GDPR and CCPA data subject requests within 30 days (GDPR) or 45 days (CCPA), with each request recorded in the compliance platform. Owner: CEO; reviewed annually.",
-    "Cloud Infrastructure Security Policy": "Security requirements for the AWS environment in us-east-1: VPC isolation, IAM least privilege with MFA, CloudFormation via the Serverless Framework as the only change path, Security Hub and CloudTrail. Owner: CEO; reviewed annually.",
+    "Cloud Infrastructure Security Policy": "Security requirements for the AWS environment in us-east-1: VPC isolation, IAM least privilege with MFA, CloudFormation via the Serverless Framework as the only change path, CloudTrail with the EventBridge security-event rule, and the monthly configuration-check Lambda. Owner: CEO; reviewed annually.",
     "API Security and Rate Limiting Standard": "Requirements for the platform's APIs: PropelAuth JWT authentication, TLS 1.2+, rate limiting of 100 requests per minute per key enforced in middleware, audit logging, and integration security. Owner: CEO; reviewed annually.",
-    "Acceptable Use Policy": "Rules for use of Deal Intelligence systems and data by all personnel: approved tools, MFA, browser SSO through Google Workspace, device security, prohibited activities. Acknowledged annually in the compliance platform portal. Owner: CEO.",
+    "Acceptable Use Policy": "Rules for use of Deal Intelligence systems and data by all personnel: approved tools, MFA, browser SSO through Google Workspace, FileVault full-disk encryption on personnel devices, prohibited activities. Acknowledged annually in the compliance platform portal. Owner: CEO.",
     "Risk Assessment Procedure": "Identifying, scoring (likelihood × impact, 1–25), treating, and reviewing risks in the compliance platform's risk register: quarterly review, annual assessment. Owner: CEO; reviewed annually.",
     "Privacy Notice and Data Processing Agreement Template": "Template privacy notice and Data Processing Agreement for customers under GDPR and CCPA: processing purposes, sub-processors, data subject rights, breach notification within 48 hours. Owner: CEO; reviewed annually.",
     "Information Security Policy": "Parent policy for the security program: principles, roles (CEO owns every control; Go-to-Market Contractor has no production access), control objectives for Security, Availability, and Confidentiality, exceptions approved by the CEO. Reviewed annually.",
@@ -528,8 +571,9 @@ NATIVE = {
             "meetingMinutes": (
                 "Q4 2025 quarterly management meeting — Deal Intelligence LLC\n"
                 "Source: board-management-meeting-minutes-q4-2025-v1.0.pdf (audited record, finalized 2026-02-02); "
-                "text as revised in scratch/quality-sweep/records-v2/board-management-meeting-minutes-q4-2025.md\n\n"
-                "<minutes body: docBody('board-management-meeting-minutes-q4-2025') from the revised markdown>"
+                "historical record, not edited (D17) — text as in data/markdown/board-management-meeting-minutes-q4-2025.md "
+                "plus the one-line 'Corrected 2026-10-31' note in scratch/quality-sweep/records-v2/\n\n"
+                "<minutes body: docBody('board-management-meeting-minutes-q4-2025') from the v1 markdown, unchanged>"
             ),
             "meetingMinutesApprovedBy": "Mo Messidi (CEO, meeting recorder)",
             "approvedDate": "2026-02-02",
@@ -545,7 +589,8 @@ NATIVE = {
             "overallRating": "exceeds-expectations",
             "managerComments": (
                 "Annual Performance Evaluation — CEO, period 2025-01-01 to 2025-12-09. Composite rating 4.95/5 (Exceptional).\n\n"
-                "<summary: §8.2 of the revised evaluation markdown>\n\n"
+                "<summary: section 8.2 of the v1 evaluation markdown (data/markdown/annual-performance-evaluation-ceo.md), "
+                "unchanged — historical record (D17)>\n\n"
                 "Areas for improvement: control automation 86 % → 95 % (Q2 2026); 2 remaining SOC 2 controls (Q1–Q2 2026); "
                 "penetration testing cadence (Q2 2026). Full record: annual-performance-evaluation-ceo-v1.0.pdf."
             ),
@@ -555,13 +600,14 @@ NATIVE = {
     },
     "bcp-full-test-2026-02": {
         "formType": "tabletop-exercise",
+        "name": "BCP full test 2026-02-04",  # D18: record name; the "Q1 2025" label is dropped
         "payload": {
             "submissionDate": "2026-02-04T08:25:00.000Z",
             "exerciseDate": "2026-02-04",
             "facilitator": "Mo Messidi (CEO, exercise coordinator)",
             "scenarioType": "custom",
             "scenarioDescription": (
-                "AWS service disruption — full systems recovery from backups using infrastructure as code "
+                "BCP full test 2026-02-04. AWS service disruption — full systems recovery from backups using infrastructure as code "
                 "(CloudFormation via the Serverless Framework, serverless.yml). Plan: \"AWS Service Disruption Recovery\" "
                 "(process: AWS Infrastructure Operations). Type: full recovery test, not a discussion-only tabletop."
             ),

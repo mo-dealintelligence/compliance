@@ -89,12 +89,10 @@ We maintain a minimal sub-processor model as defined in our Vendor Management Po
 
 **Current sub-processors**
 
-- **AWS (Amazon Web Services):** Cloud infrastructure and data storage (us-east-1)
-- **PropelAuth:** Authentication and identity management
-- **Google Workspace:** Email, documents, and personnel sign-in
-- **GitHub:** Source code hosting and CI
-- **Resend:** Transactional email delivery
-- **Compliance platform:** Self-hosted on AWS within our own infrastructure
+- **AWS (Amazon Web Services):** Cloud infrastructure and data storage (us-east-1), including the compliance platform we self-host within our own AWS infrastructure
+- **PropelAuth:** Authentication and identity management (customer sign-in through Google is provided via PropelAuth)
+
+Google Workspace, GitHub, Resend, and HubSpot are vendors we use for personnel email and documents, source code hosting and CI, transactional email delivery, and CRM. They do not process customer data and are not sub-processors.
 
 Customer-controlled integrations (Slack, CRM systems) are governed by the Integration security section of the API Security and Rate Limiting Standard.
 
@@ -106,7 +104,7 @@ We implement the following security measures:
 - TLS 1.2+ encryption in transit
 - Multi-factor authentication for personnel enforced in Google Workspace, GitHub, and AWS; customer sign-in through Google Workspace via PropelAuth
 - Role-based access control
-- Security monitoring through CloudWatch alarms and Security Hub, with real-time alerting for critical findings
+- Security monitoring through CloudWatch alarms, a monthly configuration-check Lambda, and real-time alerting on security-relevant CloudTrail events
 
 Reference: Encryption and Cryptographic Controls Standard
 
@@ -144,11 +142,13 @@ In the event of a personal data breach, we will notify affected customers within
 
 This Data Processing Agreement ("DPA") forms part of the Service Agreement between Deal Intelligence LLC ("Processor") and [Customer Name] ("Controller").
 
+Sections 4.1 to 4.9 apply to personal data that the Controller uploads to or holds within its Deal Intelligence account, for which Deal Intelligence acts as processor. Section 4.10 applies to the business contact information that Deal Intelligence compiles and delivers through the platform, for which Deal Intelligence and the Customer each act as an independent controller. [CONFIRM: D14 open — pending investigation]
+
 ### 4.1 Definitions
 
 Terms used in this DPA shall have the meanings set forth in the GDPR, unless otherwise defined:
 
-- **"Personal Data"**: Business contact information as defined in Section 3.2
+- **"Personal Data"**: Personal data that the Controller uploads to or holds within its Deal Intelligence account, including the account data defined in Section 3.2
 - **"Processing"**: Any operation performed on Personal Data
 - **"Sub-Processor"**: Third-party service providers listed in Section 4.5
 - **"Data Breach"**: As defined in Article 4(12) of the GDPR
@@ -171,13 +171,13 @@ The Processor implements the following security measures.
 - KMS encryption for data at rest (AES-256)
 - TLS 1.2+ for data in transit
 - VPC isolation with private subnets
-- CloudTrail audit logging
-- Security Hub continuous monitoring
+- CloudTrail audit logging with real-time alerting on security-relevant events
+- Monthly configuration-check Lambda against a fixed checklist, recorded in the compliance platform
 
 **Organizational measures**
 
 - Annual security awareness training per the Security Awareness Training Program
-- Quarterly risk assessments via the compliance platform Risk Assessment module
+- Annual risk assessment and quarterly risk review via the compliance platform Risk Assessment module
 - Incident response procedures with 48-hour notification
 - Annual penetration testing per the Penetration Testing and Security Assessment Procedure
 
@@ -194,12 +194,10 @@ The Processor shall:
 
 **Authorized Sub-Processors**: The Controller consents to the engagement of:
 
-- AWS for infrastructure services
-- PropelAuth for authentication services
-- Google Workspace for email, documents, and personnel sign-in
-- GitHub for source code hosting and CI
-- Resend for transactional email delivery
-- The compliance platform, self-hosted on AWS within the Processor's own infrastructure
+- AWS for infrastructure services, including the compliance platform self-hosted within the Processor's own AWS infrastructure
+- PropelAuth for authentication services (customer sign-in through Google is provided via PropelAuth)
+
+Google Workspace, GitHub, Resend, and HubSpot are vendors of the Processor that do not process Personal Data and are not Sub-Processors.
 
 **Sub-Processor changes**
 
@@ -223,7 +221,6 @@ Reference: Incident Response Procedure
 The Controller may exercise audit rights through:
 
 - The Processor's SOC 2 report (Security, Availability, and Confidentiality), available on request under NDA
-- Quarterly security assessments
 - On-demand compliance attestations
 - Third-party security certifications
 
@@ -243,6 +240,18 @@ Reference: Data Retention and Disposal Policy
 - Liability caps aligned with the Service Agreement
 - Mutual indemnification for data protection violations
 - Exclusions for consequential damages
+
+### 4.10 Independent controllers (business contact information)
+
+[CONFIRM: D14 open — pending investigation]
+
+For the business contact information that Deal Intelligence compiles and delivers to the Customer through the platform:
+
+- Deal Intelligence and the Customer each act as an independent controller of the business contact information in their own possession; neither party processes it on behalf of the other
+- Each party is responsible for its own compliance with GDPR and CCPA, including its own legal basis, privacy notice, data subject rights handling, and breach notification obligations
+- Deal Intelligence handles data subject requests concerning the business contact information it holds per the Data Subject Rights Request Procedure; the Customer handles requests concerning the copies it holds
+- Each party notifies the other without undue delay of a data subject request or breach that concerns business contact information delivered under the Service Agreement, where the other party's assistance is reasonably required
+- The Customer uses the business contact information only for its own business-to-business sales and marketing purposes and in compliance with applicable law
 
 ## 5. Breach notification templates
 
@@ -397,9 +406,7 @@ The CEO tracks and reports:
 
 ### 10.2 Regular reviews
 
-- Quarterly privacy assessments via the compliance platform Risk Assessment module
 - Annual DPA reviews and updates
-- Semi-annual consent audit
 - Annual tabletop exercise recorded in the compliance platform
 
 ## 11. Implementation guidelines
@@ -457,4 +464,4 @@ Updates are managed through the Change Management Policy, with stakeholder notif
 | Version | Date | Author | Summary of change |
 |---|---|---|---|
 | 1.0 | November 13, 2025 | Mo Messidi | Initial audited release |
-| 2.0 | <to be set at publication> | Mo Messidi | Retyped as Template (no acknowledgment); scope limited to GDPR and CCPA; breach notification set to 48 hours to customers / 72 hours to the authority (24-hour promise removed); DSR assistance set to 30/45 days; SOC 2 report available on request under NDA; sub-processor list aligned to the Vendor Management Policy; account data retention set to relationship + 24 months; roles consolidated to CEO |
+| 2.0 | <to be set at publication> | Mo Messidi | Retyped as Template (no acknowledgment); scope limited to GDPR and CCPA; breach notification set to 48 hours to customers / 72 hours to the authority (24-hour promise removed); DSR assistance set to 30/45 days; SOC 2 report available on request under NDA; sub-processor list reduced to AWS and PropelAuth (Google Workspace, GitHub, Resend and HubSpot listed as vendors that do not process customer data); processor terms scoped to customer account data with an independent-controllers clause for compiled business contact information; account data retention set to relationship + 24 months; roles consolidated to CEO |
