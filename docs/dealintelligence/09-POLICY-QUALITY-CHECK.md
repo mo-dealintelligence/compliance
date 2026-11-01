@@ -141,3 +141,56 @@ gate, automated checks, logged self‑review, external auditor.
 3. Role collapse + placeholder clean‑up across all 24 (mechanical; I can script the role/term replacements and give you a redline per policy to approve).
 4. Merges (Classification, Third‑Party, Vendor §11, Training).
 5. Re‑publish as v2.0 in Comp with a changelog line per policy, then re‑acknowledge — the auditor will see a dated review, which is itself CC1/CC5 evidence.
+
+## H. Decision register — fix the environment vs amend the policy (2026-10-31)
+
+Mo's direction: keep the policy and change reality for backups, multi‑AZ,
+staging and PR review/branch protection. Everything else defaults to
+"amend the policy" unless marked otherwise. Nothing below is executed yet
+except the prepared (unpushed) branch noted in the first row.
+
+### H1. Keep the policy — fix the environment
+
+| Item | What has to be true | Effort / cost | Status |
+|---|---|---|---|
+| Backups 90 days | DocumentDB `BackupRetentionPeriod` 35 → 90 | one line in serverless.yml; small storage cost | prepared on branch `compliance/env-alignment` (di‑backend‑api, not pushed) |
+| Multi‑AZ DocumentDB | second `db.serverless` instance in us‑east‑1b (auto‑promoted replica) | ~$15–20/mo idle, more under load; no downtime | prepared on the same branch |
+| PR review + branch protection + CI gate | protect `main` (PR required, 4 status checks), CI with no `\|\| true`; fix `app/requirements.txt` install | 1 afternoon + fixing whatever tests go red | CI rewrite prepared on the same branch; protection needs your GitHub admin |
+| Staging environment | `--stage staging` stack; parameterise 11 hardcoded `*-production-*` names; **no prod data** (scrubbed snapshot or synthetic seed per SDLC §5.3) | ~$30–40/mo (NAT + idle DocumentDB); 1–2 days | not started — needs decisions: data source, same account vs separate account |
+| Separate non‑prod AWS account | only if you choose it for staging (policies say "distinct AWS accounts") | new member account in the org, free; adds SSO/role setup | decision pending |
+| Secrets rotation (quarterly DB creds, 90‑day API keys) | enable Secrets Manager rotation for the DocumentDB secret; PropelAuth key rotation calendar | half a day | not started — cheap and worth doing |
+| CloudTrail 7‑year immutable retention | S3 lifecycle to Glacier + Object Lock on the CloudTrail bucket | 1 hour; pennies | not started — cheap |
+| ECR scan‑on‑push on all repos | enable on the 2 repos where it is off | 5 minutes | not started |
+| Quarterly backup‑restore test | already done once (Feb 2026); schedule quarterly, record as tabletop form | ongoing | keep |
+| Annual third‑party pentest | engage a vendor; attach report to the `penetration-test` form | $ (vendor) | pending the existing report |
+
+### H2. Amend the policy (not worth building for a one‑person company)
+
+| Claim to remove or reword | Where | Replace with |
+|---|---|---|
+| WAF on CloudFront, GuardDuty, AWS Config drift detection + auto‑remediation, Inspector, EC2/EBS/CloudWatch Agent, Route 53 multi‑region, Transit Gateway, PrivateLink, image signing, certificate pinning, cross‑region replication | Cloud Infra, Encryption, Monitoring, IR, Vuln Mgmt | the controls that exist: Security Hub, CloudTrail, VPC isolation, ECR scanning, KMS, ACM |
+| CloudWatch Synthetics canaries every 5 min, status page, customer‑portal SLA reports, blue‑green/canary deploys, circuit breakers, load balancers | SLA, BCP, Monitoring | CloudWatch alarms + monthly availability figure from CloudWatch; email notice |
+| Phishing simulations, LMS quizzes (80 %), newsletters, security champions, surveys, "training within 5 days / access suspended at +7" | Security Awareness Training Program | one page: Comp training module on onboarding + annually; contractor acknowledgment; certificate as evidence |
+| Quarterly tabletop + annual full simulation; 15‑minute 24/7 response times; three‑person IRT; cyber‑insurance; encrypted messaging; six playbooks | Incident Response, SLA | annual tabletop (form in Comp), CEO as responder, realistic response targets, the one real BCP test |
+| "86 % control automation", "220 controls", "100+ resources", "quarterly control testing via Lambda" | InfoSec, Risk, Retention, Training, Vendor, system description | delete the numbers; cite Comp as the control register |
+| Classification metadata fields, resource tags, email subject marking, file naming | Data Classification Standard | handling rules only |
+| API Gateway usage plans per tier, Premium/Admin tiers, WebSockets, DLQs, SAST+DAST, 80 % test coverage | API Security, SDLC | one 100 rpm tier; CI lint/tests/Trivy/TruffleHog (what the new CI does) |
+| Legal‑hold registry Lambda, S3 security‑log archive 7 years, KMS "segment" rotation, Terraform | Data Retention | 90‑day CloudWatch; CloudTrail bucket lifecycle (if H1 done); CloudFormation |
+| Automated DSR deletion Lambda, EventBridge deadline monitoring, PropelAuth flags, backup purge | DSR Procedure | the manual steps actually followed |
+| CISO / Security Lead / System Owner / DevOps / Procurement / HR / Legal / DPO / CAB; blank approval tables; "all employees" | all 24 | CEO (sole operator) + Contractor; compensating controls for second‑person steps |
+| Non‑existent docs: Standard Change Catalog, Consent Management Procedure, Infrastructure and Recovery Policy, playbooks, runbooks "maintained separately" | Change Mgmt, Classification, Retention, IR, BCP | delete the references or write a one‑page runbook |
+| Placeholders (`[Customer Name]`, `[YES]/[NO]`, `[Maintained Separately]`, export junk), `.ai` email, version 1.0/2.0 conflict, `doc_type: Policy` on standards/procedures/template | DPA, Retention, BCP, SLA, DSR, Access Control | mechanical clean‑up |
+
+### H3. Numbers to align (policy edits, pick one value each)
+
+Critical‑vuln remediation (24 h / 48 h / 7 d) · breach notification
+(24/48/72 h) · DSR window (10 bd / 30 d / 72 h) · account‑data retention
+(24 mo / 7 y) · incident evidence (2 y / 7 y) · API latency alert (2 s / 5 s)
+· exception approver (CEO / CISO) · MFA wording (required / available;
+inherited from Google) · auth SLA 99.95 % headroom.
+
+### H4. Merges
+
+Data Classification Policy → Standard · Third‑Party Integration Guidelines →
+API Security + Vendor Management · Vendor Management §11 → delete · Training
+Program → one page.
