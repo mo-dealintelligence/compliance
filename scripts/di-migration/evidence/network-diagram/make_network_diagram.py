@@ -114,11 +114,11 @@ def dashed(c, pts, label=None, lx=None, ly=None, anchor="middle"):
 
 
 def build_internal():
-    c = Canvas(1540, 1200)
+    c = Canvas(1620, 1200)
     c.header("Deal Intelligence — Network Flow Diagram",
              f"Production · AWS account 164482277879 · us-east-1 · v2.0 · {DATE} · owner: CEO")
 
-    c.boundary(50, 124, 1440, 118, "Internet")
+    c.boundary(50, 124, 1520, 118, "Internet")
     ey, eh, ew, gap = 158, 64, 226, 12
     xs = [72 + i * (ew + gap) for i in range(6)]
     c.node(xs[0], ey, ew, eh, "Web app", "browser · Netlify-hosted", EXT, "Client")
@@ -129,7 +129,7 @@ def build_internal():
     c.node(xs[5], ey, ew, eh, "Operator", "console · CLI · SSM", EXT, "Users")
 
     A = 336
-    c.p.append(f'<rect x="50" y="{A}" width="1440" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
+    c.p.append(f'<rect x="50" y="{A}" width="1520" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
                'stroke-width="2.6" stroke-dasharray="12 6"/>')
     c.text(66, A + 756, "AWS account 164482277879 — us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
@@ -144,8 +144,8 @@ def build_internal():
     c.cyl(230, 786, 500, 80, "DocumentDB", "di-backend-production-cluster", "AmazonDocumentDB")
 
     c.boundary(890, 446, 546, 520, "Public subnet — 10.0.100.0/24 (us-east-1a)", "#555")
-    c.node(916, 486, 494, 64, "Fargate tasks", "di-jobs-production-cluster", INT, "AWSFargate")
-    c.node(916, 700, 494, 64, "Bastion", "ECS task · started on demand", INT, "AmazonElasticContainerService")
+    c.node(916, 486, 384, 64, "Fargate tasks", "di-jobs-production-cluster", INT, "AWSFargate")
+    c.node(916, 700, 384, 64, "Bastion", "ECS task · started on demand", INT, "AmazonElasticContainerService")
 
     sw = 258
     for i, (ic, t) in enumerate([("AWSSecretsManager", "Secrets Manager"), ("AWSKeyManagementService", "KMS"),
@@ -164,16 +164,16 @@ def build_internal():
     c.arrow([(508, 530), (484, 530), (484, 786)], "TCP 27017", 492, 700, "start")
     c.arrow([(283, 650), (283, 786)], "TCP 27017", 295, 740, "start")
     # orchestrator -> Fargate
-    c.arrow([(360, 650), (360, 672), (1163, 672), (1163, 550)], "ECS RunTask", 1000, 664, "start")
+    c.arrow([(360, 650), (360, 672), (1108, 672), (1108, 550)], "ECS RunTask", 960, 664, "start")
     # Lambda app + mcp out through the NAT (shared trunk)
-    c.arrow([(420, 550), (420, 568), (1430, 568), (1430, A + 34)], "HTTPS 443", 1300, 560, "start")
-    c.p.append('<path d="M760,550 L760,568" fill="none" stroke="#1a1a1a" stroke-width="1.1"/>')
+    c.arrow([(420, 550), (420, 570), (1365, 570), (1365, A + 34)], "HTTPS 443", 1373, 400, "start")
+    c.p.append('<path d="M760,550 L760,570" fill="none" stroke="#1a1a1a" stroke-width="1.1"/>')
     c.arrow([(1100, A - 16), (950, A - 16), (950, ey + eh)], "HTTPS 443", 958, 274, "start")
     c.arrow([(1137, A - 34), (1137, ey + eh)], "HTTPS 443", 1145, 274, "start")
     # Fargate: API calls back in through CloudFront
     c.arrow([(916, 506), (876, 506), (876, 400), (620, 400), (620, A + 34)], "HTTPS 443", 700, 394, "start")
     # administrative access
-    dashed(c, [(xs[5] + 113, ey + eh), (xs[5] + 113, 282), (1478, 282), (1478, 732), (1410, 732)], "SSM · HTTPS 443", 1470, 690, "end")
+    dashed(c, [(xs[5] + 113, ey + eh), (xs[5] + 113, 282), (1520, 282), (1520, 732), (1300, 732)], "SSM · HTTPS 443", 1448, 276, "middle")
     dashed(c, [(916, 748), (560, 748), (560, 786)], "TCP 27017", 800, 742, "middle")
 
     legend(c, 70, 1140)
