@@ -155,9 +155,9 @@ def build_internal():
         c.node(104 + i * (sw + 16), 992, sw, 54, t, None, SUP, ic)
 
     # ingress
-    c.arrow([(xs[0] + 113, ey + eh), (200, A - 34)], "HTTPS 443", 120, 296, "start")
-    c.arrow([(xs[1] + 113, ey + eh), (360, A - 34)], "HTTPS 443", 372, 296, "start")
-    c.arrow([(xs[2] + 113, ey + eh), (520, A - 34)], "HTTPS 443", 600, 296, "start")
+    c.arrow([(185, ey + eh), (185, A - 34)], "HTTPS 443", 193, 274, "start")
+    c.arrow([(423, ey + eh), (423, A - 34)], "HTTPS 443", 431, 274, "start")
+    c.arrow([(640, ey + eh), (640, A - 34)], "HTTPS 443", 648, 274, "start")
     c.arrow([(250, A + 34), (250, 486)], "HTTPS 443", 262, 440, "start")
     c.arrow([(640, A + 34), (640, 486)], "HTTPS 443", 652, 440, "start")
     # database
@@ -169,8 +169,8 @@ def build_internal():
     c.arrow([(360, 650), (360, 672), (1163, 672), (1163, 550)], "ECS RunTask", 1000, 664, "start")
     # Lambdas out through the NAT
     c.arrow([(838, 618), (1430, 618), (1430, A + 34)], "HTTPS 443", 1300, 610, "start")
-    c.arrow([(1180, A - 34), (xs[3] + 113, ey + eh)], "HTTPS 443", 1020, 296, "end")
-    c.arrow([(1280, A - 34), (xs[4] + 113, ey + eh)], "HTTPS 443", 1290, 296, "start")
+    c.arrow([(1100, A - 16), (950, A - 16), (950, ey + eh)], "HTTPS 443", 958, 274, "start")
+    c.arrow([(1137, A - 34), (1137, ey + eh)], "HTTPS 443", 1145, 274, "start")
     # Fargate: API calls back in through CloudFront
     c.arrow([(916, 506), (876, 506), (876, 400), (620, 400), (620, A + 34)], "HTTPS 443", 700, 394, "start")
     # administrative access
@@ -206,14 +206,14 @@ def build_customer():
     c.node(150, 476, 300, 68, "API", "Lambda", INT, "AWSLambda")
     c.cyl(620, 468, 400, 84, "Customer data", "DocumentDB · encrypted · 35-day backups", "AmazonDocumentDB")
 
-    c.arrow([(176, ey + eh), (200, A - 34)], "HTTPS 443", 118, 296, "start")
-    c.arrow([(400, ey + eh), (330, A - 34)], "HTTPS 443", 380, 296, "start")
-    c.arrow([(614, ey + eh), (480, A - 34)], "HTTPS 443", 560, 296, "start")
+    c.arrow([(176, ey + eh), (176, A - 34)], "HTTPS 443", 184, 274, "start")
+    c.arrow([(400, ey + eh), (400, A - 34)], "HTTPS 443", 408, 274, "start")
+    c.arrow([(540, ey + eh), (540, A - 34)], "HTTPS 443", 548, 274, "start")
     c.arrow([(250, A + 34), (250, 476)], "HTTPS 443", 262, 446, "start")
     c.arrow([(450, 510), (620, 510)], "TCP 27017", 535, 502, "middle")
-    c.arrow([(300, 544), (300, 606), (1080, 606), (1080, A + 34)], "HTTPS 443", 1090, 486, "start")
-    c.arrow([(900, A - 34), (823, ey + eh)], "HTTPS 443", 820, 296, "end")
-    c.arrow([(1000, A - 34), (1032, ey + eh)], "HTTPS 443", 1030, 296, "start")
+    c.arrow([(300, 544), (300, 606), (1080, 606), (1080, A + 34)], "HTTPS 443", 1072, 486, "end")
+    c.arrow([(860, A - 34), (860, ey + eh)], "HTTPS 443", 868, 274, "start")
+    c.arrow([(1032, A - 34), (1032, ey + eh)], "HTTPS 443", 1040, 274, "start")
     c.save("di-backend-network-customer")
 
 
