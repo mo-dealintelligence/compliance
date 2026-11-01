@@ -1,0 +1,1105 @@
+{
+ "exported": "2026-10-31",
+ "reason": "Descoped Processing Integrity and Privacy categories from SOC 2 Type II scope (Mo, 2026-10-31). Kept Security, Availability, Confidentiality.",
+ "controls": [
+  {
+   "identifier": "P1.1",
+   "requirement": "P1.1",
+   "section": "P1 - Privacy Notice",
+   "title": "P1.1 The entity provides notice to data subjects about its privacy practices to meet the entity's objectives relate",
+   "description": "P1.1 (P1 - Privacy Notice): The entity provides notice to data subjects about its privacy practices to meet the entity's objectives related to privacy.\n\nTell people what personal information you collect, why you collect it, how you use it, who you share it with, and what rights they have. Keep your privacy notice current, easy to find, and written in plain language. Update and redistribute it when your practices change significantly.\n\nImplementation: Privacy notice: collection, use, sharing, rights, contact info.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441c85999b5d7e22d9dc"
+  },
+  {
+   "identifier": "P1.1.1",
+   "requirement": "P1.1",
+   "section": "P1 - Privacy Notice",
+   "title": "P1.1.1 Privacy Notice Development and Publication",
+   "description": "The organization shall develop and maintain a comprehensive privacy notice that clearly articulates: (a) categories of personal information collected, (b) purposes for collection and use, (c) third parties with whom information is shared, (d) data subject rights and how to exercise them, and (e) contact information for privacy inquiries. The notice shall be written in plain, accessible language appropriate for the intended audience and published in a readily accessible location on company websites and applications.\n\nImplementation: Notice: data categories, purposes, recipients, rights.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441d2d2a1769ba541f6a"
+  },
+  {
+   "identifier": "P1.1.2",
+   "requirement": "P1.1",
+   "section": "P1 - Privacy Notice",
+   "title": "P1.1.2 Privacy Notice Update and Distribution Procedures",
+   "description": "The organization shall establish and follow procedures for reviewing, updating, and redistributing the privacy notice when privacy practices change materially. This includes: (a) defining triggers that necessitate privacy notice updates, (b) establishing a review cadence (at minimum annually), (c) documenting the approval process for notice changes, and (d) implementing mechanisms to notify affected data subjects of significant changes to privacy practices.\n\nImplementation: Annual review. Update triggers defined. Notification procedures.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441d585939822f3b6c7d"
+  },
+  {
+   "identifier": "P2.1",
+   "requirement": "P2.1",
+   "section": "P2 - Privacy Choice and Consent",
+   "title": "P2.1 The entity communicates choices available regarding the collection, use, retention, disclosure, and disposal o",
+   "description": "P2.1 (P2 - Privacy Choice and Consent): The entity communicates choices available regarding the collection, use, retention, disclosure, and disposal of personal information to the data subjects and the consequences, if any, of each choice.\n\nGive people meaningful choices about their personal information and get appropriate consent. Explain what happens if they opt in or out, obtain explicit consent for sensitive data, and document consent decisions. Respect people's choices and only use data as they've agreed.\n\nImplementation: Privacy choices documented. Consequences explained.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441d740de09e908a374a"
+  },
+  {
+   "identifier": "P2.1.1",
+   "requirement": "P2.1",
+   "section": "P2 - Privacy Choice and Consent",
+   "title": "P2.1.1 Privacy Choice Communication Framework",
+   "description": "The organization shall establish and maintain a formal framework for communicating privacy choices to data subjects. This framework must clearly articulate the options available regarding the collection, use, retention, disclosure, and disposal of personal information. Communications shall be presented in clear, accessible language and made available through appropriate channels including the company website, application interfaces, and direct communications. The framework must specify the consequences of each choice, enabling data subjects to make informed decisions about their personal information.\n\nImplementation: Opt-out mechanisms explained. Clear language.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441edcf6eee0cb18c667"
+  },
+  {
+   "identifier": "P2.1.2",
+   "requirement": "P2.1",
+   "section": "P2 - Privacy Choice and Consent",
+   "title": "P2.1.2 Consent Management and Documentation",
+   "description": "The organization shall implement procedures for obtaining, recording, and managing consent from data subjects. Explicit consent must be obtained for the processing of sensitive personal information. All consent decisions shall be documented with sufficient detail to demonstrate compliance, including the date, method of consent, scope of consent, and the specific choices made by the data subject. The organization must maintain mechanisms to honor data subject choices and ensure personal information is processed only in accordance with the consent provided.\n\nImplementation: Retention periods in policy.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae4441eff016f7398c40a00"
+  },
+  {
+   "identifier": "P3.1",
+   "requirement": "P3.1",
+   "section": "P3 - Privacy Collection",
+   "title": "P3.1 Personal information is collected consistent with the entity's objectives related to privacy.",
+   "description": "P3.1 (P3 - Privacy Collection): Personal information is collected consistent with the entity's objectives related to privacy.\n\nOnly collect personal information you actually need for stated purposes. Use fair and legal collection methods, be transparent about what you're collecting, and don't collect excessive information \"just in case.\" When collecting from third parties, ensure they had the right to share it.\n\nImplementation: Collection limited to stated purposes.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441e401817eac1fbd5ea"
+  },
+  {
+   "identifier": "P3.1.1",
+   "requirement": "P3.1",
+   "section": "P3 - Privacy Collection",
+   "title": "P3.1.1 Data Collection Purpose Documentation",
+   "description": "The organization shall maintain formal documentation that clearly defines the specific purposes for which personal information is collected. This documentation must articulate the business necessity for each category of personal data collected, ensuring alignment with stated organizational objectives and privacy commitments. The documentation shall be reviewed annually or when significant changes occur to data collection practices.\n\nImplementation: Data categories defined.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441edf948629a8e12841"
+  },
+  {
+   "identifier": "P3.1.2",
+   "requirement": "P3.1",
+   "section": "P3 - Privacy Collection",
+   "title": "P3.1.2 Data Minimization and Collection Controls",
+   "description": "The organization shall implement controls to ensure that only personal information necessary for stated purposes is collected. Collection methods must be lawful, fair, and transparent. When personal information is obtained from third-party sources, the organization shall verify that such third parties had appropriate authorization to share the information and that the data was collected in compliance with applicable privacy requirements.\n\nImplementation: Classification governs handling.",
+   "evidenceFiles": [
+    "data-classification-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-classification-policy"
+   ],
+   "compId": "ctl_6ae4441f2f9c61d82658d36b"
+  },
+  {
+   "identifier": "P3.2",
+   "requirement": "P3.2",
+   "section": "P3 - Privacy Collection",
+   "title": "P3.2 For personal information requiring explicit consent, the entity communicates the need for such consent, as wel",
+   "description": "P3.2 (P3 - Privacy Collection): For personal information requiring explicit consent, the entity communicates the need for such consent, as well as the consequences of a failure to provide consent for the request, and obtains the consent prior to the collection of the information.\n\nWhen explicit consent is required (especially for sensitive data), clearly explain why and what happens if consent is denied. Make the consent process obvious and unambiguous, and keep records proving consent was obtained before collecting or using the information.\n\nImplementation: Explicit consent for sensitive data.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441f61bdaa8064beb899"
+  },
+  {
+   "identifier": "P3.2.1",
+   "requirement": "P3.2",
+   "section": "P3 - Privacy Collection",
+   "title": "P3.2.1 Explicit Consent Communication and Documentation Framework",
+   "description": "The organization shall establish and maintain a formal framework for communicating explicit consent requirements to data subjects. This framework must clearly articulate the specific purposes for which personal information is being collected, the categories of sensitive data involved, and the consequences of declining to provide consent. All consent communications shall be documented in clear, unambiguous language appropriate for the intended audience, and shall be reviewed periodically to ensure continued accuracy and compliance with applicable regulations.\n\nImplementation: Consent requirements explained.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441f0eb06cf1de504d80"
+  },
+  {
+   "identifier": "P3.2.2",
+   "requirement": "P3.2",
+   "section": "P3 - Privacy Collection",
+   "title": "P3.2.2 Consent Collection and Verification Procedures",
+   "description": "The organization shall implement formal procedures to obtain and verify explicit consent prior to the collection or processing of personal information requiring such consent. These procedures must ensure that consent is obtained through clear, affirmative action by the data subject, that consent records are timestamped and securely stored, and that no collection or processing activities commence until valid consent has been confirmed. The organization shall maintain auditable records demonstrating that consent was obtained before any data collection occurred.\n\nImplementation: DPA includes consent provisions.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4441f0da83114cc183b00"
+  },
+  {
+   "identifier": "P4.1",
+   "requirement": "P4.1",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.1 Personal information is limited to that which is relevant and necessary to accomplish the entity's objectives ",
+   "description": "P4.1 (P4 - Privacy Use, Retention, and Disposal): Personal information is limited to that which is relevant and necessary to accomplish the entity's objectives related to privacy.\n\nOnly use personal information for the purposes you told people about when collecting it. Don't repurpose data for unrelated uses without getting new consent. Implement controls to prevent unauthorized secondary uses of personal information.\n\nImplementation: Data minimization principles applied.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae44464e6a71dc06bb3e48f"
+  },
+  {
+   "identifier": "P4.1.1",
+   "requirement": "P4.1",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.1.1 Purpose Limitation Documentation and Enforcement",
+   "description": "The organization shall maintain formal documentation specifying the permitted purposes for each category of personal information collected. This documentation must align with privacy notices provided to data subjects at the time of collection. Technical and administrative controls shall be implemented to prevent the use of personal information for purposes beyond those originally disclosed. Any proposed new use of existing personal information requires documented approval through a formal review process that includes assessment of consent requirements.\n\nImplementation: Purpose limitation enforced.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae44465e9a8436e04f379c8"
+  },
+  {
+   "identifier": "P4.1.2",
+   "requirement": "P4.1",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.1.2 Data Minimization and Relevance Assessment",
+   "description": "The organization shall implement procedures to ensure personal information collection is limited to data elements that are directly relevant and necessary to accomplish stated business objectives. Prior to collecting new categories of personal information or expanding existing collection practices, a documented assessment must be completed justifying the necessity of each data element. Periodic reviews shall be conducted to identify and eliminate collection of personal information that is no longer necessary for stated purposes.\n\nImplementation: Classification by sensitivity.",
+   "evidenceFiles": [
+    "data-classification-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-classification-policy"
+   ],
+   "compId": "ctl_6ae444662ba0f6096c94d826"
+  },
+  {
+   "identifier": "P4.2",
+   "requirement": "P4.2",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.2 Personal information is retained for the period necessary to fulfill the stated purposes unless a longer reten",
+   "description": "P4.2 (P4 - Privacy Use, Retention, and Disposal): Personal information is retained for the period necessary to fulfill the stated purposes unless a longer retention period is required by law or regulation or is needed to protect the entity's legal rights.\n\nKeep personal information only as long as necessary for the stated purpose or as required by law. Implement retention schedules, regularly purge outdated information, and protect stored personal data from unauthorized access or accidental deletion while it's being retained.\n\nImplementation: Retention periods per business and legal requirements.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae4446770f9a58e1b2987cb"
+  },
+  {
+   "identifier": "P4.2.1",
+   "requirement": "P4.2",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.2.1 Retention Schedule Implementation",
+   "description": "Define and enforce retention periods for each category of personal information based on business and legal requirements.\n\nImplementation: Periods aligned with legal basis.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae44468a586a41d5e235854"
+  },
+  {
+   "identifier": "P4.2.2",
+   "requirement": "P4.2",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.2.2 Automated Retention Management",
+   "description": "Implement automated processes to flag or delete personal information when retention periods expire.\n\nImplementation: S3 lifecycle policies automate object expiration. DocumentDB backup retention (7 days) enforces data lifecycle. Retention periods defined in policy.",
+   "evidenceFiles": [
+    "aws_s3_buckets.png",
+    "aws_documentdb_backups.png",
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae444698c29ba2746394423"
+  },
+  {
+   "identifier": "P4.2.3",
+   "requirement": "P4.2",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.2.3 Retention Exception Management",
+   "description": "Manage exceptions including legal holds, ongoing services, and consent extensions.\n\nImplementation: EventBridge schedules enforcement.",
+   "evidenceFiles": [
+    "aws_eventbridge_rules.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae4446abe062d125f0200a8"
+  },
+  {
+   "identifier": "P4.3",
+   "requirement": "P4.3",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.3 Personal information is disposed of in a manner that renders the information unreadable, unusable, and unrecov",
+   "description": "P4.3 (P4 - Privacy Use, Retention, and Disposal): Personal information is disposed of in a manner that renders the information unreadable, unusable, and unrecoverable.\n\nWhen personal information is no longer needed, dispose of it securely to prevent unauthorized recovery. This includes secure deletion of electronic records, shredding of paper documents, and ensuring backup copies are also destroyed. Honor deletion requests from data subjects promptly.\n\nImplementation: Secure disposal: crypto erasure, secure deletion.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae4446bb5a45864019243f7"
+  },
+  {
+   "identifier": "P4.3.1",
+   "requirement": "P4.3",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.3.1 Disposal Triggering and Scheduling",
+   "description": "Identify personal information ready for disposal and schedule secure destruction according to retention policies.\n\nImplementation: Disposal methods by data type.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae4446c04fa4ad835f41491"
+  },
+  {
+   "identifier": "P4.3.2",
+   "requirement": "P4.3",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.3.2 Secure Deletion Methods",
+   "description": "Use appropriate deletion methods ensuring personal information cannot be recovered from any storage medium.\n\nImplementation: KMS enables cryptographic erasure.",
+   "evidenceFiles": [
+    "aws_kms_keys.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae4446d525f4e0c0f3c31bb"
+  },
+  {
+   "identifier": "P4.3.3",
+   "requirement": "P4.3",
+   "section": "P4 - Privacy Use, Retention, and Disposal",
+   "title": "P4.3.3 Deletion Request Processing",
+   "description": "Process data subject deletion requests within legal timeframes. Notify third parties as required.\n\nImplementation: Deletion requests processed per privacy notice procedures. KMS cryptographic erasure for secure deletion. CloudWatch logs track deletion activities.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "aws_kms_keys.png",
+    "aws_cloudwatch_log_groups.png"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4446d8525e1a0cd1aa69a"
+  },
+  {
+   "identifier": "P5.1",
+   "requirement": "P5.1",
+   "section": "P5 - Privacy Access",
+   "title": "P5.1 Data subjects are provided with access to their personal information upon request.",
+   "description": "P5.1 (P5 - Privacy Access): Data subjects are provided with access to their personal information upon request.\n\nGive people access to their own personal information when requested. Verify their identity first, provide the information in an understandable format within a reasonable time, and explain any codes or abbreviations. If you must deny access (for legal reasons), explain why.\n\nImplementation: DSAR procedures in privacy notice and IR procedure.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "incident-response-procedure-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "incident-response-procedure"
+   ],
+   "compId": "ctl_6ae4446f654127f16535e078"
+  },
+  {
+   "identifier": "P5.1.1",
+   "requirement": "P5.1",
+   "section": "P5 - Privacy Access",
+   "title": "P5.1.1 Data Subject Access Request Procedure",
+   "description": "The organization shall establish and maintain a formal procedure for receiving, processing, and responding to data subject access requests (DSARs). This procedure must include defined intake channels for receiving requests, identity verification protocols to confirm the requestor's identity before disclosing personal information, established timeframes for acknowledgment and response (typically within 30 days), and escalation paths for complex or disputed requests. Given the remote work environment, the procedure must specify secure digital methods for both receiving requests and delivering personal information to verified data subjects.\n\nImplementation: Identity verification before disclosure. Access policy.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "access-control-and-authentication-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "access-control-and-authentication-policy"
+   ],
+   "compId": "ctl_6ae44470020b152c5b37edfb"
+  },
+  {
+   "identifier": "P5.1.2",
+   "requirement": "P5.1",
+   "section": "P5 - Privacy Access",
+   "title": "P5.1.2 Personal Information Disclosure and Denial Protocols",
+   "description": "The organization shall implement protocols governing the format and delivery of personal information to data subjects, as well as procedures for handling access denials. Personal information must be provided in a clear, understandable format with explanations of any codes, abbreviations, or technical terminology used. When access must be denied in whole or in part due to legal restrictions, regulatory requirements, or other legitimate grounds, the organization must document the basis for denial and communicate the reason to the data subject in writing. All disclosures and denials must be logged and retained for audit purposes.\n\nImplementation: Disclosure protocols. Denial basis documented.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "data-classification-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "data-classification-policy"
+   ],
+   "compId": "ctl_6ae444719c68251a7615e80d"
+  },
+  {
+   "identifier": "P5.2",
+   "requirement": "P5.2",
+   "section": "P5 - Privacy Access",
+   "title": "P5.2 Data subjects are able to have their personal information corrected based on their requests.",
+   "description": "P5.2 (P5 - Privacy Access): Data subjects are able to have their personal information corrected based on their requests.\n\nAllow people to correct errors in their personal information and update outdated data. Make the correction process straightforward, investigate disputed information, and notify third parties who received the incorrect data. If you deny a correction request, explain why and offer an appeals process.\n\nImplementation: Correction rights in privacy notice. Update procedures.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae44472e298a073c9521cc0"
+  },
+  {
+   "identifier": "P5.2.1",
+   "requirement": "P5.2",
+   "section": "P5 - Privacy Access",
+   "title": "P5.2.1 Personal Information Correction Request Process",
+   "description": "The organization shall establish and maintain a formal process enabling data subjects to request corrections to their personal information. This process must include a clearly documented procedure accessible to all data subjects, a designated point of contact or submission mechanism for correction requests, defined timelines for acknowledgment and resolution of requests, and a systematic approach to investigating disputed information. Given the organization's remote work environment, the process shall be fully digital and accessible through appropriate channels.\n\nImplementation: Correction process. Security policy for handling.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "information-security-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "information-security-policy"
+   ],
+   "compId": "ctl_6ae44473adc86251b66a5c49"
+  },
+  {
+   "identifier": "P5.2.2",
+   "requirement": "P5.2",
+   "section": "P5 - Privacy Access",
+   "title": "P5.2.2 Third-Party Notification and Denial Appeals Process",
+   "description": "The organization shall implement procedures to notify third parties who have received personal information when corrections are made to that data. Additionally, the organization must establish a formal appeals process for instances where correction requests are denied. This includes maintaining records of third parties who have received personal data, documented notification procedures when corrections occur, clear communication to data subjects explaining denial rationale, and a defined appeals mechanism with appropriate escalation paths.\n\nImplementation: Third-party notification. Risk assessment for tracking.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "risk-assessment-procedure-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "risk-assessment-procedure"
+   ],
+   "compId": "ctl_6ae44475a3fcceca7280090c"
+  },
+  {
+   "identifier": "P6.1",
+   "requirement": "P6.1",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.1 Personal information is disclosed to third parties only for the purposes identified in the notice and with the",
+   "description": "P6.1 (P6 - Privacy Disclosure to Third Parties): Personal information is disclosed to third parties only for the purposes identified in the notice and with the implicit or explicit consent of the data subject.\n\nGet permission before sharing personal information with third parties, unless legally required or permitted. Ensure third parties will protect the data appropriately, limit sharing to what's necessary, and maintain records of what was shared with whom and why.\n\nImplementation: Third-party disclosure per notice. Classification governs.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "data-classification-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "data-classification-policy"
+   ],
+   "compId": "ctl_6ae4447633a332022a8c7493"
+  },
+  {
+   "identifier": "P6.1.1",
+   "requirement": "P6.1",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.1.1 Third-Party Data Sharing Consent Management",
+   "description": "The organization shall establish and maintain formal procedures for obtaining and documenting consent from data subjects prior to disclosing personal information to third parties. This includes maintaining clear records of consent type (implicit or explicit), the date consent was obtained, the specific purposes for which consent was granted, and any limitations or conditions specified by the data subject. Consent mechanisms must align with the purposes identified in the organization's privacy notice.\n\nImplementation: Consent before disclosure. Access policy.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "access-control-and-authentication-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "access-control-and-authentication-policy"
+   ],
+   "compId": "ctl_6ae44477412727f487de43d8"
+  },
+  {
+   "identifier": "P6.1.2",
+   "requirement": "P6.1",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.1.2 Third-Party Data Disclosure Records and Minimization",
+   "description": "The organization shall maintain comprehensive records of all personal information disclosures to third parties, including the identity of the recipient, the categories of data shared, the purpose of disclosure, the date of disclosure, and the legal or consent basis for sharing. Data sharing shall be limited to the minimum necessary to fulfill the stated purpose. Prior to disclosure, the organization shall verify that third parties have appropriate data protection measures in place through contractual agreements or documented assurances.\n\nImplementation: Disclosure records. Retention policy.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae444785dbe144553f63e73"
+  },
+  {
+   "identifier": "P6.2",
+   "requirement": "P6.2",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.2 The entity creates and retains a complete, accurate, and up-to-date record of authorized disclosures of person",
+   "description": "P6.2 (P6 - Privacy Disclosure to Third Parties): The entity creates and retains a complete, accurate, and up-to-date record of authorized disclosures of personal information.\n\nKeep detailed records of when you legitimately share personal information with third parties. Document what was shared, with whom, when, and under what authority. These records support accountability and help respond to data subject inquiries about information sharing.\n\nImplementation: Disclosure logging. CloudWatch audit trail.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "aws_cloudwatch_log_groups.png"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae444792fe86a174b8287c2"
+  },
+  {
+   "identifier": "P6.2.1",
+   "requirement": "P6.2",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.2.1 Personal Information Disclosure Logging System",
+   "description": "The organization shall establish and maintain a formal system for recording all authorized disclosures of personal information to third parties. This system must capture essential disclosure details including the categories of personal information shared, the identity of the receiving party, the date and time of disclosure, the legal or contractual basis authorizing the disclosure, and the business purpose served. Given the organization's remote work environment, this logging system must be accessible to authorized personnel regardless of location while maintaining appropriate access controls.\n\nImplementation: Logging requirements. CloudWatch for tracking.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "aws_cloudwatch_log_groups.png",
+    "cloudtrail_events_20260204_132225.json",
+    "lambda_app_events_20260204_132311.json"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4447aba1484f96a1f3de5"
+  },
+  {
+   "identifier": "P6.2.2",
+   "requirement": "P6.2",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.2.2 Disclosure Record Retention and Retrieval",
+   "description": "The organization shall implement retention practices ensuring disclosure records are maintained for the duration required by applicable regulations and contractual obligations. Records must be stored securely, protected against unauthorized modification or deletion, and readily retrievable to support data subject inquiries, regulatory requests, or audit requirements. The organization shall define retention periods, secure storage mechanisms, and retrieval procedures appropriate for a small, remote technology company.\n\nImplementation: Record retention. CloudWatch for audit.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf",
+    "aws_cloudwatch_log_groups.png",
+    "cloudtrail_events_20260204_132225.json"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae4447b10d148796444f551"
+  },
+  {
+   "identifier": "P6.3",
+   "requirement": "P6.3",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.3 The entity records unauthorized disclosures including breaches and other incidents involving personal informat",
+   "description": "P6.3 (P6 - Privacy Disclosure to Third Parties): The entity records unauthorized disclosures including breaches and other incidents involving personal information.\n\nDocument all privacy breaches and unauthorized disclosures, including what information was exposed, how many people were affected, how the breach occurred, and what remediation steps were taken. This supports breach notification requirements and helps prevent future incidents.\n\nImplementation: IR procedure for breach documentation.",
+   "evidenceFiles": [
+    "incident-response-procedure-v1.0.pdf",
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "incident-response-procedure",
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4447dde9fd0a7de8a4855"
+  },
+  {
+   "identifier": "P6.3.1",
+   "requirement": "P6.3",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.3.1 Privacy Incident Documentation and Recording Procedures",
+   "description": "The organization shall establish and maintain formal procedures for documenting all unauthorized disclosures of personal information, including privacy breaches and security incidents. Documentation must capture essential details including: the nature and scope of information exposed, number of individuals affected, root cause analysis of how the breach occurred, timeline of discovery and response, and all remediation actions undertaken. Given the remote work environment, procedures must address incident reporting across distributed team members and ensure consistent documentation regardless of where the incident is identified.\n\nImplementation: Incident documentation procedures in IR procedure. Security Hub aggregates findings. CloudWatch logs provide evidence trail for breach investigation.",
+   "evidenceFiles": [
+    "incident-response-procedure-v1.0.pdf",
+    "aws_securityhub_findings.png",
+    "aws_cloudwatch_log_groups.png"
+   ],
+   "policySlugs": [
+    "incident-response-procedure"
+   ],
+   "compId": "ctl_6ae4447eb714b3a5d35a58f4"
+  },
+  {
+   "identifier": "P6.3.2",
+   "requirement": "P6.3",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.3.2 Privacy Breach Analysis and Remediation Tracking",
+   "description": "The organization shall implement a systematic approach to analyze privacy breaches and track remediation efforts to completion. Each documented incident must include assessment of breach severity, determination of notification requirements under applicable regulations, corrective actions implemented, and preventive measures established to reduce likelihood of recurrence. For a small remote team, this includes maintaining a centralized tracking mechanism accessible to authorized personnel and conducting periodic reviews of incident trends to identify systemic issues requiring organizational attention.\n\nImplementation: Remediation tracking. CloudWatch evidence.",
+   "evidenceFiles": [
+    "incident-response-procedure-v1.0.pdf",
+    "aws_cloudwatch_log_groups.png"
+   ],
+   "policySlugs": [
+    "incident-response-procedure"
+   ],
+   "compId": "ctl_6ae4447f3b4b4bc3c5ff22e5"
+  },
+  {
+   "identifier": "P6.4",
+   "requirement": "P6.4",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.4 The entity obtains privacy commitments from vendors and other third parties who have access to personal inform",
+   "description": "P6.4 (P6 - Privacy Disclosure to Third Parties): The entity obtains privacy commitments from vendors and other third parties who have access to personal information to protect the personal information.\n\nEnsure vendors and partners who handle personal information on your behalf will protect it appropriately. Include privacy requirements in contracts, verify their security practices, monitor their compliance, and take action if they mishandle data. Remember, you're often still responsible even when vendors process the data.\n\nImplementation: DPA with vendor privacy commitments. Risk assessment.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "risk-assessment-procedure-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "risk-assessment-procedure"
+   ],
+   "compId": "ctl_6ae4448035f29b9d1a2cd358"
+  },
+  {
+   "identifier": "P6.4.1",
+   "requirement": "P6.4",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.4.1 Vendor Privacy Assessment and Due Diligence",
+   "description": "Prior to engaging vendors or third parties who will have access to personal information, the organization shall conduct a privacy and security assessment. This assessment evaluates the vendor's data protection capabilities, privacy practices, security certifications, and history of data incidents. For a small remote team, this may involve reviewing vendor security documentation, SOC 2 reports, privacy policies, and conducting brief security questionnaires proportionate to the sensitivity of data being shared.\n\nImplementation: Vendor due diligence. DPA template.",
+   "evidenceFiles": [
+    "risk-assessment-procedure-v1.0.pdf",
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "risk-assessment-procedure",
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae44481a3f3649944f54992"
+  },
+  {
+   "identifier": "P6.4.2",
+   "requirement": "P6.4",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.4.2 Contractual Privacy Commitments with Third Parties",
+   "description": "The organization shall ensure that all contracts with vendors and third parties who access personal information include appropriate privacy and data protection provisions. Contracts must address data handling requirements, confidentiality obligations, breach notification timelines, data return or destruction upon termination, subcontractor restrictions, and audit rights. Standard data processing agreements or addenda shall be utilized to ensure consistent privacy protections across all vendor relationships.\n\nImplementation: Contractual provisions. Security requirements.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "information-security-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template",
+    "information-security-policy"
+   ],
+   "compId": "ctl_6ae44482922960a84fd781f1"
+  },
+  {
+   "identifier": "P6.4.3",
+   "requirement": "P6.4",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.4.3 Ongoing Vendor Privacy Compliance Monitoring",
+   "description": "The organization shall establish procedures to monitor vendor compliance with privacy commitments on an ongoing basis. This includes periodic reviews of vendor security posture, tracking vendor certifications and attestations, documenting any privacy incidents involving vendors, and taking appropriate remediation actions when vendors fail to meet their obligations. Given the small team size, monitoring activities should be risk-based, with more frequent reviews for vendors handling sensitive personal information.\n\nImplementation: Ongoing monitoring. Board review.",
+   "evidenceFiles": [
+    "risk-assessment-procedure-v1.0.pdf",
+    "board-management-meeting-minutes-q4-2025-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "risk-assessment-procedure"
+   ],
+   "compId": "ctl_6ae44483a9e26e7b94a6990c"
+  },
+  {
+   "identifier": "P6.5",
+   "requirement": "P6.5",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.5 The entity obtains commitments from vendors and other third parties with access to personal information to not",
+   "description": "P6.5 (P6 - Privacy Disclosure to Third Parties): The entity obtains commitments from vendors and other third parties with access to personal information to notify the entity in the event of actual or suspected unauthorized disclosures of personal information.\n\nRequire vendors to immediately notify you of any suspected or actual data breaches involving personal information they process for you. Include notification requirements in contracts, establish clear communication channels, and test the notification process. Quick notification helps you meet your own breach reporting obligations.\n\nImplementation: Vendor breach notification in DPA.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae444854056bdf61bbfd0b5"
+  },
+  {
+   "identifier": "P6.5.1",
+   "requirement": "P6.5",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.5.1 Third-Party Breach Notification Contractual Requirements",
+   "description": "Establish and maintain contractual provisions requiring all vendors and third parties with access to personal information to notify the organization of any suspected or actual unauthorized disclosures. Contracts must specify notification timeframes (typically within 24-72 hours of discovery), required content of notifications, designated points of contact, and escalation procedures. Given the organization's small size and remote work environment, ensure contracts clearly define communication channels that work across distributed teams.\n\nImplementation: Notification timeframes in contracts.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4448676933b527eb91d27"
+  },
+  {
+   "identifier": "P6.5.2",
+   "requirement": "P6.5",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.5.2 Vendor Breach Notification Communication and Testing Protocol",
+   "description": "Establish clear communication channels and procedures for receiving and processing breach notifications from third parties. Define primary and backup contact methods suitable for a remote workforce, and document internal escalation procedures upon receipt of vendor breach notifications. Maintain documentation demonstrating the organization's ability to receive timely notifications and respond appropriately to meet downstream breach reporting obligations.\n\nImplementation: CEO designated as primary breach notification contact. Incident response procedure defines escalation. DPA template specifies vendor notification requirements.",
+   "evidenceFiles": [
+    "incident-response-procedure-v1.0.pdf",
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "incident-response-procedure",
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae44487cde1711009ed13b5"
+  },
+  {
+   "identifier": "P6.6",
+   "requirement": "P6.6",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.6 The entity provides notification of breaches and incidents involving personal information to affected data sub",
+   "description": "P6.6 (P6 - Privacy Disclosure to Third Parties): The entity provides notification of breaches and incidents involving personal information to affected data subjects, regulators, and others.\n\nWhen a privacy breach occurs, promptly notify affected individuals, regulators, and other required parties according to applicable laws. Include what happened, what information was involved, what you're doing about it, and what individuals should do to protect themselves. Meet legal notification deadlines even if investigation is ongoing.\n\nImplementation: Breach notification per applicable law.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae44489d0ce1201fa800836"
+  },
+  {
+   "identifier": "P6.6.1",
+   "requirement": "P6.6",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.6.1 Privacy Breach Notification Procedures",
+   "description": "The organization shall maintain documented procedures for notifying affected data subjects, regulators, and other required parties when a privacy breach occurs. Procedures must define notification timelines aligned with applicable legal requirements (e.g., GDPR 72-hour requirement, state breach notification laws), specify content requirements for notifications including description of the incident, types of personal information involved, remediation actions taken, and protective steps individuals should take. Procedures must designate responsible personnel for breach notification decisions and execution, and establish escalation paths for after-hours incidents.\n\nImplementation: Notification procedures. Timelines. Content.",
+   "evidenceFiles": [
+    "incident-response-procedure-v1.0.pdf",
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "incident-response-procedure",
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4448a82038961d4a56251"
+  },
+  {
+   "identifier": "P6.6.2",
+   "requirement": "P6.6",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.6.2 Breach Notification Execution and Documentation",
+   "description": "The organization shall execute breach notifications in accordance with established procedures and maintain comprehensive records of all notification activities. Documentation must include the date and time breach was discovered, assessment of notification requirements, actual notification dates and methods used, copies of all notifications sent, recipient lists, and any regulatory correspondence. For ongoing investigations, the organization shall issue preliminary notifications meeting legal deadlines while reserving the right to supplement with additional information as the investigation progresses.\n\nImplementation: Documentation. Recipient tracking.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae4448b7d739006442918ac"
+  },
+  {
+   "identifier": "P6.7",
+   "requirement": "P6.7",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.7 The entity provides data subjects with an accounting of the personal information held and disclosure of the da",
+   "description": "P6.7 (P6 - Privacy Disclosure to Third Parties): The entity provides data subjects with an accounting of the personal information held and disclosure of the data subject's personal information upon the data subject's request.\n\nWhen requested, provide individuals with a list of what personal information you hold about them and who you've shared it with. Include the categories of data, sources, purposes of processing, and recipients. This transparency right helps people understand and control how their information is used.\n\nImplementation: Data subject accounting upon request.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4448c7823c298fc29f46b"
+  },
+  {
+   "identifier": "P6.7.1",
+   "requirement": "P6.7",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.7.1 Personal Information Inventory and Disclosure Request Process",
+   "description": "The organization shall maintain a documented process for responding to data subject requests for an accounting of their personal information. This process must include procedures for identifying all personal information held about the requesting individual, documenting the categories of data collected, sources of the data, purposes of processing, and any third parties with whom the information has been shared. Given the organization's small size and remote work environment, this process should designate a specific individual responsible for handling such requests and establish clear timelines for response in accordance with applicable privacy regulations.\n\nImplementation: Inventory process. Categories, sources, purposes.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4448db0d06dd60a1e8652"
+  },
+  {
+   "identifier": "P6.7.2",
+   "requirement": "P6.7",
+   "section": "P6 - Privacy Disclosure to Third Parties",
+   "title": "P6.7.2 Third-Party Disclosure Tracking and Reporting",
+   "description": "The organization shall maintain records of all third parties with whom personal information has been shared, enabling accurate disclosure to data subjects upon request. This includes documenting the identity of recipients, categories of data shared, purposes of disclosure, and dates of sharing. For a small remote technology company, this may involve maintaining a centralized register of data sharing agreements, vendor relationships involving personal data, and any ad-hoc disclosures. The organization must be able to compile this information in a clear, understandable format for data subjects within regulatory timeframes.\n\nImplementation: Third-party tracking. Recipient register.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae4448ee93e9814c1fb7897"
+  },
+  {
+   "identifier": "P7.1",
+   "requirement": "P7.1",
+   "section": "P7 - Privacy Quality",
+   "title": "P7.1 Personal information is accurate, complete, and relevant for the purposes for which it is used.",
+   "description": "P7.1 (P7 - Privacy Quality): Personal information is accurate, complete, and relevant for the purposes for which it is used.\n\nKeep personal information accurate and current for its intended use. Implement quality checks during collection, provide ways for people to update their information, regularly verify accuracy for critical data, and remove or update information that's no longer relevant or correct.\n\nImplementation: Data quality: accuracy, completeness, relevance.",
+   "evidenceFiles": [
+    "data-classification-policy-v1.0.pdf",
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-classification-policy",
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae4448f9e7a80819e121aeb"
+  },
+  {
+   "identifier": "P7.1.1",
+   "requirement": "P7.1",
+   "section": "P7 - Privacy Quality",
+   "title": "P7.1.1 Personal Information Quality Controls",
+   "description": "Establish and maintain formal procedures to ensure personal information collected and processed by the organization is accurate, complete, and relevant for its intended business purposes. This includes implementing validation checks at the point of data collection, defining data quality standards for critical personal information fields, and establishing clear ownership for data quality management. Given the organization's small size, designate a responsible individual to oversee data quality practices and ensure consistency across all systems handling personal information.\n\nImplementation: Quality standards. Classification policy.",
+   "evidenceFiles": [
+    "data-classification-policy-v1.0.pdf",
+    "information-security-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-classification-policy",
+    "information-security-policy"
+   ],
+   "compId": "ctl_6ae44491d65cb13037936a15"
+  },
+  {
+   "identifier": "P7.1.2",
+   "requirement": "P7.1",
+   "section": "P7 - Privacy Quality",
+   "title": "P7.1.2 Data Subject Information Update Mechanisms",
+   "description": "Implement accessible mechanisms that enable individuals to review, correct, and update their personal information held by the organization. This includes providing clear instructions on how data subjects may request corrections, establishing response timeframes for update requests, and maintaining records of all correction requests and actions taken. For a remote organization of this size, ensure these mechanisms are available through digital channels and that all team members understand the process for handling update requests.\n\nImplementation: User update mechanisms. PropelAuth profile management.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "propelauth_users.png"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae444a6d308f7bb58424869"
+  },
+  {
+   "identifier": "P7.1.3",
+   "requirement": "P7.1",
+   "section": "P7 - Privacy Quality",
+   "title": "P7.1.3 Personal Information Accuracy Verification and Maintenance",
+   "description": "Establish a periodic review process to verify the accuracy and continued relevance of personal information maintained by the organization. This includes identifying critical data sets requiring regular verification, defining review frequencies appropriate to data sensitivity and use, and implementing procedures to remove or archive information that is no longer accurate, relevant, or necessary. Document the criteria used to determine when personal information should be updated, corrected, or disposed of in accordance with retention requirements.\n\nImplementation: S3 lifecycle policies enforce retention periods. DocumentDB backup retention (7 days) maintains data accuracy. Periodic verification per data retention policy.",
+   "evidenceFiles": [
+    "data-retention-and-disposal-policy-v1.0.pdf",
+    "aws_s3_buckets.png",
+    "aws_documentdb_backups.png"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae444a742031de426c39d47"
+  },
+  {
+   "identifier": "P8.1",
+   "requirement": "P8.1",
+   "section": "P8 - Privacy Monitoring and Enforcement",
+   "title": "P8.1 The entity implements a process for receiving and addressing privacy-related inquiries, complaints, and disput",
+   "description": "P8.1 (P8 - Privacy Monitoring and Enforcement): The entity implements a process for receiving and addressing privacy-related inquiries, complaints, and disputes.\n\nProvide clear ways for people to ask questions or complain about privacy practices. Investigate and respond to privacy concerns promptly, document how issues were resolved, and use complaints to identify systemic problems. Regular compliance monitoring helps catch issues before they become complaints.\n\nImplementation: Privacy inquiry and complaint handling.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae444a8ac3072ab192a292e"
+  },
+  {
+   "identifier": "P8.1.1",
+   "requirement": "P8.1",
+   "section": "P8 - Privacy Monitoring and Enforcement",
+   "title": "P8.1.1 Privacy Inquiry and Complaint Intake Process",
+   "description": "The organization shall establish and maintain a formal process for receiving privacy-related inquiries, complaints, and disputes from data subjects and other stakeholders. This process must include clearly documented contact methods (e.g., dedicated email address, web form, or designated privacy contact), acknowledgment procedures with defined response timeframes, and initial triage protocols to categorize and prioritize incoming communications based on severity and regulatory requirements.\n\nImplementation: Intake process. Contact methods. Acknowledgment.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae444a96f9ae27ba047d74a"
+  },
+  {
+   "identifier": "P8.1.2",
+   "requirement": "P8.1",
+   "section": "P8 - Privacy Monitoring and Enforcement",
+   "title": "P8.1.2 Privacy Complaint Investigation and Resolution",
+   "description": "The organization shall implement a structured approach for investigating and resolving privacy-related complaints and disputes. This includes assigning responsibility for investigation to appropriate personnel, conducting thorough root cause analysis, documenting investigation findings and remediation actions, communicating resolution outcomes to complainants, and maintaining comprehensive records of all complaint handling activities. The organization shall also conduct periodic reviews of complaint trends to identify systemic privacy issues requiring broader corrective action.\n\nImplementation: Investigation. Resolution. Trend analysis.",
+   "evidenceFiles": [
+    "privacy-notice-and-data-processing-agreement-template-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "privacy-notice-and-data-processing-agreement-template"
+   ],
+   "compId": "ctl_6ae444aaec85af148fe50d36"
+  },
+  {
+   "identifier": "PI1.1",
+   "requirement": "PI1.1",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.1 The entity obtains or generates, uses, and communicates relevant, quality information regarding the objectives",
+   "description": "PI1.1 (PI1 - Processing Integrity Criteria): The entity obtains or generates, uses, and communicates relevant, quality information regarding the objectives and risks that may affect processing to achieve the entity's objectives related to processing integrity.\n\nEstablish clear specifications for how your systems should process information to ensure outputs meet requirements. Start by identifying and documenting all functional requirements (what the system must do) and non-functional requirements (performance, reliability, security standards). Create comprehensive data definitions that users can understand, including what data represents, where it comes from, units of measurement, accuracy levels, time periods covered, and any limitations or confidence intervals. Document what's included or excluded from datasets and why. Ensure these definitions are complete, accurate, and available to anyone who needs them. Include metadata - the context needed to properly interpret the data. If your system produces goods or products, clearly document all specifications and make required information easily accessible and validated for completeness. This documentation prevents misunderstandings that lead to processing errors or misuse of outputs.\n\nImplementation: Pydantic models (models/v1.py) define data types, validation rules, PII classification. models/pii.py documents PII handling with GDPR/CCPA compliance metadata.",
+   "evidenceFiles": [
+    "models_v1_py_screenshot.png",
+    "models_pii_py_screenshot.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444ac013c3432148c7c04"
+  },
+  {
+   "identifier": "PI1.1.1",
+   "requirement": "PI1.1",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.1.1 System Processing Requirements Documentation",
+   "description": "The organization shall establish and maintain formal documentation of system processing requirements. This documentation must encompass both functional requirements (defining what the system must accomplish) and non-functional requirements (specifying performance benchmarks, reliability standards, and security parameters). Given the organization's size, this documentation should be consolidated into a single, accessible repository that clearly articulates processing specifications, expected outputs, and quality thresholds. The documentation shall be reviewed and approved by appropriate personnel and updated whenever system changes occur.\n\nImplementation: models/v1.py documents functional requirements: 309 UserModel fields, 112 CompanyModel fields. Compliance comments reference SOC 2 CC6.6, GDPR Art. 32, CCPA \u00a71798.81.5.",
+   "evidenceFiles": [
+    "models_v1_py_screenshot.png",
+    "02_github_ci_workflow.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444ac0849ced469d227ab"
+  },
+  {
+   "identifier": "PI1.1.2",
+   "requirement": "PI1.1",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.1.2 Data Definitions and Metadata Standards",
+   "description": "The organization shall establish comprehensive data definitions and metadata standards for all critical data elements processed by its systems. These definitions must include data representation, source attribution, units of measurement, accuracy levels, applicable time periods, confidence intervals, and any known limitations. Documentation shall clearly articulate what data is included or excluded from datasets and the rationale for such decisions. This information must be maintained in a format that is accessible and comprehensible to all users who require it for proper data interpretation and utilization.\n\nImplementation: models/pii.py PIIField() defines metadata: classification (confidential/restricted), retention_days, gdpr_article (Art. 5, 6), ccpa_category (Personal Identifiers).",
+   "evidenceFiles": [
+    "models_pii_py_screenshot.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444ac9da6f86b317d3f5a"
+  },
+  {
+   "identifier": "PI1.2",
+   "requirement": "PI1.2",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.2 The entity implements controls over inputs to prevent or detect and correct inappropriate, incomplete, or inac",
+   "description": "PI1.2 (PI1 - Processing Integrity Criteria): The entity implements controls over inputs to prevent or detect and correct inappropriate, incomplete, or inaccurate data input that may compromise processing integrity.\n\nControl everything that enters your systems to ensure reliable, accurate outputs. Define the specific characteristics that inputs must have to be processed correctly - format, completeness, valid ranges, required fields, and authorization levels. Implement validation checks at the point of entry to catch errors before they enter processing. This includes format checks, reasonableness tests, comparison to master data, and verification of authorization. Create and maintain detailed records of all system inputs, including what was entered, when, by whom, and under what authority. These input logs support troubleshooting, audit trails, and investigation of any processing issues. Establish procedures for handling rejected inputs - how they're corrected and re-submitted. Monitor input quality metrics to identify sources of errors and implement improvements. Good input control is fundamental - garbage in means garbage out, regardless of how good your processing is.\n\nImplementation: PIIValidators class (pii.py lines 65-182): validate_email blocks disposable domains, validate_phone enforces 10-15 digits, validate_name blocks special chars, validate_url normalizes format.",
+   "evidenceFiles": [
+    "models_pii_py_screenshot.png",
+    "middleware_py_screenshot.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444adc9e8fb90e3caf8f0"
+  },
+  {
+   "identifier": "PI1.2.1",
+   "requirement": "PI1.2",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.2.1 Input Validation Standards and Controls",
+   "description": "The organization shall establish and maintain formal input validation standards that define acceptable data characteristics for all system inputs. This includes specification of required data formats, valid value ranges, mandatory fields, completeness requirements, and authorization levels required for data entry. Automated validation controls shall be implemented at points of data entry to verify inputs against these standards before processing. Validation mechanisms shall include format verification, reasonableness checks, comparison against master data where applicable, and authorization verification. All validation rules shall be documented and reviewed periodically to ensure continued relevance and effectiveness.\n\nImplementation: PIIValidators: email (lowercase, block disposable domains), phone (10-15 digits, normalized format), name (2-100 chars, letters/hyphens/apostrophes only), URL (https prefix, domain validation).",
+   "evidenceFiles": [
+    "models_pii_py_screenshot.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444adaaa5b9e2a109eece"
+  },
+  {
+   "identifier": "PI1.2.2",
+   "requirement": "PI1.2",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.2.2 Input Logging and Error Handling Procedures",
+   "description": "The organization shall implement comprehensive logging of all system inputs to maintain audit trails supporting troubleshooting and investigation of processing issues. Input logs shall capture what data was entered, timestamp of entry, identity of the submitter, and authorization context. Formal procedures shall be established for handling rejected inputs, including notification to appropriate personnel, correction workflows, and re-submission processes. Input quality metrics shall be monitored to identify error patterns and sources, enabling continuous improvement of input controls. Given the organization's small team size, these procedures should be streamlined while maintaining adequate documentation for compliance purposes.\n\nImplementation: middleware.py AuditLoggingMiddleware logs all requests: timestamp, method, path, client_ip, user_id, user_agent, status_code, process_time_ms. PII sanitized before logging.",
+   "evidenceFiles": [
+    "middleware_py_screenshot.png",
+    "aws_cloudwatch_log_groups.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444ad855619f031334586"
+  },
+  {
+   "identifier": "PI1.3",
+   "requirement": "PI1.3",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.3 The entity implements controls over system processing to prevent or detect and correct inappropriate, incomple",
+   "description": "PI1.3 (PI1 - Processing Integrity Criteria): The entity implements controls over system processing to prevent or detect and correct inappropriate, incomplete, or inaccurate processing that may compromise processing integrity.\n\nEnsure your systems process data correctly according to defined business rules and specifications. Document all processing specifications including calculations, transformations, decision logic, and sequencing requirements. Define each processing activity clearly - what triggers it, what it does, what outputs it produces, and what constitutes successful completion. Implement controls to detect and correct processing errors in real-time or near-real-time, including edit checks, validation routines, balance controls, and exception reports. Monitor for anomalies that might indicate processing problems. Create comprehensive logs of all processing activities showing what was processed, when, what logic was applied, and what results were produced. Ensure all inputs are processed completely (nothing lost), accurately (calculations correct), timely (within required timeframes), and only with proper authorization. Set up reconciliations between different processing stages to catch any discrepancies. Regular testing of processing logic helps ensure continued accuracy as systems and requirements evolve.\n\nImplementation: Pydantic models enforce data types at runtime. middleware.py adds security headers (CSP, HSTS, X-Frame-Options). Rate limiting prevents abuse. All errors logged.",
+   "evidenceFiles": [
+    "middleware_py_screenshot.png",
+    "models_v1_py_screenshot.png",
+    "08_github_branch_protection.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444aea65dd0bcdddd45ed"
+  },
+  {
+   "identifier": "PI1.3.1",
+   "requirement": "PI1.3",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.3.1 Processing Specifications and Business Rules Documentation",
+   "description": "Establish and maintain formal documentation of all system processing specifications, including calculations, data transformations, decision logic, and sequencing requirements. For each processing activity, document the triggering conditions, processing steps, expected outputs, and success criteria. This documentation shall serve as the authoritative reference for validating processing accuracy and supporting troubleshooting efforts. Given the organization's size, maintain this documentation in a centralized repository accessible to all team members, with version control to track changes over time.\n\nImplementation: Pydantic BaseModel classes document processing specs: field types, optional/required, nested structures, validators. models/collections.py: CompanyModel (112 fields), UserModel (309 fields).",
+   "evidenceFiles": [
+    "models_v1_py_screenshot.png",
+    "models_collections_py_screenshot.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444ae4067980cb50a5caa"
+  },
+  {
+   "identifier": "PI1.3.2",
+   "requirement": "PI1.3",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.3.2 Processing Validation and Error Detection Controls",
+   "description": "Implement automated controls to validate data processing accuracy and detect errors in real-time or near-real-time. Controls shall include input validation checks, calculation verification routines, balance controls between processing stages, and exception handling mechanisms. Configure automated alerts for processing anomalies or failures. For a small remote team, leverage built-in platform validation features and establish clear escalation procedures when processing errors are detected. Maintain processing logs that capture what was processed, timestamps, logic applied, and results produced.\n\nImplementation: Pydantic validates all API inputs automatically. Invalid data raises ValidationError with field-level errors. middleware.py logs errors with sanitized details.",
+   "evidenceFiles": [
+    "middleware_py_screenshot.png",
+    "02_github_ci_workflow.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444af1a880527ec40bdbf"
+  },
+  {
+   "identifier": "PI1.3.3",
+   "requirement": "PI1.3",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.3.3 Processing Logic Testing and Verification",
+   "description": "Conduct regular testing of processing logic to ensure continued accuracy as systems and business requirements evolve. Testing shall verify that all inputs are processed completely, calculations are accurate, processing occurs within required timeframes, and only authorized transactions are processed. Document test cases, expected results, and actual outcomes. For the organization's scale, integrate processing logic verification into the software development lifecycle and conduct periodic reviews when system changes occur or at minimum annually.\n\nImplementation: CI workflow runs pytest on every PR. Branch protection requires passing checks. Test coverage includes model validation, API endpoints, error handling.",
+   "evidenceFiles": [
+    "02_github_ci_workflow.png",
+    "08_github_branch_protection.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444aff333908bfbfaec12"
+  },
+  {
+   "identifier": "PI1.4",
+   "requirement": "PI1.4",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.4 The entity implements controls over system outputs to prevent or detect and correct inappropriate, incomplete,",
+   "description": "PI1.4 (PI1 - Processing Integrity Criteria): The entity implements controls over system outputs to prevent or detect and correct inappropriate, incomplete, or inaccurate system output that may compromise processing integrity.\n\nControl how processed information leaves your systems to ensure it reaches the right recipients in the right format at the right time. Implement safeguards to protect output during storage and delivery - this includes encryption for sensitive data, integrity checks to detect tampering, and physical protection for printed materials. Establish distribution controls ensuring outputs only go to authorized recipients - verify recipient identity, use secure transmission methods, and require acknowledgment of receipt for critical outputs. Implement procedures to verify output completeness and accuracy before distribution, including reconciliation to processing totals, review of reasonableness, and sample checking. Create and maintain comprehensive records of all output activities including what was distributed, to whom, when, how, and under what authority. Set up monitoring to ensure outputs are delivered within required timeframes and establish procedures for handling delivery failures. For systems producing physical goods, these controls extend to protecting products during storage and shipment to prevent damage or tampering.\n\nImplementation: SecurityHeadersMiddleware adds CSP, X-Frame-Options, X-Content-Type-Options, HSTS, X-XSS-Protection, Referrer-Policy, Permissions-Policy. Server header removed.",
+   "evidenceFiles": [
+    "middleware_py_screenshot.png",
+    "models_v1_py_screenshot.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444af973fa4a2fc043d32"
+  },
+  {
+   "identifier": "PI1.4.1",
+   "requirement": "PI1.4",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.4.1 System Output Protection and Integrity Controls",
+   "description": "The organization shall implement controls to protect system outputs during storage, transmission, and delivery. This includes encryption for sensitive data outputs, integrity verification mechanisms to detect tampering or corruption, and secure transmission methods for electronic outputs. For a small remote team, this involves configuring automated encryption for sensitive reports and data exports, implementing checksums or digital signatures for critical outputs, and utilizing secure file sharing platforms with access controls. Output protection settings shall be documented and periodically reviewed to ensure continued effectiveness.\n\nImplementation: SecurityHeadersMiddleware: CSP (default-src self), X-Frame-Options (DENY), HSTS (max-age=31536000), X-XSS-Protection (1; mode=block). TLS 1.2+ enforced via CloudFront.",
+   "evidenceFiles": [
+    "middleware_py_screenshot.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444b083d47edb1f61c982"
+  },
+  {
+   "identifier": "PI1.4.2",
+   "requirement": "PI1.4",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.4.2 Output Distribution and Verification Procedures",
+   "description": "The organization shall establish procedures governing the distribution of system outputs to ensure they reach only authorized recipients in complete and accurate form. This includes maintaining authorized recipient lists, verifying output completeness and accuracy before distribution through reconciliation or reasonableness checks, and documenting all output distribution activities. For a small remote organization, this involves implementing approval workflows for sensitive outputs, maintaining distribution logs that capture what was sent, to whom, when, and by what method, and establishing procedures for handling delivery failures or discrepancies. Critical outputs shall require acknowledgment of receipt from authorized recipients.\n\nImplementation: AuditLoggingMiddleware logs all responses: status_code, process_time_ms. X-Process-Time header added. CloudWatch receives [AUDIT] JSON logs for every request.",
+   "evidenceFiles": [
+    "middleware_py_screenshot.png",
+    "aws_cloudwatch_log_groups.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444b03e7bbbdd3923b0f9"
+  },
+  {
+   "identifier": "PI1.5",
+   "requirement": "PI1.5",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.5 The entity implements controls to prevent or detect and correct processing that is not consistent with the ent",
+   "description": "PI1.5 (PI1 - Processing Integrity Criteria): The entity implements controls to prevent or detect and correct processing that is not consistent with the entity's objectives related to processing integrity.\n\nProperly manage data storage throughout its lifecycle to maintain integrity and availability. Protect stored items from theft, corruption, destruction, or deterioration using appropriate physical and logical controls - encryption for sensitive data, access controls, environmental protections, and backup procedures. Implement version control to track changes and maintain data lineage. Archive system records systematically with appropriate indexing for retrieval. Ensure data remains complete and accurate during storage through integrity checks, reconciliations, and periodic verification. Create detailed records of all storage activities including what's stored, where, for how long, who has access, and when items are retrieved or destroyed. Implement retention schedules that comply with business needs and regulatory requirements. Ensure you can retrieve historical data when needed for analysis, audit, or legal purposes. For physical goods in production or inventory, maintain proper environmental conditions, security, and tracking to prevent loss or damage. Regular testing of data restoration procedures ensures stored information remains usable when needed.\n\nImplementation: DocumentDB: ACID compliance, multi-AZ replication, automated daily backups with 7-day retention, PITR enabled. KMS encryption at rest.",
+   "evidenceFiles": [
+    "aws_documentdb_cluster.png",
+    "aws_documentdb_backups.png",
+    "aws_kms_keys.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444b06a4c8748957c25ca"
+  },
+  {
+   "identifier": "PI1.5.1",
+   "requirement": "PI1.5",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.5.1 Data Storage and Encryption Controls",
+   "description": "Implement appropriate controls to protect stored data throughout its lifecycle. This includes encryption of sensitive data at rest using industry-standard algorithms, logical access controls limiting data access to authorized personnel, and secure storage configurations for all company data repositories including cloud storage services. Given the remote work environment, ensure all endpoints and cloud services storing company data maintain consistent encryption and access control standards.\n\nImplementation: DocumentDB encrypted at rest with KMS. S3 buckets: default encryption enabled. Lambda environment variables encrypted. All data in transit uses TLS 1.2+.",
+   "evidenceFiles": [
+    "aws_kms_keys.png",
+    "aws_documentdb_cluster.png",
+    "aws_s3_bucket_encryption.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444b185272c092e6026ed"
+  },
+  {
+   "identifier": "PI1.5.2",
+   "requirement": "PI1.5",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.5.2 Data Backup and Recovery Procedures",
+   "description": "Establish and maintain backup procedures to ensure data availability and recoverability. Define backup frequency, retention periods, and storage locations appropriate for business needs. Implement automated backup solutions for critical data and systems. Conduct periodic restoration testing to verify backup integrity and ensure data can be recovered when needed. Document recovery time objectives and recovery point objectives for critical systems.\n\nImplementation: DocumentDB: automated daily backups, 7-day retention period, Point-in-Time Recovery (PITR) enabled. Multi-AZ deployment across 3 availability zones.",
+   "evidenceFiles": [
+    "aws_documentdb_backups.png",
+    "aws_documentdb_cluster.png"
+   ],
+   "policySlugs": [],
+   "compId": "ctl_6ae444b1fc87bc773017f0fd"
+  },
+  {
+   "identifier": "PI1.5.3",
+   "requirement": "PI1.5",
+   "section": "PI1 - Processing Integrity Criteria",
+   "title": "PI1.5.3 Data Integrity Verification and Retention Management",
+   "description": "Implement controls to maintain data integrity during storage and ensure compliance with retention requirements. Establish data retention schedules aligned with business needs and regulatory obligations. Perform periodic integrity checks on stored data to detect corruption or unauthorized modifications. Maintain records of data storage activities including retention periods, access logs, and disposal records. Ensure historical data remains retrievable for audit, analysis, or legal purposes throughout the defined retention period.\n\nImplementation: DocumentDB provides ACID compliance ensuring data integrity. CloudTrail logs all database API calls. Automated backups prevent data loss. Retention aligned with data classification policy.",
+   "evidenceFiles": [
+    "aws_documentdb_cluster.png",
+    "aws_cloudtrail_trails.png",
+    "data-retention-and-disposal-policy-v1.0.pdf"
+   ],
+   "policySlugs": [
+    "data-retention-and-disposal-policy"
+   ],
+   "compId": "ctl_6ae444b21d2cf9b8f713be2c"
+  }
+ ],
+ "evidenceFilesOnlyCitedHere": [
+  "02_github_ci_workflow.png",
+  "aws_eventbridge_rules.png",
+  "middleware_py_screenshot.png",
+  "models_collections_py_screenshot.png",
+  "models_pii_py_screenshot.png",
+  "models_v1_py_screenshot.png"
+ ],
+ "evidenceTasksOnlyCitedHere": {
+  "02_github_ci_workflow.png": "tsk_6ae444bfb1a8f119e8b1b092",
+  "aws_eventbridge_rules.png": "tsk_6ae4455e6019b6caf2e5c4de",
+  "middleware_py_screenshot.png": "tsk_6ae44630fc853119537947c9",
+  "models_collections_py_screenshot.png": "tsk_6ae446360d68a8cce1875e66",
+  "models_pii_py_screenshot.png": "tsk_6ae446370e82c1378bdc4446",
+  "models_v1_py_screenshot.png": "tsk_6ae4463c66a517b7ffd7efa6"
+ }
+}
