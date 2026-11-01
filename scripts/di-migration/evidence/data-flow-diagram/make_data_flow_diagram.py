@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
 """
-Deal Intelligence data flow diagrams.
+Deal Intelligence data flow diagrams (Level 1), Gane-Sarson notation.
 
-  internal  every process, data store and outside party that customer data touches.
+  internal  every process, store and outside party that customer data touches.
   customer  the same flows with the customer's systems as the only outside party.
 
-Processes are boxes, data stores are cylinders, outside parties sit in the top band.
-Arrows point the way the data moves and are labelled with what moves. Dashed boxes are
-trust boundaries. Reuses the drawing helpers and AWS icons of ../network-diagram.
+Conventions (Gane-Sarson / Microsoft threat-modelling DFD):
+  external entity  square-cornered rectangle, outside the system boundary
+  process          rounded rectangle with an ID band (1.0, 2.0 ...), named by function
+  data store       open-ended rectangle with an ID cell (D1, D2), a LOGICAL store
+  data flow        arrow in the direction the data moves, labelled with the data and
+                   its classification: [C] Confidential, [R] Restricted
+  trust boundary   dashed rectangle
+Stores connect only to processes; no store-to-store or entity-to-store flows.
+Lines are horizontal/vertical only.
 
-Facts (2026-11-01, di-backend-api): CRM records are pulled with the customer's OAuth
-token and matched in memory; the match result is cached in DocumentDB `roi_cache` with a
-1-hour TTL index. Competitor activity signals are written into the customer's CRM.
-Slack receives alerts through the customer's incoming webhook. OAuth tokens live in
-Secrets Manager. Fargate jobs write collected data through the platform API.
+Facts (2026-11-01, di-backend-api, after the roi_cache change): CRM accounts and
+opportunities are pulled with the customer's OAuth token, matched against competitor
+activity in Lambda memory and never written to a store; competitor activity signals are
+written back to the CRM; Slack alerts go to the customer's incoming webhook (URL kept in
+D1); OAuth tokens are in Secrets Manager; Fargate jobs submit collected activity through
+the platform API; the operator reaches DocumentDB only through the bastion.
 
     python3 make_data_flow_diagram.py [internal|customer]
 """
@@ -24,93 +31,138 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "network-diagram"))
 import make_network_diagram as nd  # noqa: E402
 
-nd.HERE = HERE  # write outputs next to this script
-Canvas, EXT, INT, SUP, DATE = nd.Canvas, nd.EXT, nd.INT, nd.SUP, nd.DATE
+nd.HERE = HERE
+Canvas, EXT, INT, DATE = nd.Canvas, nd.EXT, nd.INT, nd.DATE
+STORE = ("#d5e8d4", "#82b366")
+VERSION = "v2.0"
 
 
-def both(c, pts, label=None, lx=None, ly=None, anchor="middle"):
-    """Data moving in both directions (read and write)."""
+def entity(c, x, y, w, h, title, sub=None, ic=None):
+    f, s = EXT
+    c.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{f}" stroke="{s}" stroke-width="1.6"/>')
+    tx = x + 50 if ic else x + w / 2
+    ta = "start" if ic else "middle"
+    if ic:
+        c.icon(ic, x + 11, y + h / 2 - 15)
+    if sub:
+        c.text(tx, y + h / 2 - 2, title, 12.5, ta, "bold")
+        c.text(tx, y + h / 2 + 14, sub, 10.5, ta, fill="#444")
+    else:
+        c.text(tx, y + h / 2 + 4.5, title, 12.5, ta, "bold")
+
+
+def process(c, x, y, w, h, pid, title, sub=None, ic=None):
+    f, s = INT
+    c.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="14" ry="14" fill="{f}" stroke="{s}" stroke-width="1.6"/>')
+    c.p.append(f'<line x1="{x}" y1="{y+22}" x2="{x+w}" y2="{y+22}" stroke="{s}" stroke-width="1.2"/>')
+    c.text(x + w / 2, y + 16, pid, 11, "middle", "bold", "#2b4a7a")
+    body = y + 22 + (h - 22) / 2
+    tx = x + 50 if ic else x + w / 2
+    ta = "start" if ic else "middle"
+    if ic:
+        c.icon(ic, x + 11, body - 15)
+    if sub:
+        c.text(tx, body - 2, title, 12.5, ta, "bold")
+        c.text(tx, body + 14, sub, 10.5, ta, fill="#444")
+    else:
+        c.text(tx, body + 4.5, title, 12.5, ta, "bold")
+
+
+def store(c, x, y, w, h, sid, title, sub=None, ic=None):
+    f, s = STORE
+    c.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{f}" stroke="none"/>')
+    c.p.append(f'<path d="M{x+w},{y} L{x},{y} L{x},{y+h} L{x+w},{y+h}" fill="none" stroke="{s}" stroke-width="1.8"/>')
+    c.p.append(f'<line x1="{x+46}" y1="{y}" x2="{x+46}" y2="{y+h}" stroke="{s}" stroke-width="1.4"/>')
+    c.text(x + 23, y + h / 2 + 4.5, sid, 12, "middle", "bold", "#2f5d2a")
+    tx = x + 96 if ic else x + 60
+    if ic:
+        c.icon(ic, x + 56, y + h / 2 - 15)
+    if sub:
+        c.text(tx, y + h / 2 - 2, title, 12.5, "start", "bold")
+        c.text(tx, y + h / 2 + 14, sub, 10.5, "start", fill="#444")
+    else:
+        c.text(tx, y + h / 2 + 4.5, title, 12.5, "start", "bold")
+
+
+def flow(c, pts, label=None, lx=None, ly=None, anchor="middle", both=False):
     path = "M" + " L".join(f"{x},{y}" for x, y in pts)
-    c.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.1" '
-               'marker-start="url(#a)" marker-end="url(#a)"/>')
+    start = ' marker-start="url(#a)"' if both else ""
+    c.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.1"{start} marker-end="url(#a)"/>')
     if label:
         c.text(lx, ly, label, 10.5, anchor, fill="#222")
 
 
-def dashed(c, pts, label=None, lx=None, ly=None, anchor="middle"):
-    path = "M" + " L".join(f"{x},{y}" for x, y in pts)
-    c.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.1" stroke-dasharray="5 4" '
-               'marker-start="url(#a)" marker-end="url(#a)"/>')
-    if label:
-        c.text(lx, ly, label, 10.5, anchor, fill="#222")
-
-
-def legend(c, x, y, admin=True):
-    c.p.append(f'<line x1="{x}" y1="{y-4}" x2="{x+30}" y2="{y-4}" stroke="#1a1a1a" stroke-width="1.1" marker-end="url(#a)"/>')
-    c.text(x + 38, y, "data flow — arrow points the way the data moves", 10.5, "start", fill="#333")
-    if admin:
-        c.p.append(f'<line x1="{x}" y1="{y+14}" x2="{x+30}" y2="{y+14}" stroke="#1a1a1a" stroke-width="1.1" '
-                   'stroke-dasharray="5 4" marker-end="url(#a)"/>')
-        c.text(x + 38, y + 18, "administrative access", 10.5, "start", fill="#333")
+def key(c, x, y):
+    c.text(x, y, "Key", 11, "start", "bold", "#333")
+    entity(c, x + 34, y - 14, 46, 20, "")
+    c.text(x + 86, y, "external entity", 10.5, "start", fill="#333")
+    c.p.append(f'<rect x="{x+190}" y="{y-14}" width="46" height="20" rx="7" fill="{INT[0]}" stroke="{INT[1]}" stroke-width="1.4"/>')
+    c.text(x + 242, y, "process", 10.5, "start", fill="#333")
+    c.p.append(f'<path d="M{x+346},{y-14} L{x+300},{y-14} L{x+300},{y+6} L{x+346},{y+6}" fill="{STORE[0]}" stroke="{STORE[1]}" stroke-width="1.4"/>')
+    c.text(x + 352, y, "data store", 10.5, "start", fill="#333")
+    c.p.append(f'<line x1="{x+432}" y1="{y-4}" x2="{x+466}" y2="{y-4}" stroke="#1a1a1a" stroke-width="1.1" marker-end="url(#a)"/>')
+    c.text(x + 474, y, "data flow", 10.5, "start", fill="#333")
+    c.p.append(f'<rect x="{x+546}" y="{y-14}" width="46" height="20" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="8 4"/>')
+    c.text(x + 598, y, "trust boundary", 10.5, "start", fill="#333")
+    c.text(x + 700, y, "[C] Confidential · [R] Restricted", 10.5, "start", fill="#333")
 
 
 def build(variant):
     internal = variant == "internal"
-    c = Canvas(1620, 1060)
-    if internal:
-        c.header("Deal Intelligence — Data Flow Diagram",
-                 f"Production · AWS account 164482277879 · us-east-1 · v1.0 · {DATE} · owner: CEO")
-    else:
-        c.header("Deal Intelligence — Data Flow Diagram", f"Customer data · v1.0 · {DATE}")
+    c = Canvas(1620, 930)
+    sub = (f"Level 1 · production · AWS account 164482277879 · us-east-1 · {VERSION} · {DATE} · owner: CEO"
+           if internal else f"Level 1 · customer data · {VERSION} · {DATE}")
+    c.header("Deal Intelligence — Data Flow Diagram", sub)
 
-    # outside parties
+    # outside the system boundary
     c.boundary(50, 124, 1520, 118, "Outside the system boundary" if internal else "Customer systems")
     ey, eh = 158, 64
-    c.node(72, ey, 320, eh, "Customer users", "web app · REST API · MCP", EXT, "Users")
-    c.node(640, ey, 280, eh, "Customer CRM", "HubSpot · Salesforce", EXT, "Client")
-    c.node(960, ey, 240, eh, "Customer Slack", None, EXT, "Client")
+    entity(c, 72, ey, 360, eh, "Customer users", "web app · REST API · MCP", "Users")
+    entity(c, 560, ey, 320, eh, "Customer CRM", "HubSpot · Salesforce", "Client")
+    entity(c, 1000, ey, 240, eh, "Customer Slack", None, "Client")
     if internal:
-        c.node(1300, ey, 248, eh, "Operator", "CEO", EXT, "Users")
+        entity(c, 1310, ey, 238, eh, "Operator", None, "Users")
 
-    # platform
-    A = 300
-    c.boundary(50, A, 1520, 690, "Deal Intelligence — AWS us-east-1", "#2b6cb0", at="bottom")
-    c.node(100, 400, 900, 70, "Platform API", "Lambda app · Lambda mcp", INT, "AWSLambda")
+    # system boundary
+    c.boundary(50, 300, 1520, 560, "Deal Intelligence — AWS us-east-1", "#2b6cb0", at="bottom")
+    py, ph = 390, 84
+    process(c, 100, py, 340, ph, "1.0", "Serve platform requests", "Lambda app · Lambda mcp", "AWSLambda")
+    process(c, 560, py, 320, ph, "2.0", "Match CRM records", "Lambda app · in memory only", "AWSLambda")
+    process(c, 1000, py, 240, ph, "3.0", "Send alerts", "Lambda app", "AWSLambda")
     if internal:
-        c.node(1150, 400, 340, 70, "Data collection", "Fargate jobs", INT, "AWSFargate")
+        process(c, 1310, py, 238, ph, "5.0", "Administer database", "bastion", "AmazonElasticContainerService")
+        process(c, 100, 560, 250, ph, "4.0", "Collect competitor activity", "Fargate jobs", "AWSFargate")
+    store(c, 560, 570, 240, 56, "D2", "Integration credentials", "Secrets Manager [R]", "AWSSecretsManager")
+    store(c, 100, 720, 1140, 60, "D1", "Platform database",
+          "DocumentDB · competitor activity · customer accounts & settings · encrypted · 35-day backups · [C]",
+          "AmazonDocumentDB")
 
-    c.boundary(84, 580, 1022, 160, "DocumentDB — encrypted with KMS", "#2f855a")
-    c.cyl(104, 620, 330, 84, "Competitor activity data", "events · accounts · contacts · Confidential", "AmazonDocumentDB")
-    c.cyl(454, 620, 316, 84, "Customer accounts", "users · companies · settings · Confidential", "AmazonDocumentDB")
-    c.cyl(790, 620, 296, 84, "CRM match cache", "roi_cache · deleted after 1 h · Confidential", "AmazonDocumentDB")
-    c.cyl(1150, 620, 340, 84, "Integration credentials", "Secrets Manager · OAuth tokens · Restricted", "AWSSecretsManager")
-    c.cyl(310, 850, 570, 84, "DocumentDB backups", "automated snapshots · 35 days · encrypted", "AmazonDocumentDB")
-
-    # customer users <-> API
-    c.arrow([(180, ey + eh), (180, 400)], "requests · settings", 188, 280, "start")
-    c.arrow([(300, 400), (300, ey + eh)], "competitor activity results", 308, 340, "start")
-    # CRM <-> API
-    c.arrow([(700, ey + eh), (700, 400)], "accounts · opportunities", 692, 280, "end")
-    c.arrow([(860, 400), (860, ey + eh)], "competitor activity signals", 852, 340, "end")
-    # API -> Slack
-    c.arrow([(985, 400), (985, ey + eh)], "alerts", 993, 280, "start")
-    # Fargate -> API
+    # entities <-> processes (crossing the system boundary)
+    flow(c, [(170, ey + eh), (170, py)], "requests · settings [C]", 178, 282, "start")
+    flow(c, [(360, py), (360, ey + eh)], "results · ROI [C]", 368, 350, "start")
+    flow(c, [(620, ey + eh), (620, py)], "accounts · opportunities [C]", 628, 282, "start")
+    flow(c, [(820, py), (820, ey + eh)], "activity signals [C]", 828, 350, "start")
+    flow(c, [(1120, py), (1120, ey + eh)], "alerts [C]", 1128, 282, "start")
     if internal:
-        c.arrow([(1150, 435), (1000, 435)], "collected activity", 1075, 427, "middle")
+        flow(c, [(1429, ey + eh), (1429, py)], "queries · results [C]", 1437, 282, "start", both=True)
 
-    # API <-> stores
-    both(c, [(380, 470), (380, 620)], "read · write", 388, 545, "start")
-    both(c, [(612, 470), (612, 620)], "read · write", 620, 545, "start")
-    both(c, [(900, 470), (900, 620)], "CRM matches", 908, 600, "start")
-    both(c, [(1320, 620), (1320, 530), (960, 530), (960, 470)], "OAuth tokens", 1200, 522, "middle")
-    # stores -> backups
-    c.arrow([(595, 740), (595, 850)], "daily snapshot · all collections", 603, 800, "start")
-
+    # process <-> process
+    flow(c, [(440, 420), (560, 420)], "ROI request", 500, 412, "middle")
+    flow(c, [(560, 452), (440, 452)], "CRM matches [C]", 500, 444, "middle")
     if internal:
-        dashed(c, [(1424, ey + eh), (1424, 270), (1540, 270), (1540, 790), (1000, 790), (1000, 740)],
-               "admin queries · bastion", 1270, 782, "middle")
+        flow(c, [(230, 560), (230, py + ph)], "collected activity [C]", 238, 520, "start")
 
-    legend(c, 70, 1022, admin=internal)
+    # processes <-> stores
+    flow(c, [(380, py + ph), (380, 720)], "read · write [C]", 388, 690, "start", both=True)
+    flow(c, [(430, py + ph), (430, 598), (560, 598)], "OAuth tokens [R]", 438, 590, "start")
+    flow(c, [(700, 570), (700, py + ph)], "OAuth tokens [R]", 708, 530, "start")
+    flow(c, [(840, 720), (840, py + ph)], None)
+    c.text(848, 690, "competitor activity [C]", 10.5, "start", fill="#222")
+    flow(c, [(1080, 720), (1080, py + ph)], "activity · webhook URL [C]", 1088, 600, "start")
+    if internal:
+        flow(c, [(1429, py + ph), (1429, 750), (1240, 750)], "queries · results [C]", 1437, 600, "start", both=True)
+
+    key(c, 70, 900)
     c.save(f"di-backend-data-flow-{variant}")
 
 
