@@ -1,0 +1,230 @@
+{
+ "controls": [
+  {
+   "id": "ctl_6ae439490518d9ba8d10140d",
+   "name": "Acceptable Use"
+  },
+  {
+   "id": "ctl_6ae439492cd4c3dddf2a8f11",
+   "name": "Access Rights"
+  },
+  {
+   "id": "ctl_6ae4394918069ee961b93aa7",
+   "name": "Asset Inventory"
+  },
+  {
+   "id": "ctl_6ae439495b8c1b9f3d674f3b",
+   "name": "Change management"
+  },
+  {
+   "id": "ctl_6ae439492d9c6636d87226f1",
+   "name": "Configuration & Patch Management"
+  },
+  {
+   "id": "ctl_6ae43949ad5543ea58b93b4d",
+   "name": "Credential Management"
+  },
+  {
+   "id": "ctl_6ae43949a259a45b46f88017",
+   "name": "Data Privacy"
+  },
+  {
+   "id": "ctl_6ae4394947c638640892368f",
+   "name": "Data Retention & Destruction"
+  },
+  {
+   "id": "ctl_6ae4394933e00c6921c96023",
+   "name": "Disaster Recovery Planning"
+  },
+  {
+   "id": "ctl_6ae439490207727db9956979",
+   "name": "Disciplinary process"
+  },
+  {
+   "id": "ctl_6ae43949d45c379352486516",
+   "name": "Encrypted Data at Rest"
+  },
+  {
+   "id": "ctl_6ae43949eb179efcf10e432e",
+   "name": "Encryption Key Management"
+  },
+  {
+   "id": "ctl_6ae43949b4696d24c675618a",
+   "name": "Endpoint Protection"
+  },
+  {
+   "id": "ctl_6ae4394977bfec2e732edbf1",
+   "name": "Endpoint Security"
+  },
+  {
+   "id": "ctl_6ae43949f916257e0459fdb1",
+   "name": "Information Classification"
+  },
+  {
+   "id": "ctl_6ae43949dd1f129b917e5b81",
+   "name": "Management Security Accountability"
+  },
+  {
+   "id": "ctl_6ae439498ad8f3c3fe033935",
+   "name": "Network Security"
+  },
+  {
+   "id": "ctl_6ae43949f7f1bc6b2a74fc13",
+   "name": "Organization Structure & Reporting Lines"
+  },
+  {
+   "id": "ctl_6ae43949f9497f6eb91ae2ca",
+   "name": "Personnel Security"
+  },
+  {
+   "id": "ctl_6ae43949e44694815f3a40d5",
+   "name": "Physical Access Control"
+  },
+  {
+   "id": "ctl_6ae439497b2d46d333a73a92",
+   "name": "Policy Compliance"
+  },
+  {
+   "id": "ctl_6ae439491348a5d5c97802b0",
+   "name": "Regulatory Liaison"
+  },
+  {
+   "id": "ctl_6ae4394954fcae2c49de709f",
+   "name": "Remote-Work Security"
+  },
+  {
+   "id": "ctl_6ae439494a71b5cef8f6001b",
+   "name": "Resource Capacity Management"
+  },
+  {
+   "id": "ctl_6ae4394905851cea4b423075",
+   "name": "Risk Management"
+  },
+  {
+   "id": "ctl_6ae4394999992187491af045",
+   "name": "Secure Data Transfer"
+  },
+  {
+   "id": "ctl_6ae43949c35591f12839f736",
+   "name": "Secure SDLC Integration"
+  },
+  {
+   "id": "ctl_6ae439495d161928e9bcbd3b",
+   "name": "Security Governance Roles"
+  },
+  {
+   "id": "ctl_6ae43949502c51f16383f698",
+   "name": "Security Incident Management"
+  },
+  {
+   "id": "ctl_6ae43949d02622bba8c12833",
+   "name": "Security Logging"
+  },
+  {
+   "id": "ctl_6ae43949849d794677adb336",
+   "name": "Security Monitoring & Detection"
+  },
+  {
+   "id": "ctl_6ae43949f1bf98c62960dfe6",
+   "name": "Segregation of duties"
+  },
+  {
+   "id": "ctl_6ae439495c7769a9d3688c6a",
+   "name": "Standard Operating Procedures (SOPs)"
+  },
+  {
+   "id": "ctl_6ae439491b1bf1bede881669",
+   "name": "Supplier Security"
+  },
+  {
+   "id": "ctl_6ae43949265513219d3ab831",
+   "name": "Vulnerability Management"
+  }
+ ],
+ "tasks": [
+  {
+   "id": "tsk_6ae43949cb585a2c5e0294d3",
+   "title": "Separation of Environments"
+  },
+  {
+   "id": "tsk_6ae4394965508386f412d719",
+   "title": "Employee Access"
+  },
+  {
+   "id": "tsk_6ae43949b6c0b02fa74fe794",
+   "title": "Access Review Log"
+  },
+  {
+   "id": "tsk_6ae43949c5ae011b619cb47d",
+   "title": "Production Firewall & No-Public-Access Controls"
+  },
+  {
+   "id": "tsk_6ae439490852dab8b80f3d90",
+   "title": "Device List"
+  },
+  {
+   "id": "tsk_6ae43949cd3b08fd00339465",
+   "title": "Code Changes"
+  },
+  {
+   "id": "tsk_6ae43949e7d8b69c99862f5a",
+   "title": "Sanitized Inputs"
+  },
+  {
+   "id": "tsk_6ae439492517f793eee75151",
+   "title": "2FA"
+  },
+  {
+   "id": "tsk_6ae43949c4bca01e13c72dc2",
+   "title": "Secure Secrets"
+  },
+  {
+   "id": "tsk_6ae439490019a23677472091",
+   "title": "Static Code Scanning  "
+  },
+  {
+   "id": "tsk_6ae4394908ec22ad4e06a087",
+   "title": "Planning"
+  },
+  {
+   "id": "tsk_6ae43949e54a5ef145b6964d",
+   "title": "Employee Descriptions"
+  },
+  {
+   "id": "tsk_6ae43949020fe31fe22725d3",
+   "title": "Secure Devices"
+  },
+  {
+   "id": "tsk_6ae439496c5e20bd7cc87f2e",
+   "title": "Employee Verification"
+  },
+  {
+   "id": "tsk_6ae439495762ea22fd7d0089",
+   "title": "Building / Workplace Rules"
+  },
+  {
+   "id": "tsk_6ae43949550a11559fd77314",
+   "title": "Visitor Control"
+  },
+  {
+   "id": "tsk_6ae4394974cb19f511c0ab50",
+   "title": "Office Access & Door Monitoring"
+  },
+  {
+   "id": "tsk_6ae4394976a5964021b04f05",
+   "title": "Secure Storage"
+  },
+  {
+   "id": "tsk_6ae439495e558faa200f94f3",
+   "title": "Contact Information"
+  },
+  {
+   "id": "tsk_6ae4394951fa6f8ee5d818c0",
+   "title": "TLS / HTTPS"
+  },
+  {
+   "id": "tsk_6ae439495b1fd2c2296ae5cf",
+   "title": "Backup Restoration Test"
+  }
+ ]
+}

@@ -1,0 +1,624 @@
+[
+  {
+    "driveId": "1nk-RscEcBTT6KLNrpmTDTr8EZQundjqY4vpnk8SFFFE",
+    "title": "system-description-draft-nov2025.md",
+    "folder": "",
+    "localPath": "data/system-description-draft-nov2025.md",
+    "bytes": 74354,
+    "mimeType": "text/markdown",
+    "ok": true
+  },
+  {
+    "driveId": "17zc54txpWiQElTedoFEK3OWOaO4jUItm",
+    "title": "System Description.pdf",
+    "folder": "Compliance",
+    "localPath": "data/Compliance/System Description.pdf",
+    "bytes": 346152,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1G6VVt8wy1i8WboqP79ZjdFgjRzbQr5U-j-cnpuyni-c",
+    "title": "controls-list.csv",
+    "folder": "Compliance",
+    "localPath": "data/Compliance/controls-list.csv",
+    "bytes": 195622,
+    "mimeType": "text/csv",
+    "ok": true
+  },
+  {
+    "driveId": "1NfHmcv3L-j2w7Pb3ZSCWa-s-JkhASkQ2",
+    "title": "cloudtrail_events_20260204_132225.json",
+    "folder": "Compliance/evidence/operational-logs",
+    "localPath": "data/Compliance/evidence/operational-logs/cloudtrail_events_20260204_132225.json",
+    "bytes": 251684,
+    "mimeType": "application/json",
+    "ok": true
+  },
+  {
+    "driveId": "1I8zKAHbXkIw1VvvFrgheicNFYxm5kU7i",
+    "title": "lambda_app_events_20260204_132311.json",
+    "folder": "Compliance/evidence/operational-logs",
+    "localPath": "data/Compliance/evidence/operational-logs/lambda_app_events_20260204_132311.json",
+    "bytes": 42557,
+    "mimeType": "application/json",
+    "ok": true
+  },
+  {
+    "driveId": "1IbvDqrkVsBqc6FSn5KBI93DIHR8r17j8",
+    "title": "vpc_flow_events_20260204_132240.json",
+    "folder": "Compliance/evidence/operational-logs",
+    "localPath": "data/Compliance/evidence/operational-logs/vpc_flow_events_20260204_132240.json",
+    "bytes": 37737,
+    "mimeType": "application/json",
+    "ok": true
+  },
+  {
+    "driveId": "1aaPFSJ1gUJ6rNzDkG9UyCUuAgVC_OgDr",
+    "title": "access-control-and-authentication-policy-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/access-control-and-authentication-policy-v1.0.pdf",
+    "bytes": 175455,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1r6TgdDeUk8Tn1bjTLEsN4F0icSgFpE1d",
+    "title": "annual-performance-evaluation-ceo-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/annual-performance-evaluation-ceo-v1.0.pdf",
+    "bytes": 271982,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1vwilgoPTY2qsCCO2ECEVeZeU6wdCk-3z",
+    "title": "board-management-meeting-minutes-q4-2025-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/board-management-meeting-minutes-q4-2025-v1.0.pdf",
+    "bytes": 269875,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1433rt1JItsxPuM9lu1Wz7jEBuErk4phh",
+    "title": "business-continuity-plan-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/business-continuity-plan-v1.0.pdf",
+    "bytes": 231660,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "14V2e55ch0waE_61pXKhwMOp6xO8RwCSF",
+    "title": "change-management-policy-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/change-management-policy-v1.0.pdf",
+    "bytes": 166761,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "15XkAbaE3rjDkQxwLK-B-hjZlkM5a6A0D",
+    "title": "code-of-conduct-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/code-of-conduct-v1.0.pdf",
+    "bytes": 109833,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1vN8u3ZSGKhURr24GYdO8mAsHK5G0O9TP",
+    "title": "data-classification-policy-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/data-classification-policy-v1.0.pdf",
+    "bytes": 280094,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1ngSZNX9vqfYioe6f8TV-eTup3JHh29yF",
+    "title": "data-retention-and-disposal-policy-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/data-retention-and-disposal-policy-v1.0.pdf",
+    "bytes": 304346,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1YDRFe49HoxFHvkpFodiOmtr_wPjpHNRF",
+    "title": "ethics-and-privacy-training-completion-certificate-william-wickey-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/ethics-and-privacy-training-completion-certificate-william-wickey-v1.0.pdf",
+    "bytes": 132382,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1Wy7h9nh9aZrVo239BjooMajrus2iuXLb",
+    "title": "ethics-and-security-training-completion-certificate-mo-messidi-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/ethics-and-security-training-completion-certificate-mo-messidi-v1.0.pdf",
+    "bytes": 237718,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1wQgopqZ_rq3Q2Tz9t8SuF8tTVGQwJ7SY",
+    "title": "ethics-violation-log-2025-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/ethics-violation-log-2025-v1.0.pdf",
+    "bytes": 229900,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1gxdzYyr8ZTT84MuzPKqVSIywymkKdQyA",
+    "title": "incident-response-procedure-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/incident-response-procedure-v1.0.pdf",
+    "bytes": 230371,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1KIm04B9FaaS2ma6ca4dZss4O5KrgzZ7w",
+    "title": "information-security-policy-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/information-security-policy-v1.0.pdf",
+    "bytes": 188106,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1lXCafrNiwA3dzt-a-mXdoOY9vd-mHdL3",
+    "title": "job-description-chief-executive-officer-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/job-description-chief-executive-officer-v1.0.pdf",
+    "bytes": 179392,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1kOAEYqbBYrLRUPoccpw2zWXNrrJZHBfZ",
+    "title": "job-description-go-to-market-contractor-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/job-description-go-to-market-contractor-v1.0.pdf",
+    "bytes": 171312,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1flW3BEkSimCLmKcJabRduy26C0HZf3A0",
+    "title": "organizational-structure-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/organizational-structure-v1.0.pdf",
+    "bytes": 117218,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1FVExmZkTGovEpVihc_9zS4VBQksjQ1Bw",
+    "title": "privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/privacy-notice-and-data-processing-agreement-template-v1.0.pdf",
+    "bytes": 226315,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1d7y3w5JpPvKLfFiqs-lKL7tA0sMkumWc",
+    "title": "risk-assessment-procedure-v1.0.pdf",
+    "folder": "Compliance/evidence/policies-procedures",
+    "localPath": "data/Compliance/evidence/policies-procedures/risk-assessment-procedure-v1.0.pdf",
+    "bytes": 199062,
+    "mimeType": "application/pdf",
+    "ok": true
+  },
+  {
+    "driveId": "1fK9duSXxvZth1ACzYQJTDQahP03ddJWE",
+    "title": "aws_cloudformation_stacks.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_cloudformation_stacks.png",
+    "bytes": 118590,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1SQdCzay-Gw23jezsOEV4BAld1rD8ToDP",
+    "title": "aws_cloudtrail_trails.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_cloudtrail_trails.png",
+    "bytes": 122053,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1xd-mfc4qF5ZjzC2NeI5QEaSpHGf2PqfT",
+    "title": "aws_cloudwatch_alarms.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_cloudwatch_alarms.png",
+    "bytes": 241194,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1KqB2IgxGjL449e-_FOj6J4WAktTwImtJ",
+    "title": "aws_cloudwatch_log_groups.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_cloudwatch_log_groups.png",
+    "bytes": 256376,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1uUFbCyZX_NagR-0LTzRtSrzyOtlKg5jM",
+    "title": "aws_documentdb_backups.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_documentdb_backups.png",
+    "bytes": 231163,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1jPle29gAv_qj2JANEkXq_s2bbs8Ymqah",
+    "title": "aws_documentdb_cluster.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_documentdb_cluster.png",
+    "bytes": 159415,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1Z3K3VJ_XVYaIoVTywUna95RX5BPlmAqh",
+    "title": "aws_ecr_repositories.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_ecr_repositories.png",
+    "bytes": 162271,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1v1-0cds1bjfsY4Rr1IHet6Iz-jUFNkYl",
+    "title": "aws_eventbridge_rules.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_eventbridge_rules.png",
+    "bytes": 236957,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "18Vki8q_2cKWpJbPPEZ09PYsk6copynd2",
+    "title": "aws_iam_password_policy.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_iam_password_policy.png",
+    "bytes": 252501,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1Mee7jRxUilAmGqP68EDF9kkY1JIzpaZo",
+    "title": "aws_iam_roles.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_iam_roles.png",
+    "bytes": 285980,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1RSTLjS2uUF5F3Ke5ChFfVSewYoWQxoUo",
+    "title": "aws_iam_users.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_iam_users.png",
+    "bytes": 171731,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1VN9ZPixr_YDnjqalHn4dne1p3v55NfI_",
+    "title": "aws_kms_keys.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_kms_keys.png",
+    "bytes": 88813,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1KgBe1cZtFqvc2c7URB27AnNMu0l_xskP",
+    "title": "aws_lambda_functions.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_lambda_functions.png",
+    "bytes": 170011,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1jvai2aL--jtMP65vKwvraSwNkjn4dcfo",
+    "title": "aws_s3_bucket_encryption.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_s3_bucket_encryption.png",
+    "bytes": 230659,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1CX-b9BhmoD90SND_MmdUFHjbgT4qzJuS",
+    "title": "aws_s3_buckets.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_s3_buckets.png",
+    "bytes": 193971,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1LyvHaCATdv6KKaewj2m8s-V-XzHbZwS9",
+    "title": "aws_security_groups.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_security_groups.png",
+    "bytes": 215072,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1SxYrV8Z7o8HHvjV4mEjHRv2-w4LEZlit",
+    "title": "aws_securityhub_findings.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_securityhub_findings.png",
+    "bytes": 277794,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "15vailZTMSOaga4tm6IlPx3LlJnpp4hPN",
+    "title": "aws_securityhub_overview.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_securityhub_overview.png",
+    "bytes": 244672,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "12RNbdYtkns2w_BeQwFwHxJkcK3-WwKGO",
+    "title": "aws_sns_topics.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_sns_topics.png",
+    "bytes": 135844,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1MzmJWtTraHSe2EHEJyyRZrePKxUmJ-zR",
+    "title": "aws_vpc_list.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_vpc_list.png",
+    "bytes": 141479,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1EYlBjRpFJRFTbFFjKyAd8Whj6TaXWK1_",
+    "title": "aws_vpc_subnets.png",
+    "folder": "Compliance/evidence/screenshots/aws-console",
+    "localPath": "data/Compliance/evidence/screenshots/aws-console/aws_vpc_subnets.png",
+    "bytes": 162553,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "16HWcK8f-xVUT9HbUvP4XBjOX6HPJtzn0",
+    "title": "macos_filevault_status.png",
+    "folder": "Compliance/evidence/screenshots/device-security",
+    "localPath": "data/Compliance/evidence/screenshots/device-security/macos_filevault_status.png",
+    "bytes": 0,
+    "mimeType": "image/png",
+    "ok": false,
+    "error": "Drive MCP download failed twice: 9,043,053-byte PNG (~12 MB base64) exceeds MCP message size limit; connection closed by server. Drive fileSize per metadata: 9043053."
+  },
+  {
+    "driveId": "1VyrEY5jk5Y2-3GL1VomRxL8ImYsUrTnP",
+    "title": "01_github_actions_workflows.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/01_github_actions_workflows.png",
+    "bytes": 195405,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1WNVa2GMZwsF1Fbt-3yBlokXx6SFBsLFC",
+    "title": "02_github_ci_workflow.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/02_github_ci_workflow.png",
+    "bytes": 551426,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1-TOroxLlnzZQJHSLijUCtvj23M1rKK6l",
+    "title": "03_github_deploy_workflow.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/03_github_deploy_workflow.png",
+    "bytes": 219996,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1nGqKfmM5N5ZkmXtxuh83-UWv_FmgmOW-",
+    "title": "04_github_workflow_run_details.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/04_github_workflow_run_details.png",
+    "bytes": 117925,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1nxQOWjfIdUgn6j2Z3qfI-OazWIHsoxI8",
+    "title": "05_github_dependabot.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/05_github_dependabot.png",
+    "bytes": 388848,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1cnyIPppY9OyWcK5ujMaM1hB7PEQ9K1Wx",
+    "title": "07_github_secret_scanning.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/07_github_secret_scanning.png",
+    "bytes": 314050,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1nkdHXNMsTwgo5eeZ0pViHNWrRg22a4rY",
+    "title": "08_github_branch_protection.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/08_github_branch_protection.png",
+    "bytes": 305460,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1gkaFbND1QGRKimFZucLEyP1C11vEf4WE",
+    "title": "middleware_py_screenshot.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/middleware_py_screenshot.png",
+    "bytes": 733151,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1Cb_tWnLSTO0b3zZPkPklBOQpDRh3no1x",
+    "title": "models_pii_py_screenshot.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/models_pii_py_screenshot.png",
+    "bytes": 686355,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1bRG1MRrcRsOisYlsDBv5INDoogsk0IbF",
+    "title": "models_v1_py_screenshot.png",
+    "folder": "Compliance/evidence/screenshots/github-actions",
+    "localPath": "data/Compliance/evidence/screenshots/github-actions/models_v1_py_screenshot.png",
+    "bytes": 811402,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1XuY2-DlomLSm80N8mecNJcFvdSJfxKpv",
+    "title": "humadroid_bcp_dashboard.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_bcp_dashboard.png",
+    "bytes": 864727,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "13KfYqUUZt5QNxSaD4248hEr34gb7ReQ2",
+    "title": "humadroid_bcp_test_results.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_bcp_test_results.png",
+    "bytes": 943438,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1fHmY6nsREqXqQYzrK9wLuHMRFflZ532f",
+    "title": "humadroid_incident_reporting.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_incident_reporting.png",
+    "bytes": 807850,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1m2Xse3BODMIKSQGm6LRyt_271pLhvIXl",
+    "title": "humadroid_risk_detail.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_risk_detail.png",
+    "bytes": 1012159,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1kcN-KhkD3IPNtBi9NYWQ_2ZXwT0xR9Fe",
+    "title": "humadroid_risk_register.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_risk_register.png",
+    "bytes": 954252,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1RHkqFkLtNlPpHuwm8Lg3pEUsU1gpbL1Z",
+    "title": "humadroid_vendor_assessment_aws.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_vendor_assessment_aws.png",
+    "bytes": 864307,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1-HuT0ZMn284zNCiB3LaOlnG2FrB1FCwv",
+    "title": "humadroid_vendor_assessment_propelauth.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_vendor_assessment_propelauth.png",
+    "bytes": 884154,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1T3s5eGDxOi3pxq1afdNrirOOjhnyfEVF",
+    "title": "humadroid_vendor_dashboard.png",
+    "folder": "Compliance/evidence/screenshots/humadroid",
+    "localPath": "data/Compliance/evidence/screenshots/humadroid/humadroid_vendor_dashboard.png",
+    "bytes": 820473,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1orxjdKGIPXE7rPXPN35khZ2afT8kk-62",
+    "title": "propelauth_api_keys.png",
+    "folder": "Compliance/evidence/screenshots/propelauth",
+    "localPath": "data/Compliance/evidence/screenshots/propelauth/propelauth_api_keys.png",
+    "bytes": 867962,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1q2DCL96OTNxsDh4eG7-rHoP1y7DMBfnd",
+    "title": "propelauth_mfa_settings.png",
+    "folder": "Compliance/evidence/screenshots/propelauth",
+    "localPath": "data/Compliance/evidence/screenshots/propelauth/propelauth_mfa_settings.png",
+    "bytes": 891705,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "1dE9PVTww5FrROuGd_uAnMLvVyyCMUXib",
+    "title": "propelauth_roles.png",
+    "folder": "Compliance/evidence/screenshots/propelauth",
+    "localPath": "data/Compliance/evidence/screenshots/propelauth/propelauth_roles.png",
+    "bytes": 731435,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "19HSghWqGR1o68l5CaAuJTli9EIoiFV9w",
+    "title": "propelauth_security_settings.png",
+    "folder": "Compliance/evidence/screenshots/propelauth",
+    "localPath": "data/Compliance/evidence/screenshots/propelauth/propelauth_security_settings.png",
+    "bytes": 866947,
+    "mimeType": "image/png",
+    "ok": true
+  },
+  {
+    "driveId": "113O_lsrY3udvdl0lLj7xjSSvm1rSF4rY",
+    "title": "propelauth_users.png",
+    "folder": "Compliance/evidence/screenshots/propelauth",
+    "localPath": "data/Compliance/evidence/screenshots/propelauth/propelauth_users.png",
+    "bytes": 1042616,
+    "mimeType": "image/png",
+    "ok": true
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "acceptable-use-policy": "pol_6ae4b06f354c8f288b5bef13",
+  "api-security-and-rate-limiting-standard": "pol_6ae4b070c7eacdf89b833940",
+  "cloud-infrastructure-security-policy": "pol_6ae4b07083de4536842df831",
+  "data-subject-rights-request-procedure": "pol_6ae4b072957f1afd8b70bdea",
+  "encryption-and-cryptographic-controls-standard": "pol_6ae4b0731bc70fde67761439",
+  "penetration-testing-and-security-assessment-procedure": "pol_6ae4b0736b59d86e5fd802bd",
+  "secure-software-development-lifecycle-sdlc-standard": "pol_6ae4b0741fc138e373b15873",
+  "security-awareness-training-program": "pol_6ae4b0759b3eb6f5c90818af",
+  "service-level-agreement-sla-management-policy": "pol_6ae4b076672bc62bb20ef768",
+  "system-monitoring-and-logging-procedure": "pol_6ae4b076ff7e86d64fa2a57c",
+  "third-party-integration-security-guidelines": "pol_6ae4b07766e6db3c5083d3a4",
+  "vendor-management-policy": "pol_6ae4b07801b7be7ceae3a8ec",
+  "vulnerability-management-procedure": "pol_6ae4b0792126ae8bbd6f91f2",
+  "data-classification-and-handling-standard": "pol_6ae4b07aae52026d8aa8d504"
+}

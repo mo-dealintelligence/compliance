@@ -118,7 +118,16 @@ deploy/aws/*/.serverless
 deploy/.env.*
 
 # Internal compliance source material (never commit)
-scripts/di-migration/data/
+# Migration data: source documents/evidence stay out; the small JSON state the
+# importers key on (ids created in Comp) is tracked so every clone can run them.
+scripts/di-migration/data/*
+!scripts/di-migration/data/*.json
+!scripts/di-migration/data/nov2025/
+scripts/di-migration/data/nov2025/*
+!scripts/di-migration/data/nov2025/state.json
+!scripts/di-migration/data/repo-policies/
+scripts/di-migration/data/repo-policies/*
+!scripts/di-migration/data/repo-policies/state.json
 
 # app worker bundle (built in Docker)
 apps/app/worker/
