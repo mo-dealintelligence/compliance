@@ -1,0 +1,17 @@
+{
+  "id": "org_6ae43948f44032b0bb39e61f",
+  "name": "Deal Intelligence",
+  "slug": "slug_6ae4394804ca46e662258493",
+  "logo": null,
+  "metadata": null,
+  "website": "https://dealintelligence.io",
+  "onboardingCompleted": true,
+  "hasAccess": true,
+  "fleetDmLabelId": null,
+  "isFleetSetupCompleted": false,
+  "primaryColor": null,
+  "advancedModeEnabled": false,
+  "createdAt": "2026-10-30T06:29:28.446Z",
+  "logoUrl": null,
+  "authType": "api-key"
+}

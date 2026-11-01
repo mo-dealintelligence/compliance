@@ -1,0 +1,242 @@
+[
+  {
+    "id": "pol_6ae4b07aae52026d8aa8d504",
+    "name": "Data Classification and Handling Standard",
+    "description": "Classification tiers and handling rules for the data the platform processes; business contact data is Confidential. Single classification document (the Data Classification Policy is merged into it). Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0792126ae8bbd6f91f2",
+    "name": "Vulnerability Management Procedure",
+    "description": "How vulnerabilities are found (ECR scan-on-push, Dependabot, Trivy in CI, Security Hub) and remediated: Critical within 24 hours, dependency CVEs rated Critical within 7 days, High 30 days, Medium 90 days. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b07801b7be7ceae3a8ec",
+    "name": "Vendor Management Policy",
+    "description": "Assessment, Data Processing Agreements, and annual review of vendors and the two sub-processors (AWS, PropelAuth); 30-day customer notice for sub-processor changes. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b07766e6db3c5083d3a4",
+    "name": "Third-Party Integration Security Guidelines",
+    "description": "Merged: integration patterns moved to the API Security and Rate Limiting Standard (Integration security section) and assessment/DPA content to the Vendor Management Policy. [CONFIRM: archive this policy in the platform]",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b076ff7e86d64fa2a57c",
+    "name": "System Monitoring and Logging Procedure",
+    "description": "Monitoring and logging requirements: CloudWatch alarms and 90-day log retention, CloudTrail with 7-year retention, Security Hub with real-time SNS alerting for critical findings and a monthly reviewed record. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b076672bc62bb20ef768",
+    "name": "Service Level Agreement (SLA) Management Policy",
+    "description": "The 99.9 % platform availability commitment, how it is measured monthly from CloudWatch metrics, maintenance notice by email, and the monthly availability record in the compliance platform. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0759b3eb6f5c90818af",
+    "name": "Security Awareness Training Program",
+    "description": "Security awareness and ethics training in the compliance platform portal at onboarding and annually for all personnel, with the completion certificate as evidence. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "hr",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0741fc138e373b15873",
+    "name": "Secure Software Development Lifecycle (SDLC) Standard",
+    "description": "Security requirements through design, development, testing, and deployment of the platform: pull-request workflow on protected main, CI checks (Black, isort, Flake8, Bandit, pytest, Trivy, TruffleHog), staging-stage validation. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0736b59d86e5fd802bd",
+    "name": "Penetration Testing and Security Assessment Procedure",
+    "description": "Annual third-party penetration test and internal security assessments, with findings remediated per the Vulnerability Management Procedure. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0731bc70fde67761439",
+    "name": "Encryption and Cryptographic Controls Standard",
+    "description": "Encryption at rest with a regional KMS customer-managed key (annual rotation), TLS 1.2+ in transit with ACM certificates, and key management rules. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b072957f1afd8b70bdea",
+    "name": "Data Subject Rights Request Procedure",
+    "description": "Receiving, verifying, and fulfilling GDPR and CCPA data subject requests within 30 days (GDPR) or 45 days (CCPA), with each request recorded in the compliance platform. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b07083de4536842df831",
+    "name": "Cloud Infrastructure Security Policy",
+    "description": "Security requirements for the AWS environment in us-east-1: VPC isolation, IAM least privilege with MFA, CloudFormation via the Serverless Framework as the only change path, Security Hub and CloudTrail. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b070c7eacdf89b833940",
+    "name": "API Security and Rate Limiting Standard",
+    "description": "Requirements for the platform's APIs: PropelAuth JWT authentication, TLS 1.2+, rate limiting of 100 requests per minute per key enforced in middleware, audit logging, and integration security. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b06f354c8f288b5bef13",
+    "name": "Acceptable Use Policy",
+    "description": "Rules for use of Deal Intelligence systems and data by all personnel: approved tools, MFA, browser SSO through Google Workspace, device security, prohibited activities. Acknowledged annually in the compliance platform portal. Owner: CEO.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "hr",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436d9ac4cbab5ee6a7d6",
+    "name": "Risk Assessment Procedure",
+    "description": "Identifying, scoring (likelihood × impact, 1–25), treating, and reviewing risks in the compliance platform's risk register: quarterly review, annual assessment. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436c1e8dc2e3d8176b36",
+    "name": "Privacy Notice and Data Processing Agreement Template",
+    "description": "Template privacy notice and Data Processing Agreement for customers under GDPR and CCPA: processing purposes, sub-processors, data subject rights, breach notification within 48 hours. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436becd8f1329f5c4435",
+    "name": "Information Security Policy",
+    "description": "Parent policy for the security program: principles, roles (CEO owns every control; Go-to-Market Contractor has no production access), control objectives for Security, Availability, and Confidentiality, exceptions approved by the CEO. Reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436bdb34e80d0fff1be9",
+    "name": "Incident Response Procedure",
+    "description": "Detection, triage (P1–P4), containment, and recovery for security incidents; CEO as incident commander; P1 acknowledged within 4 business hours; customer notification within 48 hours; annual tabletop exercise. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436aaf41169d5bc6babf",
+    "name": "Data Retention and Disposal Policy",
+    "description": "Retention periods (active leads 24 months; customer account data for the relationship plus 24 months; CloudWatch Logs 90 days; CloudTrail 7 years) and secure disposal enforced by the retention Lambda. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": false,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae443693ca45e3e03dc6e03",
+    "name": "Data Classification Policy",
+    "description": "Merged into the Data Classification and Handling Standard (decision tree carried as an appendix). [CONFIRM: archive this policy in the platform]",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": false,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae443682481c533869a5ba9",
+    "name": "Code of Conduct",
+    "description": "Ethical standards and conduct expectations for all personnel and contractors; acknowledged annually in the compliance platform portal. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "hr",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae443686f8d68455fdb1286",
+    "name": "Change Management Policy",
+    "description": "How production changes are made: pull request on protected main with required CI status checks, deploy only from a green CI run, rollback via serverless rollback, emergency changes labelled emergency with post-hoc review within 5 business days. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae44366d11a465e7feb8921",
+    "name": "Business Continuity Plan",
+    "description": "Recovery of the platform after a disruption: Multi-AZ DocumentDB, 90-day backups with point-in-time recovery, CloudFormation redeployment, RTO/RPO targets, quarterly backup-restore test; single region (us-east-1) by design. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae44365e620da64444d0e00",
+    "name": "Access Control and Authentication Policy",
+    "description": "Who may access which systems and how: Google Workspace SSO with MFA for personnel, customer MFA inherited through PropelAuth, RBAC and least privilege, quarterly access reviews, semi-annual privileged-access audit. Owner: CEO; reviewed annually.",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  }
+]

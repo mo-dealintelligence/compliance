@@ -1,0 +1,452 @@
+[
+  {
+    "id": "tsk_6ae4462cb56809fa463973b9",
+    "title": "macOS FileVault status screenshot",
+    "description": "Screenshot of System Settings showing FileVault enabled on the CEO's laptop. Cadence: quarterly (evidence sweep). [CONFIRM: also capture the Go-to-Market Contractor's device, or rely on the compliance platform device agent]\n\nSupports: C1.1.3, CC6.4.2, CC6.7.3, CC6.8.1\nSource file: macos_filevault_status.png",
+    "status": "todo",
+    "createdAt": "2026-10-30T07:24:27.987Z",
+    "updatedAt": "2026-10-30T14:31:35.897Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444bc3f15dc23dccec164",
+    "title": "GitHub Actions workflows screenshot",
+    "description": "Screenshot of the Actions tab of dealintelligence/di-backend-api listing the CI workflows (lint, tests, Bandit, Trivy, TruffleHog). Cadence: quarterly (evidence sweep).\n\nSupports: CC7.2\nSource file: 01_github_actions_workflows.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:20.394Z",
+    "updatedAt": "2026-10-30T07:18:22.518Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444c3546fe1eb4c5b4baa",
+    "title": "GitHub deploy workflow screenshot",
+    "description": "Screenshot of the deploy workflow definition showing deployment runs only from a green CI run (serverless deploy). Cadence: quarterly (evidence sweep).\n\nSupports: CC5.2, CC8.1, CC8.1.1\nSource file: 03_github_deploy_workflow.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:26.517Z",
+    "updatedAt": "2026-10-30T07:18:29.356Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444c60fda138fbd504ace",
+    "title": "GitHub workflow run history screenshot",
+    "description": "Screenshot of recent workflow runs showing CI execution history and status for dealintelligence/di-backend-api. Cadence: quarterly (evidence sweep).\n\nSupports: CC8.1\nSource file: 04_github_workflow_run_details.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:29.695Z",
+    "updatedAt": "2026-10-30T07:18:31.290Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444c8993db6438c273a18",
+    "title": "Dependabot alerts screenshot",
+    "description": "Screenshot of the Dependabot alerts page showing open alerts by severity and automated update pull requests. Cadence: monthly (automated evidence run).\n\nSupports: CC4.1.2, CC6.8, CC6.8.1, CC6.8.2, CC7.1, CC7.1.2\nSource file: 05_github_dependabot.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:31.614Z",
+    "updatedAt": "2026-10-30T07:18:36.584Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444cdfb7b143b2457bc72",
+    "title": "GitHub code security settings screenshot",
+    "description": "Screenshot of the repository's code security settings showing secret scanning, push protection, and code scanning enabled. Cadence: quarterly (evidence sweep).\n\nSupports: CC6.8.2\nSource file: 07_github_secret_scanning.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:36.918Z",
+    "updatedAt": "2026-10-30T07:18:38.535Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444cfe501a351b7d1c460",
+    "title": "GitHub branch protection screenshot",
+    "description": "Screenshot of the branch protection rule for main: pull request required, CI status checks required, no direct pushes. Cadence: monthly (automated evidence run).\n\nSupports: CC5.2, CC5.2.2, CC8.1, CC8.1.2, CC8.1.3\nSource file: 08_github_branch_protection.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:38.885Z",
+    "updatedAt": "2026-10-30T07:18:44.377Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444d5367ee4b55f9e7d75",
+    "title": "CEO annual performance evaluation",
+    "description": "The CEO's annual self-evaluation submitted in the employee-performance-evaluation form: criteria, ratings, evidence, and development actions. Cadence: annual (compliance week).\n\nSupports: CC1.4.2, CC1.5.2\nSource file: annual-performance-evaluation-ceo-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:44.711Z",
+    "updatedAt": "2026-10-30T07:18:46.996Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444d7533a601cced5f441",
+    "title": "CloudFormation stacks screenshot",
+    "description": "Screenshot of the CloudFormation console showing the di-backend-api-prod stack (and staging stage) with status and last update. Cadence: quarterly (evidence sweep).\n\nSupports: CC5.2, CC5.2.1, CC8.1.1\nSource file: aws_cloudformation_stacks.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:47.335Z",
+    "updatedAt": "2026-10-30T07:18:50.306Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444db10c758f7b4eb2bdc",
+    "title": "CloudTrail trails screenshot",
+    "description": "Screenshot of the CloudTrail console showing the trail enabled, the S3 destination, and log file validation. Cadence: monthly (automated evidence run).\n\nSupports: C1.2.2, CC3.3.2, CC6.3.2, CC6.6.2, CC7.5, CC7.5.1\nSource file: aws_cloudtrail_trails.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:50.688Z",
+    "updatedAt": "2026-10-30T07:18:56.961Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444e1c9143d62486189ee",
+    "title": "CloudWatch alarms screenshot",
+    "description": "Screenshot of the CloudWatch alarms list showing the API error, latency (p95 > 2 seconds), and capacity alarms with their SNS actions and state. Cadence: monthly (automated evidence run).\n\nSupports: A1.1, A1.1.1, A1.1.2, CC4.1, CC4.1.1, CC5.1, CC5.1.2, CC6.6.3, CC7.2, CC7.2.2, CC7.2.3, CC7.3, CC7.3.2\nSource file: aws_cloudwatch_alarms.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:57.290Z",
+    "updatedAt": "2026-10-30T07:19:06.760Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444ebf6be2a04e8f76b3e",
+    "title": "CloudWatch log groups screenshot",
+    "description": "Screenshot of the CloudWatch log groups list showing the Lambda and API audit log groups with 90-day retention. Cadence: monthly (automated evidence run).\n\nSupports: A1.1, A1.1.1, C1.2.2, CC4.1.1, CC4.2, CC4.2.2, CC6.3.3, CC6.5.2, CC6.6.2, CC6.7.4, CC7.2, CC7.2.1, CC7.2.3, CC7.4.4, CC7.5\nSource file: aws_cloudwatch_log_groups.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:07.093Z",
+    "updatedAt": "2026-10-30T07:19:23.725Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444fcdaab2433054f2873",
+    "title": "DocumentDB backups screenshot",
+    "description": "Screenshot of the DocumentDB backups view showing daily automated snapshots, 90-day retention, and point-in-time recovery enabled. Cadence: quarterly (evidence sweep).\n\nSupports: A1.2, A1.2.2, A1.3, A1.3.1, CC7.5.2, CC9.1, CC9.1.3\nSource file: aws_documentdb_backups.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:24.064Z",
+    "updatedAt": "2026-10-30T07:19:32.583Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445052e299c11cb1ab1d4",
+    "title": "DocumentDB cluster configuration screenshot",
+    "description": "Screenshot of the DocumentDB cluster details showing Multi-AZ instances, KMS storage encryption, TLS enforcement, and backup retention. Cadence: quarterly (evidence sweep).\n\nSupports: A1.1.2, A1.2, A1.2.2, A1.2.3, CC2.1, CC2.1.1, CC6.1.4, CC6.7.4, CC9.1, CC9.1.2\nSource file: aws_documentdb_cluster.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:32.917Z",
+    "updatedAt": "2026-10-30T07:19:42.976Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4450f39b97e60a1e07181",
+    "title": "ECR repositories and scan results screenshot",
+    "description": "Screenshot of the ECR repositories list showing scan-on-push enabled and the latest image scan findings. Cadence: monthly (automated evidence run).\n\nSupports: CC6.8, CC6.8.1, CC7.1\nSource file: aws_ecr_repositories.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:43.392Z",
+    "updatedAt": "2026-10-30T07:21:02.083Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44560f3b3973fc64aff02",
+    "title": "IAM password policy screenshot",
+    "description": "Screenshot of the IAM account password policy settings. Cadence: monthly (automated evidence run).\n\nSupports: CC6.1, CC6.1.2, CC6.2\nSource file: aws_iam_password_policy.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:04.389Z",
+    "updatedAt": "2026-10-30T07:21:07.169Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445641e1f09041e584cfe",
+    "title": "IAM roles screenshot",
+    "description": "Screenshot of the IAM roles list showing the Lambda execution and deployment roles with their attached policies. Cadence: quarterly (evidence sweep).\n\nSupports: CC5.1, CC5.1.1, CC6.1, CC6.1.5, CC6.3, CC6.3.1, CC6.7, CC6.7.1, CC6.7.2\nSource file: aws_iam_roles.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:07.503Z",
+    "updatedAt": "2026-10-30T07:21:15.106Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4456baba402296ae727d1",
+    "title": "IAM users screenshot",
+    "description": "Screenshot of the IAM users list showing each user, MFA status, and last activity, as input to the quarterly access review. Cadence: quarterly (evidence sweep).\n\nSupports: CC1.5, CC1.5.2, CC6.1, CC6.1.5, CC6.2.2, CC6.3.2\nSource file: aws_iam_users.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:15.429Z",
+    "updatedAt": "2026-10-30T07:21:20.333Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4457169bc4cd8e68111be",
+    "title": "KMS keys screenshot",
+    "description": "Screenshot of the KMS customer-managed keys list showing the keys, their status, and automatic annual rotation enabled. Cadence: monthly (automated evidence run).\n\nSupports: C1.1, C1.1.3, C1.2, C1.2.1, CC2.1.2, CC5.1, CC5.1.1, CC6.1.4, CC6.5, CC6.5.1, CC6.5.2\nSource file: aws_kms_keys.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:20.665Z",
+    "updatedAt": "2026-10-30T07:21:31.514Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4457c904a374dd0cbd73a",
+    "title": "Lambda functions inventory screenshot",
+    "description": "Screenshot of the Lambda functions list showing the platform functions, including accessReview and dataRetentionEnforcement. Cadence: quarterly (evidence sweep).\n\nSupports: CC2.1, CC2.1.1, CC4.1, CC6.5\nSource file: aws_lambda_functions.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:31.952Z",
+    "updatedAt": "2026-10-30T07:21:35.610Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445803dfc7ebc896f9e3d",
+    "title": "S3 bucket encryption screenshot",
+    "description": "Screenshot of a bucket's properties showing default encryption enabled. Cadence: monthly (automated evidence run).\n\nSupports: CC6.1.4, CC6.7.2\nSource file: aws_s3_bucket_encryption.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:35.940Z",
+    "updatedAt": "2026-10-30T07:21:38.724Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44583e20d884bafc136ad",
+    "title": "S3 buckets and lifecycle rules screenshot",
+    "description": "Screenshot of the S3 buckets list and the lifecycle rules on the CloudTrail bucket (Glacier transition, Object Lock, 7-year retention). Cadence: quarterly (evidence sweep).\n\nSupports: C1.2, CC2.1, CC2.1.1\nSource file: aws_s3_buckets.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:39.051Z",
+    "updatedAt": "2026-10-30T07:21:43.672Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445886efe315e02f31c38",
+    "title": "VPC security groups screenshot",
+    "description": "Screenshot of the security groups list with inbound and outbound rules showing no open administrative ports and database access limited to the VPC. Cadence: monthly (automated evidence run).\n\nSupports: CC6.1.3, CC6.3.3, CC6.6, CC6.6.1, CC6.6.3\nSource file: aws_security_groups.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:44.331Z",
+    "updatedAt": "2026-10-30T07:21:48.701Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4458d4ef150b3b92dd543",
+    "title": "Security Hub findings screenshot",
+    "description": "Screenshot of the Security Hub findings list filtered to open findings by severity, as input to the monthly Security Hub review record. Cadence: monthly (automated evidence run).\n\nSupports: CC3.1, CC3.1.2, CC3.3.2, CC3.4, CC4.1.2, CC4.2, CC4.2.1, CC6.8, CC6.8.1, CC7.1, CC7.1.2, CC7.3, CC7.4\nSource file: aws_securityhub_findings.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:49.131Z",
+    "updatedAt": "2026-10-30T07:21:59.374Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445981e718c509d1449c8",
+    "title": "Security Hub summary screenshot",
+    "description": "Screenshot of the Security Hub summary showing the Foundational Security Best Practices standard enabled and the security score. Cadence: monthly (automated evidence run).\n\nSupports: CC3.2, CC3.3, CC3.4, CC3.4.1, CC4.1, CC5.1.2, CC7.1.1\nSource file: aws_securityhub_overview.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:59.779Z",
+    "updatedAt": "2026-10-30T07:22:05.403Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4459eff771225daa8346e",
+    "title": "SNS topics screenshot",
+    "description": "Screenshot of the SNS topics list showing the security-alert and incident-notification topics and their subscriptions. Cadence: monthly (automated evidence run).\n\nSupports: CC7.3, CC7.3.1, CC7.4, CC7.4.3, CC7.4.4\nSource file: aws_sns_topics.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:05.753Z",
+    "updatedAt": "2026-10-30T07:22:09.966Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445a29752946f965f0bfd",
+    "title": "VPC list screenshot",
+    "description": "Screenshot of the VPC console listing the platform VPC, as part of the asset inventory. Cadence: quarterly (evidence sweep).\n\nSupports: CC2.1.1, CC6.1.3\nSource file: aws_vpc_list.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:10.342Z",
+    "updatedAt": "2026-10-30T07:22:12.794Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445a59a2ba92fdb39222d",
+    "title": "VPC subnets screenshot",
+    "description": "Screenshot of the subnets list showing the private subnets in us-east-1a and us-east-1b. Cadence: quarterly (evidence sweep).\n\nSupports: CC6.1.3, CC6.6\nSource file: aws_vpc_subnets.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:13.167Z",
+    "updatedAt": "2026-10-30T07:22:15.302Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445a84c763c257071adae",
+    "title": "Quarterly management meeting minutes",
+    "description": "The quarter's management meeting minutes submitted in the board-meeting form: attendees by role, decisions, risk and access-review acknowledgment, vendor review, and action items with owner and due date. Cadence: quarterly (evidence sweep).\n\nSupports: CC1.2, CC1.2.1, CC1.2.2, CC1.5, CC4.1.2, CC5.3.3, CC6.2.2, CC7.4.5\nSource file: board-management-meeting-minutes-q4-2025-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:15.631Z",
+    "updatedAt": "2026-10-30T07:22:22.374Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445af53a46de0664b4c6e",
+    "title": "CloudTrail event export",
+    "description": "JSON export of recent CloudTrail events (IAM and configuration changes) from the audit trail. Cadence: quarterly (evidence sweep).\n\nSupports: CC4.1, CC4.1.1, CC4.2, CC4.2.2, CC6.7.4, CC7.1, CC7.1.1, CC7.2, CC7.2.1, CC7.2.3, CC7.3, CC7.3.2, CC7.4, CC7.4.3, CC7.4.4, CC7.5\nSource file: cloudtrail_events_20260204_132225.json",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:22.736Z",
+    "updatedAt": "2026-10-30T07:22:35.257Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445bcc8330fa58429820e",
+    "title": "Go-to-Market Contractor training completion certificate",
+    "description": "Training completion certificate for the Go-to-Market Contractor, generated by the compliance platform on completion of security awareness and privacy training. Cadence: annual (compliance week).\n\nSupports: CC1.1, CC1.1.3, CC1.4, CC1.4.1\nSource file: ethics-and-privacy-training-completion-certificate-william-wickey-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:35.580Z",
+    "updatedAt": "2026-10-30T07:22:39.495Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445c0084d6211482e2eab",
+    "title": "CEO training completion certificate",
+    "description": "Training completion certificate for the CEO, generated by the compliance platform on completion of security awareness and ethics training. Cadence: annual (compliance week).\n\nSupports: CC1.1, CC1.1.2, CC1.1.3, CC1.4, CC1.4.1, CC6.8.3\nSource file: ethics-and-security-training-completion-certificate-mo-messidi-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:39.865Z",
+    "updatedAt": "2026-10-30T07:22:44.643Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445c5703cfdd8137b0037",
+    "title": "Ethics violation log",
+    "description": "The year's ethics violation log: reports received, investigations, resolutions, and the no-violations statement signed by the CEO. Cadence: annual (compliance week). Updated within 48 hours of any report.\n\nSupports: CC1.1, CC1.1.4\nSource file: ethics-violation-log-2025-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:44.975Z",
+    "updatedAt": "2026-10-30T07:22:47.266Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445c8696cd03c5b791864",
+    "title": "Business continuity plan record screenshot",
+    "description": "Screenshot of the compliance platform's business continuity records showing the critical processes, RTO values, and active plans. Cadence: quarterly (evidence sweep).\n\nSupports: A1.2.3, CC9.1, CC9.1.1, CC9.1.2\nSource file: humadroid_bcp_dashboard.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:47.593Z",
+    "updatedAt": "2026-10-30T07:22:51.412Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445ccf97916a02c3794a5",
+    "title": "Backup restore test result record",
+    "description": "The quarterly backup-restore test record in the compliance platform: date, snapshot restored, document count check, RTO achieved, and outcome. Cadence: quarterly (evidence sweep).\n\nSupports: A1.2.3, A1.3, A1.3.1, A1.3.2, CC7.5.2, CC9.1.3\nSource file: humadroid_bcp_test_results.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:51.781Z",
+    "updatedAt": "2026-10-30T07:22:56.838Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445d12126864c631d7688",
+    "title": "Incident records screenshot",
+    "description": "Screenshot of the compliance platform's incident record list showing incidents for the period and their status. Cadence: quarterly (evidence sweep). Per event: open a record for each incident.\n\nSupports: CC7.3, CC7.4\nSource file: humadroid_incident_reporting.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:57.159Z",
+    "updatedAt": "2026-10-30T07:22:59.493Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445d43966e9fd006e4248",
+    "title": "Risk detail record screenshot",
+    "description": "Screenshot of one risk record in the compliance platform showing likelihood and impact scoring, residual scores, and treatment. Cadence: quarterly (evidence sweep).\n\nSupports: CC3.2, CC3.2.1, CC3.3.1\nSource file: humadroid_risk_detail.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:59.821Z",
+    "updatedAt": "2026-10-30T07:23:02.607Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445d71fe5e65faec9add5",
+    "title": "Risk register screenshot",
+    "description": "Screenshot of the compliance platform's risk register showing all risks with category, scores, and treatment status, after the quarterly review. Cadence: quarterly (evidence sweep).\n\nSupports: CC3.1, CC3.1.1, CC3.1.2, CC3.3, CC3.4\nSource file: humadroid_risk_register.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:02.934Z",
+    "updatedAt": "2026-10-30T07:23:37.257Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445fa39cd961b8d2308b3",
+    "title": "Vendor assessment record screenshot",
+    "description": "Screenshot of a vendor assessment record in the compliance platform (for example AWS) showing the SOC 2 report reviewed and the review date. Cadence: annual (compliance week).\n\nSupports: CC3.2.2, CC9.2.1\nSource file: humadroid_vendor_assessment.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:37.740Z",
+    "updatedAt": "2026-10-30T07:23:40.158Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445fd3a6b86d10d6bfdc8",
+    "title": "Vendor inventory screenshot",
+    "description": "Screenshot of the compliance platform's vendor list showing each vendor, sub-processor flag, assessment status, and review date. Cadence: annual (compliance week).\n\nSupports: CC3.2.2, CC9.2, CC9.2.3\nSource file: humadroid_vendor_dashboard.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:40.534Z",
+    "updatedAt": "2026-10-30T07:23:43.478Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44600cbed9cfeb9721f8a",
+    "title": "CEO job description",
+    "description": "Job Description - Chief Executive Officer: purpose, responsibilities, access level, required competence, and acknowledgment. Cadence: annual (compliance week).\n\nSupports: CC1.3, CC1.3.2, CC1.4.1\nSource file: job-description-chief-executive-officer-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:43.807Z",
+    "updatedAt": "2026-10-30T07:24:16.935Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446218dc419db1d6198b8",
+    "title": "Go-to-Market Contractor job description",
+    "description": "Job Description - Go-to-Market Contractor: purpose, responsibilities, access level (no production access), required competence, and signed acknowledgment. Cadence: annual (compliance week).\n\nSupports: CC1.3, CC1.3.2, CC1.4.1\nSource file: job-description-go-to-market-contractor-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:17.261Z",
+    "updatedAt": "2026-10-30T07:24:20.279Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446253b877d421053618d",
+    "title": "Lambda application log export",
+    "description": "JSON export of recent Lambda application log events from CloudWatch Logs showing operational and audit entries. Cadence: quarterly (evidence sweep).\n\nSupports: A1.1, A1.1.1, CC4.1, CC4.1.1, CC7.2, CC7.2.2, CC7.2.3, CC7.5\nSource file: lambda_app_events_20260204_132311.json",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:20.611Z",
+    "updatedAt": "2026-10-30T07:24:27.558Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446415194b9768e79f0ba",
+    "title": "Organizational structure document",
+    "description": "Organizational Structure: roles, holders, production access, reporting lines, and compensating controls. Cadence: annual (compliance week).\n\nSupports: CC1.2.1, CC1.3, CC1.3.1, CC7.4.2\nSource file: organizational-structure-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:49.264Z",
+    "updatedAt": "2026-10-30T07:24:52.719Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446458e9e36c3d85a5f7b",
+    "title": "PropelAuth API keys screenshot",
+    "description": "Screenshot of the PropelAuth API keys page showing the active keys and their creation dates, as input to the API key rotation calendar. Cadence: quarterly (evidence sweep).\n\nSupports: CC6.7.1\nSource file: propelauth_api_keys.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:53.105Z",
+    "updatedAt": "2026-10-30T07:24:54.870Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4464716aa37e19eb4a707",
+    "title": "PropelAuth sign-in settings screenshot",
+    "description": "Screenshot of the PropelAuth sign-in and MFA settings page showing Google Workspace single sign-on as the customer sign-in method (MFA inherited from Google Workspace). Cadence: quarterly (evidence sweep). [CONFIRM: that the page shows the Google SSO configuration]\n\nSupports: CC6.2, CC6.6.2\nSource file: propelauth_mfa_settings.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:55.198Z",
+    "updatedAt": "2026-10-30T07:24:57.431Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4464a125c05c764ecb3d3",
+    "title": "PropelAuth roles screenshot",
+    "description": "Screenshot of the PropelAuth roles configuration (Owner, Admin, Member) and their permissions, as input to the quarterly access review. Cadence: quarterly (evidence sweep).\n\nSupports: CC6.3, CC6.3.1\nSource file: propelauth_roles.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:57.757Z",
+    "updatedAt": "2026-10-30T07:25:00.161Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4464d495555d34cf7333f",
+    "title": "PropelAuth security settings screenshot",
+    "description": "Screenshot of the PropelAuth security settings page: password and session settings, allowed sign-in methods. Cadence: quarterly (evidence sweep).\n\nSupports: CC1.5, CC1.5.1, CC6.1, CC6.1.1, CC6.1.2, CC6.2, CC6.2.1, CC6.6.2, CC6.7, CC6.7.2, CC6.7.3\nSource file: propelauth_security_settings.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:25:00.546Z",
+    "updatedAt": "2026-10-30T07:25:09.153Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44656e6b6662077c28607",
+    "title": "PropelAuth users screenshot",
+    "description": "Screenshot of the PropelAuth users list showing each user, organization, role, and last sign-in, as input to the quarterly access review. Cadence: quarterly (evidence sweep).\n\nSupports: CC1.5, CC1.5.2, CC6.1, CC6.1.1, CC6.2.1, CC6.2.2, CC6.3, CC6.3.2\nSource file: propelauth_users.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:25:09.538Z",
+    "updatedAt": "2026-10-30T07:25:16.448Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4465d905686bbaed81b7d",
+    "title": "VPC Flow Logs export",
+    "description": "JSON export of recent VPC Flow Log records (ACCEPT and REJECT) showing network traffic monitoring at the VPC boundary. Cadence: quarterly (evidence sweep).\n\nSupports: CC6.6.3, CC6.7.4, CC7.2, CC7.2.1, CC7.2.2, CC7.3, CC7.3.2, CC7.4, CC7.4.3\nSource file: vpc_flow_events_20260204_132240.json",
+    "status": "done",
+    "createdAt": "2026-10-30T07:25:16.811Z",
+    "updatedAt": "2026-10-30T07:25:23.563Z",
+    "taskTemplateId": null
+  }
+]

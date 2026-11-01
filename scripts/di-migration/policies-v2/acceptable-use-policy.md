@@ -14,326 +14,240 @@ source: "acceptable-use-policy-v1.1.pdf"
 
 ## 1. Purpose
 
-This Acceptable Use Policy establishes the requirements and restrictions for appropriate use of Deal Intelligence LLC's information systems, technology resources, and data assets to ensure the security, integrity, and availability of the platform. This policy enforces behavioral controls that protect customer data, maintain SOC 2 compliance, and prevent unauthorized or inappropriate activities that could compromise our service commitments.
+This policy sets the requirements and restrictions for use of Deal Intelligence LLC's information systems, technology resources, and data. It protects customer data, maintains SOC 2 compliance, and prevents unauthorized or inappropriate activities that could compromise service commitments.
 
-The policy operationalizes the security principles defined in the Information Security Policy and establishes clear boundaries for system usage that align with SOC 2 Trust Services Criteria, specifically addressing CC6.1 (Logical and Physical Access Controls), CC6.6 (System Boundaries), and CC6.8 (Prevention of Unauthorized Software).
+The policy implements the security principles of the Information Security Policy and supports SOC 2 Trust Services Criteria CC6.1 (logical access security software, infrastructure, and architectures), CC6.6 (logical access measures protecting system boundaries), CC6.8 (prevention of unauthorized or malicious software), CC7.2 (monitoring of system components for anomalies), and CC8.1 (authorization of changes). It also supports GDPR Article 32 (security of processing) and CCPA Section 1798.150 (personal information security).
 
 ## 2. Scope
 
 This policy applies to:
 
-- All personnel with access to Deal Intelligence systems, including the Chief Executive Officer, the Go-to-Market Contractor, and third-party service providers
-
+- All personnel with access to Deal Intelligence systems, including the Chief Executive Officer (CEO), the Go-to-Market Contractor, and third-party service providers
 - All information systems and technology resources, including:
-
-   - AWS cloud infrastructure components (Lambda functions, Fargate containers, DocumentDB)
-
-   - PropelAuth authentication services
-
-   - Development and deployment tools (GitHub, GitHub Actions CI/CD pipelines)
-
-   - Communication and collaboration platforms
-
-   - Customer data and business contact information
-
+  - AWS cloud infrastructure components (Lambda functions, Fargate containers, DocumentDB)
+  - PropelAuth authentication services
+  - Development and deployment tools (GitHub, GitHub Actions CI/CD pipelines)
+  - Communication and collaboration platforms
+  - Customer data and business contact information
 - All devices used to access company systems, whether company-owned or personal
-
 - All network connections to Deal Intelligence infrastructure
-
 - All data processing activities related to the platform
 
-The policy encompasses both production and non-production environments as documented in CloudFormation stack di-backend-api-prod.
+The policy covers production and non-production environments as documented in the CloudFormation stack di-backend-api-prod.
 
 ## 3. Definitions
 
-**Acceptable Use**: Activities that align with business purposes, comply with security policies, and do not compromise system integrity or data confidentiality.
+**Acceptable use**: Activities that align with business purposes, comply with security policies, and do not compromise system integrity or data confidentiality.
 
-**Authorized User**: Individual granted access to Deal Intelligence systems through PropelAuth authentication with appropriate role-based permissions.
+**Authorized user**: An individual granted access to Deal Intelligence systems through PropelAuth authentication with appropriate role-based permissions.
 
-**Company Resources**: All technology assets, systems, data, and services owned, operated, or managed by Deal Intelligence LLC.
+**Company resources**: All technology assets, systems, data, and services owned, operated, or managed by Deal Intelligence LLC.
 
-**Prohibited Activity**: Any action that violates this policy, compromises security controls, or conflicts with SOC 2 compliance requirements.
+**Prohibited activity**: Any action that violates this policy, compromises security controls, or conflicts with SOC 2 compliance requirements.
 
-**Sensitive Data**: Business contact information, customer account data, and any information classified as Confidential or Restricted per the Data Classification and Handling Standard.
+**Sensitive data**: Business contact information, customer account data, and any information classified as Confidential or Restricted per the Data Classification and Handling Standard.
 
-**Security Incident**: Any violation of this policy or event that compromises the confidentiality, integrity, or availability of company resources as defined in the Incident Response Procedure.
+**Security incident**: Any violation of this policy, or any event that compromises the confidentiality, integrity, or availability of company resources, as defined in the Incident Response Procedure.
 
-## 4. Roles and Responsibilities
+## 4. Roles and responsibilities
 
-### 4.1 All Users
+### 4.1 All users
 
 - Comply with all provisions of this policy
-
 - Report suspected violations or security concerns immediately
-
-- Complete security awareness training as outlined in the Security Awareness Training Program
-
+- Complete security awareness training per the Security Awareness Training Program
 - Protect authentication credentials and access tokens
+- Use company resources only for authorized business purposes
 
-- Use company resources solely for authorized business purposes
+### 4.2 Chief Executive Officer (CEO)
 
-### 4.2 Chief Executive Officer
-
-- Approve policy exceptions with documented business justification
-
-- Enforce compliance through appropriate disciplinary measures
-
-- Allocate resources for policy implementation and monitoring
-
-- Review policy effectiveness annually
-
-- Monitor compliance through CloudWatch logs and Security Hub findings
-
-- Investigate policy violations reported through the Incident Reporting system in the compliance platform
-
-- Maintain technical controls that enforce acceptable use requirements
-
-- Provide guidance on acceptable use questions and edge cases
-
-- Implement technical controls within AWS infrastructure
-
-- Configure monitoring and alerting for policy violations
-
-- Maintain audit logs per the System Monitoring and Logging Procedure
-
-- Review access patterns quarterly via automated Lambda functions
+- Approves policy exceptions with documented business justification
+- Enforces compliance through disciplinary measures
+- Allocates resources for policy implementation and monitoring
+- Reviews policy effectiveness annually
+- Monitors compliance through CloudWatch logs and Security Hub findings
+- Investigates policy violations reported through the Incident Reporting system in the compliance platform
+- Maintains the technical controls that enforce acceptable use requirements
+- Provides guidance on acceptable use questions and edge cases
+- Implements technical controls within the AWS infrastructure
+- Configures monitoring and alerting for policy violations
+- Maintains audit logs per the System Monitoring and Logging Procedure
+- Reviews access patterns quarterly via automated Lambda functions
 
 ### 4.3 Go-to-Market Contractor
 
-- Comply with this policy as a user under Section 4.1
-
+- Complies with this policy as a user under Section 4.1
 - Holds no production (AWS, GitHub, DocumentDB, PropelAuth admin) access
 
-## 5. General Use Requirements
+## 5. General use requirements
 
-### 5.1 Authorized Access
+### 5.1 Authorized access
 
-Users shall:
+Users must:
 
 - Access systems only through approved authentication mechanisms: Google Workspace sign-in with MFA enforced for company data, and MFA enforced in GitHub and AWS for production access; customer access to the platform is authenticated by PropelAuth through Google sign-in
-
 - Use only assigned user accounts with unique credentials
-
 - Access data on a need-to-know basis following least privilege principles
-
 - Comply with session timeout policies and re-authentication requirements
-
 - Follow the Access Control and Authentication Policy for all access requests
 
-### 5.2 Data Protection
+### 5.2 Data protection
 
-Users shall:
+Users must:
 
 - Handle business contact information according to the Data Classification and Handling Standard
-
 - Encrypt sensitive data in transit and at rest per the Encryption and Cryptographic Controls Standard
-
-- Not store customer data on personal devices or unauthorized locations
-
-- Follow data retention periods defined in the Data Retention and Disposal Policy
-
+- Not store customer data on personal devices or in unauthorized locations
+- Follow the retention periods defined in the Data Retention and Disposal Policy
 - Report any suspected data breach immediately per the Incident Response Procedure
 
-### 5.3 System Security
+### 5.3 System security
 
-Users shall:
+Users must:
 
 - Not attempt to bypass, disable, or circumvent security controls
-
 - Not install unauthorized software or modify system configurations
-
-- Report security vulnerabilities through proper channels per the Vulnerability Management Procedure
-
-- Comply with change management requirements defined in the Change Management Policy
-
+- Report security vulnerabilities per the Vulnerability Management Procedure
+- Comply with the Change Management Policy
 - Follow secure development practices per the Secure Software Development Lifecycle (SDLC) Standard
 
-## 6. Prohibited Activities
+## 6. Prohibited activities
 
-The following activities are strictly prohibited:
+The following activities are prohibited.
 
-### 6.1 Unauthorized Access
+### 6.1 Unauthorized access
 
-- Accessing systems or data without proper authorization
-
+- Accessing systems or data without authorization
 - Sharing authentication credentials or access tokens
-
 - Using another user's account or impersonating another user
-
 - Attempting to escalate privileges beyond assigned roles
-
 - Accessing production databases directly, other than by the CEO via SSM Session Manager, which is logged; all other access must be through approved APIs
 
-### 6.2 Data Misuse
+### 6.2 Data misuse
 
 - Copying, transferring, or storing customer data for personal use
-
 - Sharing business contact information outside authorized channels
-
 - Using customer data for purposes other than service delivery
-
 - Violating data subject rights as defined in the Data Subject Rights Request Procedure
-
 - Processing data in violation of GDPR or CCPA requirements
 
-### 6.3 System Abuse
+### 6.3 System abuse
 
 - Introducing malicious code, viruses, or security threats
-
 - Conducting unauthorized vulnerability scans or penetration tests
-
-- Overriding rate limits defined in the API Security and Rate Limiting Standard
-
+- Overriding the rate limits defined in the API Security and Rate Limiting Standard
 - Mining cryptocurrency or running unauthorized compute workloads
-
 - Using company resources for illegal activities or personal gain
 
-### 6.4 Network Security Violations
+### 6.4 Network security violations
 
 - Connecting unauthorized devices to company networks
-
 - Bypassing VPC isolation or network segmentation controls
-
 - Establishing unauthorized network connections or tunnels
-
 - Violating the Cloud Infrastructure Security Policy
+- Exposing internal services to the public internet without approval
 
-- Exposing internal services to public internet without approval
+## 7. Remote work requirements
 
-## 7. Remote Work Requirements
+Deal Intelligence operates remotely. Users must meet the following requirements.
 
-Given Deal Intelligence's remote work environment, users shall:
-
-### 7.1 Device Security
+### 7.1 Device security
 
 - Use full-disk encryption on all devices accessing company systems
-
 - Maintain current operating system patches and security updates
-
 - Run the device agent of the compliance platform where deployed
-
 - Enable automatic screen locks with password protection
-
 - Report lost or stolen devices immediately
 
-### 7.2 Network Security
+### 7.2 Network security
 
 - Connect only through secure, encrypted connections (HTTPS/TLS)
-
 - Access company data only through browser SSO (Google Workspace) and the AWS console/CLI with MFA
-
-- Ensure home network routers use WPA2/WPA3 encryption
-
+- Use WPA2/WPA3 encryption on home network routers
 - Change default passwords on home networking equipment
 
-### 7.3 Physical Security
+### 7.3 Physical security
 
 - Maintain a secure workspace free from unauthorized observation
-
-- Lock devices when stepping away from workstation
-
+- Lock devices when stepping away from the workstation
 - Position screens to prevent shoulder surfing
-
 - Securely dispose of printed materials containing sensitive data
-
 - Not discuss confidential information in public spaces
 
-## 8. Cloud Service Usage
+## 8. Cloud service usage
 
-### 8.1 AWS Infrastructure
+### 8.1 AWS infrastructure
 
-Users with AWS access shall:
+Users with AWS access must:
 
 - Follow the Cloud Infrastructure Security Policy
-
 - Use only approved AWS services documented in CloudFormation templates
-
-- Not create resources outside defined regions (us-east-1)
-
+- Not create resources outside the defined region (us-east-1)
 - Follow tagging standards for resource identification
-
 - Comply with cost optimization guidelines
 
-### 8.2 Third-Party Services
+### 8.2 Third-party services
+
+Users must:
 
 - Use only approved sub-processors (AWS, PropelAuth, Google Workspace, GitHub, Resend, and the compliance platform, which is self-hosted on AWS)
-
 - Follow the Vendor Management Policy and the Integration security section of the API Security and Rate Limiting Standard
-
 - Not integrate unauthorized third-party services
+- Apply the security requirements to customer-controlled integrations (Slack, CRM)
+- Raise new service requirements with the CEO
 
-- Ensure customer-controlled integrations (Slack, CRM) follow security requirements
+## 9. Development and testing
 
-- Report new service requirements through proper channels
+### 9.1 Code management
 
-## 9. Development and Testing
-
-### 9.1 Code Management
-
-Personnel with repository access shall:
+Personnel with repository access must:
 
 - Follow secure coding practices defined in the Secure Software Development Lifecycle (SDLC) Standard
-
 - Use only approved repositories and version control systems
-
 - Not commit secrets, credentials, or sensitive data to repositories
-
 - Follow branch protection rules and pull request requirements (required CI status checks on the protected `main` branch)
-
 - Run pre-commit security hooks before code submission
 
-### 9.2 Testing Environments
+### 9.2 Testing environments
+
+Personnel must:
 
 - Use only sanitized or synthetic data in non-production environments
-
 - Not copy production data to development or testing systems
-
-- Follow the same security controls in the staging stage as production
-
+- Apply the same security controls in the staging stage as in production
 - Document and track all test accounts and credentials
-
 - Destroy test environments when no longer needed
 
-## 10. Monitoring and Compliance
+## 10. Monitoring and compliance
 
-### 10.1 Activity Monitoring
+### 10.1 Activity monitoring
 
 Deal Intelligence monitors system usage through:
 
 - CloudWatch logs with 90-day retention
-
 - API request audit logging middleware
-
 - CloudTrail for AWS API calls
-
 - Security Hub findings and alerts
-
 - Automated compliance checks via Lambda functions
 
-### 10.2 Compliance Verification
+### 10.2 Compliance verification
 
 Compliance is verified through:
 
 - Quarterly access reviews via automated Lambda functions
-
-- Regular security assessments per the Penetration Testing and Security Assessment Procedure
-
+- Security assessments per the Penetration Testing and Security Assessment Procedure
 - Continuous vulnerability scanning in ECR (scan-on-push)
-
 - Rate limit enforcement (100 requests/minute)
-
 - PII sanitization validation in logs
 
-## 11. Policy Violations
+## 11. Policy violations
 
-### 11.1 Reporting Violations
+### 11.1 Reporting violations
 
-Policy violations shall be reported through:
+Policy violations are reported through:
 
 - The Incident Reporting system in the compliance platform
-
 - Direct notification to the CEO
-
 - Anonymous reporting channels if available
 
 ### 11.2 Consequences
@@ -341,140 +255,74 @@ Policy violations shall be reported through:
 Violations may result in:
 
 - Immediate suspension of system access
-
 - Formal investigation per the Incident Response Procedure
-
 - Disciplinary action up to and including termination
-
 - Legal action for criminal violations
-
 - Notification to affected customers if data is compromised
 
-### 11.3 Investigation Process
+### 11.3 Investigation process
 
-All reported violations shall be:
+All reported violations are:
 
 - Logged in the Incident Reporting system in the compliance platform
-
-- Investigated within 24 hours of report
-
+- Investigated within 24 hours of the report
 - Documented with findings and remediation actions
-
 - Reviewed for process improvements
-
 - Included in quarterly compliance reports
 
 ## 12. Exceptions
 
-### 12.1 Exception Request Process
+### 12.1 Exception request process
 
 Exceptions to this policy require:
 
 - Written business justification
-
-- Risk assessment per the Risk Assessment Procedure
-
+- A risk assessment per the Risk Assessment Procedure
 - Identification of compensating controls
-
 - CEO approval
+- A time-limited approval period (maximum 90 days)
 
-- Time-limited approval period (maximum 90 days)
+### 12.2 Exception documentation
 
-### 12.2 Exception Documentation
-
-Approved exceptions shall be:
+Approved exceptions are:
 
 - Documented in the risk register in the compliance platform's risk assessment module
-
 - Reviewed quarterly for continued necessity
-
 - Monitored for compliance with compensating controls
+- Revoked when the business need no longer exists
 
-- Revoked when business need no longer exists
+## 13. Training and awareness
 
-## 13. Training and Awareness
-
-All users shall:
+All users must:
 
 - Complete acceptable use training during onboarding
-
-- Acknowledge understanding of this policy annually in the compliance platform portal
-
+- Acknowledge this policy annually in the compliance platform portal
 - Participate in security awareness activities per the Security Awareness Training Program
-
-- Stay informed of policy updates and changes
-
+- Stay informed of policy updates
 - Seek clarification when uncertain about acceptable use
 
-## 14. Compliance Requirements
-
-This policy addresses the following SOC 2 Trust Services Criteria:
-
-- **CC6.1**: Implements logical access security software, infrastructure, and architectures
-
-- **CC6.6**: Implements logical access security measures to protect boundaries
-
-- **CC6.8**: Prevents the introduction of unauthorized or malicious software
-
-- **CC7.2**: Monitors system components for anomalies
-
-- **CC8.1**: Authorizes, designs, develops, or acquires changes to meet objectives
-
-The policy also supports compliance with:
-
-- GDPR Article 32 (Security of Processing)
-
-- CCPA Section 1798.150 (Personal Information Security)
-
-- Industry best practices for acceptable use controls
-
-## 15. Related Documents
-
-### Core Policies
+## 14. Related documents
 
 - Information Security Policy
-
 - Access Control and Authentication Policy
-
 - Change Management Policy
-
 - Cloud Infrastructure Security Policy
-
-### Standards and Guidelines
-
 - Data Classification and Handling Standard
-
 - Encryption and Cryptographic Controls Standard
-
 - API Security and Rate Limiting Standard
-
 - Secure Software Development Lifecycle (SDLC) Standard
-
-### Procedures
-
 - Risk Assessment Procedure
-
 - Incident Response Procedure
-
 - Vulnerability Management Procedure
-
 - System Monitoring and Logging Procedure
-
 - Penetration Testing and Security Assessment Procedure
-
-### Supporting Documents
-
 - Security Awareness Training Program
-
 - Data Retention and Disposal Policy
-
 - Data Subject Rights Request Procedure
-
 - Business Continuity Plan
-
 - Service Level Agreement (SLA) Management Policy
 
-## 16. Revision History
+## 15. Revision history
 
 |**Version**|**Date**|**Summary**|
 |---|---|---|

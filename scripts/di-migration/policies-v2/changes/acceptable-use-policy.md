@@ -27,3 +27,17 @@
 - §11.3 "Investigated within 24 hours of report" kept from v1 — not in R5; confirm this is consistent with the Incident Response Procedure's P1 4-business-hour acknowledgment.
 - §12.1 "maximum 90 days" exception window kept from v1 — confirm it matches the Information Security Policy exception clause.
 - R3 staging: separate account vs same account (not written into the policy).
+
+## Quality sweep (2026-10-31)
+
+- Q1 voice: §1 rewritten to plain declarative (removed "establishes the requirements… to ensure", "enforces behavioral controls", "operationalizes", "clear boundaries"); "shall" → "must" in all 8 obligation lists; "strictly prohibited" → "prohibited"; "encompasses" → "covers"; "Ensure home network routers use…" → "Use WPA2/WPA3 encryption on home network routers"; "Ensure customer-controlled integrations… follow" → "Apply the security requirements to customer-controlled integrations"; "Report new service requirements through proper channels" → "Raise new service requirements with the CEO" (names the owner; same obligation).
+- Q1 parallel grammar: §4.2 CEO responsibilities and §4.3 contractor bullets put in third-person present ("Approves", "Complies", "Holds") to match the other policies; §7 lead-in ("Given Deal Intelligence's remote work environment, users shall:" followed by subheadings) replaced with two sentences; §8.2 and §9.2 given a lead-in ("Users must:" / "Personnel must:") so their bullets read as obligations like the neighbouring lists.
+- Q2 names/roles: "Chief Executive Officer (CEO)" on first use (§2) and in the §4.2 heading; definitions in sentence case.
+- Q2 headings and lists: all headings to sentence case; removed blank lines between bullets (34 lists); nested list indentation normalised; §15 Related Documents' four unnumbered `###` groupings flattened into one list (same 18 documents, all in the set).
+- Q3 structure: §14 "Compliance Requirements" (SOC 2 criteria, GDPR Art. 32, CCPA §1798.150) merged into §1 — the full criteria list is kept there; "Industry best practices for acceptable use controls" dropped as content-free; Related documents → §14, Revision history → §15.
+- No commitment, number, role, scope item or control changed.
+
+### CONFIRM (new)
+
+- §3 "Authorized user" is defined as an individual authenticated "through PropelAuth" — PropelAuth authenticates customers, while personnel sign in through Google Workspace (§5.1). Confirm whether the definition should read "through Google Workspace sign-in or PropelAuth".
+- §11.1 "Anonymous reporting channels if available" — confirm whether an anonymous channel exists; if not, the bullet should be removed rather than hedged.

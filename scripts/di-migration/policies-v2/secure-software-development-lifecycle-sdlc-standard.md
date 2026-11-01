@@ -14,394 +14,278 @@ source: "secure-software-development-lifecycle-sdlc-standard-v1.0.pdf"
 
 ## 1. Purpose
 
-This Secure Software Development Lifecycle (SDLC) Standard establishes the framework for integrating security controls throughout all phases of software development at Deal Intelligence LLC. This standard ensures that security is embedded into the design, development, testing, and deployment of our platform in accordance with SOC 2 Trust Service Criteria for Security (CC3.4) and Confidentiality (C1.1).
+This standard sets the security controls applied in every phase of software development at Deal Intelligence LLC: design, development, testing, deployment, and maintenance. It supports the SOC 2 Trust Services Criteria for Security (CC3.4) and Confidentiality (C1.1).
 
-This standard operationalizes the security principles defined in the Information Security Policy and works in conjunction with the Change Management Policy to ensure that all software changes are developed, tested, and deployed securely while maintaining the integrity of business contact information and market intelligence data.
+It implements the security principles of the Information Security Policy and works with the Change Management Policy so that all software changes are developed, tested, and deployed securely, protecting business contact information and market intelligence data.
+
+Deal Intelligence applies security-by-design throughout the development lifecycle through automated security testing, code review requirements, and vulnerability management. All code passes security validation before deployment to production, with particular attention to protecting business contact information, preventing unauthorized data access, and maintaining the 99.9 % uptime SLA.
 
 ## 2. Scope
 
 This standard applies to:
 
-- All software development activities for the Deal Intelligence platform, including:
-
-   - AWS Lambda functions (900s timeout, reserved concurrency: 100)
-
+- All software development for the Deal Intelligence platform, including:
+   - Lambda functions (900 s timeout, reserved concurrency: 100)
    - Fargate container applications for batch processing
-
-   - API development (di-backend-api-prod)
-
-   - Frontend applications served via CloudFront CDN
-
+   - API development (`di-backend-api-prod`)
+   - Frontend applications served via CloudFront
    - Infrastructure as Code (CloudFormation templates deployed via the Serverless Framework)
-
 - All development environments (development, the staging stage, production)
-
 - GitHub repositories (`dealintelligence/di-backend-api`) and GitHub Actions CI/CD pipelines
-
 - Third-party libraries and dependencies
+- All personnel involved in software development, testing, and deployment
+- Integration points with PropelAuth authentication
 
-- All personnel involved in software development, testing, and deployment activities
+## 3. Roles and responsibilities
 
-- Integration points with PropelAuth authentication services
+### 3.1 Chief Executive Officer (CEO)
 
-## 3. Policy Statement
+**Mo Messidi**, as CEO:
 
-Deal Intelligence shall implement security-by-design principles throughout the software development lifecycle, incorporating automated security testing, code review requirements, and vulnerability management processes. All code shall undergo security validation before deployment to production, with particular emphasis on protecting business contact information, preventing unauthorized data access, and maintaining the 99.9% uptime SLA commitment.
+- Sets and maintains the secure coding standards and guidelines
+- Approves architectural security designs
+- Reviews and approves production deployment decisions
+- Maintains compliance with the SOC 2 development requirements
+- Conducts security code reviews, recorded as a logged self-review in the pull request
+- Reviews code changes via GitHub pull requests on the protected `main` branch with required CI status checks
+- Manages branch protection rules and merge requirements
+- Maintains automated test coverage
+- Reviews dependency security alerts from GitHub Dependabot
+- Manages vulnerability remediation priorities per the Vulnerability Management Procedure
+- Coordinates security testing, including the annual penetration test under the Penetration Testing and Security Assessment Procedure
 
-## 4. Roles and Responsibilities
+### 3.2 External parties
 
-### 4.1 Chief Executive Officer
-
-**Mo Messidi** - As Chief Executive Officer, responsible for:
-
-- Establishing secure coding standards and guidelines
-
-- Approving architectural security designs
-
-- Reviewing and approving production deployment decisions
-
-- Ensuring compliance with SOC 2 development requirements
-
-- Conducting security code reviews, recorded as a logged self-review in the pull request
-
-- Managing vulnerability remediation priorities per the Vulnerability Management Procedure
-
-- Coordinating security testing activities
-
-- Maintaining the secure coding guidelines
-
-- Reviewing dependency security alerts from GitHub Dependabot
-
-- Implementing secure coding practices
-
-- Reviewing code changes via GitHub pull requests on the protected `main` branch with required CI status checks
-
-- Managing branch protection rules and merge requirements
-
-- Ensuring automated testing coverage
-
-- Coordinating with the Penetration Testing and Security Assessment Procedure
-
-### 4.2 External Parties
-
-- **External SOC 2 auditor**: provides independent review of SDLC controls and change evidence
-
+- **External SOC 2 auditor**: independently reviews the SDLC controls and change evidence
 - **Penetration-test vendor**: conducts the annual third-party penetration test per the Penetration Testing and Security Assessment Procedure
 
-## 5. SDLC Security Requirements
+## 4. SDLC security requirements
 
-### 5.1 Planning and Design Phase
+### 4.1 Planning and design
 
-#### 5.1.1 Security Requirements Analysis
+#### 4.1.1 Security requirements analysis
 
-- Security requirements shall be documented for all new features affecting:
-
+- Security requirements are documented for every new feature affecting:
    - Business contact data processing
-
    - Authentication and authorization flows
-
    - API endpoints handling customer data
-
    - Integration with third-party services
+- Threat modeling is conducted for significant architectural changes
+- Data flow diagrams identify all data classification tiers per the Data Classification and Handling Standard
 
-- Threat modeling shall be conducted for significant architectural changes
+#### 4.1.2 Architecture security review
 
-- Data flow diagrams shall identify all data classification levels per the Data Classification and Handling Standard
-
-#### 5.1.2 Architecture Security Review
-
-All architectural designs shall incorporate:
+All architectural designs incorporate:
 
 - Defense-in-depth security controls
-
-- Principle of least privilege access
-
-- Data encryption requirements per the Encryption and Cryptographic Controls Standard
-
+- Least-privilege access
+- Data encryption per the Encryption and Cryptographic Controls Standard
 - API security controls per the API Security and Rate Limiting Standard
 
-### 5.2 Development Phase
+### 4.2 Development
 
-#### 5.2.1 Secure Coding Standards
+#### 4.2.1 Secure coding standards
 
-The following secure coding practices shall be enforced:
-
-|**Language/Framework**|**Security Requirements**|**Validation Method**|
+|**Language/framework**|**Security requirements**|**Validation method**|
 |---|---|---|
 |Node.js/TypeScript|Input validation, parameterized queries, JWT validation|[CONFIRM: ESLint security rules — not in the GitHub Actions CI set]|
-|Python (Lambda)|Input sanitization, boto3 secure defaults, secrets management|Black, isort, Flake8 and Bandit in GitHub Actions|
-|Infrastructure (CloudFormation)|Least privilege IAM, encrypted storage, VPC isolation|CloudFormation (`serverless deploy`) as the only change path; Security Hub configuration checks|
+|Python (Lambda)|Input sanitization, boto3 secure defaults, secrets management|Black, isort, Flake8, and Bandit in GitHub Actions|
+|Infrastructure (CloudFormation)|Least-privilege IAM, encrypted storage, VPC isolation|CloudFormation (`serverless deploy`) as the only change path; Security Hub configuration checks|
 |Container (Docker)|Non-root users, minimal base images, no secrets in images|ECR scan-on-push; Trivy in GitHub Actions|
 
-#### 5.2.2 Code Review Requirements
+#### 4.2.2 Code review
 
-- All code changes shall be merged through a pull request on the protected `main` branch; direct pushes to `main` are not permitted
-
-- The author shall record a self-review in the pull request before merging
-
-- Security-sensitive changes shall be identified in the pull request description and are subject to independent review by the external SOC 2 auditor
-
-- Automated security checks via pre-commit hooks must pass
-
+- All code changes are merged through a pull request on the protected `main` branch; direct pushes to `main` are not permitted
+- The author records a self-review in the pull request before merging
+- Security-sensitive changes are identified in the pull request description and are subject to independent review by the external SOC 2 auditor
+- Automated security checks in pre-commit hooks must pass
 - Branch protection rules enforce:
-
    - Required status checks (GitHub Actions: Black, isort, Flake8, Bandit, pytest, Trivy, TruffleHog)
+   - Up-to-date branches before merging
 
-   - Require up-to-date branches before merging
+#### 4.2.3 Dependency management
 
-#### 5.2.3 Dependency Management
+- Dependencies are tracked in `package.json` and `requirements.txt`
+- GitHub Dependabot alerts are reviewed weekly
+- Dependency CVEs rated critical are remediated within 7 days; critical vulnerabilities that are actively exploited are remediated within 24 hours
+- High-severity vulnerabilities are remediated within 30 days
+- Medium-severity vulnerabilities are remediated within 90 days
+- Dependency updates follow the Change Management Policy
 
-- Dependencies shall be tracked in package.json/requirements.txt
+### 4.3 Testing
 
-- GitHub Dependabot alerts shall be reviewed weekly
+#### 4.3.1 Security testing
 
-- Dependency CVEs rated critical shall be remediated within 7 days; critical vulnerabilities that are actively exploited shall be remediated within 24 hours
-
-- High severity vulnerabilities shall be remediated within 30 days
-
-- Medium severity vulnerabilities shall be remediated within 90 days
-
-- Dependency updates shall follow the Change Management Policy
-
-### 5.3 Testing Phase
-
-#### 5.3.1 Security Testing Requirements
-
-|**Test Type**|**Frequency**|**Tools/Methods**|**Success Criteria**|
+|**Test type**|**Frequency**|**Tools/methods**|**Success criteria**|
 |---|---|---|---|
-|Static Application Security Testing (SAST)|Every commit|Bandit and TruffleHog in GitHub Actions|No critical findings|
-|Dependency Scanning|Continuous|GitHub Dependabot and code scanning|No critical vulnerabilities|
-|Container Scanning|On build|ECR scan-on-push; Trivy in GitHub Actions|No critical CVEs|
-|Penetration Testing|Annual|Third-party assessment per Penetration Testing Procedure|Remediation plan for findings|
+|Static application security testing (SAST)|Every commit|Bandit and TruffleHog in GitHub Actions|No critical findings|
+|Dependency scanning|Continuous|GitHub Dependabot and code scanning|No critical vulnerabilities|
+|Container scanning|On build|ECR scan-on-push; Trivy in GitHub Actions|No critical CVEs|
+|Penetration testing|Annual|Third-party assessment per the Penetration Testing and Security Assessment Procedure|Remediation plan for findings|
 
-#### 5.3.2 Test Data Management
+#### 4.3.2 Test data
 
-- Production data shall not be used in development or testing environments
+- Production data is not used in development or testing environments
+- Test data is anonymized or synthetic
+- Test environments implement the access controls in the Access Control and Authentication Policy
 
-- Test data shall be anonymized or synthetic
+### 4.4 Deployment
 
-- Test environments shall implement access controls per the Access Control and Authentication Policy
+#### 4.4.1 Deployment controls
 
-### 5.4 Deployment Phase
-
-#### 5.4.1 Deployment Security Controls
-
-- All deployments shall follow the approved Change Management Policy
-
+- All deployments follow the Change Management Policy
 - Production deployments require:
-
    - Successful completion of all security tests
-
    - Deployment only from a green CI run on `main`, approved via the GitHub Actions workflow
-
    - Deployment to the staging stage first
+   - Documented automated rollback procedures
+- Infrastructure changes use Infrastructure as Code (CloudFormation via the Serverless Framework)
+- Secrets are managed in Secrets Manager or Parameter Store
 
-   - Automated rollback procedures documented
+#### 4.4.2 Release security checklist
 
-- Infrastructure changes shall use Infrastructure as Code (CloudFormation via the Serverless Framework)
-
-- Secrets shall be managed via AWS Secrets Manager/Parameter Store
-
-#### 5.4.2 Release Security Checklist
-
-Pre-deployment verification:
+Before deployment:
 
 - [ ] Security testing completed and passed
-
 - [ ] Pull request merged with required CI status checks passing and self-review recorded
-
 - [ ] No critical or high vulnerabilities in dependencies
-
-- [ ] API rate limiting configured per API Security Standard
-
-- [ ] Logging and monitoring configured per System Monitoring and Logging Procedure
-
+- [ ] API rate limiting configured per the API Security and Rate Limiting Standard
+- [ ] Logging and monitoring configured per the System Monitoring and Logging Procedure
 - [ ] Encryption enabled for data at rest and in transit
-
 - [ ] Access controls implemented and tested
 
-### 5.5 Maintenance Phase
+### 4.5 Maintenance
 
-#### 5.5.1 Security Patch Management
+#### 4.5.1 Security patch management
 
-- Security patches shall be evaluated and applied according to severity:
-
-   - Critical (exploited or critical-rated): Within 24 hours
-
-   - Critical dependency CVEs: Within 7 days
-
-   - High: Within 30 days
-
-   - Medium: Within 90 days
-
-   - Low: Best effort
-
+- Security patches are evaluated and applied by severity:
+   - Critical (exploited or critical-rated): within 24 hours
+   - Critical dependency CVEs: within 7 days
+   - High: within 30 days
+   - Medium: within 90 days
+   - Low: best effort
 - Emergency patches follow the expedited process in the Incident Response Procedure
 
-#### 5.5.2 Continuous Security Monitoring
+#### 4.5.2 Continuous security monitoring
 
-- CloudWatch and Security Hub findings shall be reviewed monthly and the review recorded; critical findings alert in real time via SNS
-
-- Container vulnerability scans shall be reviewed weekly
-
-- Security metrics shall be tracked:
-
+- CloudWatch and Security Hub findings are reviewed monthly and the review recorded; critical findings alert in real time via SNS
+- Container vulnerability scans are reviewed weekly
+- Security metrics tracked:
    - Time to remediate vulnerabilities
-
    - Number of security findings by severity
-
    - Code coverage for security tests
+   - Failed deployments due to security issues
 
-   - Failed deployment due to security issues
+## 5. Security tools and automation
 
-## 6. Security Tools and Automation
+### 5.1 Security toolchain
 
-### 6.1 Integrated Security Toolchain
-
-|**Tool/Service**|**Purpose**|**Integration Point**|
+|**Tool/service**|**Purpose**|**Integration point**|
 |---|---|---|
 |GitHub Actions|CI/CD security scanning (Black, isort, Flake8, Bandit, pytest, Trivy, TruffleHog)|Every commit/PR|
 |GitHub Dependabot|Dependency vulnerability alerts|Continuous scans|
-|AWS Security Hub|Centralized security findings|Continuous monitoring|
-|ECR Image Scanning|Container vulnerability detection|On image push|
-|CloudFormation (Serverless Framework)|Infrastructure as code; only change path, reports drift|Deployment|
+|Security Hub|Centralized security findings|Continuous monitoring|
+|ECR image scanning|Container vulnerability detection|On image push|
+|CloudFormation (Serverless Framework)|Infrastructure as Code; only change path, reports drift|Deployment|
 |Pre-commit hooks|Local security checks|Before commit|
-|AWS CloudTrail|Audit logging|All API calls|
+|CloudTrail|Audit logging|All API calls|
 
-### 6.2 Automated Security Controls
-
-The following automated controls are implemented:
+### 5.2 Automated security controls
 
 - Pre-commit hooks for secret detection and linting
-
 - GitHub Actions workflows for SAST and dependency checking
-
-- Automated Lambda functions for security monitoring per System Monitoring and Logging Procedure
-
-- The breach-detection Lambda that routes Security Hub findings to SNS
-
+- Scheduled Lambda functions for security monitoring per the System Monitoring and Logging Procedure
+- The breach-detection Lambda function that routes Security Hub findings to SNS
 - SNS notifications for critical security events
 
-## 7. Secure Development Training
+## 6. Secure development training
 
-All personnel with development access shall complete:
+All personnel with development access complete:
 
-- Security awareness training in the compliance platform portal at onboarding and annually per the Security Awareness Training Program
-
+- Security awareness training in the compliance platform portal at onboarding and annually, per the Security Awareness Training Program
 - OWASP Top 10 awareness training
-
 - AWS security best practices training
+- Incident response procedure familiarization
 
-- Incident response procedures familiarization
+## 7. Third-party code and libraries
 
-## 8. Third-Party Code and Libraries
+### 7.1 Open source usage
 
-### 8.1 Open Source Usage
+- All open source components are documented
+- License compliance is verified
+- Security vulnerabilities are tracked via GitHub security advisories
+- Components with known critical vulnerabilities are not used
 
-- All open source components shall be documented
+### 7.2 Third-party integration security
 
-- License compliance shall be verified
+- The PropelAuth integration follows the Integration security section of the API Security and Rate Limiting Standard
+- API integrations implement authentication and rate limiting
+- Data shared with third parties is classified and protected per its tier
 
-- Security vulnerabilities shall be tracked via GitHub security advisories
+## 8. Compliance and monitoring
 
-- Components with known critical vulnerabilities shall not be used
+### 8.1 Compliance verification
 
-### 8.2 Third-Party Integration Security
-
-- Integration with PropelAuth shall follow the Integration security section of the API Security and Rate Limiting Standard
-
-- API integrations shall implement authentication and rate limiting
-
-- Data shared with third parties shall be classified and protected accordingly
-
-## 9. Compliance and Monitoring
-
-### 9.1 Compliance Verification
-
-- Quarterly reviews of SDLC security controls effectiveness
-
-- Annual assessment against SOC 2 CC3.4 requirements
-
+- Quarterly review of SDLC security control effectiveness
+- Annual assessment against SOC 2 CC3.4
 - Monthly vulnerability metrics review
-
 - Weekly Dependabot alert review
 
-### 9.2 Key Performance Indicators
+### 8.2 Key performance indicators
 
-|**Metric**|**Target**|**Measurement Frequency**|
+|**Metric**|**Target**|**Measurement frequency**|
 |---|---|---|
 |Critical vulnerabilities open > 24 hours|0|Weekly|
 |High vulnerabilities open > 30 days|< 5|Weekly|
-|Failed deployments due to security|< 10%|Monthly|
-|Pull requests merged with passing CI status checks|100%|Per deployment|
+|Failed deployments due to security|< 10 %|Monthly|
+|Pull requests merged with passing CI status checks|100 %|Per deployment|
 
-### 9.3 Continuous Improvement
+### 8.3 Continuous improvement
 
-- Post-incident reviews shall identify SDLC improvements per the Incident Response Procedure
+- Post-incident reviews identify SDLC improvements per the Incident Response Procedure
+- Annual penetration test findings drive security enhancements
+- Security metrics are reviewed quarterly for trends
+- Industry best practices are evaluated for adoption
 
-- Annual penetration test findings shall drive security enhancements
+## 9. Exceptions and review
 
-- Security metrics shall be reviewed quarterly for trend analysis
+### 9.1 Exceptions
 
-- Industry best practices shall be evaluated for adoption
+An exception to this standard is:
 
-## 10. Exceptions and Deviations
-
-Any exceptions to this standard must be:
-
-- Documented with business justification
-
-- Risk assessed per the Risk Assessment Procedure
-
-- Approved by the Chief Executive Officer
-
+- Documented with its business justification
+- Risk-assessed per the Risk Assessment Procedure
+- Approved by the CEO
 - Reviewed quarterly for continued necessity
-
 - Tracked in the compliance platform
 
-## 11. Related Documents
+### 9.2 Review
 
-- Information Security Policy
-
-- Change Management Policy
-
-- Vulnerability Management Procedure
-
-- API Security and Rate Limiting Standard
-
-- Encryption and Cryptographic Controls Standard
-
-- Access Control and Authentication Policy
-
-- Cloud Infrastructure Security Policy
-
-- System Monitoring and Logging Procedure
-
-- Incident Response Procedure
-
-- Penetration Testing and Security Assessment Procedure
-
-- Risk Assessment Procedure
-
-- Data Classification and Handling Standard
-
-- Security Awareness Training Program
-
-## 12. Review and Updates
-
-This standard shall be reviewed annually and updated to reflect:
+The CEO reviews this standard annually and updates it for:
 
 - Changes in development technologies and practices
-
 - Emerging security threats and vulnerabilities
-
 - Lessons learned from security incidents
-
 - Updates to SOC 2 requirements
-
 - Findings from penetration tests and security assessments
 
-## 13. Revision History
+## 10. Related documents
+
+- Information Security Policy
+- Change Management Policy
+- Vulnerability Management Procedure
+- API Security and Rate Limiting Standard
+- Encryption and Cryptographic Controls Standard
+- Access Control and Authentication Policy
+- Cloud Infrastructure Security Policy
+- System Monitoring and Logging Procedure
+- Incident Response Procedure
+- Penetration Testing and Security Assessment Procedure
+- Risk Assessment Procedure
+- Data Classification and Handling Standard
+- Security Awareness Training Program
+
+## 11. Revision history
 
 |**Version**|**Date**|**Summary**|
 |---|---|---|

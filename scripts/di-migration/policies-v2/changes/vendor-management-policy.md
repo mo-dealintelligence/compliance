@@ -29,3 +29,16 @@
 - Sub-processor service descriptions (Google Workspace = email/SSO/documents; GitHub = source hosting and CI; Resend = transactional email) are inferred from the rulebook and the other policies; confirm they match the customer-facing sub-processor list.
 - §7.3 vendor risk review changed from quarterly to annual to match R5; confirm the Risk Assessment Procedure v2 does not still say quarterly for vendor risks.
 - §13 "Reviewed quarterly for continued necessity" (exception review cadence) kept from v1 — not addressed by R5; confirm.
+
+## Quality sweep (2026-10-31)
+
+- Q3 structure: reordered to Purpose → Scope → Definitions → Roles → policy body → Exceptions → Review → Related documents → Document approval → Revision history. Definitions moved from §16 to §3; Roles and responsibilities from §12 to §4; §11 "Compliance and Audit" retitled "Audit rights and compliance monitoring" (content kept); Revision history numbered (§18). Section cross-references in §2 updated (5.3 → 7.3, 8.1 → 10.1). No section deleted.
+- Q1 voice: "shall" removed (×7 → present tense); §1 "establishes the framework… ensures that" → plain statements; "Comprehensive security assessment" → "Security assessment"; "utilizing" → "using"; "to ensure consistent evaluation criteria" → "which applies the same criteria to every vendor"; "Ensure policy compliance and updates" → "Keeps this policy current and enforced"; "Ensure contractual requirements are met" → "Confirms that contractual requirements are met"; "Ensure continuity" → "Maintain continuity"; "our" → "the" / "Deal Intelligence's" (×5, one organisation speaking in the third person as elsewhere in the set).
+- Q1 parallel grammar: §11.1 and §11.2 bullets made full sentences with the actor named; §6.2 given the same lead-in form as §6.1; §7.1 and §9.2 name the CEO as the actor ("the CEO completes / tracks") — the owner was already the CEO under §12.1 (now §4.1).
+- Q2 names/numbers: "SOC 2 Trust Service Criteria" → "Trust Services Criteria"; "99.9%" → "99.9 %" ×2; "30-day advance notice" → "30 days' advance notice"; "Chief Executive Officer (CEO)" in the roles heading; CEO responsibilities in third-person present; "re-assessed" → "reassessed".
+- Q2 headings/tables: all headings and table headers to sentence case; Oxford commas added.
+- No commitment, number, role, scope item or control changed.
+
+### CONFIRM (new)
+
+- §17 Document approval table has empty Name and Signature cells (the rubric wants no empty cells). Left as is because the row is the R2 "single CEO row with [CONFIRM: date]" — confirm whether the approval is recorded in the compliance platform instead, in which case the table can be dropped and the italic line kept.

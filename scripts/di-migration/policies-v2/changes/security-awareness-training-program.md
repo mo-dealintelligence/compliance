@@ -23,3 +23,14 @@ Rewritten to one page per R7; the v1 16-section document is reduced to Purpose, 
 - The compliance platform issues a completion certificate for the security-awareness training (used as the evidence statement in §4).
 - Contractor acknowledgment cadence: v2 says "at onboarding and annually" for the AUP/confidentiality acknowledgment; confirm this matches the Acceptable Use Policy v2 and the Code of Conduct annual acknowledgment (R6).
 - Onboarding training "before being granted access to company data" — v1 allowed 5 business days after provisioning; confirm the stricter gating is the intended practice.
+
+## Quality sweep (2026-10-31)
+
+- Q1 voice: §1 rewritten to plain declarative (removed "establishes mandatory requirements… ensures… operationalizes"); "shall" removed ×3; "password manager utilization" → "password manager use"; "prohibition of credential sharing" → "no credential sharing"; §6 review sentence shortened.
+- Q2 consistency: "Chief Executive Officer (CEO)" on first use (§2); "the" added before document titles (×6); Oxford commas (×2); all headings to sentence case; Revision history numbered.
+- Q3 structure: Review moved before Related documents (§5/§6 swapped); Revision history → §7.
+- No commitment, number, role, scope item or control changed.
+
+### CONFIRM (new)
+
+- None added.

@@ -39,3 +39,17 @@ Output: `policies-v2/encryption-and-cryptographic-controls-standard.md`
 - [CONFIRM: monthly TLS configuration scans / quarterly encryption audit reports / semi-annual key rotation audits] — §11.1 and §16.1 kept from v1; confirm these are evidenced in the compliance platform.
 - [CONFIRM: VPC endpoints] — §5.2 "VPC endpoints for AWS service communications" kept from v1; confirm endpoints exist in the stack.
 - [CONFIRM: separate account vs same account] — staging described only as "the staging stage" per R3.
+
+## Quality sweep (2026-10-31)
+
+- Structure: added §3 Roles and responsibilities (the document had none; content is the R2 role set only — CEO owns and operates, Go-to-Market Contractor has no key access, external auditor/pen-test vendor review); §17 Exceptions and Deviations and §19 Review and Updates merged into §18 "Exceptions and review" so Related documents precedes Revision history; §15 Training reduced to one paragraph (four bullets restating the training program); §10.2 "Legacy System Migration" retitled "Encryption upgrades" (the bullets describe upgrading, not migrating). Sections renumbered 3–20; the §6.2 cross-reference updated to §7.2.
+- Duplication: "The staging stage uses its own key, separate from production" appeared in both §6.1 and §6.3 — kept once (§7.1).
+- Voice: removed "shall" ×23; "Reference: X" ×8 → "See the X" sentences; §13 incident steps given a subject (the CEO); "where applicable/supported" hedges rewritten as the actual condition ("where the issuer supports it", "where the endpoint supports it", "where the client supports them"); "Exclude wildcard certificates" → "Are not wildcard certificates".
+- Consistency: "AWS KMS" → "KMS" ×9; "AWS Certificate Manager" → "ACM" ×5; "AWS Secrets Manager" → "Secrets Manager"; "AWS Security Hub" → "Security Hub"; "compliance platform's Risk Assessment module / Incident Reporting system" → "risk assessment module / incident reporting module of the compliance platform" ×4; headings and table labels to sentence case; blank lines between bullets removed (~110).
+- Related documents: all 15 entries exist in the set; unchanged.
+- Word count 1919 → 1906.
+
+### New CONFIRM items
+
+- §3 Roles and responsibilities is new text (R2 role set applied to this standard); confirm the wording.
+- §13.1 step 5 "Notifies affected customers within 48 hours if data confidentiality is affected" — matches R5; confirm it should remain in this standard as well as in the Incident Response Procedure.

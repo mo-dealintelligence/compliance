@@ -149,3 +149,53 @@ Rules applied: `policies-v2/RULEBOOK.md` R0–R8 plus the spec in `docs/dealinte
 9. `[CONFIRM: final v2 document inventory and count at publication]` — Section 5, In-scope documents table.
 10. `[CONFIRM: separate account vs same account]` for the staging stage — tracked in this note only (R3); the document makes no account claim.
 11. Figure 1 — the network diagram must be exported from the compliance platform and inserted at the Figure 1 placeholder in Section 5 before publication.
+
+## Quality sweep (2026-10-31)
+
+Rubric Q1–Q5 applied on top of R0–R8. Word count 11,038 → 6,902. No commitment, number, role, scope statement, or control was removed; the reduction is duplicated architecture text and generic prose. All 13 distinct `[CONFIRM]` markers from the v2 draft are kept verbatim; one new marker added (see below).
+
+**Structure**
+- Reordered to the DC 200 flow and renumbered: 1 Services provided; 2 Principal service commitments and system requirements; 3 System components (3.1 Infrastructure, 3.2 Software, 3.3 People, 3.4 Procedures, 3.5 Data); 4 System boundaries (4.1 In scope, 4.2 Out of scope); 5 Subservice organizations and other vendors (5.1 approach, 5.2 subservice table, 5.3 CSOCs, 5.4 other vendors); 6 Complementary user entity controls (6.1–6.7 by area); 7 Internal controls (7.1–7.5 COSO components and control activities); 8 System incidents; 9 Changes to the system during the period (new); Appendix. Old → new: §1→1, §2→4, §3→5.1/5.2/5.4, §4→2, §5→3, §6→7, §7→8, §8 CSOCs→5.3, §9 CUECs→6. The CONFIRM list above should be read with this map (e.g. "Section 7" incidents is now Section 8; "Section 5, Software/Data" is now 3.2/3.5; "Section 6, Control activities" is now 7.5).
+- Headings numbered `## n.` / `### n.n` in sentence case; the "Section n —" prefixes dropped from headings.
+- Introductory note shortened to a one-paragraph statement of basis (DC 200, S/A/C) plus a definitions line for "Deal Intelligence", "the organization", "the platform".
+
+**Duplication removed (the main cut)**
+- The AWS architecture (Lambda 900 s / concurrency 100, Fargate, DocumentDB Multi-AZ/KMS/90-day backups, ECR scan-on-push, EventBridge, CloudFront, VPC, NAT/SSM bastion, CloudWatch 90 d, CloudTrail 7 y, Security Hub, Secrets Manager, SNS) was restated in v1 §1, §2, §4, §5, §6 and §8. It now appears once as the component table in 3.1; Sections 2.6, 4.1 and 7.5 reference it.
+- The PR/CI change-management description (branch protection, tool list, green-CI deploy, rollback, emergency label) appeared in §1, §2, §4, §5 and §6; now once in 7.5 with a one-line summary in 2.6 and a scope statement in 4.1.
+- The segregation-of-duties compensating-controls paragraph appeared twice (§2 and §5 People); now once in 3.3 as a numbered list.
+- The two-subservice-organization / DPA / 30-day-notice / annual-assessment sentence appeared in §1, §3, §4, §6 and §8; now in 5.1 and 5.2.
+- The data-element list appeared in §1, §2 and §5; now once in 3.5 (table) with a one-line summary in Section 1. Retention figures (24 months / relationship + 24 months, 90-day CloudWatch, 7-year CloudTrail) now stated in 3.5 and the commitments only.
+- CSOC narrative (§8, nine paragraphs) collapsed into the 5.3 table plus two paragraphs on oversight and integration points in 5.2; all criteria mappings, DPA terms (30-day notice, right to audit, incident notification), "critical risk" classification, SOC 2 / ISO 27001 mention and the 24/7 data-center monitoring claim (AWS's) kept in the table.
+- Policy inventory: the three descriptive paragraphs in §5 duplicated the table; replaced by the table alone, with a one-line subject per document (previously 12 empty cells).
+
+**Voice and filler**
+- Removed ~60 filler/marketing terms: comprehensive ×19, robust, leverage/leveraging ×4, utilize/utilizing ×6, "ensure/ensuring that" ×14, seamless, streamlined ×3, "enterprise-grade" (own infra), "strategic approach", "philosophy", "demonstrates the commitment", "economies of scale", "specialized expertise", "maturity".
+- Removed paragraphs that only restated their heading or closed with a summary (end of §3, §4, §6, §8 and §9 intros).
+- Generic sentences with no control behind them deleted: "technical competency standards … documented professional development programs", "automation reducing human error", "rapid decision-making and direct accountability", "appropriate given the specialized expertise…", "fair use policies" reworded to "fair use terms of customer agreements".
+- Sentences cut to one idea each; run-on 80–120-word sentences in §2 and §4 split into lists and tables.
+
+**Consistency**
+- "seven years/seven-year" → "7 years/7-year" ×6; "99.9%" → "99.9 %" ×6; "Multi-Availability Zone" → "Multi-AZ"; "Elastic Container Registry" → "ECR"; "Amazon Web Services cloud platform" → "AWS"; "AWS Systems Manager Session Manager" → "SSM Session Manager"; "Simple Notification Service" → "SNS"; "Virtual Private Cloud" → "VPC".
+- CUEC criteria "CC 6.1 / C 1.1" (spaced) → "CC6.1 / C1.1" to match the CSOC table.
+- "Code of Conduct and Ethics Policy" → "Code of Conduct" (the document's actual title) ×3.
+- "Chief Executive Officer (CEO)" expanded at first use (3.1 table), "the CEO" after.
+- "employees and contractors" / "employees or contractors" (CUEC) → "personnel" ×2; "staff" nil.
+- Oxford comma applied to "Security, Availability, and Confidentiality" throughout the body (frontmatter untouched).
+- Vulnerability severities written Critical/High/Medium/Low; incident severity P1.
+
+**Lists and tables**
+- Nine new tables (system requirements, infrastructure components, software, in-scope documents with subjects, data categories, subservice organizations, CSOCs) and 7 CUEC lists replace prose blocks; every table has a header row and no empty cell ("—" where not applicable).
+- CUECs: each area is one parallel fragment list ("User entities are expected to: …"); the seven original paragraphs' controls, numbers (72 hours / 30 days patching, 24-month purge, 30-day training, 24-hour incident reporting, WPA2-Enterprise/WPA3, 802.1X, AES-256, NIST sanitization) and criteria are unchanged.
+
+**New content (DC 200 completeness, no facts invented)**
+- Section 9 "Changes to the system during the period" added in the same placeholder form as Section 8, with a bracketed drafting instruction listing the post-Type-I changes (from the revision history) that must be disclosed if they took effect within the period.
+- Section 4 now has an explicit in-scope / out-of-scope split; content unchanged, plus "The subservice organizations AWS and PropelAuth are carved out (Section 5)".
+- Section 2.6 "System requirements" table added, mapping each requirement to its implementation (content drawn from v2 §4 final two paragraphs).
+
+**check.py**
+- Hard findings 2 → 1. Fixed: `24/7` in §8 prose (the claim is now only in the CSOC table row, which the checker whitelists). Remaining: `R0 frontmatter: missing acknowledgment` — pre-existing; the sweep brief forbids frontmatter edits, so this needs a one-line decision by the author (`acknowledgment: "None"` is the obvious value for a system description).
+
+**New CONFIRM items**
+12. `[CONFIRM: significant changes to the system during the period, if any]` — Section 9 (new). If changes are disclosed, list the nature, timing, and effect of each.
+13. Frontmatter `acknowledgment` field is absent (check.py hard finding) — add `acknowledgment: "None"` or whatever value the author decides; not edited in the sweep.
+14. Section 2.2 keeps "99.9 % during standard business hours" verbatim from v1; the Service Level Agreement (SLA) Management Policy measures availability monthly over total minutes without a business-hours qualifier. Reconcile before publication (meaning not changed in the sweep).

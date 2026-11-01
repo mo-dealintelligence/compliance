@@ -12,480 +12,342 @@ source: "data-classification-and-handling-standard-v1.0.pdf"
 
 # Data Classification and Handling Standard
 
-## 1. Purpose and Scope
+## 1. Purpose
 
-### 1.1 Purpose
+This standard defines how Deal Intelligence LLC classifies and handles information assets, so that all data, in particular the business contact information and market intelligence data processed through the B2B platform, receives protection matching its sensitivity and its criticality to business operations. It supports the SOC 2 Trust Services Criteria (Security, Availability, and Confidentiality), the General Data Protection Regulation (GDPR), and the California Consumer Privacy Act (CCPA).
 
-This Data Classification and Handling Standard establishes the framework for classifying and handling information assets at Deal Intelligence LLC. This standard ensures that all data, particularly business contact information and market intelligence data processed through our B2B platform, receives appropriate protection based on its sensitivity and criticality to business operations.
+This standard is the single classification document for Deal Intelligence. The former Data Classification Policy has been merged into it; the Policy's classification decision tree, data element reference, and quick reference card are carried forward as Appendices A to C.
 
-This standard is the single classification document for Deal Intelligence. The former Data Classification Policy has been merged into it; the Policy's classification decision tree, data element reference and quick reference card are carried forward as Appendices A to C.
-
-### 1.2 Scope
+## 2. Scope
 
 This standard applies to:
 
 - All forms of data (electronic, physical, verbal) processed by Deal Intelligence
-
 - All personnel, contractors, and third parties with access to company data
-
 - All systems and infrastructure components within the AWS cloud environment
-
-- Customer data including business contact information, lead qualification data, and competitive intelligence
-
+- Customer data, including business contact information, lead qualification data, and competitive intelligence
 - Internal operational and administrative data
 
-### 1.3 Compliance Alignment
+## 3. Roles and responsibilities
+
+### 3.1 Chief Executive Officer (CEO)
+
+- Approves the data classification framework
+- Oversees compliance with classification requirements
+- Reviews and approves classification exceptions
+- Allocates resources for data protection
+- Classifies data according to this standard (data owner)
+- Implements the handling controls
+- Reviews classification annually
+- Reports classification incidents
+
+### 3.2 Go-to-Market Contractor
+
+- Handles Internal and Confidential data only as authorized by the CEO
+- Has no production (AWS, GitHub, DocumentDB, PropelAuth admin) access and no access to Restricted data
+- Is subject to the requirements for all personnel in Section 3.3
+
+### 3.3 All personnel
+
+- Understand the classification levels and requirements
+- Handle data according to its classification
+- Report suspected misclassification or mishandling
+- Complete required training
+
+## 4. Classification levels
+
+Deal Intelligence uses a four-tier classification system aligned with its business operations and regulatory requirements.
+
+### 4.1 Public
+
+- **Definition**: Information intended for public disclosure
+- **Examples**: Marketing materials, public website content, press releases
+- **Impact if disclosed**: No adverse impact
+- **Handling requirements**: No special handling required
+
+### 4.2 Internal
+
+- **Definition**: Information for internal business use only
+- **Examples**: Internal procedures, general business communications, non-sensitive operational data
+- **Impact if disclosed**: Minor reputational impact or competitive disadvantage
+- **Handling requirements**:
+  - Access restricted to authorized personnel
+  - Standard authentication required via PropelAuth JWT
+  - Transmission over secure channels
+
+### 4.3 Confidential
+
+- **Definition**: Sensitive business information, including personal data, requiring enhanced protection
+- **Examples**:
+  - Business contact information (first name, last name, business email, LinkedIn profile URL)
+  - Job titles and employer information
+  - Company domains and organizational data
+  - Customer account data and delivered leads
+  - Lead qualification status and sourcing dates
+  - Competitor interaction data
+  - System configurations
+  - Vendor contracts and agreements
+- **Impact if disclosed**: Significant business impact, regulatory penalties, or damage to customer trust
+- **Handling requirements**:
+  - Role-based access control (RBAC) enforcement
+  - Encryption at rest using KMS
+  - TLS 1.2+ for data in transit
+  - Audit logging of all access via CloudWatch
+  - PII sanitization in logs
+  - Subject to data subject rights requests (access, deletion, correction) per the Data Subject Rights Request Procedure
+  - Retention per the Data Retention and Disposal Policy
+
+### 4.4 Restricted
+
+- **Definition**: Highly sensitive data requiring maximum protection
+- **Examples**:
+  - Authentication credentials and tokens
+  - API keys
+  - Encryption keys and certificates
+- **Impact if disclosed**: Severe regulatory penalties, significant financial loss, major breach of customer trust
+- **Handling requirements**:
+  - Access limited to the CEO; multi-factor authentication for personnel enforced in Google Workspace, GitHub, and AWS
+  - AES-256 encryption mandatory per the Encryption and Cryptographic Controls Standard
+  - Stored in Secrets Manager or KMS-encrypted DocumentDB only
+  - VPC-isolated database with no direct access
+  - Continuous monitoring via Security Hub
+  - PII sanitization in logs
+  - Immediate incident response per the Incident Response Procedure
+
+## 5. Data handling requirements
+
+### 5.1 Data collection and processing
+
+- All data collection has a defined business purpose
+- Customer data processing is limited to the purposes agreed in Data Processing Agreements
+- Data collection is minimized to what is necessary for service delivery
+- Data is validated and sanitized at the point of entry
+
+### 5.2 Data storage
+
+- **DocumentDB storage**: All Confidential and Restricted data stored with KMS encryption
+- **Secrets storage**: Restricted credentials and keys stored in Secrets Manager
+- **Container images**: ECR repositories with vulnerability scanning enabled
+- **Backup storage**: Daily automated backups with 90-day retention
+- **Log storage**: CloudWatch logs with 90-day retention
 
-This standard supports compliance with:
+### 5.3 Data transmission
 
-- SOC 2 Trust Services Criteria (Security, Availability and Confidentiality)
+- **External APIs**: TLS 1.2+ encryption required per the API Security and Rate Limiting Standard
+- **Internal communications**: VPC private subnets for database access
+- **CDN distribution**: CloudFront with HTTPS-only policies
+- **Third-party integrations**: Secure protocols required per the Integration security section of the API Security and Rate Limiting Standard
 
-- General Data Protection Regulation (GDPR)
-
-- California Consumer Privacy Act (CCPA)
-
-- Industry best practices for B2B data handling
-
-## 2. Data Classification Framework
-
-### 2.1 Classification Levels
-
-Deal Intelligence employs a four-tier classification system aligned with our business operations and regulatory requirements:
-
-#### 2.1.1 Public
-
-- **Definition** : Information intended for public disclosure
-
-- **Examples** : Marketing materials, public website content, press releases
-
-- **Impact if Disclosed** : No adverse impact
-
-- **Handling Requirements** : No special handling required
-
-#### 2.1.2 Internal
-
-- **Definition** : Information for internal business use only
-
-- **Examples** : Internal procedures, general business communications, non-sensitive operational data
-
-- **Impact if Disclosed** : Minor reputational impact or competitive disadvantage
-
-- **Handling Requirements** :
-
-   - Access restricted to authorized personnel
-
-   - Standard authentication required via PropelAuth JWT
-
-   - Transmission over secure channels
-
-#### 2.1.3 Confidential
-
-- **Definition** : Sensitive business information, including personal data, requiring enhanced protection
-
-- **Examples** :
-
-   - Business contact information (first name, last name, business email, LinkedIn profile URL)
-
-   - Job titles and employer information
-
-   - Company domains and organizational data
-
-   - Customer account data and delivered leads
-
-   - Lead qualification status and sourcing dates
-
-   - Competitor interaction data
-
-   - System configurations
-
-   - Vendor contracts and agreements
-
-- **Impact if Disclosed** : Significant business impact, regulatory penalties, or customer trust damage
-
-- **Handling Requirements** :
-
-   - Role-based access control (RBAC) enforcement
-
-   - Encryption at rest using AWS KMS
-
-   - TLS 1.2+ for data in transit
-
-   - Audit logging of all access via CloudWatch
-
-   - PII sanitization in logs
-
-   - Subject to data subject rights requests (access, deletion, correction) per Data Subject Rights Request Procedure
-
-   - Retention per Data Retention and Disposal Policy
-
-#### 2.1.4 Restricted
-
-- **Definition** : Highly sensitive data requiring maximum protection
-
-- **Examples** :
-
-   - Authentication credentials and tokens
-
-   - API keys
-
-   - Encryption keys and certificates
-
-- **Impact if Disclosed** : Severe regulatory penalties, significant financial loss, major breach of customer trust
-
-- **Handling Requirements** :
-
-   - Access limited to the CEO; multi-factor authentication for personnel enforced in Google Workspace, GitHub and AWS
-
-   - AES-256 encryption mandatory per Encryption and Cryptographic Controls Standard
-
-   - Stored in AWS Secrets Manager or KMS-encrypted DocumentDB only
-
-   - VPC-isolated database with no direct access
-
-   - Continuous monitoring via Security Hub
-
-   - PII sanitization in logs
-
-   - Immediate incident response per Incident Response Procedure
-
-## 3. Data Handling Requirements
-
-### 3.1 Data Collection and Processing
-
-- All data collection must have a defined business purpose
-
-- Customer data processing limited to agreed purposes in Data Processing Agreements
-
-- Minimize data collection to what is necessary for service delivery
-
-- Implement data validation and sanitization at point of entry
-
-### 3.2 Data Storage
-
-- **DocumentDB Storage** : All Confidential and Restricted data stored with KMS encryption
-
-- **Secrets Storage** : Restricted credentials and keys stored in AWS Secrets Manager
-
-- **Container Images** : ECR repositories with vulnerability scanning enabled
-
-- **Backup Storage** : Daily automated backups with 90-day retention
-
-- **Log Storage** : CloudWatch logs with 90-day retention period
-
-### 3.3 Data Transmission
-
-- **External APIs** : TLS 1.2+ encryption required per API Security and Rate Limiting Standard
-
-- **Internal Communications** : VPC private subnets for database access
-
-- **CDN Distribution** : CloudFront with HTTPS-only policies
-
-- **Third-Party Integrations** : Secure protocols required per the Integration security section of the API Security and Rate Limiting Standard
-
-### 3.4 Data Access Controls
+### 5.4 Data access controls
 
 Access to classified data follows the principle of least privilege:
 
-- **Authentication** : PropelAuth JWT; customer MFA inherited from Google Workspace sign-in via PropelAuth (Google SSO only); personnel MFA enforced in Google Workspace, GitHub and AWS
+- **Authentication**: PropelAuth JWT; customer MFA inherited from Google Workspace sign-in via PropelAuth (Google SSO only); personnel MFA enforced in Google Workspace, GitHub, and AWS
+- **Authorization**: RBAC with user- and company-level isolation
+- **Access reviews**: Quarterly access reviews (scheduled Lambda check), recorded in the compliance platform
+- **Session management**: Timeout policies enforced
+- **Audit trail**: All access logged and monitored
 
-- **Authorization** : RBAC implementation with user and company-level isolation
+Detailed access control requirements are in the Access Control and Authentication Policy.
 
-- **Access Reviews** : Quarterly access reviews (scheduled Lambda check), recorded in the compliance platform
+## 6. Data location and identification
 
-- **Session Management** : Timeout policies enforced
+### 6.1 Electronic data
 
-- **Audit Trail** : All access logged and monitored
+- Classification is applied through the handling rules by tier in Section 4; no classification metadata is stored in the data itself
+- Confidential and Restricted data lives in known locations: the DocumentDB collections, S3 buckets, and Secrets Manager entries of the `di-backend-api-prod` stack
+- API responses include the required security headers
 
-For detailed access control requirements, refer to Access Control and Authentication Policy.
+### 6.2 System classification
 
-## 4. Data Location and Identification
+- AWS resources carry CloudFormation tags only; classification is determined by the data each resource holds per Section 4
 
-### 4.1 Electronic Data
+## 7. Data sharing and disclosure
 
-- Classification is applied through the handling rules by tier in Section 2; no classification metadata is stored in the data itself
+### 7.1 Internal sharing
 
-- Confidential and Restricted data lives in known locations: the DocumentDB collections, S3 buckets and AWS Secrets Manager entries of the `di-backend-api-prod` stack
+- Confidential and Restricted data is shared only on a need-to-know basis
+- Access requests require approval from the CEO
+- Temporary access is granted with a defined expiration
+- All sharing activities are logged for audit purposes
 
-- API responses include appropriate security headers
+### 7.2 External sharing
 
-### 4.2 System Classification
+- Customer data sharing is governed by Data Processing Agreements
+- Sub-processor engagement requires 30 days' notice to customers
+- Third-party access is limited to the documented sub-processors listed in the Vendor Management Policy
+- Customer-controlled integrations (Slack, CRM) are managed per customer preferences
 
-- AWS resources carry CloudFormation tags only; classification is determined by the data each resource holds per Section 2
+### 7.3 Data subject rights
 
-## 5. Data Sharing and Disclosure
+- GDPR and CCPA data subject requests are supported
+- Procedures are defined in the Data Subject Rights Request Procedure
+- Response timeline for access requests: 30 days (GDPR) / 45 days (CCPA)
+- Identity is verified before data is disclosed
 
-### 5.1 Internal Sharing
+## 8. Data retention and disposal
 
-- Confidential and Restricted data shared only on need-to-know basis
+### 8.1 Retention periods
 
-- Access requests require approval from Chief Executive Officer
+Retention periods for each data type (active leads, customer account data, audit logs, backups, and inactive customer data) are defined in the Data Retention and Disposal Policy, which is the single retention schedule for Deal Intelligence. This standard does not restate them.
 
-- Temporary access granted with defined expiration
+### 8.2 Secure disposal
 
-- All sharing activities logged for audit purposes
+- Electronic data is overwritten using secure deletion methods
+- Database records are permanently removed, with an audit trail
+- Backup media is securely wiped after the retention period
+- Certificates of destruction are maintained where applicable
 
-### 5.2 External Sharing
+Complete retention and disposal procedures are in the Data Retention and Disposal Policy.
 
-- Customer data sharing governed by Data Processing Agreements
+## 9. Monitoring and incident response
 
-- Sub-processor engagement requires 30-day notice to customers
-
-- Third-party access limited to the documented sub-processors listed in the Vendor Management Policy
-
-- Customer-controlled integrations (Slack, CRM) managed per customer preferences
-
-### 5.3 Data Subject Rights
-
-- Support for GDPR and CCPA data subject requests
-
-- Procedures defined in Data Subject Rights Request Procedure
-
-- 30-day (GDPR) / 45-day (CCPA) response timeline for access requests
-
-- Secure verification process before data disclosure
-
-## 6. Data Retention and Disposal
-
-### 6.1 Retention Periods
-
-Retention periods for each data type (active leads, customer account data, audit logs, backups and inactive customer data) are defined in the Data Retention and Disposal Policy, which is the single retention schedule for Deal Intelligence. This standard does not restate them.
-
-### 6.2 Secure Disposal
-
-- Electronic data overwritten using secure deletion methods
-
-- Database records permanently removed with audit trail
-
-- Backup media securely wiped after retention period
-
-- Certificates of destruction maintained where applicable
-
-For complete retention and disposal procedures, see Data Retention and Disposal Policy.
-
-## 7. Compliance and Monitoring
-
-### 7.1 Continuous Monitoring
+### 9.1 Continuous monitoring
 
 - CloudWatch monitoring with real-time alerts
-
 - Security Hub findings reviewed monthly; critical findings alert in real time via SNS through the breach-detection Lambda
-
 - Container vulnerability scanning in ECR
-
 - Rate limiting enforcement (100 requests/minute)
 
-### 7.2 Compliance Verification
+### 9.2 Compliance verification
 
-- Annual classification review by Chief Executive Officer
-
+- Annual classification review by the CEO
 - Quarterly access reviews (scheduled Lambda check), recorded in the compliance platform
-
 - SOC 2 audit validation of classification controls
+- Risk assessments using the compliance platform Risk Assessment module
 
-- Risk assessments utilizing the organization's compliance platform Risk Assessment module
-
-### 7.3 Incident Response
+### 9.3 Incident response
 
 - 48-hour breach notification to affected customers for incidents involving Confidential or Restricted data; 72-hour notification to the supervisory authority where GDPR applies
-
 - Breach detection via Security Hub findings routed to SNS by the breach-detection Lambda
-
 - SNS security alerts for classification violations
-
 - Post-hoc review within 5 business days for emergency changes
-
 - Incidents documented using the compliance platform's Incident Reporting forms
 
-## 8. Training and Awareness
+## 10. Training and awareness
 
-### 8.1 Training Requirements
+### 10.1 Training requirements
 
 - All personnel receive data classification training during onboarding
-
 - Annual refresher training on handling requirements
-
 - Role-specific training for those handling Restricted data
-
 - Training completion tracked in the compliance platform portal, with the completion certificate as evidence
 
-### 8.2 Awareness Activities
+### 10.2 Awareness activities
 
 - Classification reminders in system interfaces
-
 - Updates to personnel when this standard changes
 
-For complete training program details, see Security Awareness Training Program.
+The full training program is in the Security Awareness Training Program.
 
-## 9. Responsibilities
+## 11. Exceptions and violations
 
-### 9.1 Chief Executive Officer
-
-- Approve data classification framework
-
-- Oversee compliance with classification requirements
-
-- Review and approve classification exceptions
-
-- Ensure adequate resources for data protection
-
-- Classify data according to this standard (data owner)
-
-- Implement appropriate handling controls
-
-- Review classification annually
-
-- Report classification incidents
-
-### 9.2 Go-to-Market Contractor
-
-- Handles Internal and Confidential data only as authorized by the CEO
-
-- Has no production (AWS, GitHub, DocumentDB, PropelAuth admin) access and no access to Restricted data
-
-- Subject to the requirements for all personnel below
-
-### 9.3 All Personnel
-
-- Understand classification levels and requirements
-
-- Handle data according to its classification
-
-- Report suspected misclassification or mishandling
-
-- Complete required training
-
-## 10. Exceptions and Violations
-
-### 10.1 Exception Process
+### 11.1 Exception process
 
 - Exceptions require written justification
-
-- Risk assessment required for all exceptions
-
-- Approval by Chief Executive Officer
-
+- A risk assessment is required for all exceptions
+- Exceptions are approved by the CEO
 - Compensating controls must be implemented
+- Exceptions are reviewed quarterly
 
-- Exceptions reviewed quarterly
+### 11.2 Violation consequences
 
-### 10.2 Violation Consequences
+- Violations are investigated per the Incident Response Procedure
+- Corrective actions are determined by severity
+- Retraining is required for unintentional violations
+- Willful violations result in disciplinary action
 
-- Violations investigated per Incident Response Procedure
+## 12. Review
 
-- Corrective actions determined based on severity
-
-- Retraining required for unintentional violations
-
-- Disciplinary action for willful violations
-
-## 11. Related Documents
-
-This standard should be read in conjunction with:
-
-- Information Security Policy
-
-- Access Control and Authentication Policy
-
-- Encryption and Cryptographic Controls Standard
-
-- Data Retention and Disposal Policy
-
-- Privacy Notice and Data Processing Agreement Template
-
-- Data Subject Rights Request Procedure
-
-- Incident Response Procedure
-
-- Vendor Management Policy
-
-## 12. Document Review and Maintenance
-
-This standard will be reviewed annually or upon:
+This standard is reviewed annually or upon:
 
 - Significant changes to data processing activities
-
 - Introduction of new data types or systems
-
 - Regulatory requirement changes
-
-- Security incident involving data classification
-
+- A security incident involving data classification
 - Audit findings or recommendations
 
-## 13. Revision History
+## 13. Related documents
+
+- Information Security Policy
+- Access Control and Authentication Policy
+- Encryption and Cryptographic Controls Standard
+- Data Retention and Disposal Policy
+- Privacy Notice and Data Processing Agreement Template
+- Data Subject Rights Request Procedure
+- Incident Response Procedure
+- Vendor Management Policy
+- API Security and Rate Limiting Standard
+- Security Awareness Training Program
+
+## Appendix A: Classification decision tree
+
+```
+START: Is the data authentication credentials, encryption keys, API keys, or security secrets?
+  │
+  ├─ YES → Restricted
+  │
+  └─ NO → Does the data contain PII or business contact information?
+           │
+           ├─ YES → Confidential
+           │
+           └─ NO → Is the data intended for internal use only?
+                    │
+                    ├─ YES → Internal
+                    │
+                    └─ NO → Has the data been approved for public release?
+                             │
+                             ├─ YES → Public
+                             │
+                             └─ NO → Default to Internal; seek guidance from the CEO
+```
+
+## Appendix B: Data element classification reference
+
+|**Data element**|**Classification**|**Regulatory basis**|
+|---|---|---|
+|First name, last name|Confidential|GDPR Art. 4(1), CCPA §1798.140(o)|
+|Business email address|Confidential|GDPR Art. 4(1), CCPA §1798.140(o)|
+|LinkedIn profile URL|Confidential|GDPR Art. 4(1)|
+|Job title|Confidential|GDPR Art. 4(1)|
+|Current employer|Confidential|GDPR Art. 4(1)|
+|Company name/domain|Confidential|Business data|
+|Competitor interaction data|Confidential|Business data|
+|Lead qualification status|Confidential|Business data|
+|Sourcing dates|Confidential|Business data|
+|Customer account data|Confidential|GDPR Art. 4(1), CCPA|
+|API keys/tokens|Restricted|Security requirement|
+|Encryption keys|Restricted|Security requirement|
+|Database credentials|Restricted|Security requirement|
+|System logs (sanitized)|Internal|Operational data|
+|Architecture documentation|Internal|Business data|
+|Marketing materials|Public|Approved for release|
+
+Business contact information is processed under the GDPR legitimate interest basis for B2B marketing and is subject to CCPA business contact exemption considerations. Market intelligence derived from it is Confidential at the individual level; aggregated or anonymized data is Internal or Public depending on disclosure approval by the CEO.
+
+## Appendix C: Quick reference card
+
+**Before handling any data, ask:**
+
+1. What classification level is this data?
+2. Am I authorized to access this data?
+3. Am I using approved storage and transmission methods?
+4. Have I applied the required security controls?
+5. Do I know how to report a suspected incident?
+
+**When in doubt:**
+
+- Classify at the higher level
+- Contact the CEO for guidance
+- Do not share externally until the classification is confirmed
+
+**Report incidents immediately** through the compliance platform Incident Reporting system or contact the CEO directly.
+
+_This document is classified as Internal and is handled accordingly._
+
+## 14. Revision history
 
 | Version | Date | Author | Summary of change |
 |---|---|---|---|
 | 1.0 | November 13, 2025 | mo@dealintelligence.io | Initial audited release |
 | 2.0 | <to be set at publication> | mo@dealintelligence.io | Data Classification Policy merged in (decision tree, data element reference and quick reference card as Appendices A to C); business contact information classified Confidential; scope limited to Security, Availability and Confidentiality; classification metadata fields, resource tags and email markings removed in favor of handling rules by tier; roles consolidated to CEO and Go-to-Market Contractor; retention schedule referenced to Data Retention and Disposal Policy; notification, review and MFA wording aligned |
-
-## Appendix A: Classification Decision Tree
-
-```
-START: Is the data authentication credentials, encryption keys, API keys, or security secrets?
-  │
-  ├─ YES → RESTRICTED
-  │
-  └─ NO → Does the data contain PII or business contact information?
-           │
-           ├─ YES → CONFIDENTIAL
-           │
-           └─ NO → Is the data intended for internal use only?
-                    │
-                    ├─ YES → INTERNAL
-                    │
-                    └─ NO → Has the data been approved for public release?
-                             │
-                             ├─ YES → PUBLIC
-                             │
-                             └─ NO → Default to INTERNAL, seek guidance from the CEO
-```
-
-## Appendix B: Data Element Classification Reference
-
-|**Data Element**|**Classification**|**Regulatory Basis**|
-|---|---|---|
-|First name, last name|CONFIDENTIAL|GDPR Art. 4(1), CCPA §1798.140(o)|
-|Business email address|CONFIDENTIAL|GDPR Art. 4(1), CCPA §1798.140(o)|
-|LinkedIn profile URL|CONFIDENTIAL|GDPR Art. 4(1)|
-|Job title|CONFIDENTIAL|GDPR Art. 4(1)|
-|Current employer|CONFIDENTIAL|GDPR Art. 4(1)|
-|Company name/domain|CONFIDENTIAL|Business data|
-|Competitor interaction data|CONFIDENTIAL|Business data|
-|Lead qualification status|CONFIDENTIAL|Business data|
-|Sourcing dates|CONFIDENTIAL|Business data|
-|Customer account data|CONFIDENTIAL|GDPR Art. 4(1), CCPA|
-|API keys/tokens|RESTRICTED|Security requirement|
-|Encryption keys|RESTRICTED|Security requirement|
-|Database credentials|RESTRICTED|Security requirement|
-|System logs (sanitized)|INTERNAL|Operational data|
-|Architecture documentation|INTERNAL|Business data|
-|Marketing materials|PUBLIC|Approved for release|
-
-Business contact information is processed under the GDPR legitimate interest basis for B2B marketing and is subject to CCPA business contact exemption considerations. Market intelligence derived from it is CONFIDENTIAL at the individual level; aggregated or anonymized data is INTERNAL or PUBLIC depending on disclosure approval by the CEO.
-
-## Appendix C: Quick Reference Card
-
-**Before handling any data, ask:**
-
-1. **What classification level is this data?**
-
-2. **Am I authorized to access this data?**
-
-3. **Am I using approved storage and transmission methods?**
-
-4. **Have I applied appropriate security controls?**
-
-5. **Do I know how to report a suspected incident?**
-
-**When in doubt:**
-
-- Classify at the higher level
-
-- Contact the CEO for guidance
-
-- Do not share externally until classification is confirmed
-
-**Report incidents immediately** through the compliance platform Incident Reporting system or contact the CEO directly.
-
-_This document is classified as Internal Use and should be handled accordingly._

@@ -1,0 +1,60 @@
+[
+  {
+    "id": "mem_6ae44677fb589e11ee8795cb",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "userId": "usr_6ae44677679d60f1c6cf0424",
+    "role": "contractor",
+    "createdAt": "2026-10-30T07:25:43.474Z",
+    "department": "none",
+    "jobTitle": "Head of Go-To-Market (contractor)",
+    "isActive": true,
+    "deactivated": false,
+    "backgroundCheckExempt": false,
+    "backgroundCheckExemptReason": null,
+    "backgroundCheckExemptJustification": null,
+    "onboardDate": null,
+    "offboardDate": null,
+    "fleetDmLabelId": null,
+    "user": {
+      "id": "usr_6ae44677679d60f1c6cf0424",
+      "name": "william",
+      "email": "william@dealintelligence.io",
+      "emailVerified": true,
+      "image": null,
+      "createdAt": "2026-10-30T07:25:43.466Z",
+      "updatedAt": "2026-10-30T07:25:43.466Z",
+      "lastLogin": null,
+      "role": "user"
+    },
+    "backgroundCheckRequests": []
+  },
+  {
+    "id": "mem_6ae4394866f20a057e95811c",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "userId": "usr_6ae4346bb3c0cebd99567475",
+    "role": "owner",
+    "createdAt": "2026-10-30T06:29:28.446Z",
+    "department": "admin",
+    "jobTitle": "Chief Executive Officer",
+    "isActive": true,
+    "deactivated": false,
+    "backgroundCheckExempt": false,
+    "backgroundCheckExemptReason": null,
+    "backgroundCheckExemptJustification": null,
+    "onboardDate": null,
+    "offboardDate": null,
+    "fleetDmLabelId": null,
+    "user": {
+      "id": "usr_6ae4346bb3c0cebd99567475",
+      "name": "Mo Messidi",
+      "email": "mo@dealintelligence.io",
+      "emailVerified": true,
+      "image": "https://lh3.googleusercontent.com/a/ACg8ocKVQDrQEno_JpYKpw7GSXaMsYnBnFHmT5ZHwSB6XBPhCLoxsQ=s96-c",
+      "createdAt": "2026-10-30T06:08:43.439Z",
+      "updatedAt": "2026-10-30T06:08:43.439Z",
+      "lastLogin": null,
+      "role": "user"
+    },
+    "backgroundCheckRequests": []
+  }
+]

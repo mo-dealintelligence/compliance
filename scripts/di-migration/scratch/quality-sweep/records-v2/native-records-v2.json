@@ -1,0 +1,111 @@
+{
+  "board-meeting-q4-2025": {
+    "formType": "board-meeting",
+    "payload": {
+      "submissionDate": "2025-12-09T22:00:00.000Z",
+      "date": "2025-12-09",
+      "attendees": "Mo Messidi (Chief Executive Officer); William Wickey (Go-to-Market Contractor). Quorum established.",
+      "meetingMinutes": "Q4 2025 quarterly management meeting — Deal Intelligence LLC\nSource: board-management-meeting-minutes-q4-2025-v1.0.pdf (audited record, finalized 2026-02-02); text as revised in scratch/quality-sweep/records-v2/board-management-meeting-minutes-q4-2025.md\n\n<minutes body: docBody('board-management-meeting-minutes-q4-2025') from the revised markdown>",
+      "meetingMinutesApprovedBy": "Mo Messidi (CEO, meeting recorder)",
+      "approvedDate": "2026-02-02"
+    }
+  },
+  "performance-evaluation-ceo-2025": {
+    "formType": "employee-performance-evaluation",
+    "payload": {
+      "submissionDate": "2025-12-09T22:00:00.000Z",
+      "employeeName": "Mo Messidi (Chief Executive Officer)",
+      "manager": "Self-evaluation — CEO; management review recorded in the Q4 2025 management meeting minutes",
+      "reviewPeriodTo": "2025-12-09",
+      "overallRating": "exceeds-expectations",
+      "managerComments": "Annual Performance Evaluation — CEO, period 2025-01-01 to 2025-12-09. Composite rating 4.95/5 (Exceptional).\n\n<summary: §8.2 of the revised evaluation markdown>\n\nAreas for improvement: control automation 86 % → 95 % (Q2 2026); 2 remaining SOC 2 controls (Q1–Q2 2026); penetration testing cadence (Q2 2026). Full record: annual-performance-evaluation-ceo-v1.0.pdf.",
+      "managerSignature": "Mo Messidi",
+      "managerSignatureDate": "2025-12-09"
+    }
+  },
+  "bcp-full-test-2026-02": {
+    "formType": "tabletop-exercise",
+    "payload": {
+      "submissionDate": "2026-02-04T08:25:00.000Z",
+      "exerciseDate": "2026-02-04",
+      "facilitator": "Mo Messidi (CEO, exercise coordinator)",
+      "scenarioType": "custom",
+      "scenarioDescription": "AWS service disruption — full systems recovery from backups using infrastructure as code (CloudFormation via the Serverless Framework, serverless.yml). Plan: \"AWS Service Disruption Recovery\" (process: AWS Infrastructure Operations). Type: full recovery test, not a discussion-only tabletop.",
+      "attendees": [
+        {
+          "name": "Mo Messidi",
+          "roleTitle": "Chief Executive Officer",
+          "department": "Executive"
+        }
+      ],
+      "sessionNotes": "Scheduled 2026-03-04; executed early on 2026-02-04 (started 00:24, completed 00:25 PST; 08:24–08:25 UTC). Recovered all AWS infrastructure from backups via the serverless.yml deployment. Result: system recovered successfully; plan success rate 100 % (1/1 exercises). Recorded in the compliance platform's business continuity module (screenshot attached).",
+      "actionItems": [
+        {
+          "finding": "Full recovery succeeded; no gaps identified in the restore path.",
+          "improvementAction": "Repeat the backup-restore test quarterly per the Business Continuity Plan and record the RTO and RPO achieved in the compliance platform.",
+          "assignedOwner": "Mo Messidi",
+          "dueDate": "2026-05-04"
+        }
+      ],
+      "evidenceFile": "<uploaded file reference, unchanged>"
+    }
+  },
+  "rbac-matrix": {
+    "formType": "rbac-matrix",
+    "payload": {
+      "submissionDate": "<today, unchanged>",
+      "matrixRows": [
+        {
+          "system": "PropelAuth (Deal Intelligence platform authentication)",
+          "roleName": "Owner",
+          "permissionsScope": "Full organization administration in the Deal Intelligence platform; manage members and billing",
+          "approvedBy": "Mo Messidi",
+          "lastReviewed": "<today>"
+        },
+        {
+          "system": "PropelAuth (Deal Intelligence platform authentication)",
+          "roleName": "Admin",
+          "permissionsScope": "Organization administration; manage members and settings",
+          "approvedBy": "Mo Messidi",
+          "lastReviewed": "<today>"
+        },
+        {
+          "system": "PropelAuth (Deal Intelligence platform authentication)",
+          "roleName": "Member (default role)",
+          "permissionsScope": "Standard product access to the organization's data; no member or billing management",
+          "approvedBy": "Mo Messidi",
+          "lastReviewed": "<today>"
+        },
+        {
+          "system": "Compliance platform (self-hosted on AWS)",
+          "roleName": "Owner — Mo Messidi (CEO)",
+          "permissionsScope": "Full administration of the compliance program: policies, controls, evidence, people, settings",
+          "approvedBy": "Mo Messidi",
+          "lastReviewed": "<today>"
+        },
+        {
+          "system": "Compliance platform (self-hosted on AWS)",
+          "roleName": "Employee — William Wickey (Go-to-Market Contractor)",
+          "permissionsScope": "Compliance platform portal only: policy acknowledgment and security training",
+          "approvedBy": "Mo Messidi",
+          "lastReviewed": "<today>"
+        },
+        {
+          "system": "GitHub (mo-dealintelligence organization) [CONFIRM: RULEBOOK R8 names the repository dealintelligence/di-backend-api — confirm the organization name]",
+          "roleName": "Organization owner — Mo Messidi (CEO)",
+          "permissionsScope": "All repositories, branch protection, secrets, GitHub Actions; MFA enforced",
+          "approvedBy": "Mo Messidi",
+          "lastReviewed": "<today>"
+        },
+        {
+          "system": "Google Workspace (dealintelligence.io)",
+          "roleName": "Super Admin — Mo Messidi (CEO)",
+          "permissionsScope": "Workspace administration, user lifecycle, security settings; MFA enforced",
+          "approvedBy": "Mo Messidi",
+          "lastReviewed": "<today>"
+        },
+        "<AWS IAM rows from --inventory rbac-aws-rows.json, unchanged>"
+      ]
+    }
+  }
+}

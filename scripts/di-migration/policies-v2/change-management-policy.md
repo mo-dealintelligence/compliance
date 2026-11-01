@@ -14,379 +14,274 @@ source: "change-management-policy-v1.0.pdf"
 
 ## 1. Purpose
 
-This Change Management Policy establishes the formal framework for planning, approving, implementing, and reviewing all changes to Deal Intelligence LLC's production systems and infrastructure. The policy ensures that modifications to the platform are executed in a controlled manner that minimizes risk, maintains service availability, and preserves the integrity of customer data processing operations.
+This policy governs how Deal Intelligence LLC plans, approves, implements, and reviews changes to its production systems and infrastructure. Changes to the platform are executed in a controlled way that minimizes risk, maintains service availability, and preserves the integrity of customer data processing.
 
-This policy operationalizes the change control requirements defined in the Information Security Policy and directly supports SOC 2 Trust Services Criteria CC8.1 (Change Management) while maintaining our 99.9% uptime SLA.
+The policy implements the change control requirements of the Information Security Policy and supports the 99.9 % uptime SLA. It addresses SOC 2 Trust Services Criteria CC8.1 (the entity authorizes, designs, develops or acquires, configures, documents, tests, approves, and implements changes to infrastructure, data, software, and procedures), CC7.1 (the entity uses detection and monitoring procedures), and A1.2 (the entity authorizes, designs, develops or acquires, implements, operates, approves, maintains, and monitors environmental protections).
 
 ## 2. Scope
 
 This policy applies to all changes affecting:
 
-- Production AWS infrastructure components documented in CloudFormation stack di-backend-api-prod
-
+- Production AWS infrastructure components documented in the CloudFormation stack di-backend-api-prod
 - Lambda functions, Fargate containers, and ECS services
-
 - DocumentDB configurations and data schemas
-
 - API endpoints and CloudFront distributions
-
-- Security configurations including IAM roles, VPC settings, and KMS keys
-
+- Security configurations, including IAM roles, VPC settings, and KMS keys
 - PropelAuth authentication configurations
-
 - CI/CD pipeline configurations in GitHub Actions
-
 - Production data structures and processing logic
-
 - Integration configurations with customer systems
 
 Excluded from this policy:
 
-- Development and testing environment changes (unless impacting production)
-
-- Documentation updates not affecting system functionality
-
-- Read-only database queries for reporting purposes
+- Development and testing environment changes (unless they affect production)
+- Documentation updates that do not affect system functionality
+- Read-only database queries for reporting
 
 ## 3. Definitions
 
-**Change** : Any addition, modification, or removal of hardware, software, infrastructure, or configuration that could impact the production environment or service delivery.
+**Change**: Any addition, modification, or removal of hardware, software, infrastructure, or configuration that could affect the production environment or service delivery.
 
-**Standard Change** : Pre-approved, low-risk changes that follow documented procedures and have predictable outcomes (e.g., routine security patches, Lambda function timeout adjustments within approved ranges).
+**Standard change**: A pre-approved, low-risk change that follows a documented procedure and has a predictable outcome (for example, a routine security patch or a Lambda function timeout adjustment within the approved range).
 
-**Normal Change** : Changes requiring review and approval through the pull-request review process before implementation.
+**Normal change**: A change that requires review and approval through the pull-request review process before implementation.
 
-**Emergency Change** : High-priority changes required to restore service or address critical security vulnerabilities, implemented through a pull request labelled `emergency` with post-hoc review within 5 business days.
+**Emergency change**: A high-priority change required to restore service or address a critical security vulnerability, implemented through a pull request labelled `emergency` with post-hoc review within 5 business days.
 
-**Pull-Request Review** : The change review and approval mechanism for all production changes: a pull request against the protected `main` branch of the `dealintelligence/di-backend-api` repository, with required GitHub Actions CI status checks (lint, tests, Bandit, Trivy, TruffleHog), a logged self-review in the pull request, and merge by the Chief Executive Officer as final approver. Direct pushes to `main` are not permitted.
+**Pull-request review**: The change review and approval mechanism for all production changes: a pull request against the protected `main` branch of the `dealintelligence/di-backend-api` repository, with required GitHub Actions CI status checks (lint, tests, Bandit, Trivy, TruffleHog), a logged self-review in the pull request, and merge by the Chief Executive Officer (CEO) as final approver. Direct pushes to `main` are not permitted.
 
-**Change Window** : Pre-scheduled maintenance periods communicated to customers, typically scheduled during off-peak hours (2:00 AM - 6:00 AM EST).
+**Change window**: A pre-scheduled maintenance period communicated to customers, typically during off-peak hours (2:00 AM – 6:00 AM EST).
 
-## 4. Roles and Responsibilities
+## 4. Roles and responsibilities
 
-### 4.1 Chief Executive Officer
+### 4.1 Chief Executive Officer (CEO)
 
 The CEO owns this policy and is the only role with production access. The CEO:
 
 - Serves as final approver for all production changes and merges all normal and emergency change pull requests
-
-- Ensures changes align with business objectives and compliance requirements
-
+- Confirms that changes align with business objectives and compliance requirements
 - Authorizes exceptions to standard change procedures when necessary
-
 - Reviews post-implementation reports for all changes
-
 - Prepares change requests with technical specifications
-
 - Conducts impact assessments and risk analysis
-
-- Implements approved changes following documented procedures
-
+- Implements approved changes following the documented procedures
 - Performs rollback procedures when necessary
-
 - Documents change outcomes and lessons learned
-
-- Ensures changes maintain SOC 2 compliance requirements
-
+- Confirms that changes maintain SOC 2 compliance
 - Reviews changes for security and privacy implications
-
 - Updates compliance documentation affected by changes
-
 - Monitors change management metrics for audit purposes
 
 ### 4.2 Go-to-Market Contractor
 
-- Holds no production access and does not initiate, approve or implement changes under this policy
+The Go-to-Market Contractor holds no production access and does not initiate, approve, or implement changes under this policy.
 
-### 4.3 External SOC 2 Auditor
+### 4.3 External SOC 2 auditor
 
-- Provides independent review of the change records (pull requests, CI runs, CloudTrail logs) retained under this policy
+The external SOC 2 auditor provides independent review of the change records (pull requests, CI runs, CloudTrail logs) retained under this policy.
 
-## 5. Change Management Process
+## 5. Change management process
 
-### 5.1 Change Request Initiation
+### 5.1 Change request initiation
 
-All changes must be initiated through a formal change request that includes:
+Every change starts with a change request that includes:
 
 - Description of the proposed change
-
 - Business justification and expected benefits
-
 - Technical specifications and implementation details
-
 - Risk assessment using the Risk Assessment Procedure
-
 - Impact analysis on systems, services, and customers
-
 - Rollback plan and success criteria
-
 - Testing requirements and validation procedures
-
 - Proposed implementation schedule
 
 Change requests are documented in GitHub Issues with the "change-request" label and tracked through the associated pull request and the CI/CD pipeline.
 
-### 5.2 Change Categories and Approval Requirements
+### 5.2 Change categories and approval requirements
 
-#### Standard Changes
+#### 5.2.1 Standard changes
 
-- Pre-approved changes of the types listed below
+Pre-approved changes of the following types:
 
 - Automated dependency updates proposed by GitHub Dependabot that pass all required CI status checks
-
 - Lambda function configuration updates within defined parameters
-
 - CloudWatch alarm threshold adjustments
 
-- Approval: Pre-authorized, logged for audit purposes
+Approval: pre-authorized, logged for audit purposes.
 
-#### Normal Changes
+#### 5.2.2 Normal changes
 
 - Infrastructure modifications via CloudFormation
-
 - Database schema changes
-
 - API endpoint additions or modifications
-
 - Security group rule changes
-
 - Third-party integration updates
 
-- Approval: Pull-request review required; all required CI status checks must pass before merge to `main`
+Approval: pull-request review; all required CI status checks must pass before merge to `main`.
 
-#### Emergency Changes
+#### 5.2.3 Emergency changes
 
 - Critical security vulnerability patches
-
 - Service restoration changes
-
 - Data breach containment measures
 
-- Approval: Pull request labelled `emergency`; post-hoc review within 5 business days
+Approval: pull request labelled `emergency`; post-hoc review within 5 business days.
 
-### 5.3 Change Assessment and Planning
+### 5.3 Change assessment and planning
 
 Before approval, all normal and emergency changes undergo:
 
-#### 1. Technical Review
+#### 5.3.1 Technical review
 
 - Logged self-review in the GitHub pull request
-
 - Automated security scanning via GitHub Actions (Bandit, Trivy, TruffleHog)
-
 - Dependency vulnerability assessment
-
 - Performance impact analysis
 
-#### 2. Security Review
+#### 5.3.2 Security review
 
-- Compliance with Cloud Infrastructure Security Policy
-
-- Data protection impact per Data Classification and Handling Standard
-
+- Compliance with the Cloud Infrastructure Security Policy
+- Data protection impact per the Data Classification and Handling Standard
 - Authentication and access control validation
 
-#### 3. Business Impact Assessment
+#### 5.3.3 Business impact assessment
 
 - Customer notification requirements
-
-- SLA impact analysis per Service Level Agreement (SLA) Management Policy
-
+- SLA impact analysis per the Service Level Agreement (SLA) Management Policy
 - Integration dependency mapping
-
 - Rollback time estimation
 
-### 5.4 Change Implementation
+### 5.4 Change implementation
 
-All approved changes follow these implementation requirements:
-
-#### 1. Pre-Implementation
+#### 5.4.1 Pre-implementation
 
 - Customer notification for maintenance windows (minimum 72 hours for planned changes)
-
-- Backup verification per Business Continuity Plan
-
+- Backup verification per the Business Continuity Plan
 - Validation in the staging stage of the CloudFormation stack (no production data; scrubbed or synthetic data only)
-
 - Implementation checklist review
 
-#### 2. Implementation
+#### 5.4.2 Implementation
 
-- Follow the procedures documented in this policy and in the pull request
-
+- Procedures followed as documented in this policy and in the pull request
 - Real-time monitoring via CloudWatch dashboards
-
 - Communication updates to affected stakeholders
-
 - Deployment from a green CI run using Lambda versioned deployments, with rollback via `serverless rollback`
 
-#### 3. Validation
+#### 5.4.3 Validation
 
 - Automated smoke tests via GitHub Actions
-
 - Manual verification of critical functionality
-
 - Performance metrics validation
-
 - Security control verification
 
-### 5.5 Post-Implementation Review
+### 5.5 Post-implementation review
 
-Within 5 business days of implementation:
+Within 5 business days of implementation, the CEO:
 
-- Document actual vs. planned outcomes
+- Documents actual versus planned outcomes
+- Updates the configuration management database
+- Reviews any incidents or unexpected behavior
+- Updates procedures as needed
+- Archives the change documentation for audit purposes
 
-- Update configuration management database
+## 6. Emergency change procedures
 
-- Review any incidents or unexpected behaviors
+Emergency changes follow an expedited process while maintaining control.
 
-- Update procedures as needed
+### 6.1 Immediate response
 
-- Archive change documentation for audit purposes
-
-## 6. Emergency Change Procedures
-
-Emergency changes follow an expedited process while maintaining control:
-
-#### 1. Immediate Response
-
-- CEO opens a pull request labelled `emergency` against the protected `main` branch; required CI status checks still apply
-
+- The CEO opens a pull request labelled `emergency` against the protected `main` branch; required CI status checks still apply
 - Implementation proceeds with continuous monitoring
+- The incident is documented in the compliance platform's Incident Reporting system
 
-- Incident documented in the compliance platform's Incident Reporting system
+### 6.2 Documentation requirements
 
-#### 2. Documentation Requirements
-
-- Complete change request within 24 hours
-
+- Change request completed within 24 hours
 - Post-hoc review recorded in the pull request within 5 business days
+- Root cause analysis per the Incident Response Procedure
 
-- Root cause analysis per Incident Response Procedure
+### 6.3 Follow-up actions
 
-#### 3. Follow-up Actions
+- Permanent fix planned if temporary measures were implemented
+- Process improvement recommendations recorded
+- Customer communication per the breach notification requirements
 
-- Permanent fix planning if temporary measures implemented
+## 7. Change management tools and automation
 
-- Process improvement recommendations
-
-- Customer communication per breach notification requirements
-
-## 7. Change Management Tools and Automation
-
-### 7.1 Technical Controls
+### 7.1 Technical controls
 
 - GitHub Actions for CI/CD pipeline automation
-
 - Branch protection on `main` requiring a pull request and required CI status checks (lint, tests, Bandit, Trivy, TruffleHog); no direct pushes
-
 - Pre-commit hooks for security and quality checks
-
 - CloudFormation (`serverless deploy`) as the only infrastructure change path, with drift reporting
-
 - Security Hub configuration checks for compliance monitoring
 
-### 7.2 Documentation and Tracking
+### 7.2 Documentation and tracking
 
 - GitHub Issues for change request management
-
 - Pull request descriptions for change documentation
-
 - CloudTrail for AWS infrastructure change audit logs
-
 - The compliance platform for compliance reporting and metrics
 
-## 8. Metrics and Reporting
+## 8. Metrics and reporting
 
-Monthly change management metrics tracked include:
+Monthly change management metrics include:
 
 - Total changes by category (standard, normal, emergency)
-
-- Change success rate (successful/total changes)
-
+- Change success rate (successful changes / total changes)
 - Emergency change percentage
-
 - Average implementation time by category
-
 - Rollback frequency and root causes
-
 - Compliance with change windows
+- Customer-impacting incidents caused by changes
 
-- Customer-impacting incidents from changes
+The CEO reviews the metrics monthly, and they are included in the quarterly compliance reviews.
 
-Reports are reviewed monthly by CEO and included in quarterly compliance reviews.
+## 9. Audit trail
 
-## 9. Compliance and Audit
-
-### 9.1 SOC 2 Requirements
-
-This policy addresses the following SOC 2 criteria:
-
-- CC8.1: The entity authorizes, designs, develops or acquires, configures, documents, tests, approves, and implements changes to infrastructure, data, software, and procedures
-
-- CC7.1: To meet its objectives, the entity uses detection and monitoring procedures
-
-- A1.2: The entity authorizes, designs, develops or acquires, implements, operates, approves, maintains, and monitors environmental protections
-
-### 9.2 Audit Trail Requirements
-
-All changes maintain complete audit trails including:
+All changes maintain a complete audit trail, including:
 
 - Change request documentation
-
 - Approval records and timestamps
-
 - Implementation logs and test results
-
 - Git commit history and pull request records
-
 - CloudTrail logs for infrastructure changes
-
 - Post-implementation review documentation
 
-## 10. Training and Awareness
+## 10. Training and awareness
 
 The CEO maintains current knowledge of:
 
 - AWS best practices for change management
-
 - Security implications of infrastructure changes
-
 - Compliance requirements for change control
-
 - Industry standards and emerging threats
 
-Training is documented in the Security Awareness Training Program.
+Training is documented per the Security Awareness Training Program.
 
-## 11. Related Documents
+## 11. Related documents
 
 - Information Security Policy
-
-- Incident Response Procedure
-
 - Business Continuity Plan
-
-- Risk Assessment Procedure
-
-- Secure Software Development Lifecycle (SDLC) Standard
-
 - Cloud Infrastructure Security Policy
-
+- Data Classification and Handling Standard
+- Incident Response Procedure
+- Risk Assessment Procedure
+- Secure Software Development Lifecycle (SDLC) Standard
+- Security Awareness Training Program
+- Service Level Agreement (SLA) Management Policy
 - Vulnerability Management Procedure
 
-## 12. Policy Review and Updates
+## 12. Policy review and updates
 
-This policy is reviewed annually or upon significant changes to:
+This policy is reviewed annually or on significant changes to:
 
-- AWS infrastructure architecture
-
+- The AWS infrastructure architecture
 - Regulatory requirements
-
 - Business operations or service offerings
+- The security threat landscape
 
-- Security threat landscape
-
-## 13. Revision History
+## 13. Revision history
 
 | Version | Date | Author | Summary of change |
 |---|---|---|---|

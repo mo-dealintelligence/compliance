@@ -28,3 +28,18 @@
 - §8 "Findings logged in GitHub Issues with security labels" kept from v1 — confirm pentest findings are logged in GitHub Issues rather than only in the compliance platform.
 - §10.3 "Annual attestation of security assessment completion" kept from v1 — confirm an attestation is produced.
 - R3 staging: separate account vs same account (not written into the policy).
+
+## Quality sweep (2026-10-31)
+
+- Q1 voice: §1 rewritten from "establishes the formal framework… ensures that… proactively" to plain declarative; removed filler ("comprehensive" ×3, "formal framework", "proactively", "ensures that"); §5.3, §7.1, §7.2, §7.3, §8, §11 lead-ins turned into full sentences naming the owner (the CEO) and the record (the compliance platform).
+- Q1 parallel grammar: §6.1 vendor-selection bullets made parallel ("Vendors must…"); §10.2 bullets made full sentences; §6.4 "Updated risk assessment per organizational risk register" → "Risk register updated per the Risk Assessment Procedure" (same commitment, real document name).
+- Q2 headings: all headings to sentence case; 19 `####` run-in headings ("Scope Requirements:", "Timing:", …) converted to bold paragraph labels so the numbered hierarchy stops at `###`; "Chief Executive Officer (CEO)" on first use.
+- Q2 severity: §3 definitions "Critical Finding / High-Risk Finding / Medium-Risk Finding / Low-Risk Finding" → Critical / High / Medium / Low to match §8 and the Vulnerability Management Procedure; §6.4 "critical and high-risk findings" → "Critical and High findings".
+- Q2 numbers: durations as "within 24 hours / 7 days / 30 days / 90 days" in §8; CVSS ranges with en dashes; "Minimum 30-day advance notice" → "Minimum 30 days' advance notice"; "AWS Security Hub" → "Security Hub" ×3; "IAM access analyzer" → "IAM Access Analyzer".
+- Q2 lists: removed blank lines between bullets throughout (all 30 lists).
+- Q3 structure: §10 "Compliance and Regulatory Requirements" — §10.1 SOC 2 criteria list merged into §1 (which already named two of the four criteria); §10.2/§10.3 kept as §10 "Records and customer notification"; §13 "Policy Review and Updates" → §12 "Review" and moved before Related documents; Related documents → §13, Revision history → §14 (section count unchanged at 14).
+- No commitment, number, role, scope item or control changed.
+
+### CONFIRM (new)
+
+- None added. Existing CONFIRM items above still stand.

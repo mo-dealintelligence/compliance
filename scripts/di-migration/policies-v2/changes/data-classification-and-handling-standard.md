@@ -32,3 +32,16 @@
 - §4.1 names the `di-backend-api-prod` stack as the location of Confidential/Restricted data (taken from the Policy §2.1.3). Confirm there is no second stack or bucket outside it holding Confidential data.
 - §10.1 "Exceptions reviewed quarterly" kept verbatim; confirm a quarterly exception review is recorded in the compliance platform.
 - Frontmatter `finalized_at` dropped; confirm the migration script does not require that key.
+
+## Quality sweep (2026-10-31)
+
+- Q3 structure: §1 "Purpose and Scope" split into §1 Purpose and §2 Scope; §1.3 "Compliance Alignment" merged into §1 (SOC 2, GDPR, CCPA kept; "Industry best practices for B2B data handling" dropped as content-free); §9 Responsibilities moved to §3 Roles and responsibilities; §2.1 "Classification Levels" layer removed so the four tiers are `### 4.1`–`### 4.4` instead of `####`; §7 "Compliance and Monitoring" retitled "Monitoring and incident response" (content kept); §12 "Document Review and Maintenance" → §12 "Review"; Revision history moved after the appendices as the last section (§14). Internal cross-references updated ("Section 2" → "Section 4" ×2; "below" → "Section 3.3"). Sections renumbered 1–14; no section deleted.
+- Q1 voice: §1 rewritten to plain declarative (removed "establishes the framework… ensures that", "our"); "utilizing the organization's compliance platform" → "using the compliance platform"; "Ensure adequate resources" → "Allocates resources"; bullets in §5.1, §7.x, §8.2, §11.x turned into full present-tense sentences where the list was a mix of fragments and imperatives; §3.1 CEO responsibilities in third-person present; "For complete… see" / "refer to" lead-outs shortened.
+- Q2 names: "AWS KMS" → "KMS"; "AWS Secrets Manager" → "Secrets Manager" ×3; "Chief Executive Officer" after first use → "the CEO" ×3; "30-day notice" → "30 days' notice"; "30-day (GDPR) / 45-day (CCPA) response timeline" → "Response timeline…: 30 days (GDPR) / 45 days (CCPA)"; tier names in Appendix A/B and the Appendix B paragraph from upper case (CONFIDENTIAL) to the tier names used in the body (Confidential); footer "Internal Use" → "Internal" (the tier name).
+- Q2 headings/lists: all headings and table headers to sentence case; "**Definition** :" spacing fixed (×16); removed blank lines between bullets (all lists) and between numbered items in Appendix C; nested lists indented two spaces; bold removed from Appendix C question items; Oxford commas.
+- Related documents: added API Security and Rate Limiting Standard and Security Awareness Training Program, both cited in the body (§5.3, §10.2); all listed documents exist in the set.
+- No commitment, number, role, scope item or control changed.
+
+### CONFIRM (new)
+
+- None added.

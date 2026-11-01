@@ -29,3 +29,17 @@
 - §5.4.1 "approved via the GitHub Actions workflow": confirm a manual approval gate (environment protection rule) exists on the production deploy job; otherwise reduce to "deployed from a green CI run on `main`".
 - §5.5.2 "Container vulnerability scans shall be reviewed weekly" kept from v1 — confirm this cadence is actually recorded.
 - R3 staging: separate account vs same account (not written into the policy).
+
+## Quality sweep (2026-10-31)
+
+- Structure: §3 Policy Statement merged into §1 Purpose (it restated the purpose; its commitments — security-by-design, validation before production, 99.9 % SLA — kept as the third paragraph); §10 Exceptions and §12 Review and Updates merged into §9 "Exceptions and review" so Related documents precedes Revision history; "Revision History" → "Revision history". Sections renumbered 3–11.
+- §3.1 CEO duties: fourteen bullets de-duplicated to eleven ("Establishing secure coding standards" + "Maintaining the secure coding guidelines" merged; "Implementing secure coding practices" dropped as a restatement; "Coordinating security testing" + "Coordinating with the Penetration Testing … Procedure" merged). Heading "Chief Executive Officer" → "Chief Executive Officer (CEO)"; the named person kept.
+- Voice: removed "shall" ×37 (→ present tense); removed "establishes the framework for", "ensures that security is embedded", "works in conjunction with … to ensure that"; "Ensuring compliance / Ensuring automated testing coverage" → "Maintains …"; "Automated Lambda functions" → "Scheduled Lambda functions" (the term used in the monitoring procedure).
+- Consistency: document titles referenced exactly — "Penetration Testing Procedure" → "Penetration Testing and Security Assessment Procedure" (§4.3.1), "API Security Standard" → "API Security and Rate Limiting Standard" (§4.4.2); "AWS Lambda" → "Lambda"; "AWS Security Hub" → "Security Hub"; "AWS CloudTrail" → "CloudTrail"; "AWS Secrets Manager/Parameter Store" → "Secrets Manager or Parameter Store"; "900s" → "900 s"; "10%/100%" → spaced; "Chief Executive Officer" after first use → "the CEO"; headings and table labels to sentence case; nested lists re-indented; blank lines between bullets removed (~95).
+- Related documents: all 13 entries exist in the set; unchanged.
+- Word count 1812 → 1704.
+
+### New CONFIRM items
+
+- §3.1 names "Mo Messidi" as CEO; no other v2 policy names a person in the roles section. Confirm whether to keep the name here (left unchanged).
+- §4.2.3 and §4.5.1 both carry the remediation timelines (dependency CVEs vs security patches); they agree with R5 but the Vulnerability Management Procedure is the single source. Confirm whether to keep both lists.

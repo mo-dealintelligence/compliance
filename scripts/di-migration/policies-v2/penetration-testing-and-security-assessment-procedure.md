@@ -14,427 +14,300 @@ source: "penetration-testing-and-security-assessment-procedure-v1.0.pdf"
 
 ## 1. Purpose
 
-This Penetration Testing and Security Assessment Procedure establishes the formal framework for conducting systematic security assessments of Deal Intelligence LLC's platform. This procedure ensures that security vulnerabilities are proactively identified and remediated before they can be exploited, maintaining the confidentiality, integrity, and availability of business contact information and customer data.
+This procedure defines how Deal Intelligence LLC assesses the security of its platform through third-party penetration testing and internal security assessments. Its aim is to identify and remediate vulnerabilities before they are exploited, protecting the confidentiality, integrity, and availability of business contact information and customer data.
 
-This procedure operationalizes the security assessment requirements defined in the Information Security Policy and complements the Vulnerability Management Procedure by providing specific guidance for third-party security assessments and penetration testing activities. It directly supports SOC 2 Trust Services Criteria CC4.1 (Monitoring Activities) and CC7.1 (Detection and Monitoring).
+It implements the assessment requirements of the Information Security Policy and complements the Vulnerability Management Procedure with specific rules for third-party assessments and penetration testing. It supports SOC 2 Trust Services Criteria CC4.1 (ongoing monitoring activities), CC4.2 (evaluation of deficiencies), CC7.1 (detection of actual and attempted attacks), and A1.2 (environmental protections and monitoring).
 
 ## 2. Scope
 
 This procedure applies to:
 
 - Annual third-party penetration testing of production AWS infrastructure
-
 - Quarterly automated security assessments of the platform
-
 - API endpoint security testing for customer-facing interfaces
-
 - Web application security assessments of the PropelAuth-integrated authentication system
-
-- Infrastructure security reviews of AWS resources documented in CloudFormation stack di-backend-api-prod
-
+- Infrastructure security reviews of AWS resources documented in the CloudFormation stack di-backend-api-prod
 - Container security assessments for Fargate and ECS deployments
-
 - Database security testing for DocumentDB clusters
-
 - Network security assessments of VPC configurations and security groups
 
 Excluded from scope:
 
-- Physical security assessments (not applicable for remote operations)
-
+- Physical security assessments (not applicable to remote operations)
 - Social engineering tests
-
 - Customer-controlled third-party integrations (Slack, CRM systems)
 
 ## 3. Definitions
 
-**Penetration Testing**: Authorized simulated cyber attack on the production environment to evaluate security controls and identify exploitable vulnerabilities.
+**Penetration testing**: An authorized simulated attack on the production environment to evaluate security controls and identify exploitable vulnerabilities.
 
-**Security Assessment**: Systematic evaluation of security controls, configurations, and practices against established standards and best practices.
+**Security assessment**: A systematic evaluation of security controls, configurations, and practices against established standards.
 
 **Vulnerability**: A weakness in system security procedures, design, implementation, or internal controls that could be exploited to violate security policies.
 
-**Critical Finding**: A vulnerability that could result in immediate compromise of customer data or system availability, requiring remediation within 24 hours (7 days for a dependency CVE rated critical that is not actively exploited).
+**Critical**: A vulnerability that could result in immediate compromise of customer data or system availability. Remediated within 24 hours (7 days for a dependency CVE rated critical that is not actively exploited).
 
-**High-Risk Finding**: A vulnerability presenting significant risk to operations or data security, requiring remediation within 30 days.
+**High**: A vulnerability presenting significant risk to operations or data security. Remediated within 30 days.
 
-**Medium-Risk Finding**: A vulnerability with moderate impact potential, requiring remediation within 90 days.
+**Medium**: A vulnerability with moderate impact potential. Remediated within 90 days.
 
-**Low-Risk Finding**: A vulnerability with minimal impact, tracked for remediation on a best-effort basis.
+**Low**: A vulnerability with minimal impact. Tracked for remediation on a best-effort basis.
 
-## 4. Roles and Responsibilities
+## 4. Roles and responsibilities
 
-### 4.1 Chief Executive Officer
+### 4.1 Chief Executive Officer (CEO)
 
 - Authorizes annual penetration testing engagements
-
 - Reviews and approves remediation priorities
-
-- Reviews executive summary of assessment findings
-
+- Reviews the executive summary of assessment findings
 - Approves exceptions to remediation timelines when business justified
-
-- Coordinates with third-party penetration testing vendors
-
+- Coordinates with the penetration-test vendor
 - Provides technical documentation and access for assessments
-
 - Implements remediation measures for identified vulnerabilities
-
 - Validates remediation effectiveness through retesting
-
 - Maintains assessment documentation for audit purposes
-
-- Ensures assessments meet SOC 2 requirements
-
-- Updates risk register based on assessment findings per Risk Assessment Procedure
-
+- Confirms that assessments meet SOC 2 requirements
+- Updates the risk register based on assessment findings per the Risk Assessment Procedure
 - Tracks remediation progress against defined timelines
-
 - Records assessment metrics in the compliance platform
 
-### 4.2 External Parties
+### 4.2 External parties
 
 - **Penetration-test vendor**: Conducts the annual third-party penetration test under the rules of engagement in Section 6 and delivers the report and remediation validation
-
 - **External SOC 2 auditor**: Provides independent review of assessment reports and remediation evidence
 
-## 5. Assessment Types and Frequency
+## 5. Assessment types and frequency
 
-### 5.1 Annual Third-Party Penetration Testing
+### 5.1 Annual third-party penetration testing
 
-#### Scope Requirements:
+**Scope requirements**
 
 - External network penetration testing of public-facing infrastructure
-
 - Web application testing of API endpoints and authentication systems
-
 - AWS cloud configuration review against CIS benchmarks
-
 - Container security assessment of ECR images and ECS configurations
+- Database security testing, including access controls and encryption validation
 
-- Database security testing including access controls and encryption validation
+**Timing**
 
-#### Timing:
+- Conducted annually in Q3 to align with the SOC 2 audit cycle
+- Scheduled during the maintenance windows defined in the Change Management Policy
+- Minimum 30 days' advance notice to customers for any service impact
 
-- Conducted annually in Q3 to align with SOC 2 audit cycle
+### 5.2 Quarterly automated security assessments
 
-- Scheduled during maintenance windows defined in Change Management Policy
+**Automated scanning**
 
-- Minimum 30-day advance notice to customers for any service impact
-
-### 5.2 Quarterly Automated Security Assessments
-
-#### Automated Scanning:
-
-- Continuous AWS Security Hub checks against the Foundational Security Best Practices, reviewed monthly
-
+- Continuous Security Hub checks against the Foundational Security Best Practices, reviewed monthly
 - Container image scanning in ECR with each deployment (scan-on-push)
-
 - Dependency vulnerability checks via GitHub Dependabot and code scanning, and Trivy in GitHub Actions
-
 - Infrastructure configuration checks via CloudFormation drift reporting and Security Hub configuration checks
 
-#### Manual Reviews:
+**Manual reviews**
 
 - Quarterly review of IAM policies and access permissions
-
 - Security group and network ACL configuration audits
-
 - CloudFormation template security analysis
-
 - Secrets management review for API keys and credentials
 
-### 5.3 Continuous Security Monitoring
+### 5.3 Continuous security monitoring
 
-Integration with existing monitoring infrastructure per System Monitoring and Logging Procedure:
+Assessment activity uses the monitoring defined in the System Monitoring and Logging Procedure:
 
-- Real-time detection via AWS Security Hub findings routed to SNS by the breach-detection Lambda
-
+- Real-time detection via Security Hub findings routed to SNS by the breach-detection Lambda
 - CloudTrail analysis for unauthorized access attempts
-
 - CloudWatch alerts for security anomalies
-
 - Security Hub findings aggregation and prioritization
 
-## 6. Penetration Testing Process
+## 6. Penetration testing process
 
-### 6.1 Pre-Engagement Requirements
+### 6.1 Pre-engagement requirements
 
-#### Vendor Selection:
+**Vendor selection**
 
-- Vendors must demonstrate SOC 2 or ISO 27001 certification
+- Vendors must hold SOC 2 or ISO 27001 certification
+- Vendors must have expertise in AWS cloud security and serverless architectures
+- A non-disclosure agreement is executed per the Vendor Management Policy
+- Vendors must carry professional liability insurance of at least $1 million
 
-- Required expertise in AWS cloud security and serverless architectures
-
-- Non-disclosure agreement execution per Vendor Management Policy
-
-- Professional liability insurance minimum $1 million coverage
-
-#### Scoping Documentation:
+**Scoping documentation**
 
 - Current architecture diagrams and network topology
-
 - List of in-scope IP addresses, domains, and AWS resources
-
 - API documentation and authentication mechanisms
-
 - Known vulnerabilities from previous assessments
-
 - Business-critical systems requiring careful testing
 
-### 6.2 Rules of Engagement
+### 6.2 Rules of engagement
 
-#### Authorized Testing Methods:
+**Authorized testing methods**
 
-- Black box testing for external attack surface
-
+- Black box testing of the external attack surface
 - Gray box testing with limited credentials for authenticated assessments
+- White box testing with full documentation for in-depth review
+- Automated vulnerability scanning within the rate limits of the API Security and Rate Limiting Standard
 
-- White box testing with full documentation for comprehensive review
-
-- Automated vulnerability scanning with rate limiting compliance per API Security and Rate Limiting Standard
-
-#### Prohibited Activities:
+**Prohibited activities**
 
 - Denial of service attacks or resource exhaustion
-
 - Data exfiltration beyond proof of concept
-
 - Modification or deletion of production data
-
 - Social engineering of Deal Intelligence personnel
+- Testing outside the defined scope or timeframes
 
-- Testing outside defined scope or timeframes
+### 6.3 Testing execution
 
-### 6.3 Testing Execution
-
-#### Communication Requirements:
+**Communication requirements**
 
 - Daily status updates during active testing periods
-
 - Immediate notification of critical findings to the CEO
-
 - Coordination for any testing requiring system access
+- Adherence to the 100 requests/minute rate limit for API testing
 
-- Adherence to 100 requests/minute rate limiting for API testing
-
-#### Testing Phases:
+**Testing phases**
 
 1. **Reconnaissance**: OSINT gathering and attack surface mapping
-
 2. **Scanning**: Automated vulnerability identification
-
 3. **Enumeration**: Service and version detection
-
 4. **Exploitation**: Controlled vulnerability validation
+5. **Post-exploitation**: Impact assessment without data access
+6. **Reporting**: Documentation of findings
 
-5. **Post-Exploitation**: Impact assessment without data access
+### 6.4 Post-assessment activities
 
-6. **Reporting**: Comprehensive documentation of findings
-
-### 6.4 Post-Assessment Activities
-
-#### Report Requirements:
+**Report requirements**
 
 - Executive summary with risk ratings
-
 - Detailed technical findings with reproduction steps
-
-- CVSS scoring for each vulnerability
-
+- CVSS score for each vulnerability
 - Remediation recommendations with priority rankings
+- Mapping to SOC 2 criteria
 
-- Compliance mapping to SOC 2 criteria
+**Remediation validation**
 
-#### Remediation Validation:
-
-- Retesting of critical and high-risk findings within remediation timelines
-
+- Retesting of Critical and High findings within the remediation timelines
 - Verification letter upon successful remediation
+- Risk register updated per the Risk Assessment Procedure
 
-- Updated risk assessment per organizational risk register
+## 7. Internal security assessments
 
-## 7. Internal Security Assessments
+### 7.1 Self-assessment procedures
 
-### 7.1 Self-Assessment Procedures
+The CEO conducts a monthly security review and records it in the compliance platform. The review covers:
 
-Monthly security reviews conducted by the CEO and recorded in the compliance platform:
-
-- AWS Security Hub findings review and remediation
-
+- Security Hub findings and their remediation
 - Container vulnerability scan results from ECR
-
 - GitHub Dependabot alerts for code dependencies
+- CloudFormation drift reporting
+- IAM Access Analyzer findings
 
-- CloudFormation drift reporting analysis
+### 7.2 Configuration reviews
 
-- IAM access analyzer findings
+Quarterly configuration assessments cover:
 
-### 7.2 Configuration Reviews
-
-Quarterly configuration assessments:
-
-- VPC security group rules against principle of least privilege
-
+- VPC security group rules against the principle of least privilege
 - S3 bucket policies and public access blocks
-
 - KMS key policies and rotation schedules
-
 - Lambda function permissions and resource policies
-
 - CloudFront and Lambda function URL security configurations
 
-### 7.3 Code Security Reviews
+### 7.3 Code security reviews
 
-Integrated with Secure Software Development Lifecycle (SDLC) Standard:
+Code security reviews follow the Secure Software Development Lifecycle (SDLC) Standard:
 
 - Static application security testing (SAST) via GitHub Actions (Bandit)
-
 - Software composition analysis for open-source vulnerabilities
-
 - Secret scanning in code repositories (TruffleHog)
-
 - Pull request self-review and required CI status checks on the protected `main` branch before production deployment
 
-## 8. Vulnerability Management Integration
+## 8. Vulnerability management integration
 
-Assessment findings are managed according to the Vulnerability Management Procedure:
+Assessment findings are managed according to the Vulnerability Management Procedure.
 
-#### Severity Classification:
+**Severity classification**
 
-- Critical: CVSS 9.0-10.0 or immediate data breach risk
+- Critical: CVSS 9.0–10.0 or immediate data breach risk
+- High: CVSS 7.0–8.9 or significant security impact
+- Medium: CVSS 4.0–6.9 or moderate risk
+- Low: CVSS 0.1–3.9 or minimal impact
 
-- High: CVSS 7.0-8.9 or significant security impact
+**Remediation timelines**
 
-- Medium: CVSS 4.0-6.9 or moderate risk
+- Critical: within 24 hours for exploited or critical-rated findings, using the emergency change process (pull request labelled `emergency` with post-hoc review within 5 business days); within 7 days for dependency CVEs rated critical
+- High: within 30 days through normal change management
+- Medium: within 90 days through normal change management
+- Low: best effort or next release cycle
 
-- Low: CVSS 0.1-3.9 or minimal impact
-
-#### Remediation Timelines:
-
-- Critical: 24 hours for exploited or critical-rated findings, using the emergency change process (pull request labelled `emergency` with post-hoc review within 5 business days); 7 days for dependency CVEs rated critical
-
-- High: 30 days through normal change management
-
-- Medium: 90 days through normal change management
-
-- Low: Best effort or next release cycle
-
-#### Tracking and Reporting:
+**Tracking and reporting**
 
 - Findings logged in GitHub Issues with security labels
-
 - Remediation progress tracked in the compliance platform
-
-- Monthly metrics reported including mean time to remediation
-
+- Monthly metrics reported, including mean time to remediation
 - Quarterly trend analysis of vulnerability categories
 
-## 9. Third-Party Integration Security
+## 9. Third-party integration security
 
-Security assessments must evaluate integrations per the Integration security section of the API Security and Rate Limiting Standard:
+Security assessments evaluate integrations per the Integration security section of the API Security and Rate Limiting Standard:
 
 - PropelAuth authentication flow security
-
 - JWT token validation and session management
-
 - API key management and rotation procedures
-
 - Customer-controlled integration permissions
-
 - Data flow analysis between systems
 
-## 10. Compliance and Regulatory Requirements
+## 10. Records and customer notification
 
-### 10.1 SOC 2 Requirements
+### 10.1 Evidence
 
-This procedure addresses the following Trust Services Criteria:
-
-- CC4.1: COSO Principle 16 - Ongoing monitoring activities
-
-- CC4.2: COSO Principle 17 - Evaluations of deficiencies
-
-- CC7.1: Detection of actual and attempted attacks
-
-- A1.2: Environmental protections and monitoring
-
-### 10.2 Evidence Collection
-
-Assessment documentation maintained for audit purposes:
+The following assessment records are maintained for audit purposes:
 
 - Penetration testing reports and remediation evidence
-
 - Vulnerability scan results and trending data
-
 - Configuration review checklists and findings
-
 - Remediation validation and retesting results
-
 - Risk acceptance documentation for exceptions
 
-### 10.3 Customer Notification
+### 10.2 Customer notification
 
-Per data protection requirements:
+- Critical vulnerabilities affecting customer data trigger incident response per the Incident Response Procedure
+- Assessment reports are available to customers on request under NDA
+- An annual attestation of security assessment completion is produced
 
-- Critical vulnerabilities affecting customer data trigger incident response per Incident Response Procedure
+## 11. Continuous improvement
 
-- Assessment reports available to customers upon request under NDA
-
-- Annual attestation of security assessment completion
-
-## 11. Continuous Improvement
-
-Post-assessment reviews conducted to identify:
+After each assessment the CEO reviews:
 
 - Common vulnerability patterns requiring systemic fixes
-
 - Effectiveness of existing security controls
-
 - Gaps in security monitoring coverage
-
-- Opportunities for automation enhancement
-
+- Opportunities for further automation
 - Training needs identified through findings
 
-## 12. Related Documents
-
-- Information Security Policy
-
-- Risk Assessment Procedure
-
-- Vulnerability Management Procedure
-
-- Incident Response Procedure
-
-- Change Management Policy
-
-- Cloud Infrastructure Security Policy
-
-- Secure Software Development Lifecycle (SDLC) Standard
-
-- API Security and Rate Limiting Standard
-
-- System Monitoring and Logging Procedure
-
-- Vendor Management Policy
-
-- Business Continuity Plan
-
-## 13. Policy Review and Updates
+## 12. Review
 
 This procedure is reviewed annually or upon:
 
-- Significant changes to AWS infrastructure architecture
-
+- Significant changes to the AWS infrastructure architecture
 - Introduction of new technologies or platforms
-
 - Major security incidents or assessment findings
-
 - Changes to SOC 2 requirements or industry standards
-
 - Lessons learned from penetration testing exercises
 
-## 14. Revision History
+## 13. Related documents
+
+- Information Security Policy
+- Risk Assessment Procedure
+- Vulnerability Management Procedure
+- Incident Response Procedure
+- Change Management Policy
+- Cloud Infrastructure Security Policy
+- Secure Software Development Lifecycle (SDLC) Standard
+- API Security and Rate Limiting Standard
+- System Monitoring and Logging Procedure
+- Vendor Management Policy
+- Business Continuity Plan
+
+## 14. Revision history
 
 |**Version**|**Date**|**Summary**|
 |---|---|---|

@@ -24,3 +24,14 @@
 - §5.3 key-risk table scores (inherent/residual values) are carried over from v1 unchanged; confirm they match the current register in the compliance platform.
 - §6.1 seven-week annual assessment timeline kept from v1; confirm it reflects how the annual assessment is actually run.
 - §6.2 "Weekly: CloudWatch metrics analysis" kept from v1 (not a daily review, so not struck by R5); confirm it is performed weekly.
+
+## Quality sweep (2026-10-31)
+
+- Structure: fixed 3 `####` leftovers (`#### 1. Annual Comprehensive Assessment` …) into 5.1.1–5.1.3; `#### Likelihood Scale (1-5):` / `#### Impact Scale (1-5):` pseudo-headings turned into lead-in lines; merged §10 Compliance Requirements (CC3.1–CC3.4 with COSO principle names, CC9.1–CC9.2, GDPR Art. 32/35, CCPA 1798.150) into §1 Purpose; §11 Related Documents → §10 with bold group labels instead of unnumbered `###`; revision history numbered §11.
+- Voice: converted 13 "shall" constructions to present tense; removed "comprehensive" ×4 ("comprehensive risk management", "Annual comprehensive risk assessments", "Annual Comprehensive Assessment", "Comprehensive risk landscape" → "Full risk landscape"); "establishes the systematic approach" → "sets out how"; "Ongoing risk monitoring activities include:" lead-in dropped (heading says it).
+- Formatting: removed blank lines between bullets and numbered steps (≈130 lines); table header bold removed; en dashes in scales and ranges; "99.9%" → "99.9 %"; "Ad-hoc" → "Ad hoc"; Oxford comma applied; lowercase after the number in scale items ("Rare – less than once per year").
+- Consistency: §4.1 / §4.2 given lead-in sentences; "Define organizational risk appetite" → "Defines the risk appetite"; "Risk Score Calculation" → "Risk score".
+- Related documents: same 15 documents, alphabetised within groups; all exist in the set.
+- Kept: all scales, thresholds, the current-key-risks table, treatment options, KRIs, acceptance criteria.
+
+No new CONFIRM items.

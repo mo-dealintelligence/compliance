@@ -14,145 +14,121 @@ source: "encryption-and-cryptographic-controls-standard-v1.0.pdf"
 
 ## 1. Purpose
 
-This Encryption and Cryptographic Controls Standard establishes the mandatory requirements for protecting Deal Intelligence LLC's information assets through cryptographic controls. This standard ensures the confidentiality, integrity, and authenticity of business contact information, customer data, and market intelligence throughout their lifecycle in accordance with SOC 2 Trust Services Criteria CC6.1 (Logical and Physical Access Controls) and C1.1 (Confidentiality).
+This standard sets the mandatory cryptographic controls that protect the information assets of Deal Intelligence LLC. It protects the confidentiality, integrity, and authenticity of business contact information, customer data, and market intelligence throughout their lifecycle, in line with SOC 2 Trust Services Criteria CC6.1 (Logical and Physical Access Controls) and C1.1 (Confidentiality).
 
-This standard operationalizes the encryption requirements defined in the Information Security Policy and provides specific implementation guidance for AWS KMS encryption, TLS protocols, and cryptographic key management across our cloud infrastructure.
+It implements the encryption requirements of the Information Security Policy for KMS encryption, TLS, and key management across the AWS infrastructure.
 
 ## 2. Scope
 
 This standard applies to:
 
-- All data at rest within AWS infrastructure including DocumentDB collections and S3 buckets
-
+- All data at rest in the AWS infrastructure, including DocumentDB collections and S3 buckets
 - All data in transit between system components, APIs, and third-party services
-
-- Cryptographic key generation, storage, rotation, and destruction procedures
-
+- Cryptographic key generation, storage, rotation, and destruction
 - Certificate management for CloudFront distributions and API endpoints
-
-- JWT token signing and validation for PropelAuth authentication services
-
+- JWT token signing and validation for PropelAuth authentication
 - All personnel responsible for implementing or maintaining cryptographic controls
 
-## 3. Cryptographic Requirements
+## 3. Roles and responsibilities
 
-### 3.1 Encryption Standards
+- **Chief Executive Officer (CEO)**: owns this standard; configures and maintains the KMS keys, certificates, and encryption settings; approves exceptions; performs the reviews and audits in §12 and §17
+- **Go-to-Market Contractor**: has no access to keys, certificates, or production systems; reports suspected cryptographic issues to the CEO
+- **External SOC 2 auditor and penetration-test vendor**: independently review the cryptographic controls and evidence
 
-All cryptographic implementations shall meet or exceed the following minimum standards:
+## 4. Cryptographic requirements
 
-|**Data State**|**Minimum Standard**|**Implementation**|
+### 4.1 Encryption standards
+
+All cryptographic implementations meet or exceed these minimums:
+
+|**Data state**|**Minimum standard**|**Implementation**|
 |---|---|---|
-|Data at Rest|AES-256-GCM|AWS KMS customer-managed keys (CMK)|
-|Data in Transit|TLS 1.2+|AWS Certificate Manager, CloudFront|
-|Key Exchange|RSA-2048 or ECDHE|CloudFront negotiation|
+|Data at rest|AES-256-GCM|KMS customer-managed keys (CMK)|
+|Data in transit|TLS 1.2+|ACM, CloudFront|
+|Key exchange|RSA-2048 or ECDHE|CloudFront negotiation|
 |Hashing|SHA-256|Lambda function integrity checks|
-|Digital Signatures|RSA-2048 with SHA-256|JWT token validation|
+|Digital signatures|RSA-2048 with SHA-256|JWT token validation|
 
-### 3.2 Prohibited Algorithms
+### 4.2 Prohibited algorithms
 
-The following cryptographic algorithms are explicitly prohibited:
-
-- DES, 3DES (all variants)
-
-- MD5, SHA-1 for security purposes
-
-- RC4 stream cipher
-
-- TLS versions prior to 1.2
-
+- DES and 3DES (all variants)
+- MD5 and SHA-1 for security purposes
+- RC4
+- TLS versions before 1.2
 - RSA keys smaller than 2048 bits
 
-## 4. Data at Rest Encryption
+## 5. Encryption at rest
 
-### 4.1 DocumentDB Encryption
+### 5.1 DocumentDB
 
-All DocumentDB clusters shall implement:
+All DocumentDB clusters have:
 
-- AWS KMS encryption enabled at cluster creation
-
-- Customer-managed CMK (regional, us-east-1) with automatic annual rotation
-
-- Encryption of automated backups using the same CMK
-
+- KMS encryption enabled at cluster creation
+- A customer-managed CMK (regional, us-east-1) with automatic annual rotation
+- Automated backups encrypted with the same CMK
 - Audit logging of all KMS key usage via CloudTrail
 
-Implementation aligns with data classification levels defined in Data Classification and Handling Standard.
+Encryption follows the classification tiers in the Data Classification and Handling Standard.
 
-### 4.2 S3 Bucket Encryption
+### 5.2 S3 buckets
 
-All S3 buckets shall enforce:
+All S3 buckets enforce:
 
-- Default encryption using SSE-KMS with customer-managed keys
+- Default encryption with SSE-KMS and customer-managed keys
+- Bucket policies that deny unencrypted object uploads
+- Versioning, with every object version encrypted
 
-- Bucket policies denying unencrypted object uploads
+### 5.3 Lambda environment variables
 
-- Versioning enabled with encryption of all object versions
+Sensitive configuration in Lambda functions is:
 
-### 4.3 Lambda Environment Variables
+- Encrypted with KMS customer-managed keys
+- Decrypted at runtime through IAM role permissions
+- Rotated quarterly, in line with the Access Control and Authentication Policy
 
-Sensitive configuration data in Lambda functions shall be:
+### 5.4 Container images
 
-- Encrypted using AWS KMS customer-managed keys
+ECR repositories have:
 
-- Decrypted at runtime using IAM role permissions
-
-- Rotated quarterly in alignment with Access Control and Authentication Policy
-
-### 4.4 Container Image Encryption
-
-ECR repositories shall implement:
-
-- Encryption at rest using AWS KMS
-
+- Encryption at rest with KMS
 - Scan-on-push vulnerability scanning on all repositories, with critical findings remediated before deployment
-
 - Images built and pushed only from a green GitHub Actions CI run (including Trivy image scanning)
 
-## 5. Data in Transit Encryption
+## 6. Encryption in transit
 
-### 5.1 API Communications
+### 6.1 API communications
 
-All API endpoints shall enforce:
+All API endpoints enforce:
 
-- TLS 1.2 minimum with TLS 1.3 preferred
-
+- TLS 1.2 minimum, TLS 1.3 preferred
 - Certificate validation for all HTTPS connections
+- HSTS headers with a minimum 1-year max-age
+- ACM-managed certificates for all public endpoints
 
-- HSTS headers with minimum 1-year max-age
+See the API Security and Rate Limiting Standard.
 
-- AWS Certificate Manager-managed certificates for all public endpoints
+### 6.2 VPC communications
 
-Reference: API Security and Rate Limiting Standard
-
-### 5.2 VPC Communications
-
-Internal VPC traffic shall utilize:
+Internal VPC traffic uses:
 
 - VPC endpoints for AWS service communications
-
 - A single VPC in a single region (us-east-1); encryption at rest uses a KMS regional customer-managed key with annual rotation
+- Security groups that restrict protocols to encrypted variants only
 
-- Security groups restricting protocols to encrypted variants only
+See the Cloud Infrastructure Security Policy.
 
-Reference: Cloud Infrastructure Security Policy
+### 6.3 CloudFront distributions
 
-### 5.3 CloudFront Distribution
-
-CDN configurations shall enforce:
-
-- Viewer Protocol Policy set to "Redirect HTTP to HTTPS"
-
-- Origin Protocol Policy using HTTPS only
-
-- AWS Certificate Manager certificates with automatic renewal
-
+- Viewer protocol policy set to "Redirect HTTP to HTTPS"
+- Origin protocol policy HTTPS only
+- ACM certificates with automatic renewal
 - Custom SSL certificate for branded domains
 
-## 6. Key Management
+## 7. Key management
 
-### 6.1 AWS KMS Keys
+### 7.1 KMS keys
 
-The following customer-managed KMS keys shall be maintained in us-east-1:
+The following customer-managed KMS keys are maintained in us-east-1:
 
 ```
 Production Data Encryption Key
@@ -166,359 +142,255 @@ Audit Log Encryption Key
 
 The staging stage uses its own key, separate from production.
 
-### 6.2 Key Rotation Requirements
+### 7.2 Key rotation
 
-|**Key Type**|**Rotation Frequency**|**Method**|
+|**Key type**|**Rotation frequency**|**Method**|
 |---|---|---|
-|AWS KMS CMK|Annual|Automatic via KMS|
-|API Keys|90 days|Manual with overlap period, per the rotation calendar|
-|JWT Signing Keys|180 days|PropelAuth managed|
-|TLS Certificates|Annual|AWS Certificate Manager|
-|Database Credentials|Quarterly|AWS Secrets Manager rotation on the DocumentDB credential|
+|KMS CMK|Annual|Automatic via KMS|
+|API keys|90 days|Manual with overlap period, per the rotation calendar|
+|JWT signing keys|180 days|PropelAuth managed|
+|TLS certificates|Annual|ACM|
+|Database credentials|Quarterly|Secrets Manager rotation on the DocumentDB credential|
 
-### 6.3 Key Access Controls
+### 7.3 Key access controls
 
-Key access shall be restricted following the principle of least privilege:
+Key access follows least privilege:
 
-- Production keys accessible only to production Lambda execution roles
+- Production keys are accessible only to production Lambda execution roles
+- CloudTrail logs all key usage operations
+- Quarterly access reviews are recorded in the risk assessment module of the compliance platform
 
-- The staging stage uses its own key, separate from production
+See the Access Control and Authentication Policy.
 
-- CloudTrail logging of all key usage operations
+## 8. Certificate management
 
-- Quarterly access reviews documented in the compliance platform's Risk Assessment module
+### 8.1 Certificate lifecycle
 
-Reference: Access Control and Authentication Policy
+All TLS certificates are:
 
-## 7. Certificate Management
+- Issued by ACM or an approved Certificate Authority
+- Validated by DNS validation
+- Monitored for expiration, with 30-day advance alerts via CloudWatch
+- Renewed automatically where the issuer supports it
 
-### 7.1 Certificate Lifecycle
+### 8.2 Certificate requirements
 
-All TLS certificates shall be:
-
-- Issued by AWS Certificate Manager or approved Certificate Authorities
-
-- Validated using DNS validation method
-
-- Monitored for expiration with 30-day advance alerts via CloudWatch
-
-- Automatically renewed where supported
-
-### 7.2 Certificate Requirements
-
-Production certificates must:
+Production certificates:
 
 - Use 2048-bit RSA keys minimum or ECDSA P-256
+- Include the complete certificate chain
+- Implement OCSP stapling where the endpoint supports it
+- Are not wildcard certificates for API endpoints
 
-- Include complete certificate chains
+## 9. Authentication token security
 
-- Implement OCSP stapling where supported
+### 9.1 JWT tokens
 
-- Exclude wildcard certificates for API endpoints
+PropelAuth JWT tokens use:
 
-## 8. Authentication Token Security
-
-### 8.1 JWT Token Protection
-
-PropelAuth JWT tokens shall implement:
-
-- RS256 algorithm for signature verification
-
-- Token expiration not exceeding 24 hours
-
+- RS256 for signature verification
+- Token expiration of no more than 24 hours
 - Refresh token rotation on each use
+- httpOnly cookies for storage where the client supports them
 
-- Secure storage in httpOnly cookies where applicable
+### 9.2 API keys
 
-### 8.2 API Key Management
+API keys for third-party integrations are:
 
-API keys for third-party integrations shall be:
-
-- Stored in AWS Secrets Manager with encryption
-
-- Rotated according to schedule defined in Section 6.2
-
+- Stored encrypted in Secrets Manager
+- Rotated on the schedule in §7.2
 - Monitored for unauthorized usage patterns
+- Revoked immediately on detection of suspicious activity
 
-- Revoked immediately upon suspicious activity detection
+See the API Security and Rate Limiting Standard (Integration security) and the Vendor Management Policy.
 
-Reference: API Security and Rate Limiting Standard (Integration security) and Vendor Management Policy
+## 10. Cryptographic compliance
 
-## 9. Cryptographic Compliance
+### 10.1 Regulatory requirements
 
-### 9.1 Regulatory Requirements
+Cryptographic implementations comply with:
 
-Cryptographic implementations shall comply with:
+- GDPR Article 32 (appropriate technical measures)
+- CCPA Section 1798.150 (reasonable security procedures)
+- SOC 2 CC6.1 (logical access controls)
+- NIST SP 800-175B
 
-- GDPR Article 32 requiring appropriate technical measures
+### 10.2 Export control
 
-- CCPA Section 1798.150 reasonable security procedures
+All cryptographic implementations:
 
-- SOC 2 CC6.1 criteria for logical access controls
-
-- NIST SP 800-175B cryptographic standards
-
-### 9.2 Export Control Compliance
-
-All cryptographic implementations shall:
-
-- Comply with U.S. Export Administration Regulations
-
-- Document cryptographic capabilities for compliance reporting
-
+- Comply with the U.S. Export Administration Regulations
+- Are documented for compliance reporting
 - Restrict strong encryption to authorized jurisdictions
 
-## 10. Implementation Procedures
+## 11. Implementation procedures
 
-### 10.1 New System Deployment
+### 11.1 New system deployment
 
-When deploying new systems:
-
-1. Enable encryption by default using CloudFormation templates
-
+1. Enable encryption by default in the CloudFormation templates
 2. Configure KMS key policies before data ingestion
+3. Validate the TLS configuration with SSL Labs or an equivalent tool
+4. Document the encryption configuration in the system inventory
 
-3. Validate TLS configuration using SSL Labs or equivalent
+### 11.2 Encryption upgrades
 
-4. Document encryption configuration in system inventory
+For systems that need an encryption upgrade:
 
-### 10.2 Legacy System Migration
+1. Assess the current encryption status via Security Hub
+2. Plan the migration for a maintenance window
+3. Test the encryption in the staging stage
+4. Implement with rollback procedures per the Change Management Policy
 
-For systems requiring encryption upgrade:
+## 12. Monitoring and validation
 
-1. Assess current encryption status via Security Hub
+### 12.1 Continuous monitoring
 
-2. Plan migration during maintenance windows
+Encryption compliance is monitored through:
 
-3. Test encryption in the staging stage
-
-4. Implement with rollback procedures per Change Management Policy
-
-## 11. Monitoring and Validation
-
-### 11.1 Continuous Monitoring
-
-Encryption compliance shall be monitored through:
-
-- AWS Security Hub encryption checks
-
-- CloudWatch alarms for KMS key deletion attempts
-
+- Security Hub encryption checks
+- CloudWatch alarms on KMS key deletion attempts
 - Monthly TLS configuration scans
-
 - Quarterly encryption audit reports
 
-Reference: System Monitoring and Logging Procedure
+See the System Monitoring and Logging Procedure.
 
-### 11.2 Vulnerability Management
+### 12.2 Cryptographic vulnerabilities
 
-Cryptographic vulnerabilities shall be:
+Cryptographic vulnerabilities are:
 
 - Identified through ECR scan-on-push, GitHub Dependabot and code scanning, and Trivy in CI
+- Assessed with CVSS scoring
+- Remediated per the Vulnerability Management Procedure
+- Tracked in the risk assessment module of the compliance platform
 
-- Assessed using CVSS scoring methodology
+## 13. Incident response
 
-- Remediated according to Vulnerability Management Procedure
+### 13.1 Cryptographic incidents
 
-- Tracked in the compliance platform's Risk Assessment module
+On cryptographic compromise, the CEO:
 
-## 12. Incident Response
+1. Immediately revokes the affected keys or certificates
+2. Generates new cryptographic material
+3. Re-encrypts the affected data with the new keys
+4. Records the incident in the incident reporting module of the compliance platform
+5. Notifies affected customers within 48 hours if data confidentiality is affected
 
-### 12.1 Cryptographic Incidents
+See the Incident Response Procedure.
 
-In the event of cryptographic compromise:
+### 13.2 Key compromise
 
-1. Immediately revoke affected keys/certificates
+On suspected key compromise, the CEO:
 
-2. Generate new cryptographic materials
+- Rotates the affected keys immediately
+- Reviews CloudTrail logs for unauthorized key usage
+- Updates all systems that used the compromised keys
+- Conducts forensic analysis of potential data exposure
 
-3. Re-encrypt affected data with new keys
+## 14. Backup and recovery
 
-4. Document incident in the compliance platform's Incident Reporting system
+### 14.1 Key backup
 
-5. Notify affected customers within 48 hours if data confidentiality impacted
+Cryptographic material is:
 
-Reference: Incident Response Procedure
-
-### 12.2 Key Compromise Procedures
-
-Upon suspected key compromise:
-
-- Rotate affected keys immediately
-
-- Review CloudTrail logs for unauthorized key usage
-
-- Update all systems using compromised keys
-
-- Conduct forensic analysis of potential data exposure
-
-## 13. Backup and Recovery
-
-### 13.1 Key Backup Procedures
-
-Cryptographic materials shall be:
-
-- Held in AWS KMS as regional customer-managed keys in us-east-1; key material does not leave KMS
-
+- Held in KMS as regional customer-managed keys in us-east-1; key material does not leave KMS
 - Protected with equivalent encryption standards
+- Tested quarterly for restoration as part of the quarterly backup-restore test (automated, recorded in the compliance platform)
+- Documented in the Business Continuity Plan
 
-- Tested quarterly for restoration capability as part of the quarterly backup-restore test (automated, recorded in the compliance platform)
+### 14.2 Disaster recovery
 
-- Documented in Business Continuity Plan
+- KMS is a regional service; keys remain available across all availability zones in us-east-1 (including us-east-1a and us-east-1b) without replication
+- Backup restoration uses the same KMS keys that encrypted the backups
+- Encryption is validated after recovery
 
-### 13.2 Disaster Recovery
+## 15. Third-party encryption
 
-In disaster scenarios:
+### 15.1 Vendor requirements
 
-- AWS KMS is a regional service; keys remain available across all availability zones in us-east-1 (including us-east-1a and us-east-1b) without replication
-
-- Ensure backup restoration uses the same KMS keys that encrypted the backups
-
-- Validate encryption post-recovery
-
-## 14. Third-Party Encryption
-
-### 14.1 Vendor Encryption Requirements
-
-All vendors processing Deal Intelligence data must:
+All vendors processing Deal Intelligence data:
 
 - Implement AES-256 encryption for data at rest
-
 - Use TLS 1.2+ for data transmission
+- Provide encryption attestation in their SOC 2 reports
+- Comply with the Vendor Management Policy
 
-- Provide encryption attestation in SOC 2 reports
+### 15.2 Customer-controlled integrations
 
-- Comply with requirements in Vendor Management Policy
+For customer-managed integrations, Deal Intelligence:
 
-### 14.2 Customer-Controlled Integrations
+- Provides encryption guidance documentation
+- Supports encrypted API communications
+- Enables audit logging of integration activity
+- Maintains encryption throughout the data pipeline
 
-For customer-managed integrations:
+## 16. Training
 
-- Provide encryption guidance documentation
+Personnel implementing cryptographic controls complete annual security awareness training on encryption through the Security Awareness Training Program, understand their key management responsibilities, follow secure coding practices for cryptographic implementations, and report cryptographic vulnerabilities immediately.
 
-- Support encrypted API communications
+## 17. Compliance verification
 
-- Enable audit logging of integration activities
+### 17.1 Assessments
 
-- Maintain encryption throughout data pipeline
-
-## 15. Training and Awareness
-
-### 15.1 Cryptographic Training
-
-Personnel implementing cryptographic controls shall:
-
-- Complete annual security awareness training on encryption
-
-- Understand key management responsibilities
-
-- Follow secure coding practices for cryptographic implementations
-
-- Report cryptographic vulnerabilities immediately
-
-Reference: Security Awareness Training Program
-
-## 16. Compliance Verification
-
-### 16.1 Annual Assessment
-
-Cryptographic controls shall undergo:
-
-- Annual penetration testing of TLS implementations
-
+- Annual penetration testing of TLS implementations (see the Penetration Testing and Security Assessment Procedure)
 - Continuous Security Hub checks, reviewed monthly and recorded in the compliance platform
-
 - Semi-annual key rotation audits
-
 - Continuous monitoring via CloudWatch metrics
 
-Reference: Penetration Testing and Security Assessment Procedure
-
-### 16.2 Audit Evidence
-
-The following evidence shall be maintained:
+### 17.2 Audit evidence
 
 - KMS key rotation logs in CloudTrail
-
 - Certificate issuance and renewal records
-
 - Encryption configuration screenshots
-
 - Security Hub compliance reports
 
-## 17. Exceptions and Deviations
+## 18. Exceptions and review
 
-### 17.1 Exception Process
+### 18.1 Exceptions
 
-Any deviation from encryption standards requires:
+A deviation from this standard requires:
 
 - Documented business justification
-
-- Risk assessment in the compliance platform's Risk Assessment module
-
-- Compensating controls definition
-
+- A risk assessment in the risk assessment module of the compliance platform
+- Defined compensating controls
 - CEO approval
-
 - Quarterly review for continued necessity
 
-### 17.2 Legacy System Exceptions
+### 18.2 Legacy system exceptions
 
-Legacy systems unable to meet current standards shall:
+A legacy system that cannot meet this standard is:
 
-- Be documented in the risk register
+- Documented in the risk register
+- Covered by compensating controls
+- Given a migration timeline
+- Isolated from production data where possible
 
-- Implement compensating controls
+### 18.3 Review
 
-- Have defined migration timelines
-
-- Be isolated from production data where possible
-
-## 18. Related Documents
-
-- Information Security Policy
-
-- Data Classification and Handling Standard
-
-- Access Control and Authentication Policy
-
-- Cloud Infrastructure Security Policy
-
-- API Security and Rate Limiting Standard
-
-- Vendor Management Policy
-
-- Incident Response Procedure
-
-- Business Continuity Plan
-
-- Change Management Policy
-
-- Vulnerability Management Procedure
-
-- System Monitoring and Logging Procedure
-
-- Security Awareness Training Program
-
-- Penetration Testing and Security Assessment Procedure
-
-- Data Retention and Disposal Policy
-
-- Secure Software Development Lifecycle (SDLC) Standard
-
-## 19. Review and Updates
-
-This standard shall be reviewed annually and updated to reflect:
+The CEO reviews this standard annually and updates it for:
 
 - Changes in cryptographic best practices
-
 - New regulatory requirements
-
 - Emerging cryptographic vulnerabilities
-
 - Updates to AWS encryption services
-
 - Findings from security assessments and audits
+
+## 19. Related documents
+
+- Information Security Policy
+- Data Classification and Handling Standard
+- Access Control and Authentication Policy
+- Cloud Infrastructure Security Policy
+- API Security and Rate Limiting Standard
+- Vendor Management Policy
+- Incident Response Procedure
+- Business Continuity Plan
+- Change Management Policy
+- Vulnerability Management Procedure
+- System Monitoring and Logging Procedure
+- Security Awareness Training Program
+- Penetration Testing and Security Assessment Procedure
+- Data Retention and Disposal Policy
+- Secure Software Development Lifecycle (SDLC) Standard
 
 ## 20. Revision history
 

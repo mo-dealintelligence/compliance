@@ -26,3 +26,14 @@
 - §5.3.3 "Service accounts rotated quarterly" kept; R3 describes Secrets Manager rotation on the DocumentDB credential and API-key rotation per calendar — confirm quarterly is the calendar value.
 - §8.1 "Monthly review of security group rules and network ACLs" kept; confirm a monthly record exists in the compliance platform.
 - §15 approval date: `[CONFIRM: date]`.
+
+## Quality sweep (2026-10-31)
+
+- Voice: converted 12 "shall" constructions to present tense; removed "comprehensive", "defense-in-depth … utilizing" → plain list of the three mechanisms in §3; "Ensuring compliance" → "Overseeing compliance"; "Coordinating with AWS security services" → "Operating the AWS security services".
+- Formatting: removed blank lines between bullets in every list (≈130 lines) including the nested lists in §2 and §5.1.1; headings to sentence case; `#### 5.1.1`-style numbering kept (already correct); "AWS Systems Manager Session Manager" → "SSM Session Manager"; "CloudFront CDN" → "CloudFront"; "AWS Security Hub" → "Security Hub"; Oxford comma applied ×4.
+- Consistency: §4.1 heading and first use "Chief Executive Officer (CEO)", "the CEO" after (×6 "from CEO" → "from the CEO"); §5.2.1 "Full system access for Chief Executive Officer" → "held by the CEO"; "48-hour breach notification" → "within 48 hours"; §4.2 given a lead-in sentence.
+- Parallel grammar: §5.2.2, §5.3.x, §11.2 bullets made full statements within each list; §12 mixed list fixed — "Annual refresher training required" moved out of the "training covering:" list into its own sentence.
+- Related documents: added the documents already referenced in the body (Data Retention and Disposal Policy, Security Awareness Training Program, System Monitoring and Logging Procedure, Vendor Management Policy); alphabetised. All exist in the set.
+- Kept: password rules, session timeouts, 30-day exception limit, Approval table with [CONFIRM: date], §14 owner/version footer (matches frontmatter).
+
+No new CONFIRM items.

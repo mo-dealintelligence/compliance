@@ -42,3 +42,21 @@ Output: `policies-v2/system-monitoring-and-logging-procedure.md`
 - [CONFIRM: S3 MFA delete] — §5.3 "S3 bucket versioning and MFA delete protection" kept from v1; confirm MFA delete is actually enabled on the CloudTrail bucket.
 - [CONFIRM: Security Hub finding retention] — §3.1 "90 days | Security Hub console" kept (native retention); confirm acceptable given the 7-year incident-evidence rule (findings tied to incidents are exported to the compliance platform).
 - [CONFIRM: EventBridge] — §13.3 "EventBridge: Event-driven automation" kept verbatim; confirm it is what schedules the Lambda checks.
+
+## Quality sweep (2026-10-31)
+
+- Structure: Roles and responsibilities moved from §14 to §3 (Q3 order); §12 Compliance and Audit Support dissolved — §12.1 Evidence Collection and §12.2 Audit Trail Requirements deleted (generic, no control of their own), §12.3 Retention Compliance reduced to one sentence (§12.3) pointing to the Data Retention and Disposal Policy with the three retention values already stated in §4.1; §11.2 Incident Response Integration deleted (restated §8–§10); §11.1 Change Management Integration condensed to one paragraph; §15 Exceptions and §17 Review and Updates merged into §14 "Exceptions and review" so Related documents precedes Revision history. Sections renumbered 3–16; the §8.3 cross-reference updated to §9.3.
+- §3.1 CEO duties: eleven bullets de-duplicated to eight ("Ensure compliance with SOC 2 requirements" merged into "maintains the SOC 2 evidence"; "Implement application-level logging" and "Maintain logging standards in code" merged).
+- Voice: removed "shall" ×24; removed "comprehensive" ×3; "Reference: X for detailed …" ×6 → plain sentences; "Monitor and track:" / "Maintain forensic readiness through:" imperative lead-ins → declarative with a subject; "where applicable" → "where one exists"; §11.2 "Temporary access with automatic expiration" (a condition listed as a grantee) folded into the lead sentence.
+- Consistency: "AWS CloudWatch/CloudTrail/Security Hub/CloudFormation" → bare service names; "real-time" (adverb) → "real time"; "5%/1%/80%/20%/99.9%" → spaced percent; "Incident Reporting system" → "incident reporting module of the compliance platform"; "Risk Assessment module" → "risk assessment module"; headings to sentence case; blank lines between bullets removed (~120).
+- Related documents: added API Security and Rate Limiting Standard (referenced in §4.3); all entries exist in the set.
+- Word count 2227 → 1980.
+
+### New CONFIRM items
+
+- §4.1 lists "API Gateway" as a log source and §7.2 monitors "API Gateway request rates and throttling", while the Cloud Infrastructure Security Policy describes CloudFront with origin access restricted to Lambda function URLs. Confirm whether API Gateway is in the architecture; if not, these rows should name the Lambda function URL / CloudFront logs.
+- §4.1 Security Hub findings retained "90 days" here; the Data Retention and Disposal Policy §5.1 says 7 years (already a CONFIRM there). The two should agree once the mechanism is confirmed.
+- §13.2 "AWS X-Ray: distributed tracing (when implemented)" is a hedge carried from v1; confirm whether X-Ray is in use, otherwise drop the line.
+- §10.1 weekly performance trend analysis, monthly access pattern review, and quarterly security posture assessment are cadences carried from v1; confirm a record exists for each.
+
+- R4/Q2 (post-sweep, settled from serverless.yml: 'API Gateway not used - using Lambda Function URL + CloudFront'): every 'API Gateway' reference replaced with CloudFront → Lambda function URL / middleware.

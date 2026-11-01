@@ -33,3 +33,20 @@
 - §3.2.5 ECR "untagged images after 14 days": kept from v1; confirm the lifecycle policy value.
 - §7.1 targets (">99%", "0 records") and §7.3 monthly retention compliance reports: kept from v1; confirm the monthly report is actually produced.
 - Revision history: v1 body table dated the policy November 13, 2025 (1.0) and February 2, 2026 (2.0) while the frontmatter was 1.0 finalized February 2, 2026 — confirm the 1.0 date to show.
+
+## Quality sweep (2026-10-31)
+
+- Structure reordered to the Q3 sequence: Purpose → Scope → Definitions (was §11) → Roles and responsibilities (was §6) → Retention schedule → Disposal → Automated enforcement → Data subject rights → Monitoring and audit → Retention incidents → Training → Policy review and exceptions → Related documents (was §1.4) → Appendices → Revision history; all sections renumbered and Appendix C section references updated.
+- Merged §1.3 Policy Statement into §1 Purpose (duplicated the purpose text); dropped the four "commitment to" bullets in §1.1 (restated the purpose and the scope); dropped the closing italic "This policy supports … SOC 2 Type II certification" line (summary with no content); dropped §10.2 Approval as a separate heading (one sentence, kept inside §12.1).
+- §5.2 justification: three `####` sub-headings (2.2.1–2.2.3) folded into bold lead-ins under one heading.
+- §11 Training: §9.2 Awareness Topics list folded into one sentence (the list only named topics).
+- Removed blank lines between bullets throughout (~70 lists/bullets); headings changed to sentence case after the number; bold table/bullet labels changed to sentence case.
+- Voice: "must render", "ensures", "ensure consistent compliance", "is committed to" → plain present tense; passive steps in §5.3, §8.1, §10.2 given a subject (the CEO, per the roles table); "Note:" prefix removed in §6.3; "comprehensive" ×2 and "detailed" (procedures) removed; "via automated Lambda function" → named the retention enforcement Lambda function.
+- Consistency: "AWS KMS" → "KMS"; "N/A" table cell → "—"; ">99%" / "100%" → ">99 %" / "100 %"; "Section 2.3" → "§5.3"; "Incident Reporting system" → "incident reporting module of the compliance platform"; "Chief Executive Officer of Deal Intelligence LLC" → "the CEO" (first use already expanded in §4).
+- Related documents: added Incident Response Procedure, System Monitoring and Logging Procedure, and Vendor Management Policy (all referenced in the body and all in the set); no non-existent documents were referenced.
+- Word count 2666 → 2554.
+
+### New CONFIRM items
+
+- §9.2/§9.3: the quarterly review and annual audit now name the CEO as the actor (v1/v2 left the subject implicit; the roles table assigns "audits retention practices" to the CEO). Confirm.
+- §8.1: the erasure steps now name the CEO as the actor (roles table: "handles data subject requests"). Confirm.

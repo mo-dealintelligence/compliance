@@ -28,3 +28,13 @@
 - §4.1 Authentication Services row (RTO 1 hour / RPO 30 minutes): kept from v1 but authentication is hosted by PropelAuth — confirm these values are meant to cover the platform's PropelAuth integration only.
 - §6.2 "Activate CloudFront failover origins if configured" and §7.3 "Emergency bypass for critical operations (with audit logging)": v1 claims not covered by any rule; confirm they exist or strike.
 - §8.1 "Failover Testing — Semi-annually — AZ failover procedures": kept from v1; confirm a DocumentDB failover test is actually performed semi-annually.
+
+## Quality sweep (2026-10-31)
+
+- Structure: fixed 12 `####` leftovers (`#### 1. Detection and Assessment` … `#### 3. Post-Incident Activities`) into 6.2.1–6.4.3; the colon-suffixed `#### Backup Architecture:`-style pseudo-headings (12) turned into lead-in lines under their `###`; §3 three role sub-sections (Business Continuity Coordinator / Technical Recovery Lead / Vendor Liaison, each "Role Holder: CEO") merged into §3.1 Chief Executive Officer (CEO) with the three role labels and all bullets kept; Appendix C renamed "Related documents" and expanded to the documents cited in the body (Data Classification and Handling Standard, Information Security Policy, Security Awareness Training Program, System Monitoring and Logging Procedure); revision history numbered §12.
+- Voice: removed "ensures systematic", "ensuring business resilience across all operational contexts", "comprehensive health checks"; "Ensures vendor SLA compliance" → "Tracks vendor SLA compliance"; §6.2.1 mixed subjects ("Automated monitoring alerts trigger / The CEO assesses / Determine if …") made parallel; §6.2.2 made declarative.
+- Formatting: removed blank lines between bullets (≈150 lines); tables: bold header cells removed, "N/A" → "—", "AWS Lambda" → "Lambda", "AWS Fargate" → "Fargate", "CloudFront CDN distribution" → "CloudFront distribution", "900s" → "900 s", "multi-availability zone" → "Multi-AZ" ×3, "99.9%" → "99.9 %", en dashes in ranges; Oxford comma applied.
+- Consistency: "Section 5" → "section 5" cross-references; "Parameter store" → "Parameter Store"; "AWS support" → "AWS Support".
+- Kept: all RTO/RPO/MTD values, 02:00 UTC backup time, test schedule, notification timings, contact placeholders, Appendix A "24/7" for AWS Support (whitelisted vendor fact).
+
+No new CONFIRM items.

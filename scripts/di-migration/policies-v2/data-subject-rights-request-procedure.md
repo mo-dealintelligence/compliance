@@ -14,457 +14,337 @@ source: "data-subject-rights-request-procedure-v1.0.pdf"
 
 ## 1. Purpose
 
-This Data Subject Rights Request Procedure establishes the operational framework for receiving, validating, processing, and responding to data subject requests in accordance with the General Data Protection Regulation (GDPR) Articles 15-22 and the California Consumer Privacy Act (CCPA) Sections 1798.100-1798.130. This procedure ensures that Deal Intelligence LLC fulfills its obligations to data subjects while maintaining the security and integrity of the platform.
+This procedure defines how Deal Intelligence LLC receives, validates, processes, and responds to data subject requests under the General Data Protection Regulation (GDPR) Articles 15–22 and the California Consumer Privacy Act (CCPA) Sections 1798.100–1798.130, while maintaining the security and integrity of the platform.
 
-Deal Intelligence acts as a data controller for the business contact information it compiles and delivers through the platform, and as a data processor for data that customers upload to or hold within their own accounts (see Section 6.2). [CONFIRM: controller/processor framing — v1 did not state it explicitly]
+Deal Intelligence acts as a data controller for the business contact information it compiles and delivers through the platform, and as a data processor for data that customers upload to or hold within their own accounts (see Section 7.2). [CONFIRM: controller/processor framing — v1 did not state it explicitly]
 
-This procedure operationalizes the privacy principles defined in the Information Security Policy and implements the technical controls specified in the Data Retention and Disposal Policy to ensure timely and compliant responses to data subject requests.
+This procedure implements the privacy principles of the Information Security Policy and the technical controls of the Data Retention and Disposal Policy for timely, compliant responses to data subject requests.
 
 ## 2. Scope
 
 This procedure applies to:
 
 - All requests from data subjects exercising their rights under GDPR, CCPA, or other applicable privacy regulations
-
 - Business contact information processed through the platform, including:
-
-   - First name, last name, business email address
-
-   - LinkedIn profile URLs and job titles
-
-   - Current employer and company information
-
-   - Competitor interaction data and lead qualification status
-
+  - First name, last name, business email address
+  - LinkedIn profile URLs and job titles
+  - Current employer and company information
+  - Competitor interaction data and lead qualification status
 - All personnel responsible for processing data subject requests
-
 - The manual processes for request fulfillment described in Section 9
-
 - Sub-processors involved in data processing, as listed in the Vendor Management Policy
 
 This procedure excludes requests relating to personnel data, which are handled directly by the CEO.
 
-## 3. Data Subject Rights Overview
+## 3. Roles and responsibilities
 
-### 3.1 Rights Under GDPR
-
-Deal Intelligence recognizes the following rights for EU data subjects:
-
-|**Right**|**Description**|**Response Timeline**|
-|---|---|---|
-|Access (Article 15)|Obtain confirmation and copy of personal data|30 days|
-|Rectification (Article 16)|Correct inaccurate personal data|30 days|
-|Erasure (Article 17)|Delete personal data ("right to be forgotten")|30 days|
-|Portability (Article 20)|Receive data in machine-readable format|30 days|
-|Objection (Article 21)|Object to processing based on legitimate interests|30 days|
-|Automated Decision-Making (Article 22)|Not be subject to solely automated decisions|30 days|
-
-### 3.2 Rights Under CCPA
-
-California residents are entitled to:
-
-|**Right**|**Description**|**Response Timeline**|
-|---|---|---|
-|Know (§1798.100)|Information about data collection and use|45 days|
-|Delete (§1798.105)|Request deletion of personal information|45 days|
-|Opt-Out (§1798.120)|Opt-out of sale of personal information|Immediate|
-|Non-Discrimination (§1798.125)|Equal service regardless of rights exercise|Ongoing|
-
-## 4. Request Intake and Validation
-
-### 4.1 Submission Channels
-
-Data subjects may submit requests through:
-
-- **Primary Channel** : Dedicated email address: privacy@dealintelligence.io
-
-- **Secondary Channel** : Authenticated customer portal via PropelAuth
-
-- **Tertiary Channel** : Written request to registered business address
-
-All requests are recorded by the CEO as a dated entry in the compliance platform for tracking and audit purposes.
-
-### 4.2 Identity Verification
-
-Before processing any request, identity verification is required:
-
-1. **Email Verification** : Confirmation email sent to registered business email address
-
-2. **PropelAuth Authentication** : For portal submissions, JWT token validation
-
-3. **Additional Verification** : For sensitive requests, additional documentation may be required:
-
-   - Company domain verification
-
-   - LinkedIn profile matching
-
-   - Recent interaction history validation
-
-### 4.3 Request Validation Criteria
-
-Requests must include:
-
-- Full name and business email address
-
-- Specific right being exercised
-
-- Sufficient detail to locate the data
-
-- Preferred response format (where applicable)
-
-## 5. Processing Procedures by Request Type
-
-### 5.1 Access Requests
-
-**Timeline** : 30 days (GDPR) / 45 days (CCPA)
-
-**Process** :
-
-1. **Data Discovery (Days 1-5)**
-
-   - Query DocumentDB collections for business contact records by email address and company domain
-
-   - Search CloudWatch logs for processing activities (90-day retention)
-
-   - Review lead qualification and competitor interaction data
-
-   - Check PropelAuth user records
-
-   - Check HubSpot CRM records
-
-2. **Data Compilation (Days 6-10)**
-
-   - Extract data from all identified sources
-
-   - Format according to Data Classification and Handling Standard
-
-   - Apply PII sanitization for third-party data
-
-   - Generate processing activity summary
-
-3. **Review and Delivery (Days 11-30)**
-
-   - Review by the CEO for exemptions or restrictions
-
-   - Encrypt response per Encryption and Cryptographic Controls Standard
-
-   - Deliver via secure channel (encrypted email or portal download)
-
-   - Document completion as a dated entry in the compliance platform
-
-### 5.2 Deletion Requests
-
-**Timeline** : 30 days (GDPR) / 45 days (CCPA)
-
-**Process** :
-
-1. **Exemption Assessment (Days 1-3)**
-
-   - Verify no legal hold per Data Retention and Disposal Policy
-
-   - Check contractual obligations for active leads (24-month retention)
-
-   - Review regulatory requirements (7-year financial records)
-
-2. **Deletion Execution (Days 4-15)**
-
-   - Locate and delete the records from DocumentDB collections by email address and company domain
-
-   - Delete the PropelAuth user record where one exists
-
-   - Delete the HubSpot CRM record where one exists
-
-   - Backup copies expire under the 90-day backup retention cycle and are not restored
-
-   - Clear CloudWatch logs where permissible
-
-3. **Confirmation (Days 16-30)**
-
-   - Verify deletion across all systems
-
-   - Record a dated deletion entry in the compliance platform
-
-   - Send confirmation to data subject
-
-   - Maintain deletion log per compliance requirements
-
-### 5.3 Rectification Requests
-
-**Timeline** : 30 days
-
-**Process** :
-
-1. **Data Location (Days 1-3)**
-
-   - Identify all instances of incorrect data
-
-   - Document current values and requested corrections
-
-2. **Update Execution (Days 4-10)**
-
-   - Update DocumentDB records via authenticated API
-
-   - Propagate changes to derived datasets
-
-   - Update lead qualification status if affected
-
-   - Synchronize with customer-delivered leads
-
-3. **Verification (Days 11-30)**
-
-   - Confirm updates across all systems
-
-   - Send confirmation with updated data copy
-
-   - Log changes in audit trail
-
-### 5.4 Portability Requests
-
-**Timeline** : 30 days
-
-**Process** :
-
-1. **Data Export (Days 1-10)**
-
-   - Generate JSON or CSV export from DocumentDB
-
-   - Include all business contact information
-
-   - Format according to industry standards
-
-2. **Delivery (Days 11-30)**
-
-   - Encrypt file per Encryption and Cryptographic Controls Standard
-
-   - Provide via secure download link (7-day expiration)
-
-   - Include data dictionary and field descriptions
-
-## 6. Special Considerations
-
-### 6.1 Third-Party Data
-
-For data sourced from third parties or public sources:
-
-- Verification of data subject identity requires enhanced validation
-
-- Deletion may be limited to Deal Intelligence systems only
-
-- Clear communication about data source and limitations
-
-### 6.2 Customer-Controlled Data
-
-For data within customer accounts, where Deal Intelligence acts as processor:
-
-- Requests forwarded to customer organization for processing
-
-- Deal Intelligence provides technical support only
-
-- Customer responsible for response timeline compliance
-
-### 6.3 Technical Limitations
-
-Certain technical constraints may affect request fulfillment:
-
-- Backup data follows 90-day rotation cycle
-
-- CloudTrail audit logs retained for 7 years (immutable)
-
-- Aggregated or anonymized data excluded from individual requests
-
-## 7. Response Management
-
-### 7.1 Communication Standards
-
-All responses must:
-
-- Use clear, plain language avoiding technical jargon
-
-- Specify the right exercised and actions taken
-
-- Include relevant privacy notice excerpts per Privacy Notice and Data Processing Agreement Template
-
-- Provide contact information for follow-up questions
-
-### 7.2 Extension Procedures
-
-If additional time is required:
-
-- Notify data subject within initial timeline
-
-- Provide specific reason for delay
-
-- Maximum extension: 2 additional months (GDPR) / 45 additional days (CCPA)
-
-- Document extension in the compliance platform
-
-### 7.3 Denial Procedures
-
-If a request must be denied:
-
-- Provide specific legal basis for denial
-
-- Explain data subject's right to appeal
-
-- Document supervisory authority complaint procedures
-
-- Maintain denial documentation for 24 months minimum
-
-## 8. Roles and Responsibilities
-
-### 8.1 Chief Executive Officer
+### 3.1 Chief Executive Officer (CEO)
 
 The CEO is the data protection contact and owns this procedure end to end:
 
 - Overall procedure oversight and compliance
-
 - Complex request adjudication
-
 - Legal hold determinations
-
 - Regulatory authority communications
-
 - Annual procedure review and updates
-
 - Day-to-day request processing
-
-- Identity verification procedures
-
+- Identity verification
 - Response quality assurance
-
 - Compliance platform administration
-
 - Database query execution for data discovery
-
-- System access for data updates/deletions
-
+- System access for data updates and deletions
 - Backup and archive data management
-
 - Removal of PropelAuth user records
 
-### 8.2 Go-to-Market Contractor
+### 3.2 Go-to-Market Contractor
 
 - Forwards any data subject request received to privacy@dealintelligence.io on receipt
-
 - Does not process requests and has no production access
 
-## 9. Runbook and Tools
+## 4. Data subject rights overview
 
-### 9.1 Manual Runbook
+### 4.1 Rights under GDPR
 
-Every request is processed by the CEO through the same manual runbook:
+Deal Intelligence recognizes the following rights for EU data subjects:
 
-1. **Verify identity** per Section 4.2
+|**Right**|**Description**|**Response timeline**|
+|---|---|---|
+|Access (Article 15)|Obtain confirmation and a copy of personal data|30 days|
+|Rectification (Article 16)|Correct inaccurate personal data|30 days|
+|Erasure (Article 17)|Delete personal data ("right to be forgotten")|30 days|
+|Portability (Article 20)|Receive data in a machine-readable format|30 days|
+|Objection (Article 21)|Object to processing based on legitimate interests|30 days|
+|Automated decision-making (Article 22)|Not be subject to solely automated decisions|30 days|
 
-2. **Locate records** : DocumentDB collections by email address and company domain; the PropelAuth user; the HubSpot CRM record
+### 4.2 Rights under CCPA
 
-3. **Act** : export, rectify or delete per Section 5
+California residents are entitled to:
 
-4. **Record** : a dated entry in the compliance platform with the request type, date received, action taken and date completed
+|**Right**|**Description**|**Response timeline**|
+|---|---|---|
+|Know (§1798.100)|Information about data collection and use|45 days|
+|Delete (§1798.105)|Request deletion of personal information|45 days|
+|Opt-out (§1798.120)|Opt out of the sale of personal information|Immediate|
+|Non-discrimination (§1798.125)|Equal service regardless of rights exercised|Ongoing|
 
-### 9.2 Manual Oversight
+## 5. Request intake and validation
 
-The CEO personally reviews:
+### 5.1 Submission channels
+
+Data subjects may submit requests through:
+
+- **Primary channel**: Dedicated email address, privacy@dealintelligence.io
+- **Secondary channel**: Authenticated customer portal via PropelAuth
+- **Tertiary channel**: Written request to the registered business address
+
+The CEO records every request as a dated entry in the compliance platform for tracking and audit purposes.
+
+### 5.2 Identity verification
+
+Identity is verified before any request is processed:
+
+1. **Email verification**: Confirmation email sent to the registered business email address
+2. **PropelAuth authentication**: For portal submissions, JWT token validation
+3. **Additional verification**: For sensitive requests, additional documentation may be required:
+   - Company domain verification
+   - LinkedIn profile matching
+   - Recent interaction history validation
+
+### 5.3 Request validation criteria
+
+Requests must include:
+
+- Full name and business email address
+- The specific right being exercised
+- Sufficient detail to locate the data
+- Preferred response format (where applicable)
+
+## 6. Processing procedures by request type
+
+### 6.1 Access requests
+
+**Timeline**: 30 days (GDPR) / 45 days (CCPA)
+
+**Process**:
+
+1. **Data discovery (days 1–5)**
+   - Query DocumentDB collections for business contact records by email address and company domain
+   - Search CloudWatch logs for processing activities (90-day retention)
+   - Review lead qualification and competitor interaction data
+   - Check PropelAuth user records
+   - Check HubSpot CRM records
+2. **Data compilation (days 6–10)**
+   - Extract data from all identified sources
+   - Format according to the Data Classification and Handling Standard
+   - Apply PII sanitization for third-party data
+   - Generate a processing activity summary
+3. **Review and delivery (days 11–30)**
+   - Review by the CEO for exemptions or restrictions
+   - Encrypt the response per the Encryption and Cryptographic Controls Standard
+   - Deliver via a secure channel (encrypted email or portal download)
+   - Document completion as a dated entry in the compliance platform
+
+### 6.2 Deletion requests
+
+**Timeline**: 30 days (GDPR) / 45 days (CCPA)
+
+**Process**:
+
+1. **Exemption assessment (days 1–3)**
+   - Verify no legal hold per the Data Retention and Disposal Policy
+   - Check contractual obligations for active leads (24-month retention)
+   - Review regulatory requirements (7-year financial records)
+2. **Deletion execution (days 4–15)**
+   - Locate and delete the records from DocumentDB collections by email address and company domain
+   - Delete the PropelAuth user record where one exists
+   - Delete the HubSpot CRM record where one exists
+   - Backup copies expire under the 90-day backup retention cycle and are not restored
+   - Clear CloudWatch logs where permissible
+3. **Confirmation (days 16–30)**
+   - Verify deletion across all systems
+   - Record a dated deletion entry in the compliance platform
+   - Send confirmation to the data subject
+   - Maintain the deletion log per compliance requirements
+
+### 6.3 Rectification requests
+
+**Timeline**: 30 days
+
+**Process**:
+
+1. **Data location (days 1–3)**
+   - Identify all instances of the incorrect data
+   - Document current values and requested corrections
+2. **Update execution (days 4–10)**
+   - Update DocumentDB records via the authenticated API
+   - Propagate changes to derived datasets
+   - Update lead qualification status if affected
+   - Synchronize with customer-delivered leads
+3. **Verification (days 11–30)**
+   - Confirm updates across all systems
+   - Send confirmation with a copy of the updated data
+   - Log changes in the audit trail
+
+### 6.4 Portability requests
+
+**Timeline**: 30 days
+
+**Process**:
+
+1. **Data export (days 1–10)**
+   - Generate a JSON or CSV export from DocumentDB
+   - Include all business contact information
+   - Format according to industry standards
+2. **Delivery (days 11–30)**
+   - Encrypt the file per the Encryption and Cryptographic Controls Standard
+   - Provide via a secure download link (7-day expiration)
+   - Include a data dictionary and field descriptions
+
+## 7. Special considerations
+
+### 7.1 Third-party data
+
+For data sourced from third parties or public sources:
+
+- Verification of the data subject's identity requires enhanced validation
+- Deletion may be limited to Deal Intelligence systems only
+- The response states the data source and any limitations
+
+### 7.2 Customer-controlled data
+
+For data within customer accounts, where Deal Intelligence acts as processor:
+
+- Requests are forwarded to the customer organization for processing
+- Deal Intelligence provides technical support only
+- The customer is responsible for meeting the response timeline
+
+### 7.3 Technical limitations
+
+The following constraints may affect request fulfillment:
+
+- Backup data follows a 90-day rotation cycle
+- CloudTrail audit logs are retained for 7 years (immutable)
+- Aggregated or anonymized data is excluded from individual requests
+
+## 8. Response management
+
+### 8.1 Communication standards
+
+All responses must:
+
+- Use clear, plain language without technical jargon
+- Specify the right exercised and the actions taken
+- Include relevant privacy notice excerpts per the Privacy Notice and Data Processing Agreement Template
+- Provide contact information for follow-up questions
+
+### 8.2 Extension procedures
+
+If additional time is required:
+
+- Notify the data subject within the initial timeline
+- Give the specific reason for the delay
+- Maximum extension: 2 additional months (GDPR) / 45 additional days (CCPA)
+- Document the extension in the compliance platform
+
+### 8.3 Denial procedures
+
+If a request must be denied:
+
+- Give the specific legal basis for the denial
+- Explain the data subject's right to appeal
+- State the supervisory authority complaint procedures
+- Retain the denial documentation for at least 24 months
+
+## 9. Runbook and tools
+
+### 9.1 Manual runbook
+
+The CEO processes every request through the same manual runbook:
+
+1. **Verify identity** per Section 5.2
+2. **Locate records**: DocumentDB collections by email address and company domain; the PropelAuth user; the HubSpot CRM record
+3. **Act**: export, rectify, or delete per Section 6
+4. **Record**: a dated entry in the compliance platform with the request type, date received, action taken, and date completed
+
+### 9.2 Manual oversight
+
+The CEO reviews in particular:
 
 - Identity verification for sensitive requests
-
 - Legal exemption assessments
-
 - Complex multi-system deletions
-
 - Customer communication and escalations
 
-### 9.3 Compliance Platform Integration
+### 9.3 Compliance platform
 
 The compliance platform provides:
 
 - Centralized request tracking as dated entries with due dates
-
-- Audit trail for all request activities
-
+- An audit trail for all request activities
 - Compliance reporting and metrics
 
-## 10. Metrics and Reporting
+## 10. Metrics and reporting
 
-### 10.1 Key Performance Indicators
+### 10.1 Key performance indicators
 
-|**Metric**|**Target**|**Measurement Frequency**|
+|**Metric**|**Target**|**Measurement frequency**|
 |---|---|---|
-|Average Response Time|<20 days|Monthly|
-|On-Time Response Rate|>95%|Monthly|
-|Request Volume|Baseline tracking|Monthly|
-|Denial Rate|<5%|Quarterly|
-|Extension Rate|<10%|Quarterly|
+|Average response time|<20 days|Monthly|
+|On-time response rate|>95 %|Monthly|
+|Request volume|Baseline tracking|Monthly|
+|Denial rate|<5 %|Quarterly|
+|Extension rate|<10 %|Quarterly|
 
-### 10.2 Compliance Reporting
+### 10.2 Compliance reporting
 
 Monthly reports recorded in the compliance platform include:
 
 - Total requests by type and jurisdiction
-
 - Response time distribution
-
 - Exemption and denial analysis
-
 - Process improvement opportunities
 
-## 11. Training and Awareness
+## 11. Training and awareness
 
 All personnel involved in data subject request processing must:
 
-- Complete privacy training per Security Awareness Training Program
-
+- Complete privacy training per the Security Awareness Training Program
 - Understand GDPR and CCPA requirements
-
 - Practice identity verification procedures
 
-## 12. Integration with Incident Response
+## 12. Integration with incident response
 
 Data subject requests may trigger broader actions:
 
-- Multiple deletion requests may indicate a data breach per Incident Response Procedure
-
+- Multiple deletion requests may indicate a data breach per the Incident Response Procedure
 - Access requests may reveal unauthorized processing requiring investigation
+- Patterns of requests are monitored via the System Monitoring and Logging Procedure
 
-- Patterns of requests monitored via System Monitoring and Logging Procedure
+## 13. Review
 
-## 13. Related Documents
-
-- Information Security Policy
-
-- Data Retention and Disposal Policy
-
-- Privacy Notice and Data Processing Agreement Template
-
-- Data Classification and Handling Standard
-
-- Access Control and Authentication Policy
-
-- Encryption and Cryptographic Controls Standard
-
-- Incident Response Procedure
-
-- Security Awareness Training Program
-
-- System Monitoring and Logging Procedure
-
-- Vendor Management Policy
-
-## 14. Review and Updates
-
-This procedure shall be reviewed annually and updated to reflect:
+This procedure is reviewed annually and updated for:
 
 - Changes in privacy regulations
-
 - Lessons learned from request processing
-
 - Technical capability enhancements
-
 - Audit findings and recommendations
 
 The next scheduled review date is 12 months from the initial approval date, with interim updates as required by regulatory changes or operational improvements identified through the compliance platform metrics.
 
-## 15. Revision History
+## 14. Related documents
+
+- Information Security Policy
+- Data Retention and Disposal Policy
+- Privacy Notice and Data Processing Agreement Template
+- Data Classification and Handling Standard
+- Access Control and Authentication Policy
+- Encryption and Cryptographic Controls Standard
+- Incident Response Procedure
+- Security Awareness Training Program
+- System Monitoring and Logging Procedure
+- Vendor Management Policy
+
+## 15. Revision history
 
 | Version | Date | Author | Summary of change |
 |---|---|---|---|

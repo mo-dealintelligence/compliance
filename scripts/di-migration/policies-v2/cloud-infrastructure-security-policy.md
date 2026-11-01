@@ -14,473 +14,331 @@ source: "cloud-infrastructure-security-policy-v1.0.pdf"
 
 ## 1. Purpose
 
-This Cloud Infrastructure Security Policy establishes comprehensive security requirements and controls for Deal Intelligence LLC's AWS cloud infrastructure supporting the platform. This policy ensures the protection, availability, and integrity of cloud resources while maintaining compliance with SOC 2 Trust Services Criteria and supporting the organization's 99.9% uptime SLA commitment.
+This policy sets the security requirements and controls for the AWS infrastructure that runs the Deal Intelligence LLC platform. It protects the availability, integrity, and confidentiality of cloud resources, meets the SOC 2 Trust Services Criteria, and supports the 99.9 % uptime commitment in the Service Level Agreement (SLA) Management Policy.
 
-This policy complements the Information Security Policy by providing specific technical controls and operational procedures for cloud infrastructure management, working in conjunction with established security frameworks to protect business contact information and maintain service reliability.
+It complements the Information Security Policy with the technical controls and operating procedures specific to cloud infrastructure.
 
 ## 2. Scope
 
 This policy applies to:
 
-- All AWS cloud infrastructure components including Lambda functions, Fargate containers, DocumentDB clusters, and associated services
-
-- CloudFormation stack di-backend-api-prod and all managed resources
-
-- Virtual Private Cloud (VPC) configurations and network security controls
-
+- All AWS infrastructure components, including Lambda functions, Fargate containers, DocumentDB clusters, and associated services
+- The CloudFormation stack `di-backend-api-prod` and all resources it manages
+- Virtual Private Cloud (VPC) configuration and network security controls
 - Container images, registries, and orchestration services (ECR, ECS)
-
-- Content delivery networks and edge services (CloudFront)
-
+- Content delivery and edge services (CloudFront)
 - Infrastructure automation and deployment pipelines
-
 - All personnel with administrative or operational access to cloud infrastructure
 
-This policy encompasses infrastructure-specific implementations of the Trust Services Criteria selected by Deal Intelligence: Security, Availability and Confidentiality.
+It covers the infrastructure-specific implementation of the Trust Services Criteria selected by Deal Intelligence: Security, Availability, and Confidentiality.
 
 ## 3. Definitions
 
-**Cloud Infrastructure** : All AWS services, resources, and configurations that support Deal Intelligence's platform operations.
+- **Cloud infrastructure**: all AWS services, resources, and configurations that support the Deal Intelligence platform
+- **Infrastructure as Code (IaC)**: CloudFormation templates and configuration files that define and provision cloud resources programmatically
+- **Container image**: packaged application code and dependencies stored in ECR
+- **Security group**: a virtual firewall controlling inbound and outbound traffic at the resource level
+- **Network Access Control List (NACL)**: an optional layer of subnet-level traffic control
+- **KMS**: AWS Key Management Service, used for encryption key management and cryptographic operations
+- **Multi-AZ deployment**: distribution of resources across multiple availability zones for high availability
 
-**Infrastructure as Code (IaC)** : CloudFormation templates and configuration files that define and provision cloud resources programmatically.
-
-**Container Image** : Packaged application code and dependencies stored in Amazon Elastic Container Registry (ECR).
-
-**Security Group** : Virtual firewall controlling inbound and outbound traffic at the instance level.
-
-**Network Access Control List (NACL)** : Optional layer of security providing subnet-level traffic control.
-
-**AWS KMS** : AWS Key Management Service used for encryption key management and cryptographic operations.
-
-**Multi-AZ Deployment** : Distribution of resources across multiple availability zones for high availability.
-
-## 4. Roles and Responsibilities
+## 4. Roles and responsibilities
 
 ### 4.1 Chief Executive Officer (CEO)
 
-The CEO owns this policy and is the only role with administrative access to the cloud infrastructure. The CEO shall:
+The CEO owns this policy and is the only role with administrative access to the cloud infrastructure. The CEO:
 
-- Configure and maintain AWS cloud resources according to security best practices
-
-- Implement and manage CloudFormation templates for infrastructure provisioning
-
-- Monitor infrastructure performance and security metrics
-
-- Ensure compliance with encryption and access control requirements
-
-- Maintain infrastructure documentation and configuration baselines
-
-- Configure AWS Security Hub and related security services
-
-- Review and respond to infrastructure security findings
-
-- Manage IAM policies and service roles
-
-- Conduct infrastructure security assessments
-
-- Maintain CI/CD pipelines for infrastructure deployments
-
-- Implement infrastructure monitoring and alerting
-
-- Manage container registries and orchestration services
-
-- Execute backup and recovery procedures
-
-- Lead incident response activities for infrastructure events
+- Configures and maintains AWS resources according to security best practices
+- Implements and maintains the CloudFormation templates that provision the infrastructure
+- Monitors infrastructure performance and security metrics
+- Maintains the encryption and access controls required by this policy
+- Maintains infrastructure documentation and configuration baselines
+- Configures Security Hub and related security services
+- Reviews and responds to infrastructure security findings
+- Manages IAM policies and service roles
+- Conducts infrastructure security assessments
+- Maintains the CI/CD pipelines for infrastructure deployments
+- Implements infrastructure monitoring and alerting
+- Manages container registries and orchestration services
+- Executes backup and recovery procedures
+- Leads incident response for infrastructure events
 
 ### 4.2 Go-to-Market Contractor
 
 - Has no access to cloud infrastructure, production systems, or deployment pipelines
-
 - Reports any suspected infrastructure security issue to the CEO
 
-### 4.3 External Parties
+### 4.3 External parties
 
 - The external SOC 2 auditor independently reviews infrastructure controls and evidence
-
 - The penetration-test vendor performs the annual third-party penetration test
 
-## 5. Policy Statements
+## 5. Controls
 
-### 5.1 Infrastructure Architecture and Design
+### 5.1 Infrastructure architecture and design
 
-#### 5.1.1 Network Segmentation
+#### 5.1.1 Network segmentation
 
-All cloud infrastructure shall be deployed within a single Virtual Private Cloud (VPC) in us-east-1 with:
+All cloud infrastructure is deployed in a single VPC in us-east-1 with:
 
-- Private subnets for database and application tiers
-
+- Private subnets for the database and application tiers
 - Public subnets only for the NAT instance, which is accessed exclusively via SSM Session Manager (no key-based shell access, no public services)
-
-- Network segmentation enforcing least privilege access between tiers
-
+- Network segmentation enforcing least-privilege access between tiers
 - VPC Flow Logs enabled for network traffic analysis
 
-#### 5.1.2 High Availability Design
+#### 5.1.2 High availability design
 
-Infrastructure shall maintain multi-availability zone deployment across us-east-1a and us-east-1b to support the 99.9% uptime SLA as detailed in the Service Level Agreement (SLA) Management Policy:
+The infrastructure is deployed across the us-east-1a and us-east-1b availability zones to support the 99.9 % uptime SLA in the Service Level Agreement (SLA) Management Policy:
 
-- DocumentDB clusters deployed Multi-AZ (a second instance in another availability zone) with automated failover capabilities
+- DocumentDB clusters are Multi-AZ (a second instance in another availability zone) with automatic failover
+- Lambda functions run across multiple availability zones
+- Lambda deployments are versioned, with reserved concurrency and rollback via `serverless rollback`
+- CloudFront distributes content globally
 
-- Lambda functions deployed across multiple availability zones
+The platform runs in a single AWS region (us-east-1) by design, as stated in the Business Continuity Plan.
 
-- Lambda versioned deployments with reserved concurrency and rollback via `serverless rollback`
+#### 5.1.3 Encryption
 
-- CloudFront CDN for global content distribution
+All infrastructure components implement the encryption controls in the Encryption and Cryptographic Controls Standard:
 
-The platform operates in a single AWS region (us-east-1) by design, as stated in the Business Continuity Plan.
-
-#### 5.1.3 Encryption Requirements
-
-All infrastructure components shall implement encryption controls as specified in the Encryption and Cryptographic Controls Standard:
-
-- AWS KMS customer-managed keys for DocumentDB encryption
-
+- KMS customer-managed keys for DocumentDB encryption
 - TLS 1.2 minimum for all data in transit
-
 - S3 bucket encryption for stored objects
+- Certificate management through ACM
 
-- Certificate management through AWS Certificate Manager
+### 5.2 Access control and identity management
 
-### 5.2 Access Control and Identity Management
+#### 5.2.1 IAM policy management
 
-#### 5.2.1 IAM Policy Management
+IAM is configured according to the Access Control and Authentication Policy:
 
-AWS Identity and Access Management (IAM) shall be configured according to the Access Control and Authentication Policy:
-
-- Principle of least privilege for all IAM roles and policies
-
+- Least privilege for all IAM roles and policies
 - Service-specific roles for Lambda functions and containers
-
-- No use of root account for daily operations
-
+- No use of the root account for daily operations
 - MFA required for console access to production resources
+- Quarterly access reviews recorded in the risk register in the compliance platform
 
-- Quarterly access reviews documented in the risk register in the compliance platform
+#### 5.2.2 Service account management
 
-#### 5.2.2 Service Account Management
-
-- Unique IAM roles for each service component
-
+- A unique IAM role for each service component
 - Temporary credentials via AWS STS for cross-service authentication
-
 - No hard-coded credentials in application code or configuration files
+- Secrets held in Secrets Manager or Parameter Store, with Secrets Manager rotation enabled on the DocumentDB credential
 
-- Secrets management through AWS Secrets Manager or Parameter Store, with Secrets Manager rotation enabled on the DocumentDB credential
+#### 5.2.3 Database access controls
 
-#### 5.2.3 Database Access Controls
-
-DocumentDB access shall be restricted through:
+DocumentDB access is restricted through:
 
 - VPC isolation with no direct internet connectivity
-
 - Security group rules limiting access to authorized application services
-
 - Database user authentication with strong passwords
-
 - Connection encryption enforced at the database level
+- Audit logging of all database operations
 
-- Audit logging for all database operations
+### 5.3 Container security
 
-### 5.3 Container Security
+#### 5.3.1 Container image management
 
-#### 5.3.1 Container Image Management
+Container images are managed according to the Secure Software Development Lifecycle (SDLC) Standard:
 
-All container images shall be managed according to secure development practices outlined in the Secure Software Development Lifecycle (SDLC) Standard:
-
-- Scan-on-push vulnerability scanning enabled in Amazon ECR for all repositories
-
+- Scan-on-push vulnerability scanning enabled in ECR for all repositories
 - Critical vulnerabilities remediated before production deployment
-
 - Base images from trusted sources only
-
 - Regular updates of base images and dependencies
-
 - Images built and pushed to ECR only from a green GitHub Actions CI run (including Trivy image scanning)
 
-#### 5.3.2 Container Runtime Security
+#### 5.3.2 Container runtime security
 
-ECS and Fargate deployments shall implement:
+ECS and Fargate deployments implement:
 
-- Task-level IAM roles with minimal required permissions
-
-- Read-only root filesystems where applicable
-
+- Task-level IAM roles with the minimum required permissions
+- Read-only root filesystems where the workload allows it
 - Resource limits to prevent container escape
-
 - Network policies restricting inter-container communication
+- Logging of container activity to CloudWatch
 
-- Logging of container activities to CloudWatch
+### 5.4 Serverless security
 
-### 5.4 Serverless Security
+#### 5.4.1 Lambda function security
 
-#### 5.4.1 Lambda Function Security
-
-Lambda functions shall be configured with:
+Lambda functions are configured with:
 
 - Function-specific IAM execution roles
-
 - Reserved concurrency limits (100 concurrent executions)
-
-- Maximum timeout of 900 seconds to prevent runaway functions
-
+- A maximum timeout of 900 seconds to prevent runaway functions
 - Environment variable encryption for sensitive configuration
-
-- VPC attachment for functions requiring database access
-
+- VPC attachment for functions that need database access
 - Versioned deployments with rollback via `serverless rollback`
 
-#### 5.4.2 API Gateway Security
+#### 5.4.2 API security
 
-API endpoints shall implement controls defined in the API Security and Rate Limiting Standard:
+API endpoints implement the controls in the API Security and Rate Limiting Standard:
 
 - Rate limiting of 100 requests per minute per client, enforced in middleware
-
-- JWT authentication via PropelAuth integration
-
+- JWT authentication via PropelAuth
 - Request validation and input sanitization
-
-- CloudWatch logging for all API calls
-
+- CloudWatch logging of all API calls
 - CloudFront with AWS Shield Standard, TLS 1.2+, and origin access restricted to the Lambda function URLs
 
-### 5.5 Infrastructure Monitoring and Logging
+### 5.5 Infrastructure monitoring and logging
 
-#### 5.5.1 Logging Requirements
+#### 5.5.1 Logging
 
-Infrastructure logging shall comply with the System Monitoring and Logging Procedure:
+Infrastructure logging follows the System Monitoring and Logging Procedure:
 
 - CloudTrail enabled for all AWS API calls
-
 - CloudWatch Logs for application and system logs
-
-- 90-day retention period for CloudWatch Logs
-
+- CloudWatch Logs retained 90 days
 - CloudTrail logs retained 7 years in S3 (lifecycle to Glacier, Object Lock)
-
 - Log aggregation and centralized analysis
-
 - PII sanitization in all logged data
 
-#### 5.5.2 Security Monitoring
+#### 5.5.2 Security monitoring
 
-Continuous security monitoring through:
+Security monitoring runs through:
 
-- AWS Security Hub (AWS Foundational Security Best Practices) for centralized security findings, including configuration checks
-
+- Security Hub (AWS Foundational Security Best Practices) for centralized security findings, including configuration checks
 - CloudTrail for AWS API activity
-
 - The breach-detection Lambda function that routes Security Hub findings to SNS
-
 - Scheduled Lambda checks (access review, retention enforcement)
-
 - CloudWatch alarms for security events
+- SNS notifications for critical findings in real time; all Security Hub findings reviewed monthly, with the review recorded in the compliance platform
+- Security events recorded in the incident reporting module of the compliance platform
 
-- SNS notifications for critical findings in real time; all Security Hub findings reviewed monthly and the review recorded in the compliance platform
+#### 5.5.3 Performance monitoring
 
-- Integration with the Incident Reporting system in the compliance platform for security events
-
-#### 5.5.3 Performance Monitoring
-
-Infrastructure performance metrics including:
+Infrastructure performance metrics include:
 
 - Lambda function duration and error rates
-
 - Container CPU and memory utilization
-
 - Database connection pool metrics
-
 - API latency (alert at p95 > 2 seconds) and error rates
-
 - CloudFront cache hit ratios
 
-### 5.6 Backup and Recovery
+### 5.6 Backup and recovery
 
-#### 5.6.1 Backup Requirements
+#### 5.6.1 Backups
 
-Infrastructure backup procedures shall align with the Business Continuity Plan:
+Backups follow the Business Continuity Plan:
 
 - Daily automated DocumentDB backups with 90-day retention
-
-- Point-in-time recovery capability for databases
-
+- Point-in-time recovery for databases
 - Infrastructure configuration versioning in CloudFormation
-
 - Container image versioning in ECR
-
 - Lambda function version management
 
-#### 5.6.2 Recovery Procedures
+#### 5.6.2 Recovery
 
-- Documented recovery time objectives (RTO) and recovery point objectives (RPO)
-
-- Quarterly backup restoration testing (automated, recorded in the compliance platform)
-
-- Automated failover for Multi-AZ resources
-
+- Recovery time objectives (RTO) and recovery point objectives (RPO) are set in the Business Continuity Plan
+- Quarterly backup restoration test (automated, recorded in the compliance platform)
+- Automatic failover for Multi-AZ resources
 - Rollback procedures for infrastructure changes
+- Disaster recovery procedures in the Business Continuity Plan
 
-- Disaster recovery procedures documented in the Business Continuity Plan
+### 5.7 Change management
 
-### 5.7 Change Management
+#### 5.7.1 Infrastructure changes
 
-#### 5.7.1 Infrastructure Changes
+All infrastructure changes follow the Change Management Policy:
 
-All infrastructure modifications shall follow the Change Management Policy:
-
-- CloudFormation templates (deployed via the Serverless Framework) for infrastructure provisioning
-
-- Version control for all IaC templates in the `dealintelligence/di-backend-api` repository
-
-- Validation in a staging stage of the same CloudFormation stack, containing no production data, before production
-
-- Pull request with required CI status checks on the protected `main` branch for production deployments; deploy only from a green CI run
-
+- CloudFormation templates (deployed via the Serverless Framework) provision the infrastructure
+- All IaC templates are version-controlled in the `dealintelligence/di-backend-api` repository
+- Changes are validated in a staging stage of the same CloudFormation stack, containing no production data, before production
+- Production deployments require a pull request with required CI status checks on the protected `main` branch and deploy only from a green CI run
 - Rollback via `serverless rollback`
 
-#### 5.7.2 Configuration Management
+#### 5.7.2 Configuration management
 
-- Baseline configurations documented for all infrastructure components
-
+- Baseline configurations are documented for all infrastructure components
 - CloudFormation (`serverless deploy`) is the only change path and reports configuration drift
+- Security Hub configuration checks and scheduled Lambda checks detect non-compliant resources
+- Configurations are reviewed and updated regularly
 
-- Security Hub configuration checks and scheduled Lambda checks for non-compliant resources
+### 5.8 Vulnerability management
 
-- Regular configuration reviews and updates
+Infrastructure vulnerability management follows the Vulnerability Management Procedure:
 
-### 5.8 Vulnerability Management
-
-Infrastructure vulnerability management shall follow the Vulnerability Management Procedure:
-
-- Regular security assessments of cloud infrastructure
-
+- Regular security assessments of the cloud infrastructure
 - Automated vulnerability scanning through ECR scan-on-push, GitHub Dependabot and code scanning, and Trivy in CI
-
 - Patch management for managed services
+- Prioritization of security findings by severity
+- Remediation tracking in Security Hub
 
-- Security finding prioritization based on severity
+### 5.9 Third-party services
 
-- Remediation tracking through Security Hub
-
-### 5.9 Third-Party Services
-
-AWS as the primary infrastructure provider shall be managed according to the Vendor Management Policy:
+AWS, as the infrastructure provider, is managed according to the Vendor Management Policy:
 
 - Annual review of AWS security certifications and compliance
-
-- Monitoring of AWS service health dashboards
-
+- Monitoring of the AWS service health dashboard
 - Review of AWS security bulletins and advisories
-
 - Participation in AWS Well-Architected reviews
 
-## 6. Compliance Requirements
+### 5.10 GDPR and CCPA support
 
-### 6.1 SOC 2 Requirements
-
-Infrastructure controls shall address all applicable Trust Services Criteria:
-
-- **Security** : Implementation of technical controls for infrastructure protection
-
-- **Availability** : Multi-AZ deployment and automated failover mechanisms
-
-- **Confidentiality** : Encryption and access controls for sensitive data
-
-### 6.2 Regulatory Compliance
-
-Infrastructure shall support GDPR and CCPA compliance through:
+The infrastructure supports GDPR and CCPA compliance through:
 
 - Data residency controls and geographic restrictions
-
 - Encryption of personal data at rest and in transit
+- Audit logging of data access and modification
+- Support for the deletion and retention requirements in the Data Retention and Disposal Policy
 
-- Audit logging for data access and modifications
+## 6. Enforcement
 
-- Support for data deletion and retention requirements defined in the Data Retention and Disposal Policy
-
-## 7. Implementation and Enforcement
-
-### 7.1 Implementation Timeline
+### 6.1 Implementation
 
 - Immediate enforcement for all new infrastructure deployments
-
-- Existing infrastructure review and remediation within 30 days
-
+- Review and remediation of existing infrastructure within 30 days
 - Monthly review of Security Hub findings, recorded in the compliance platform
-
 - Annual third-party penetration test
 
-### 7.2 Policy Violations
+### 6.2 Policy violations
 
 Non-compliance with this policy may result in:
 
 - Immediate remediation requirements
-
 - Restricted access to production infrastructure
-
-- Incident documentation in the Incident Reporting system in the compliance platform
-
+- An incident record in the incident reporting module of the compliance platform
 - Escalation to the CEO for repeated violations
 
-### 7.3 Exceptions
+### 6.3 Exceptions
 
-Policy exceptions must be:
+A policy exception is:
 
-- Documented with business justification
-
+- Documented with its business justification
 - Approved by the CEO
-
-- Time-limited with defined remediation plans
-
+- Time-limited, with a remediation plan
 - Tracked in the risk register in the compliance platform
 
-## 8. Related Documents
+### 6.4 Review
+
+The CEO reviews this policy annually and updates it for:
+
+- Changes in AWS services and best practices
+- Changes in the Deal Intelligence infrastructure architecture
+- Updates to compliance requirements and industry standards
+- Lessons learned from security incidents and assessments
+- Recommendations from penetration tests and security assessments
+
+The next review date is recorded in the compliance platform and aligned with the annual review cycle of the related security policies.
+
+## 7. Related documents
 
 - Information Security Policy
-
 - Access Control and Authentication Policy
-
 - Change Management Policy
-
 - Incident Response Procedure
-
 - Business Continuity Plan
-
 - Data Classification and Handling Standard
-
 - Encryption and Cryptographic Controls Standard
-
 - System Monitoring and Logging Procedure
-
 - Vulnerability Management Procedure
-
 - API Security and Rate Limiting Standard
-
 - Secure Software Development Lifecycle (SDLC) Standard
-
 - Vendor Management Policy
-
 - Service Level Agreement (SLA) Management Policy
-
 - Data Retention and Disposal Policy
 
-## 9. Review and Updates
-
-This policy shall be reviewed annually and updated to reflect:
-
-- Changes in AWS service offerings and best practices
-
-- Evolution of Deal Intelligence's infrastructure architecture
-
-- Updates to compliance requirements and industry standards
-
-- Lessons learned from security incidents and assessments
-
-- Recommendations from penetration testing and security assessments
-
-The next scheduled review date shall be recorded in the compliance platform and coordinated with the annual review cycle of related security policies.
-
-## 10. Revision history
+## 8. Revision history
 
 | Version | Date | Author | Summary |
 |---|---|---|---|

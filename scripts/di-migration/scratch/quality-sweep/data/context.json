@@ -1,0 +1,266 @@
+[
+  {
+    "id": "ctx_6ae4467a11a0f73a4469b1cd",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Who will sign off on the final report?",
+    "answer": "Mo Messidi, CEO.",
+    "tags": [
+      "people"
+    ],
+    "createdAt": "2026-10-30T07:25:46.449Z",
+    "updatedAt": "2026-10-30T07:25:46.449Z"
+  },
+  {
+    "id": "ctx_6ae4467a997bc87734a00db9",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Who are your C-Suite executives?",
+    "answer": "Mo Messidi, Chief Executive Officer and founder; also acts as Information Security Officer and System Owner.",
+    "tags": [
+      "people"
+    ],
+    "createdAt": "2026-10-30T07:25:46.120Z",
+    "updatedAt": "2026-10-30T07:25:46.120Z"
+  },
+  {
+    "id": "ctx_6ae4467aa2b2f5daf5418873",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "How many employees do you have?",
+    "answer": "One full-time founder/CEO (Mo Messidi) and one go-to-market contractor (William Wickey).",
+    "tags": [
+      "people"
+    ],
+    "createdAt": "2026-10-30T07:25:45.797Z",
+    "updatedAt": "2026-10-30T07:25:45.797Z"
+  },
+  {
+    "id": "ctx_6ae44679adfe6e7474a57d5d",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Subservice Organizations",
+    "answer": "Amazon Web Services and PropelAuth are the two sub-processors (subservice organizations) that process customer data on behalf of Deal Intelligence. Customer-controlled integrations (Slack, Salesforce, HubSpot, Clay) are not subservice organizations.",
+    "tags": [
+      "vendors"
+    ],
+    "createdAt": "2026-10-30T07:25:45.479Z",
+    "updatedAt": "2026-10-30T07:25:45.479Z"
+  },
+  {
+    "id": "ctx_6ae4467999fa2ef21b09779b",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Critical Vendors",
+    "answer": "Amazon Web Services (hosting and storage), PropelAuth (authentication), GitHub (source control and CI/CD), Google Workspace (email and SSO).",
+    "tags": [
+      "vendors"
+    ],
+    "createdAt": "2026-10-30T07:25:45.157Z",
+    "updatedAt": "2026-10-30T07:25:45.157Z"
+  },
+  {
+    "id": "ctx_6ae44679e2621a71c0853187",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "System Description",
+    "answer": "The in-scope system is the Deal Intelligence platform: AWS Lambda functions and Fargate containers (serverless, short-lived compute), Amazon DocumentDB with KMS encryption, S3, CloudFront, EventBridge schedules and private VPC subnets with no direct internet access, provisioned through CloudFormation (stack di-backend-api-prod) and deployed by GitHub Actions. Authentication is PropelAuth (JWT, MFA, RBAC) with company- and user-level data isolation. Monitoring uses CloudWatch (90-day retention), CloudTrail, Security Hub and multi-AZ deployment. The platform processes business contact information and competitor interaction data with a 24-month retention period for active leads. The compliance program itself is managed in a self-hosted GRC tool (Comp) outside the system boundary.",
+    "tags": [
+      "system-description"
+    ],
+    "createdAt": "2026-10-30T07:25:44.832Z",
+    "updatedAt": "2026-10-30T07:25:44.832Z"
+  },
+  {
+    "id": "ctx_6ae44679ca9bcd0a659641b2",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Mission & Vision",
+    "answer": "Give B2B revenue teams a verified, daily view of competitive activity at the accounts they care about, so they can win net-new deals, protect renewals and revive closed-lost opportunities with facts rather than inference.",
+    "tags": [
+      "mission"
+    ],
+    "createdAt": "2026-10-30T07:25:44.514Z",
+    "updatedAt": "2026-10-30T07:25:44.514Z"
+  },
+  {
+    "id": "ctx_6ae44678c2b732d987f6d0fa",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Types of Services Provided",
+    "answer": "Verified competitor activity events and competitor customer lists delivered through a REST API, an MCP server for Claude and other AI clients, Clay enrichment, Salesforce/HubSpot CRM writes, Slack notifications and webhooks. Events refresh daily, are named on both sides and carry a confidence score of 0.95 or higher.",
+    "tags": [
+      "services"
+    ],
+    "createdAt": "2026-10-30T07:25:44.188Z",
+    "updatedAt": "2026-10-30T07:25:44.188Z"
+  },
+  {
+    "id": "ctx_6ae4467805be439197021862",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Company Background & Overview of Operations",
+    "answer": "Deal Intelligence LLC (Delaware) is a business-to-business revenue data company. It surfaces verified competitor activity for revenue teams: named buyers at a customer's target accounts who have accepted outreach from named competitors, plus verified competitor-customer lists derived from DNS, certificate and SSO/tenant evidence. The company is founder-operated (single member LLC) with one go-to-market contractor, fully remote, with all infrastructure on AWS us-east-1.",
+    "tags": [
+      "overview"
+    ],
+    "createdAt": "2026-10-30T07:25:43.803Z",
+    "updatedAt": "2026-10-30T07:25:43.803Z"
+  },
+  {
+    "id": "ctx_6ae43d2254fab36f48b753fe",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "How does your team work?",
+    "answer": "Fully remote",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d2235676d22ca1b2b25",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "What types of data do you handle?",
+    "answer": "Other",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d227985eb0769efaf05",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Where would you like to receive your certificate?",
+    "answer": "{\"fullName\":\"Mo Messidi\",\"address\":\"_\",\"phone\":\"\"}",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d221a8d934f7b43facf",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "What are your custom vendors and their websites?",
+    "answer": "[{\"name\":\"propelauth\",\"website\":\"https://propelauth.com\"}]",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d22d4d1b76be00852c1",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Where is your data located?",
+    "answer": "North America",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d220c17609277b54689",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Describe your company in a few sentences",
+    "answer": "Deal intelligence is a b2b gtm data provider",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d2210df49f6d9c96533",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "What industry is your company in?",
+    "answer": "SaaS",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d2299a8b3b62cbc3b9b",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "How many employees do you have?",
+    "answer": "2",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d22aa10e685567e25ae",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Who are your C-Suite executives?",
+    "answer": "[{\"name\":\"Mo Messidi\",\"title\":\"CEO\"},{\"name\":\"William Wickey\",\"title\":\"Contractor\"}]",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d2289fdd7ce6bac0298",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Who will sign off on the final report?",
+    "answer": "{\"fullName\":\"Mo Messidi\",\"jobTitle\":\"CEO\",\"email\":\"mo@dealintelligence.io\"}",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d22b0345380b29891f1",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "What devices do your team members use?",
+    "answer": "Company-provided laptops",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d2271b191a10f8a9db3",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "How do your team members sign in to work tools?",
+    "answer": "Google Workspace,Email/Password",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43d22b26fc435ae3eebf1",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Where do you host your applications and data?",
+    "answer": "AWS",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:45:53.964Z",
+    "updatedAt": "2026-10-30T06:45:53.964Z"
+  },
+  {
+    "id": "ctx_6ae43948bc1c823b62e62234",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "Which compliance frameworks do you need?",
+    "answer": "GDPR, SOC 2, CCPA",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:29:28.446Z",
+    "updatedAt": "2026-10-30T06:29:28.446Z"
+  },
+  {
+    "id": "ctx_6ae439486f5a406e434d3196",
+    "organizationId": "org_6ae43948f44032b0bb39e61f",
+    "question": "frameworkIds",
+    "answer": "[\"CCPA\",\"GDPR\",\"SOC 2\"]",
+    "tags": [
+      "onboarding"
+    ],
+    "createdAt": "2026-10-30T06:29:28.446Z",
+    "updatedAt": "2026-10-30T06:29:28.446Z"
+  }
+]

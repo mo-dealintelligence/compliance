@@ -29,3 +29,14 @@
 - §10.1 MTTC "< 2 hours from acknowledgement": v1 said "< 2 hours" with no reference point; confirm the measurement basis.
 - §8.3 "S3 bucket with versioning and MFA delete": v1 claim not covered by any rule; confirm the evidence bucket actually has MFA delete enabled.
 - §9.2 "Monthly update of contact lists and escalation paths": v1 cadence kept; confirm this is actually performed monthly.
+
+## Quality sweep (2026-10-31)
+
+- Severity scale: normalised to P1–P4 throughout — "Critical (P1)" → "P1 (Critical)" in definitions and the matrix, and "Critical/High severity", "Critical and High", "Medium/Low" in body text → "P1 and P2", "P3 and P4" (×9); vulnerability wording untouched.
+- Voice: "establishes the systematic approach" → "sets out how"; "leverages" → "uses"; removed "ensures rapid …" framing, "proactive threat intelligence" → "threat intelligence"; "shall guide" → "guide"; "Continuous improvement based on lessons learned" → "Updates based on lessons learned"; "Archive evidence in secure S3 bucket with encryption" → "in the encrypted S3 evidence bucket".
+- Formatting: removed blank lines between bullets and between numbered steps and their sub-bullets (≈170 lines); colon-suffixed pseudo-headings (`#### During Incident:` etc.) turned into lead-in lines; table header bold removed; "ECS/Fargate" → "Fargate"; "GDPR/CCPA" → "GDPR and CCPA"; "99.9%" → "99.9 %"; "100%" → "100 %"; Oxford comma applied; revision history numbered §13.
+- Consistency: §4.1 / §4.2 given lead-in sentences; "Section 7" → "section 7"; "Upon" → "On".
+- Related documents: alphabetised after Information Security Policy; same 12 documents, all in the set.
+- Kept: 48 h / 72 h notification figures, 4-business-hour P1 acknowledgement, all KPIs, 7-year evidence retention, escalation triggers.
+
+No new CONFIRM items.

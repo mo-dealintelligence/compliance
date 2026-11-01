@@ -41,3 +41,16 @@ Output: `policies-v2/cloud-infrastructure-security-policy.md`
 - [CONFIRM: API Gateway vs Lambda function URLs] — v1 §5.4.2 heading "API Gateway Security" and the R4-mandated WAF replacement text "origin access restricted to the Lambda function URLs" now sit in the same section. Heading kept as v1 (API Gateway itself is not in the R4 removal list). Confirm which is in the stack and align the heading/wording.
 - [CONFIRM: separate account vs same account] — staging stage described without any account language per R3.
 - [CONFIRM: VPC Flow Logs, DocumentDB audit logging, ECS network policies, AWS Well-Architected reviews] — kept verbatim from v1 because no rule removes them; worth checking they are actually enabled.
+
+## Quality sweep (2026-10-31)
+
+- Structure: §6 Compliance Requirements dissolved — §6.1 SOC 2 Requirements deleted (three generic bullets restating the TSC names, no control of its own); §6.2 Regulatory Compliance kept as §5.10 "GDPR and CCPA support". §9 Review and Updates folded into §6.4 Review so Related documents (§7) precedes Revision history (§8). Sections renumbered 6–8.
+- §5 heading "Policy Statements" → "Controls"; §5.4.2 "API Gateway Security" → "API security" (the bullets describe middleware and CloudFront, not API Gateway); §3 definitions converted from bold-colon paragraphs to a list.
+- Voice: removed "shall" ×16 (→ present tense); removed "comprehensive", "working in conjunction with established security frameworks", "ensures the protection"; §4.1 "Ensure compliance with encryption and access control requirements" → "Maintains the encryption and access controls required by this policy"; §5.3.2 "where applicable" → "where the workload allows it"; §5.6.2 "Documented RTO and RPO" → "are set in the Business Continuity Plan".
+- Consistency: "AWS KMS" → "KMS"; "Amazon Elastic Container Registry (ECR)" / "Amazon ECR" → "ECR"; "AWS Certificate Manager" → "ACM"; "AWS Security Hub" → "Security Hub"; "99.9%" → "99.9 %"; "Incident Reporting system in the compliance platform" → "incident reporting module of the compliance platform" ×2; headings to sentence case; blank lines between bullets removed (~95).
+- Related documents: all 14 entries exist in the set; unchanged.
+- Word count 2175 → 2073.
+
+### New CONFIRM items
+
+- §6.1 "Review and remediation of existing infrastructure within 30 days" is an implementation-timeline commitment carried from v1; it reads as stale once the policy is republished. Confirm whether to keep it.

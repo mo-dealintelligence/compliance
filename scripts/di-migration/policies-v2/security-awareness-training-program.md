@@ -14,42 +14,46 @@ source: "security-awareness-training-program-v1.0.pdf"
 
 ## 1. Purpose
 
-This Security Awareness Training Program establishes mandatory requirements for information security education and awareness activities at Deal Intelligence LLC. The program ensures all personnel understand their responsibilities in protecting business contact information, customer data, and the platform infrastructure in accordance with SOC 2 Trust Services Criteria CC1.4 (Communication of Objectives) and CC2.2 (Communication and Reporting). It operationalizes the security awareness requirements defined in the Information Security Policy.
+This program sets the mandatory security awareness training requirements for Deal Intelligence LLC personnel, so that all personnel understand their responsibilities for protecting business contact information, customer data, and the platform infrastructure. It implements the security awareness requirements of the Information Security Policy and supports SOC 2 Trust Services Criteria CC1.4 (communication of objectives) and CC2.2 (communication and reporting).
 
 ## 2. Scope
 
-This program applies to all personnel with access to Deal Intelligence systems, data, or infrastructure, including the CEO and the Go-to-Market Contractor, during onboarding and annually thereafter.
+This program applies to all personnel with access to Deal Intelligence systems, data, or infrastructure, including the Chief Executive Officer (CEO) and the Go-to-Market Contractor, during onboarding and annually thereafter.
 
-## 3. Training Requirements
+## 3. Training requirements
 
-### 3.1 Onboarding Training
+### 3.1 Onboarding training
 
-All new personnel shall complete security awareness training in the compliance platform portal as part of onboarding, before being granted access to company data.
+All new personnel complete security awareness training in the compliance platform portal as part of onboarding, before being granted access to company data.
 
-### 3.2 Annual Refresher Training
+### 3.2 Annual refresher training
 
-All personnel shall complete security awareness refresher training in the compliance platform portal annually. Refresher content covers updated security policies and procedures, lessons learned from security incidents per Incident Response Procedure, and regulatory compliance updates for GDPR and CCPA.
+All personnel complete security awareness refresher training in the compliance platform portal annually. Refresher content covers updated security policies and procedures, lessons learned from security incidents per the Incident Response Procedure, and regulatory updates for GDPR and CCPA.
 
-### 3.3 Training Content
+### 3.3 Training content
 
 Training covers:
 
 - Information security fundamentals and the Information Security Policy
-- Data classification and handling per Data Classification and Handling Standard, including PII identification and customer data isolation requirements
-- Acceptable use per Acceptable Use Policy
-- Authentication security per Access Control and Authentication Policy: strong passwords, password manager utilization, prohibition of credential sharing, and multi-factor authentication enforced in Google Workspace, GitHub and AWS
-- Recognition of phishing, social engineering and business email compromise, and how to report suspected attempts
+- Data classification and handling per the Data Classification and Handling Standard, including PII identification and customer data isolation requirements
+- Acceptable use per the Acceptable Use Policy
+- Authentication security per the Access Control and Authentication Policy: strong passwords, password manager use, no credential sharing, and multi-factor authentication enforced in Google Workspace, GitHub, and AWS
+- Recognition of phishing, social engineering, and business email compromise, and how to report suspected attempts
 - Remote work security: physical security of devices and documents, and company data accessed only through browser SSO (Google Workspace) and the AWS console/CLI with MFA
-- Incident recognition and reporting per Incident Response Procedure, including customer notification timelines (48 hours)
+- Incident recognition and reporting per the Incident Response Procedure, including customer notification timelines (48 hours)
 
-## 4. Evidence and Records
+## 4. Evidence and records
 
 - Completion of onboarding and annual training is recorded in the compliance platform; the completion certificate issued by the compliance platform is the evidence of completion
 - Contractors, including the Go-to-Market Contractor, acknowledge the Acceptable Use Policy and their confidentiality obligations in the compliance platform portal at onboarding and annually
 - Training completion is tracked by the CEO; outstanding training is followed up until complete
-- Training records are retained per Data Retention and Disposal Policy and are available to the external SOC 2 auditor
+- Training records are retained per the Data Retention and Disposal Policy and are available to the external SOC 2 auditor
 
-## 5. Related Documents
+## 5. Review
+
+This program is reviewed annually and updated for changes in the threat landscape, lessons learned from security incidents, regulatory updates, and changes to the technology platform.
+
+## 6. Related documents
 
 - Information Security Policy
 - Acceptable Use Policy
@@ -58,11 +62,7 @@ Training covers:
 - Incident Response Procedure
 - Data Retention and Disposal Policy
 
-## 6. Review and Updates
-
-This Security Awareness Training Program shall be reviewed annually and updated to reflect changes in the threat landscape, lessons learned from security incidents, regulatory requirement updates, and technology platform evolution.
-
-## Revision history
+## 7. Revision history
 
 |**Version**|**Date**|**Author**|**Summary**|
 |---|---|---|---|

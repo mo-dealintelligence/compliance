@@ -38,3 +38,20 @@
 - "Provisioned concurrency for critical endpoints" (§4.2) and "Failover to cached JWT validation during PropelAuth outages" (§7.1) retained from v1 — not in the R4 removal list; confirm they exist.
 - §13.1 SLO latency changed from 500 ms to 2 s to match the single R5 value; confirm the intended p95 objective.
 - Section renumbering (new §8 pushes v1 §8–14 to §9–15): other v2 documents that cite this standard by section number should be checked.
+
+## Quality sweep (2026-10-31)
+
+- Q1 voice: "shall" removed throughout (23 occurrences → present tense "implements / is enforced / follows"); §1 tightened ("establishes mandatory requirements… ensures the protection of… operationalizes" → plain statements); §8 intro paragraph 2 rewritten without "defense-in-depth", "comprehensive audit logging", "utilize" (same four commitments kept: assessment before implementation, encrypted channels, authn/authz, audit logging, company-level isolation); §8 CEO responsibilities turned from a seven-clause sentence into a bullet list; "comprehensive validation/testing" → "validated" / "the following testing is required"; "adequate customer notice" → "provides customers with"; §15 "shall be reviewed… automated notifications" → "is reviewed… the compliance platform notifies the CEO".
+- Q2 names: "AWS Certificate Manager" → "ACM"; "AWS Secrets Manager" → "Secrets Manager" ×3; "AWS Security Hub" → "Security Hub"; "SOC 2 Trust Service Criteria" → "Trust Services Criteria"; "95th percentile latency" → "p95 latency"; table "Response Time >2 seconds p95" → "p95 > 2 seconds".
+- Q2 numbers: "10MB" → "10 MB", "1GB" → "1 GB", percentages spaced ("99.9 %", "0.1 %", "5 %", ">5 %"); "Minimum 90-day deprecation notice" → "Minimum 90 days' deprecation notice".
+- Q2 headings: all headings to sentence case; table headers to sentence case; unnumbered "## Revision history" → "## 16. Revision history".
+- Q2 lists: §4.3 lead-in made a sentence ("the API returns:"); §5.3 "Integration with incident response procedures defined in Incident Response Procedure" → "The Incident Response Procedure for confirmed security events"; §8.8 "Audit log preservation per retention policy" → "per the Data Retention and Disposal Policy" (real title); "the" added before document titles where missing (×14).
+- Q3 structure: §12 "Compliance and Regulatory Requirements" — §12.1 SOC 2 mapping (CC6.1, CC6.6, CC7.1, A1.2) merged into §1; §12.2 kept as §12 "Data protection requirements"; §15 "Review and Updates" → §14 "Review", Related documents → §15 (Data Retention and Disposal Policy added, since §8.6 and §8.8 cite it), Revision history → §16.
+- No commitment, number, role, scope item or control changed.
+
+### CONFIRM (new)
+
+- "AWS API Gateway" is named 8 times (§2, §3.1 token validation "at API Gateway level", §3.3 JSON schema validation, §5.3, §8.1, §8.4, §11.2). The rulebook (R4) describes the edge as CloudFront with origin access restricted to Lambda function URLs, and the Penetration Testing procedure v2 replaced "API Gateway security configurations" with "CloudFront and Lambda function URL". Confirm whether API Gateway is actually deployed; if not, these claims need restating (left unchanged — would change the control).
+- §7 "Third-party API integration security" (PropelAuth, customer-controlled integrations) overlaps §8.5 "Customer-controlled integrations" after the R7 merge. Confirm whether §7.2 should be folded into §8.5 (left as is — both lists carry distinct commitments).
+
+- R4/Q2 (post-sweep, settled from serverless.yml: 'API Gateway not used - using Lambda Function URL + CloudFront'): every 'API Gateway' reference replaced with CloudFront → Lambda function URL / middleware.

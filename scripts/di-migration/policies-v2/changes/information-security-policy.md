@@ -28,3 +28,14 @@
 - §5.5 "24/7 CloudWatch monitoring" kept (it describes automated monitoring, not a staffed response); confirm this is acceptable alongside the R5 "no 24/7 response" decision.
 - §6.3 "Quarterly internal compliance assessments" kept verbatim; confirm a quarterly internal assessment is actually recorded in the compliance platform.
 - Frontmatter `finalized_at` dropped; confirm the migration script does not require that key.
+
+## Quality sweep (2026-10-31)
+
+- Voice: converted 14 "shall"/"shall be" constructions to present tense; removed filler ("comprehensive", "cornerstone document", "to reduce human error and ensure consistent enforcement"); rewrote §1 Purpose so the second paragraph no longer restates the first.
+- Structure: merged §9 Compliance Mapping into §1 Purpose as a single sentence (all CC/A/C ranges kept, with their names); §8 Related Documents regrouped under bold labels (Policies / Standards / Procedures and plans / Other) instead of unnumbered `###` sub-headings, alphabetised, same 20 documents; revision history renumbered to §9.
+- Formatting: removed blank lines between bullets in every list (≈110 lines); headings to sentence case after the number; bold-colon definitions normalised ("**Term**: …"); "99.9%" → "99.9 %"; Oxford comma applied ("Security, Availability, and Confidentiality" ×3, "Google Workspace, GitHub, and AWS").
+- Consistency: "Chief Executive Officer (CEO)" on first use in §4.1, "the CEO" after; §4.2 / §4.3 given a lead-in sentence so bullets read as a list of duties; "48-hour breach notification" → "breach notification to affected customers within 48 hours" ×2; "multi-AZ" → "Multi-AZ"; "Ensures adequate resources" → "Provides the resources"; "24-month retention period for active leads" → "Active leads are retained for 24 months" (same figure).
+- Parallel grammar: §6.1–6.2 bullets made full-sentence statements within each list; §5.x lists kept as fragments.
+- Kept: 24/7 CloudWatch monitoring (existing CONFIRM), §6.3 quarterly internal compliance assessments (existing CONFIRM), all numbers, roles, and controls.
+
+No new CONFIRM items.

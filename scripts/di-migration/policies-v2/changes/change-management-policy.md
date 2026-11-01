@@ -32,3 +32,17 @@
 - §3 Change Window "2:00 AM - 6:00 AM EST" and §5.4 "minimum 72 hours" customer notice kept verbatim; confirm these are still operated.
 - Title/doc_type: brief said "PR + CI-gate standard"; kept title "Change Management Policy" and `doc_type: Policy` because cross-references use that name. Confirm if a rename to "Change Management Standard" is wanted (would require updating references in every other document).
 - R3 note for CHANGES only: `[CONFIRM: separate account vs same account]` for the staging stage.
+
+## Quality sweep (2026-10-31)
+
+- Structure: fixed 9 `####` numbering leftovers (`#### Standard Changes`, `#### 1. Technical Review`, `#### 1. Pre-Implementation`, `#### 1. Immediate Response` …) into proper 5.2.1–5.2.3, 5.3.1–5.3.3, 5.4.1–5.4.3 and 6.1–6.3; merged §9.1 SOC 2 Requirements (CC8.1, CC7.1, A1.2 with their descriptions) into §1 Purpose; §9 is now "Audit trail" (former §9.2); sections renumbered accordingly (13 total, unchanged count).
+- Voice: removed "formal framework", "directly supports", "while maintaining control" phrasing tightened; "Ensures changes align" → "Confirms that changes align" ×2; "must be initiated through a formal change request" → "Every change starts with a change request".
+- Mixed lists: §5.2.1 Standard changes had "Pre-approved changes of the types listed below" and "Approval: …" inside the bullet list — now an intro sentence, the three types, and an approval sentence; same treatment for §5.2.2 / §5.2.3; §5.5 bullets given a subject ("the CEO:") so they parallel.
+- Formatting: removed blank lines between bullets (≈120 lines); headings to sentence case; "99.9%" → "99.9 %"; en dash in the change window; Oxford comma applied.
+- Consistency: "Chief Executive Officer (CEO)" on first use in §3 Pull-request review definition, "the CEO" after; §4.2 / §4.3 single-bullet sections turned into one sentence each.
+- Related documents: added Data Classification and Handling Standard, Security Awareness Training Program, Service Level Agreement (SLA) Management Policy (all referenced in the body and present in the set); alphabetised.
+
+### CONFIRM (new)
+
+- §3 Change window "2:00 AM – 6:00 AM EST" kept as v1. The rubric asks for UTC (with local time alongside for customer-facing windows); EST vs EDT is ambiguous so no conversion was made — confirm the intended window (e.g. 07:00–11:00 UTC) and whether it should be stated in both.
+- §5.5 "Updates the configuration management database" kept verbatim; confirm a CMDB exists (or that this means the CloudFormation stack / compliance platform asset list) and reword accordingly.

@@ -36,3 +36,21 @@ Output: `policies-v2/service-level-agreement-sla-management-policy.md`
 - [CONFIRM: API Gateway] — §4.1/§4.2 "API Gateway latency/metrics" kept from v1; the Cloud Infrastructure v2 (per R4) refers to Lambda function URLs.
 - [CONFIRM: Container Health retention 30 days] — §4.2 kept from v1 (other metrics 90 days).
 - R5 (post-check): §10.1 and §11 "Quarterly SLA review" → annual SLA review with the monthly availability record as the continuous input (matches the operating-model calendar).
+
+## Quality sweep (2026-10-31)
+
+- Structure: Roles and responsibilities moved from §11 to §3; §12 Compliance and Audit reduced to §12 "Audit evidence" (§12.2 Regulatory Compliance deleted — three generic bullets with no control of their own); the closing italic line folded into §13.3 Review (keeps the annual review and "maintained in the compliance platform" statements); §8.2 "Zero-Downtime Deployments" retitled "Low-impact deployments" (the bullets minimize impact; they do not claim zero downtime). Sections renumbered 3–15; the §7.1 cross-reference updated to §8.1.
+- §3.1 CEO duties: twelve bullets de-duplicated to nine (ownership + documentation merged; customer communication + feedback merged; credit approval + credit processing merged).
+- Severity scale: §8.1 table labels "Critical/High/Medium/Low" → "P1 (Critical)/P2 (High)/P3 (Medium)/P4 (Low)", matching the Incident Response Procedure §3 scale (Q2: P1–P4 for incidents); targets unchanged.
+- Voice: removed "ensures consistent delivery of services that meet customer expectations", "establishes the framework for"; passive credit-process steps given subjects (the customer, the CEO); "Chief Executive Officer" after first use → "the CEO" ×3; "(if applicable)" → "(where applicable)".
+- Consistency: percentages spaced ("99.9 %", "> 1 %", "< 80 %"); "500ms" → "500 ms"; "02:00-06:00" → "02:00–06:00"; "Incident Reporting system" → "incident reporting module of the compliance platform"; headings and table labels to sentence case; blank lines between bullets removed (~75).
+- Related documents: all 9 entries exist in the set; unchanged.
+- Word count 1491 → 1417.
+
+### New CONFIRM items
+
+- §8.1 "Resolution target 4 hours" for P1 sits next to "acknowledged within 4 business hours" (R5). A 4-hour resolution target is stricter than the acknowledgment target; confirm the resolution column is intended (left unchanged).
+- §8.2 "Status updates every 2 hours" (customer-facing) vs Incident Response Procedure "every 30 minutes for P1" (internal cadence). Confirm the two are meant to differ (left unchanged).
+- §5.1/§5.2 reference "API Gateway" metrics; the Cloud Infrastructure Security Policy describes CloudFront in front of Lambda function URLs. Confirm the metric source name.
+
+- R4/Q2 (post-sweep, settled from serverless.yml: 'API Gateway not used - using Lambda Function URL + CloudFront'): every 'API Gateway' reference replaced with CloudFront → Lambda function URL / middleware.

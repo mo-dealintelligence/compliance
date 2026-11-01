@@ -1,0 +1,1649 @@
+[
+  {
+    "id": "ctl_6ae4440182262db61359f5bf",
+    "name": "A1.1.1 System Resource Monitoring Implementation",
+    "description": "The organization shall implement and maintain monitoring capabilities for critical system resources across all infrastructure components. This includes establishing automated monitoring for CPU utilization, memory consumption, storage capacity, and network bandwidth. Monitoring tools shall be configured to collect metrics at appropriate intervals and retain historical data sufficient for trend analysis. Alert thresholds shall be defined and documented to notify appropriate personnel when resource utilization approaches critical levels.\n\nImplementation: CloudWatch collects Lambda invocation, duration, and memory metrics. Alert thresholds defined.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS CloudWatch Log Groups",
+      "Lambda App Events"
+    ],
+    "policies": [
+      "Service Level Agreement (SLA) Management Policy",
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440177bf54763b355667",
+    "name": "A1.1.2 Capacity Planning and Forecasting",
+    "description": "The organization shall establish a capacity planning process that includes regular review of resource utilization trends and forecasting of future capacity requirements. This process shall consider business growth projections, seasonal variations, and planned system changes. Capacity assessments shall be conducted at least annually, with documented plans for capacity expansion when utilization trends indicate potential resource constraints. The organization shall maintain documented procedures for scaling infrastructure resources to meet anticipated demand.\n\nImplementation: Historical metrics retained for trend analysis. DocumentDB storage growth tracked. Annual capacity review in board meetings.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS DocumentDB Cluster"
+    ],
+    "policies": [
+      "Service Level Agreement (SLA) Management Policy",
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae444007aea85a4a9c9f51e",
+    "name": "A1.1 The entity maintains, monitors, and evaluates current processing capacity and use of system components (infras",
+    "description": "A1.1 (A1 - Availability Criteria): The entity maintains, monitors, and evaluates current processing capacity and use of system components (infrastructure, data, and software) to manage capacity demand and to enable the implementation of additional capacity to help meet its objectives.\n\nMonitor your system resources to ensure you have enough capacity to meet demand. Track CPU, memory, storage, and network usage, forecast future needs based on growth trends, and add capacity before you run out. This prevents slowdowns or outages due to resource exhaustion.\n\nImplementation: CloudWatch monitors Lambda and DocumentDB capacity. Alarms trigger on threshold breaches.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS CloudWatch Log Groups",
+      "Lambda App Events"
+    ],
+    "policies": [
+      "Business Continuity Plan",
+      "Service Level Agreement (SLA) Management Policy",
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440131354a162910bc3f",
+    "name": "A1.2.1 Cloud Infrastructure Environmental Protection and Redundancy",
+    "description": "The organization shall ensure that cloud service providers maintain appropriate environmental protections and redundancy capabilities for hosted infrastructure. This includes verification that cloud providers implement physical security controls, redundant power systems, fire suppression, climate control, and geographic redundancy. For a remote-first technology company of this size, reliance on enterprise cloud providers (AWS, Azure, GCP) satisfies environmental protection requirements, provided proper due diligence is documented.\n\nImplementation: AWS provides physical security, redundant power, environmental controls per SOC 2.",
+    "tasks": [],
+    "policies": [
+      "Business Continuity Plan",
+      "Cloud Infrastructure Security Policy",
+      "Service Level Agreement (SLA) Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae444028c9669720760e272",
+    "name": "A1.2.2 Data Backup and Recovery Procedures",
+    "description": "The organization shall establish and maintain comprehensive data backup procedures to ensure business continuity and data protection. This includes automated backup configurations for all critical systems and data, offsite or geographically distributed backup storage, defined retention periods aligned with business requirements, and documented recovery procedures. Backup integrity shall be verified through regular restoration testing to confirm recoverability.\n\nImplementation: DocumentDB: automated daily backups, 7-day retention, PITR enabled.",
+    "tasks": [
+      "AWS DocumentDB Backups",
+      "AWS DocumentDB Cluster"
+    ],
+    "policies": [
+      "Cloud Infrastructure Security Policy",
+      "Service Level Agreement (SLA) Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44402777ba3510f143781",
+    "name": "A1.2.3 Disaster Recovery Planning and Testing",
+    "description": "The organization shall maintain a disaster recovery plan that addresses alternate processing capabilities and recovery procedures in the event of primary system failure. The plan shall define recovery time objectives (RTO) and recovery point objectives (RPO) for critical systems, document failover procedures, and identify responsible personnel. The disaster recovery plan shall be tested at least annually to validate effectiveness and updated based on test results and organizational changes.\n\nImplementation: Multi-AZ deployment across 3 availability zones. Humadroid BCP dashboard shows RTO: AWS Infrastructure 2hrs. Q1 2025 DR test completed with 100% success rate.",
+    "tasks": [
+      "AWS DocumentDB Cluster",
+      "Compliance Platform Bcp Dashboard",
+      "Compliance Platform Bcp Test Results"
+    ],
+    "policies": [
+      "Business Continuity Plan",
+      "Cloud Infrastructure Security Policy",
+      "Service Level Agreement (SLA) Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440187e4e864370b9462",
+    "name": "A1.2 The entity authorizes, designs, develops or acquires, implements, operates, approves, and maintains environmen",
+    "description": "A1.2 (A1 - Availability Criteria): The entity authorizes, designs, develops or acquires, implements, operates, approves, and maintains environmental protections, backup processes, and recovery infrastructure to meet its objectives.\n\nProtect your systems from environmental threats and ensure you can recover from disasters. This includes physical protections (like fire suppression and backup power), regular data backups stored offsite, and alternate processing capabilities if your primary site fails. Test your backup and recovery procedures regularly.\n\nImplementation: AWS SOC 2 certified data centers. DocumentDB: daily backups, 7-day retention, PITR enabled, multi-AZ.",
+    "tasks": [
+      "AWS DocumentDB Backups",
+      "AWS DocumentDB Cluster"
+    ],
+    "policies": [
+      "Business Continuity Plan",
+      "Cloud Infrastructure Security Policy",
+      "Service Level Agreement (SLA) Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440353d454778363e44a",
+    "name": "A1.3.1 Recovery Plan Testing Schedule and Execution",
+    "description": "The organization shall establish and maintain a formal schedule for testing recovery plan procedures at least annually. Given the remote work environment and small team size, testing shall include scenarios relevant to distributed operations such as cloud service failover, remote access restoration, and data recovery from backup systems. Tests shall be documented with clear objectives, scope, and success criteria defined prior to execution. All key personnel shall participate in testing exercises appropriate to their roles.\n\nImplementation: Q1 2025 BCP Full Test executed Feb 4, 2026. Plan: AWS Service Disruption Recovery. Coordinator: Mo Messidi. Scenario: Full Systems recovery from backups using IaC.",
+    "tasks": [
+      "AWS DocumentDB Backups",
+      "Compliance Platform Bcp Test Results"
+    ],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae444033c230c62420e6a2a",
+    "name": "A1.3.2 Recovery Test Results Documentation and Plan Updates",
+    "description": "The organization shall formally document the results of all recovery plan tests, including any deficiencies, failures, or areas for improvement identified during testing. Test results shall be reviewed by appropriate personnel, and the recovery plan shall be updated to address identified gaps or lessons learned. A tracking mechanism shall be maintained to ensure all identified issues are remediated and incorporated into updated recovery procedures within a reasonable timeframe.\n\nImplementation: Q1 2025 test results: Status Completed, Success Rate 100%, Result: System recovered successfully. Plan Status: Active. Total Exercises: 1.",
+    "tasks": [
+      "Compliance Platform Bcp Test Results"
+    ],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae444022240b444b312e391",
+    "name": "A1.3 The entity tests recovery plan procedures supporting system recovery to meet its objectives.",
+    "description": "A1.3 (A1 - Availability Criteria): The entity tests recovery plan procedures supporting system recovery to meet its objectives.\n\nRegularly test your ability to recover from various disaster scenarios. Include tests of data restoration, failover to backup systems, and operation from alternate locations. Involve key personnel in tests, document results, and update plans based on what you learn. Testing reveals problems before you face a real disaster.\n\nImplementation: Q1 2025 BCP test completed Feb 4, 2026: Full Systems recovery from backups using IaC. Status: Completed. Success Rate: 100%. Result: System recovered successfully.",
+    "tasks": [
+      "AWS DocumentDB Backups",
+      "Compliance Platform Bcp Test Results"
+    ],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae44404d92de74c4ba264f8",
+    "name": "C1.1.1 Confidential Information Classification Policy",
+    "description": "Establish and maintain a formal policy that defines what constitutes confidential information within the organization. The policy shall include a classification scheme (e.g., Public, Internal, Confidential, Highly Confidential) with clear criteria for each level. Given the remote work environment and small team size, the policy should specifically address classification of digital assets, cloud-stored documents, and information shared via collaboration tools. The policy must identify categories of confidential information including but not limited to: trade secrets, financial data, strategic plans, customer information, pricing data, intellectual property, and partner-designated confidential materials. All team members must acknowledge understanding of the classification policy.\n\nImplementation: 4-level classification scheme established with clear criteria per level.",
+    "tasks": [],
+    "policies": [
+      "Data Classification Policy",
+      "Data Classification and Handling Standard",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440422c1792034bfeb58",
+    "name": "C1.1.2 Confidential Information Identification and Labeling Procedures",
+    "description": "Implement procedures for identifying and properly labeling confidential information when created internally or received from external parties. For a remote technology company, this includes establishing naming conventions and metadata tagging for digital files, configuring document management systems to support classification labels, and defining procedures for marking confidential information in emails and shared documents. Procedures shall address how team members identify confidential information during creation, receipt, and processing activities. Regular reviews shall be conducted to ensure classification remains appropriate as information ages or business circumstances change.\n\nImplementation: Digital file labeling and metadata tagging procedures defined.",
+    "tasks": [],
+    "policies": [
+      "Data Classification Policy",
+      "Data Classification and Handling Standard",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444055b37cf7657880642",
+    "name": "C1.1.3 Confidential Information Retention and Protection Requirements",
+    "description": "Define and implement retention requirements and protection controls for confidential information based on business needs, contractual obligations, and legal requirements. For the remote work environment, establish technical controls including encryption for data at rest and in transit, access restrictions based on classification level, and secure cloud storage configurations. Implement digital equivalents of clean desk policies for remote workstations. Define retention periods for each classification level and establish legal hold procedures to prevent premature destruction of information needed for litigation or investigations. Given the small team size, assign clear ownership for confidential information management responsibilities.\n\nImplementation: KMS encryption applied by classification. Device encryption via FileVault.",
+    "tasks": [
+      "AWS KMS Keys",
+      "MacOS FileVault Status"
+    ],
+    "policies": [
+      "Data Classification Policy",
+      "Data Classification and Handling Standard",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44404e0b08e8435161cef",
+    "name": "C1.1 The entity identifies and maintains confidential information to meet the entity's objectives related to confid",
+    "description": "C1.1 (C1 - Confidentiality Criteria): The entity identifies and maintains confidential information to meet the entity's objectives related to confidentiality.\n\nEstablish a comprehensive program for managing confidential information throughout its lifecycle. Start by defining what constitutes confidential information in your organization - this typically includes trade secrets, financial data, strategic plans, customer lists, pricing information, intellectual property, and any information marked as confidential by partners. Create procedures to identify and properly label confidential information when it's created internally or received from external parties. Implement classification schemes (e.g., Public, Internal, Confidential, Highly Confidential) with clear criteria for each level. Define retention requirements for each type of confidential information based on business needs, contractual obligations, and legal requirements. Ensure confidential information is protected from unauthorized access throughout its retention period using appropriate technical controls (encryption, access restrictions) and physical controls (locked storage, clean desk policies). Prevent premature destruction by implementing hold procedures for information needed for litigation or investigations. Regular reviews ensure classification remains appropriate as information ages or circumstances change. Train employees on recognizing and properly handling confidential information.\n\nImplementation: Data classified into 4 levels: Public, Internal, Confidential, Restricted. KMS encryption by level.",
+    "tasks": [
+      "AWS KMS Keys"
+    ],
+    "policies": [
+      "Data Classification Policy",
+      "Data Classification and Handling Standard",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44406a61aa980709131fa",
+    "name": "C1.2.1 Confidential Information Disposal Policy and Procedures",
+    "description": "Establish and maintain a formal policy governing the secure disposal of confidential information. The policy shall define clear triggers for disposal including end of retention periods, project completion, contract termination, and explicit disposal requests. Document appropriate destruction methods based on data sensitivity levels: simple deletion for low-risk data, secure overwriting for moderate risk, and physical destruction or cryptographic erasure for high-risk data. For physical documents, specify cross-cut shredding requirements. Given the remote work environment, include specific guidance for disposal of confidential information on personal devices and home office equipment.\n\nImplementation: Disposal triggers defined in policy: retention expiry, contract termination, deletion requests. KMS key deletion enables cryptographic erasure.",
+    "tasks": [
+      "AWS KMS Keys"
+    ],
+    "policies": [
+      "Data Retention and Disposal Policy",
+      "Data Classification and Handling Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440649251c40d1270d71",
+    "name": "C1.2.2 Disposal Execution and Verification Records",
+    "description": "Implement a systematic process for executing and documenting the destruction of confidential information across all storage locations. Maintain detailed destruction records including what was destroyed, destruction date, method employed, responsible party, and authorizing authority. For third-party destruction services, obtain and retain certificates of destruction. Verify destruction completeness by confirming removal from all storage locations including primary systems, backups, archives, and remote employee devices. Conduct periodic audits to verify disposal procedures are followed consistently across the organization.\n\nImplementation: CloudWatch logs track data access. S3 access logs provide disposal audit trail. KMS key usage logged via CloudTrail.",
+    "tasks": [
+      "AWS CloudTrail Trails",
+      "AWS CloudWatch Log Groups"
+    ],
+    "policies": [
+      "Data Retention and Disposal Policy",
+      "Data Classification and Handling Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44405b57e7b121cd92b13",
+    "name": "C1.2 The entity disposes of confidential information to meet the entity's objectives related to confidentiality.",
+    "description": "C1.2 (C1 - Confidentiality Criteria): The entity disposes of confidential information to meet the entity's objectives related to confidentiality.\n\nImplement secure disposal procedures to ensure confidential information cannot be recovered after it's no longer needed. Establish clear triggers for disposal - end of retention period, project completion, contract termination, or explicit disposal request. Create procedures to identify all instances of confidential information scheduled for destruction, including primary copies, backups, archives, and copies on employee devices. For electronic data, use appropriate destruction methods based on sensitivity - simple deletion for low-risk data, secure overwriting for moderate risk, and physical destruction or cryptographic erasure for high-risk data. For physical documents, use cross-cut shredding or certified destruction services. Maintain detailed records of destruction including what was destroyed, when, how, by whom, and under what authority. Obtain certificates of destruction from third-party services. Verify destruction is complete by checking all storage locations including backup systems. Implement procedures to handle mixed media (like hard drives in copiers) and ensure destruction methods are appropriate for the medium. Regular audits verify disposal procedures are followed consistently. Consider regulatory requirements that may override normal disposal schedules.\n\nImplementation: KMS enables cryptographic erasure for secure disposal. S3 lifecycle policies automate retention. Data retention policy defines disposal procedures.",
+    "tasks": [
+      "AWS KMS Keys",
+      "AWS S3 Buckets"
+    ],
+    "policies": [
+      "Data Retention and Disposal Policy",
+      "Data Classification and Handling Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44407dd58d24e59c698b9",
+    "name": "CC1.1.1 Code of Conduct and Ethical Standards Documentation",
+    "description": "The organization shall establish and maintain a formal Code of Conduct that articulates the ethical standards and behavioral expectations applicable to all personnel, including employees, contractors, and business partners. This document shall define acceptable conduct regarding integrity, confidentiality, conflicts of interest, and professional behavior. The Code of Conduct must be approved by leadership, communicated to all relevant parties, and made readily accessible. Given the remote work environment, the document shall address ethical considerations specific to distributed teams, including data handling outside traditional office settings and professional conduct in virtual communications.\n\nImplementation: Code of Conduct covers ethics, integrity, confidentiality, remote work considerations.",
+    "tasks": [],
+    "policies": [
+      "Code of Conduct",
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440791c4432f7098a7e3",
+    "name": "CC1.1.2 Leadership Commitment and Tone at the Top",
+    "description": "Executive leadership shall demonstrate visible commitment to integrity and ethical values through documented communications, decision-making practices, and organizational governance. Leadership must formally endorse the Code of Conduct and ethical standards, communicate expectations through regular channels, and model appropriate behavior. For a small organization operating remotely, this includes leadership participation in ethics-related discussions during team meetings, documented responses to ethical concerns, and consistent enforcement of standards. Leadership shall conduct periodic reviews of ethical compliance and address any identified concerns promptly and consistently to reinforce the importance of ethical conduct throughout the organization.\n\nImplementation: CEO signed Code of Conduct. Training certificates demonstrate commitment.",
+    "tasks": [
+      "Ethics And Security Training Completion Certificate Mo Messidi"
+    ],
+    "policies": [
+      "Code of Conduct",
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440712d196e5b2c48d42",
+    "name": "CC1.1.3 Ethics Training and Awareness Program",
+    "description": "The organization shall implement a training and awareness program to ensure all personnel understand their ethical obligations and the standards set forth in the Code of Conduct. Training shall be provided upon onboarding and on an annual basis thereafter. The program must cover key topics including integrity expectations, reporting mechanisms for ethical concerns, consequences of violations, and specific considerations for remote work environments. Training completion shall be tracked and documented, with remediation procedures for personnel who do not complete required training within established timeframes.\n\nImplementation: Annual training completed Dec 9, 2025. Completion tracked via certificates.",
+    "tasks": [
+      "Ethics And Privacy Training Completion Certificate William Wickey",
+      "Ethics And Security Training Completion Certificate Mo Messidi"
+    ],
+    "policies": [
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440750ea99eb7c0bb007",
+    "name": "CC1.1.4 Ethics Violation Reporting and Response Procedures",
+    "description": "The organization shall establish formal procedures for reporting suspected ethical violations and responding to such reports in a timely and consistent manner. A confidential reporting mechanism shall be made available to all personnel, enabling them to raise concerns without fear of retaliation. All reported concerns shall be documented, investigated appropriately, and resolved with documented outcomes. Disciplinary actions for confirmed violations shall be applied consistently in accordance with established policies. Given the small team size and remote environment, the organization shall ensure reporting channels maintain appropriate confidentiality while enabling effective investigation and resolution.\n\nImplementation: Ethics violation log maintained. Zero violations in 2025. Reporting procedures documented.",
+    "tasks": [
+      "Ethics Violation Log 2025"
+    ],
+    "policies": [
+      "Code of Conduct",
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44406d14727ebd482068f",
+    "name": "CC1.1 The entity demonstrates a commitment to integrity and ethical values.",
+    "description": "CC1.1 (CC1 - Control Environment): The entity demonstrates a commitment to integrity and ethical values.\n\nYour organization needs to establish and communicate clear expectations for ethical behavior throughout the company. This starts with leadership setting the right tone from the top - showing through actions that integrity matters. Create a code of conduct that defines expected behavior for employees, contractors, and business partners. Train everyone on these standards and make sure they understand them. Regularly evaluate whether people are following the rules through reviews, audits, or observations. When violations occur, address them quickly and consistently to show that ethics policies have teeth. Small companies can start simple but must cover all stakeholders who interact with their systems and data.\n\nImplementation: Code of Conduct signed by all. Training: CEO 8hrs security, contractor 4hrs privacy. Zero violations 2025.",
+    "tasks": [
+      "Ethics And Privacy Training Completion Certificate William Wickey",
+      "Ethics And Security Training Completion Certificate Mo Messidi",
+      "Ethics Violation Log 2025"
+    ],
+    "policies": [
+      "Code of Conduct",
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44408c834a83ae1e5e24c",
+    "name": "CC1.2.1 Designation of Independent Oversight Authority",
+    "description": "The organization shall formally designate an independent oversight authority responsible for governance of the security and compliance program. Given the company's size of 2-5 employees, this authority may be an external advisor, board member, or senior executive who maintains independence from day-to-day IT and security operations. The designated authority must possess or have access to relevant expertise in security, privacy, and technology matters. This designation shall be documented in writing, clearly articulating the scope of oversight responsibilities, reporting relationships, and the basis for determining independence from operational management.\n\nImplementation: CEO provides oversight with external advisor consultation. Documented in org structure.",
+    "tasks": [
+      "Board Management Meeting Minutes Q4 2025",
+      "Organizational Structure"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44408a8665de2ff663774",
+    "name": "CC1.2.2 Periodic Independent Oversight Reviews",
+    "description": "The designated independent oversight authority shall conduct periodic reviews of the organization's internal control environment, security posture, and management's performance in executing control activities. These reviews shall occur at a frequency appropriate to the organization's risk profile, but no less than annually. The oversight authority shall document their review activities, findings, and any recommendations for improvement. Management shall be required to respond to identified deficiencies and report on remediation progress. Review sessions shall include examination of control effectiveness, security incidents, compliance status, and any material changes to the risk environment.\n\nImplementation: Quarterly meetings review security posture, incidents, compliance. Q4 2025 documented.",
+    "tasks": [
+      "Board Management Meeting Minutes Q4 2025"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4440818d07ed7695b33e2",
+    "name": "CC1.2 The board of directors demonstrates independence from management and exercises oversight of the development an",
+    "description": "CC1.2 (CC1 - Control Environment): The board of directors demonstrates independence from management and exercises oversight of the development and performance of internal control.\n\nSomeone independent from day-to-day operations must oversee your security and compliance program. This oversight body needs to understand and accept their responsibilities for internal controls. They should have (or obtain through advisors) relevant expertise in security, privacy, and technology to ask probing questions and challenge management. For smaller companies, this might be an outside advisor, board member, or senior executive who isn't directly involved in IT operations. They need sufficient independence to objectively evaluate controls and management's performance. Consider bringing in specialized consultants if your board lacks technical security expertise. Regular oversight reviews should examine whether controls are working as intended.\n\nImplementation: Q4 2025 management meeting reviewed compliance, security posture, control effectiveness.",
+    "tasks": [
+      "Board Management Meeting Minutes Q4 2025"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae444088e4daac888516e8d",
+    "name": "CC1.3.1 Organizational Structure and Reporting Lines Documentation",
+    "description": "The organization shall establish and maintain formal documentation of its organizational structure, including clear reporting relationships and lines of authority. Given the company's small size and remote work environment, this documentation must explicitly define the hierarchy, decision-making authority levels, and communication channels. The structure shall account for all personnel regardless of geographic location and shall be reviewed annually or upon significant organizational changes. Documentation must clearly delineate who reports to whom and establish escalation paths for operational, security, and privacy matters.\n\nImplementation: Reporting lines and hierarchy documented for remote team.",
+    "tasks": [
+      "Organizational Structure"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44408b6f2c27ca8dbf2c3",
+    "name": "CC1.3.2 Authority Delegation and Segregation of Duties Framework",
+    "description": "The organization shall establish a formal framework defining decision-making authorities and responsibilities across all critical functions. This framework must specify approval thresholds for system access provisioning, change authorization, incident response decisions, and privacy-related determinations. Given the organization's size constraints, the framework shall implement compensating controls where traditional segregation of duties is not feasible, such as enhanced monitoring, management review, and audit trails. The framework must address vendor and third-party relationship management, clearly establishing responsibilities and interaction protocols with external parties.\n\nImplementation: Job descriptions define responsibilities. IAM roles enforce technical access.",
+    "tasks": [
+      "Job Description Chief Executive Officer",
+      "Job Description Go To Market Contractor"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4440832188d8611d2618b",
+    "name": "CC1.3 Management establishes structures, reporting lines, and appropriate authorities and responsibilities in the pu",
+    "description": "CC1.3 (CC1 - Control Environment): Management establishes structures, reporting lines, and appropriate authorities and responsibilities in the pursuit of objectives.\n\nCreate clear organizational structures that show reporting relationships and define who has authority for what decisions. Consider all parts of your organization including subsidiaries, remote offices, and outsourced providers. Document who can approve system access, authorize changes, handle incidents, and make privacy decisions. Define responsibilities at appropriate levels - not everything needs CEO approval, but critical decisions shouldn't rest with junior staff. Ensure proper segregation of duties to prevent any one person from having too much control. When working with external parties like vendors or partners, clearly establish their responsibilities and how they interact with your organization. For privacy and security matters, ensure structures support compliance with legal and regulatory requirements.\n\nImplementation: Org chart defines roles. Job descriptions specify security responsibilities.",
+    "tasks": [
+      "Job Description Chief Executive Officer",
+      "Job Description Go To Market Contractor",
+      "Organizational Structure"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44408f38971745eb5e73b",
+    "name": "CC1.4.1 Personnel Competency Requirements and Background Verification",
+    "description": "The organization shall establish and maintain documented competency requirements for all roles, with particular emphasis on positions involving security responsibilities. Given the company's small size (2-5 employees) and the nature of contractor relationships, the organization shall verify professional references and validate claimed qualifications prior to granting access to sensitive systems. For a remote technology company of this size, this includes defining core security competencies expected of all team members and ensuring appropriate training is completed before accessing production systems.\n\nImplementation: Competency requirements documented in job descriptions. Professional references verified. Security training completed before production access. Training certificates dated Dec 9, 2025.",
+    "tasks": [
+      "Ethics And Privacy Training Completion Certificate William Wickey",
+      "Ethics And Security Training Completion Certificate Mo Messidi",
+      "Job Description Chief Executive Officer",
+      "Job Description Go To Market Contractor"
+    ],
+    "policies": [
+      "Acceptable Use Policy",
+      "Security Awareness Training Program"
+    ]
+  },
+  {
+    "id": "ctl_6ae44408d5b9526b1d0adf0e",
+    "name": "CC1.4.2 Security Training Program and Competency Development",
+    "description": "The organization shall implement a security awareness and training program that provides initial onboarding training on security policies and procedures, followed by ongoing education to maintain current knowledge of security practices. Given the organization's size and remote work environment, training shall address remote work security considerations, data protection responsibilities, and role-specific security requirements. The organization shall maintain training records demonstrating completion and shall periodically evaluate personnel competence, addressing identified gaps through additional training or mentoring. Succession planning considerations for critical roles shall be documented to ensure continuity of operations.\n\nImplementation: Annual performance evaluations completed. Security responsibilities assessed.",
+    "tasks": [
+      "Annual Performance Evaluation Ceo"
+    ],
+    "policies": [
+      "Acceptable Use Policy",
+      "Security Awareness Training Program"
+    ]
+  },
+  {
+    "id": "ctl_6ae44408770743dc4677fffd",
+    "name": "CC1.4 The entity demonstrates a commitment to attract, develop, and retain competent individuals in alignment with o",
+    "description": "CC1.4 (CC1 - Control Environment): The entity demonstrates a commitment to attract, develop, and retain competent individuals in alignment with objectives.\n\nBuild and maintain a team with the skills needed to protect data and systems. Establish clear competency requirements for each role, especially those involving security responsibilities. Check backgrounds of employees and contractors before granting access to sensitive systems - the depth of checking should match the sensitivity of the role. Provide initial training on security policies and ongoing education to keep skills current. Evaluate competence regularly and address gaps through training, mentoring, or hiring. Have succession plans for critical roles so you're not scrambling if someone leaves suddenly. Consider the technical competency of vendors and their employees too. Maintain training records to demonstrate your commitment to competence. Small companies might start with basic security awareness but should expand training as they grow.\n\nImplementation: Training completed: CEO 8hrs, contractor 4hrs. Certificates dated Dec 9, 2025.",
+    "tasks": [
+      "Ethics And Privacy Training Completion Certificate William Wickey",
+      "Ethics And Security Training Completion Certificate Mo Messidi"
+    ],
+    "policies": [
+      "Acceptable Use Policy",
+      "Security Awareness Training Program"
+    ]
+  },
+  {
+    "id": "ctl_6ae44409b61a4d3d5f984b8c",
+    "name": "CC1.5.1 Security Responsibilities in Role Definitions",
+    "description": "The organization shall formally document security and compliance responsibilities within job descriptions, employment agreements, and role expectations for all personnel. Given the remote work environment and small team size, each team member's security accountabilities must be explicitly defined and communicated during onboarding and annually thereafter. This includes clear delineation of data handling responsibilities, access management duties, incident reporting obligations, and compliance requirements specific to each role.\n\nImplementation: Security responsibilities documented in job descriptions and evaluations.",
+    "tasks": [
+      "PropelAuth Security Settings"
+    ],
+    "policies": [
+      "Access Control and Authentication Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae444092d92f3bda6022e4b",
+    "name": "CC1.5.2 Performance Evaluation and Accountability Measures",
+    "description": "The organization shall establish and maintain a formal process for evaluating personnel performance against security and compliance objectives. Performance assessments must incorporate security-related criteria, including adherence to policies, completion of required training, and contribution to the organization's security posture. A documented sanctions process shall be maintained for addressing non-compliance, ranging from remedial training to disciplinary action, applied consistently across all personnel. For a small remote team, this process should be proportionate and focused on improvement while maintaining clear consequences for willful violations.\n\nImplementation: PropelAuth enforces MFA and session management. IAM credential report shows 100% MFA compliance. Annual performance evaluations assess security responsibilities.",
+    "tasks": [
+      "Annual Performance Evaluation Ceo",
+      "AWS IAM Users",
+      "PropelAuth Users"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44408c4b42e09c70c14b7",
+    "name": "CC1.5 The entity holds individuals accountable for their internal control responsibilities in the pursuit of objecti",
+    "description": "CC1.5 (CC1 - Control Environment): The entity holds individuals accountable for their internal control responsibilities in the pursuit of objectives.\n\nCreate accountability for security and control responsibilities throughout your organization. Clearly communicate what's expected through job descriptions, policies, and regular reinforcement. Establish performance measures that include security and compliance responsibilities - make it clear these aren't optional extras. Set up incentives and rewards that encourage good security behavior while being careful not to create pressures that might lead to corner-cutting. Evaluate performance regularly, looking at both adherence to policies and achievement of security objectives. When people don't meet expectations, take appropriate action ranging from additional training to disciplinary measures. For privacy-related violations, have a defined sanctions process that's consistently applied. Balance accountability with reasonable expectations - don't create impossible standards that encourage workarounds.\n\nImplementation: PropelAuth handles authentication with MFA enforcement. IAM enforces least privilege access. Quarterly access reviews documented in board meetings.",
+    "tasks": [
+      "AWS IAM Users",
+      "Board Management Meeting Minutes Q4 2025",
+      "PropelAuth Security Settings",
+      "PropelAuth Users"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44409eb496268e8f78026",
+    "name": "CC2.1.1 IT Asset Inventory Management",
+    "description": "The organization shall establish and maintain a comprehensive inventory of all information technology assets utilized in business operations. This inventory must encompass hardware devices (including employee-owned devices used for work purposes), software applications, cloud services, and data repositories. Given the remote work environment, particular attention shall be paid to documenting assets located at employee residences and third-party vendor locations. The inventory shall be reviewed and updated at least annually to ensure accuracy and completeness. Each asset entry shall include, at minimum: asset identifier, description, owner, location, and criticality classification.\n\nImplementation: IT assets documented via AWS CLI: 8 Lambdas, 1 DocumentDB cluster, S3 buckets, VPC. Annual review in Q4 board meeting.",
+    "tasks": [
+      "AWS DocumentDB Cluster",
+      "AWS Lambda Functions",
+      "AWS S3 Buckets",
+      "AWS VPC List"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44409873b3d113afca2c4",
+    "name": "CC2.1.2 Information Classification and Data Flow Documentation",
+    "description": "The organization shall implement a formal information classification scheme that categorizes all organizational data according to sensitivity levels (e.g., Public, Internal, Confidential, Restricted). Data flow documentation shall be created and maintained to illustrate how information traverses organizational systems, including transfers to and from remote employee environments and external service providers. Classification labels shall be applied consistently across all data repositories and communications. Personnel shall receive guidance on handling requirements for each classification level. This documentation shall be reviewed annually or upon significant changes to systems or business processes.\n\nImplementation: Classification: Public, Internal, Confidential, Restricted. Data flows documented.",
+    "tasks": [
+      "AWS KMS Keys"
+    ],
+    "policies": [
+      "Data Classification Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44409fc43c1441e2121e0",
+    "name": "CC2.1 The entity obtains or generates and uses relevant, quality information to support the functioning of internal ",
+    "description": "CC2.1 (CC2 - Communication and Information): The entity obtains or generates and uses relevant, quality information to support the functioning of internal control.\n\nMaintain comprehensive, accurate information about your systems and controls to support good decision-making. Start by identifying what information you need to manage security effectively. Document data flows showing how information moves through your systems. Create and maintain an inventory of all IT assets including hardware, software, and data repositories. Classify information by sensitivity level (public, internal, confidential, restricted) to apply appropriate protections. Track where data is stored, including data on employee devices or at vendor locations. Ensure the information you use for security decisions is timely, accurate, complete, and protected from tampering. Review information quality regularly - outdated asset inventories or incorrect data classifications can lead to security gaps. Small companies should start with basic inventories and build more sophisticated information management over time.\n\nImplementation: Asset inventory via AWS CLI: Lambda functions, DocumentDB, S3 buckets. Classification policy defines handling.",
+    "tasks": [
+      "AWS DocumentDB Cluster",
+      "AWS Lambda Functions",
+      "AWS S3 Buckets"
+    ],
+    "policies": [
+      "Data Classification Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440a0824ada298402e95",
+    "name": "CC2.2.1 Internal Security Communication Framework",
+    "description": "The organization shall establish and maintain a formal framework for communicating security-related information to all personnel. This framework must define communication channels, frequency, and methods appropriate for a remote workforce. Given the organization's size, this may be consolidated into regular team communications but must ensure all personnel receive timely updates regarding security objectives, policy changes, control responsibilities, and their individual duties in maintaining the security posture. Communication methods shall be documented and consistently applied across the distributed team.\n\nImplementation: Security updates via regular team communications. All personnel receive timely updates.",
+    "tasks": [],
+    "policies": [
+      "Information Security Policy",
+      "Security Awareness Training Program"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440a5a3cddf2d43eece2",
+    "name": "CC2.2.2 Security Awareness Training Program",
+    "description": "The organization shall implement and maintain a security awareness training program that educates all personnel on recognizing and responding to security threats. Training content must address the specific risks associated with remote work environments, including phishing, social engineering, secure handling of company data, and proper use of collaboration tools. Training shall be conducted upon hire and at least annually thereafter, with completion tracked and documented. For personnel handling personal information, training must include specific guidance on privacy requirements and proper data handling procedures.\n\nImplementation: Training certificates document awareness program completion.",
+    "tasks": [],
+    "policies": [
+      "Information Security Policy",
+      "Security Awareness Training Program"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440a3c7c403a3de990a6",
+    "name": "CC2.2.3 Incident and Concern Reporting Mechanisms",
+    "description": "The organization shall establish clear, accessible mechanisms for personnel to report system failures, security incidents, policy violations, and other concerns. Given the small team size and remote environment, reporting procedures must be straightforward and well-communicated. The organization shall maintain a non-punitive reporting culture that encourages prompt disclosure of issues. A confidential reporting channel shall be available for sensitive matters. All personnel must be informed of how to utilize these reporting mechanisms, and management shall ensure timely acknowledgment and response to all reports received.\n\nImplementation: Incident reporting mechanisms documented. Non-punitive culture established.",
+    "tasks": [],
+    "policies": [
+      "Incident Response Procedure",
+      "Security Awareness Training Program"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440a968c206ace8fbcce",
+    "name": "CC2.2 The entity internally communicates information necessary to support the functioning of internal control.",
+    "description": "CC2.2 (CC2 - Communication and Information): The entity internally communicates information necessary to support the functioning of internal control.\n\nEstablish effective internal communication to ensure everyone understands and can fulfill their security responsibilities. Communicate control responsibilities clearly to all personnel, including what's expected and how to carry out their duties. Keep staff informed about security objectives and any changes to those objectives. Share information about how to report system failures, security incidents, and other concerns - make reporting easy and non-punitive. Implement security awareness training that teaches employees to recognize and respond to threats. Ensure communication flows both up and down - management needs to hear about problems, and staff need to understand priorities. Provide separate, confidential channels (like anonymous hotlines) for sensitive reports. Choose communication methods that fit your audience - technical details for IT staff, practical guidance for general users. For privacy programs, include specific training on handling personal information properly.\n\nImplementation: Security policy communicated to all. Annual training provided. Reporting procedures documented.",
+    "tasks": [],
+    "policies": [
+      "Information Security Policy",
+      "Security Awareness Training Program"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440b6bc1b247c6098a22",
+    "name": "CC2.3.1 External Security Communication Framework",
+    "description": "The organization shall establish and maintain formal communication channels and documentation for conveying security-related information to external parties. This includes the publication of a comprehensive privacy notice on the company website, maintenance of security documentation for customer inquiries, and establishment of vendor security requirements. All external-facing security communications shall be reviewed and approved by appropriate personnel prior to publication or distribution.\n\nImplementation: Privacy notice on website. Security docs available for customer inquiries.",
+    "tasks": [],
+    "policies": [
+      "Information Security Policy",
+      "Service Level Agreement (SLA) Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440bd09b4a362873c6d4",
+    "name": "CC2.3.2 External Security Reporting Mechanism",
+    "description": "The organization shall provide and maintain accessible mechanisms for external parties to report security concerns, vulnerabilities, or incidents. This includes establishing a dedicated security contact point (e.g., security@company.com), publishing responsible disclosure guidelines where appropriate, and implementing procedures for timely acknowledgment and response to external security reports. All reported concerns shall be documented, triaged, and addressed in accordance with established incident response procedures.\n\nImplementation: DPA template defines vendor communication. Security reporting mechanisms established.",
+    "tasks": [],
+    "policies": [
+      "Privacy Notice and Data Processing Agreement Template",
+      "Service Level Agreement (SLA) Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440bdb2a0a696583533e",
+    "name": "CC2.3 The entity communicates with external parties regarding matters affecting the functioning of internal control.",
+    "description": "CC2.3 (CC2 - Communication and Information): The entity communicates with external parties regarding matters affecting the functioning of internal control.\n\nCommunicate appropriately with customers, vendors, regulators, and other external parties about your security practices. This includes publishing privacy notices, sharing security requirements with vendors, responding to customer security inquiries, and providing ways for external parties to report security concerns or incidents.\n\nImplementation: Privacy notice published. Security contact established. Vendor requirements in contracts.",
+    "tasks": [],
+    "policies": [
+      "Information Security Policy",
+      "Service Level Agreement (SLA) Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440cd42ca89617b3f373",
+    "name": "CC3.1.1 Security Program Objectives Documentation",
+    "description": "The organization shall establish and maintain a formal document that articulates the security program objectives with sufficient clarity and specificity. This document shall define the organization's goals for protecting customer data, maintaining system availability, ensuring processing integrity, safeguarding confidential information, and respecting privacy rights. The objectives shall be aligned with business operations, regulatory requirements, and stakeholder expectations. Given the organization's remote work environment, objectives shall specifically address distributed workforce security considerations. The document shall be reviewed and approved by leadership annually or upon significant changes to the business environment.\n\nImplementation: Security objectives aligned with business ops, regulatory requirements, stakeholder needs. Humadroid risk register documents 6 risks across categories.",
+    "tasks": [
+      "Compliance Platform Risk Register"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440c81beac967a7b3851",
+    "name": "CC3.1.2 Risk Identification Framework Based on Defined Objectives",
+    "description": "The organization shall implement a structured approach to identify and assess risks that could impede the achievement of documented security objectives. This framework shall enable systematic identification of threats and vulnerabilities across all Trust Services Criteria domains relevant to the organization's operations. The risk identification process shall consider the unique risk profile associated with a fully remote technology organization, including distributed access points, cloud infrastructure dependencies, and remote collaboration tools. Risk assessments shall be conducted at least annually and upon material changes to systems, processes, or the operating environment.\n\nImplementation: Security Hub identifies vulnerabilities. Risk procedure defines assessment approach. Humadroid tracks risks by category with severity scoring.",
+    "tasks": [
+      "AWS Securityhub Findings",
+      "Compliance Platform Risk Register"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440ccf10b5063b5a0e76",
+    "name": "CC3.1 The entity specifies objectives with sufficient clarity to enable identification and assessment of risks.",
+    "description": "CC3.1 (CC3 - Risk Assessment): The entity specifies objectives with sufficient clarity to enable identification and assessment of risks.\n\nDefine clear goals for what you're trying to protect and achieve with your security program. These objectives should cover protecting customer data, maintaining system availability, ensuring accurate processing, keeping confidential information secret, and respecting privacy rights. Clear objectives help you identify what could go wrong and where to focus your security efforts.\n\nImplementation: Risk assessment procedure documents objectives and identification methodology. Humadroid risk register tracks 6 identified risks across categories.",
+    "tasks": [
+      "AWS Securityhub Findings",
+      "Compliance Platform Risk Register"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440d8d29b05d8b867f32",
+    "name": "CC3.2.1 Enterprise Risk Assessment Framework",
+    "description": "The organization shall establish and maintain a formal risk assessment framework that identifies, analyzes, and evaluates risks to the achievement of business objectives. This framework shall encompass enterprise-wide risks as well as risks specific to systems, processes, and operations. The assessment shall consider both internal factors (personnel errors, system failures, process deficiencies) and external factors (cyber threats, natural disasters, regulatory changes). Risk assessments shall be conducted at least annually or upon significant changes to the business environment, with appropriate management involvement to ensure business context is properly considered in risk tolerance decisions.\n\nImplementation: Framework covers enterprise, system, and process risks. Internal and external factors. Humadroid risk scoring uses Multi-Impact Assessment method.",
+    "tasks": [
+      "Compliance Platform Risk Detail"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440d559d0e6403b60bce",
+    "name": "CC3.2.2 Third-Party and Vendor Risk Evaluation",
+    "description": "The organization shall identify and assess risks arising from vendors, business partners, and other third parties with access to organizational systems or data. This evaluation shall be integrated into the overall risk assessment process and shall consider the nature and extent of third-party access, the sensitivity of data or systems involved, and the potential impact of third-party failures or breaches. Risk treatment decisions for third-party relationships shall be documented and reviewed periodically to ensure continued appropriateness as business relationships evolve.\n\nImplementation: Humadroid tracks 2 vendors (AWS and PropelAuth) with risk tier assignments. SOC 2 compliance verified via vendor assessments.",
+    "tasks": [
+      "Compliance Platform Vendor Assessment",
+      "Compliance Platform Vendor Dashboard"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4440cad6e659d167d6210",
+    "name": "CC3.2 The entity identifies risks to the achievement of its objectives and analyzes risks as a basis for determining",
+    "description": "CC3.2 (CC3 - Risk Assessment): The entity identifies risks to the achievement of its objectives and analyzes risks as a basis for determining how the risks should be managed.\n\nConduct comprehensive risk assessments covering all levels of your organization - from enterprise-wide risks down to specific systems and processes. Consider both internal factors (employee errors, system failures, process gaps) and external factors (hackers, natural disasters, regulatory changes). Identify specific threats to your objectives and the vulnerabilities that could be exploited. Pay special attention to risks from vendors, business partners, and other third parties with system access. Involve appropriate management levels in risk assessment - they understand business context and can make informed decisions about risk tolerance. Estimate the likelihood and potential impact of each risk to prioritize your response. Decide how to handle each risk: accept it (if impact is low), avoid it (stop the risky activity), reduce it (implement controls), or transfer it (through insurance or contracts). Document your risk assessment process and review it regularly as threats evolve.\n\nImplementation: Annual risk assessments with management involvement. Likelihood and impact evaluated. Humadroid risk detail shows probability/impact scoring (e.g. 4/3 = score 32).",
+    "tasks": [
+      "AWS Securityhub Overview",
+      "Compliance Platform Risk Detail"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440d8ddad75f02e62db3",
+    "name": "CC3.3.1 Fraud Risk Assessment and Documentation",
+    "description": "The organization shall conduct and document a formal fraud risk assessment that identifies potential fraud scenarios relevant to its operations. This assessment must evaluate the fraud triangle elements (incentive/pressure, opportunity, and rationalization) for both internal and external threat actors. Given the remote work environment, particular attention shall be given to risks associated with distributed access to systems, data exfiltration opportunities, and the reduced oversight inherent in remote operations. The assessment shall be reviewed and updated annually or upon significant organizational changes.\n\nImplementation: Fraud triangle evaluated. Humadroid risk detail shows treatment strategy (Mitigate) for People Risk with documented treatment actions.",
+    "tasks": [
+      "Compliance Platform Risk Detail"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440ef2f9a025155875bc",
+    "name": "CC3.3.2 Fraud Prevention Controls and Monitoring",
+    "description": "The organization shall implement and maintain controls designed to prevent and detect fraudulent activities, including unauthorized system modifications, data theft, asset misappropriation, and falsification of records. For a technology company of this size operating remotely, controls shall include segregation of duties where practicable, access logging and review procedures, and mechanisms for reporting suspected fraudulent activity. Management shall establish clear accountability for fraud prevention oversight and ensure all personnel understand their responsibilities in maintaining the integrity of organizational systems and data.\n\nImplementation: GuardDuty monitors for unauthorized access patterns. Security Hub aggregates findings. CloudTrail logs all API activity for fraud detection.",
+    "tasks": [
+      "AWS CloudTrail Trails",
+      "AWS Securityhub Findings"
+    ],
+    "policies": [
+      "Incident Response Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440d8ad5999c170464e1",
+    "name": "CC3.3 The entity considers the potential for fraud in assessing risks.",
+    "description": "CC3.3 (CC3 - Risk Assessment): The entity considers the potential for fraud in assessing risks.\n\nThink about how someone might intentionally misuse their access or manipulate your systems for personal gain. Consider both external threats and insider risks, including theft of data or assets, unauthorized system changes, and falsification of records. Look at what might motivate fraud, what opportunities exist, and how someone might justify their actions.\n\nImplementation: Fraud risk in assessment procedure. Humadroid risk register includes People Risk category addressing insider threats.",
+    "tasks": [
+      "AWS Securityhub Overview",
+      "Compliance Platform Risk Register"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440ec858b767aeffe0c2",
+    "name": "CC3.4.1 Change Identification and Monitoring Process",
+    "description": "The organization shall establish and maintain a formal process for identifying and monitoring changes that could significantly impact the system of internal control. This process shall encompass monitoring of regulatory and compliance landscape changes, business operational changes including growth or restructuring, technology infrastructure and application modifications, personnel changes particularly in key security and compliance roles, third-party vendor relationships and service provider changes, and emerging threat intelligence relevant to the organization's technology sector. Given the organization's small team size and remote work environment, this process shall be streamlined yet comprehensive, with designated responsibility for change monitoring assigned to appropriate personnel.\n\nImplementation: Security Hub monitors configuration changes and new vulnerabilities.",
+    "tasks": [
+      "AWS Securityhub Overview"
+    ],
+    "policies": [
+      "Vendor Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440e140e3f4ffceb8463",
+    "name": "CC3.4.2 Change Impact Assessment and Control Adequacy Review",
+    "description": "The organization shall implement a structured methodology for assessing the impact of identified changes on the existing risk profile and evaluating whether current internal controls remain adequate. For each significant change identified, the organization shall conduct a documented impact assessment that evaluates the effect on existing risks, identifies new risks introduced by the change, determines whether existing controls sufficiently address modified or new risks, and recommends control modifications or new controls as necessary. Assessment frequency shall be commensurate with the pace of change, with immediate assessment triggered for material changes and periodic reviews conducted at minimum on a quarterly basis. Given the organization's remote work environment, particular attention shall be given to changes affecting remote access, collaboration tools, and distributed workforce security controls.\n\nImplementation: Change triggers documented. Quarterly minimum review cadence.",
+    "tasks": [],
+    "policies": [
+      "Risk Assessment Procedure",
+      "Vendor Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440e4abd9931735118c0",
+    "name": "CC3.4 The entity identifies and assesses changes that could significantly impact the system of internal control.",
+    "description": "CC3.4 (CC3 - Risk Assessment): The entity identifies and assesses changes that could significantly impact the system of internal control.\n\nStay alert to changes that could affect your security posture - new regulations, business growth, technology updates, staff turnover, new vendors, or emerging threats. Have a process to evaluate how these changes impact your risks and whether your existing controls are still adequate. Regular assessment helps prevent security gaps during transitions.\n\nImplementation: Security Hub monitors for significant changes. Humadroid Q4 2025 risk snapshot captures quarterly risk assessment updates.",
+    "tasks": [
+      "AWS Securityhub Findings",
+      "AWS Securityhub Overview",
+      "Compliance Platform Risk Register"
+    ],
+    "policies": [
+      "Vendor Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440f198c5b7989533af1",
+    "name": "CC4.1.1 Internal Control Monitoring Program",
+    "description": "The organization shall establish and maintain a formal program for ongoing monitoring of internal controls. This program shall define the scope of controls subject to evaluation, assign responsibility for monitoring activities, and establish a risk-based schedule for assessments. Given the organization's size, monitoring activities should be streamlined yet comprehensive, with clear ownership assigned to designated personnel. The program shall include both continuous monitoring mechanisms (such as automated alerts and log reviews) and periodic assessments appropriate to the organization's risk profile.\n\nImplementation: CloudWatch: automated alerts, log reviews. Continuous and periodic assessments.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS CloudWatch Log Groups",
+      "CloudTrail Events",
+      "Lambda App Events"
+    ],
+    "policies": [
+      "Penetration Testing and Security Assessment Procedure",
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440f2e9ada7a218ba638",
+    "name": "CC4.1.2 Security Control Testing and Evaluation",
+    "description": "The organization shall conduct periodic testing and evaluation of security controls to verify their operational effectiveness. Testing activities shall include, at minimum, annual vulnerability assessments via automated scanning tools, annual access log reviews, and periodic verification of critical security configurations. For a remote work environment, particular attention shall be given to evaluating controls related to remote access, endpoint security, and cloud service configurations. Deficiencies identified through testing shall be documented, prioritized based on risk, and remediated within established timeframes.\n\nImplementation: Security Hub + Dependabot provide continuous vulnerability scanning (21 alerts tracked). GuardDuty for runtime threat detection. Annual access review in Q4 board meeting.",
+    "tasks": [
+      "GitHub Dependabot",
+      "AWS Securityhub Findings",
+      "Board Management Meeting Minutes Q4 2025"
+    ],
+    "policies": [
+      "Penetration Testing and Security Assessment Procedure",
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440f1008d5eedfc55716",
+    "name": "CC4.1 The entity selects, develops, and performs ongoing evaluations to ascertain whether the components of internal",
+    "description": "CC4.1 (CC4 - Monitoring Activities): The entity selects, develops, and performs ongoing evaluations to ascertain whether the components of internal control are present and functioning.\n\nRegularly check that your security controls actually work as intended. This includes routine monitoring like reviewing access logs, as well as periodic assessments like penetration tests or compliance audits. Choose evaluation methods that match your risk level - high-risk areas need more frequent and thorough testing.\n\nImplementation: CloudWatch, GuardDuty, Security Hub provide continuous monitoring. accessReview Lambda for periodic reviews.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS Lambda Functions",
+      "AWS Securityhub Overview",
+      "CloudTrail Events",
+      "Lambda App Events"
+    ],
+    "policies": [
+      "Penetration Testing and Security Assessment Procedure",
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440fc1b516a976f09493",
+    "name": "CC4.2.1 Internal Control Deficiency Documentation and Tracking",
+    "description": "The organization shall establish and maintain a formal process for documenting, categorizing, and tracking internal control deficiencies from identification through remediation. All identified security weaknesses and control gaps must be recorded in a centralized tracking system with appropriate severity classifications, assigned ownership, and target remediation dates. The tracking mechanism shall capture the nature of the deficiency, potential impact, root cause analysis, and corrective action plans. Given the organization's size, a streamlined approach utilizing existing project management or issue tracking tools is acceptable, provided all requisite information is captured and maintained.\n\nImplementation: Findings documented with severity classification, ownership, remediation dates.",
+    "tasks": [
+      "AWS Securityhub Findings"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4440f831fcd8c0c1d91cf",
+    "name": "CC4.2.2 Deficiency Communication and Escalation Procedures",
+    "description": "The organization shall implement formal communication and escalation procedures to ensure internal control deficiencies are reported to appropriate parties in a timely manner commensurate with their severity. Critical and high-severity deficiencies must be escalated to senior management within defined timeframes. Regular status reporting on the overall state of the security program and outstanding deficiencies shall be provided to leadership. For an organization of this size operating in a remote environment, communication protocols should leverage established digital communication channels while ensuring appropriate documentation of all escalations and management acknowledgments.\n\nImplementation: CloudWatch logs retained for investigation. Escalation via established channels.",
+    "tasks": [
+      "AWS CloudWatch Log Groups",
+      "CloudTrail Events"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4440f44d24cfd7c1b1ae5",
+    "name": "CC4.2 The entity evaluates and communicates internal control deficiencies in a timely manner to those parties respon",
+    "description": "CC4.2 (CC4 - Monitoring Activities): The entity evaluates and communicates internal control deficiencies in a timely manner to those parties responsible for taking corrective action.\n\nWhen security weaknesses are found, document them clearly, communicate them to the right people, and track them until they're fixed. Ensure serious issues escalate to senior management quickly, and keep leadership informed about the overall state of your security program. Learn from deficiencies to prevent similar issues in the future.\n\nImplementation: Security Hub identifies deficiencies. CloudWatch logs support investigation.",
+    "tasks": [
+      "AWS CloudWatch Log Groups",
+      "AWS Securityhub Findings",
+      "CloudTrail Events"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4441075ce4c4775f8d927",
+    "name": "CC5.1.1 Risk-Based Control Selection and Documentation",
+    "description": "The organization shall maintain a formal process for selecting and documenting security controls based on identified risks. Control selection must demonstrate clear alignment between specific risks and chosen mitigations, with documented rationale for each control's inclusion. The selection process shall consider cost-effectiveness, operational impact, and the organization's remote work environment. A control inventory shall be maintained that maps each control to its corresponding risk(s) and categorizes controls as preventive or detective, and technical or procedural.\n\nImplementation: IAM roles and KMS encryption implement preventive access and data controls.",
+    "tasks": [
+      "AWS IAM Roles",
+      "AWS KMS Keys"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44410c3331e3b184cd75c",
+    "name": "CC5.1.2 Balanced Control Framework Implementation",
+    "description": "The organization shall implement a balanced portfolio of security controls that includes both preventive measures (such as access restrictions, encryption, and authentication requirements) and detective measures (such as logging, monitoring, and periodic reviews). Given the remote work environment, particular emphasis shall be placed on controls that address distributed workforce risks. The control framework shall ensure adequate coverage across technical safeguards (automated systems and tools) and procedural safeguards (policies, training, and manual processes) appropriate for a small technology organization.\n\nImplementation: GuardDuty provides threat detection. CloudWatch provides continuous monitoring with alarms. Security Hub aggregates security findings for detective controls.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS Securityhub Overview"
+    ],
+    "policies": [
+      "Access Control and Authentication Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4440fb6f8d6212afd92b9",
+    "name": "CC5.1 The entity selects and develops control activities that contribute to the mitigation of risks to the achieveme",
+    "description": "CC5.1 (CC5 - Control Activities): The entity selects and develops control activities that contribute to the mitigation of risks to the achievement of objectives to acceptable levels.\n\nChoose security controls that effectively address your identified risks without being overly complex or expensive. Mix preventive controls (like access restrictions) with detective controls (like monitoring), and ensure you have both technical and procedural safeguards. Focus on controls that give you the best risk reduction for your investment.\n\nImplementation: Balanced controls: Preventive (IAM, KMS), Detective (CloudWatch, GuardDuty), Corrective (Lambda, IR).",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS IAM Roles",
+      "AWS KMS Keys"
+    ],
+    "policies": [
+      "Information Security Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44410cb1dce0999b82282",
+    "name": "CC5.2.1 IT Infrastructure and Access Management",
+    "description": "The organization shall establish and maintain formal controls over IT infrastructure and administrative access. This includes implementing role-based access controls for all critical systems, maintaining an inventory of IT assets, restricting administrative privileges to authorized personnel only, and ensuring secure configuration of network infrastructure. Given the remote work environment, particular attention shall be paid to secure remote access mechanisms and endpoint security controls.\n\nImplementation: CloudFormation templates ensure consistent, version-controlled deployments.",
+    "tasks": [
+      "AWS Cloudformation Stacks"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae444102045ba32c99f3eec",
+    "name": "CC5.2.2 Change Management and Software Development Controls",
+    "description": "The organization shall implement formal change management procedures governing modifications to IT systems, applications, and infrastructure. All changes shall be documented, reviewed, tested, and approved prior to implementation in production environments. For a technology company of this size, this includes establishing separation of duties where feasible, maintaining version control for all code and configurations, and ensuring changes are traceable and reversible. Emergency change procedures shall be documented for time-sensitive situations.\n\nImplementation: Branch protection: PR approval required before merge.",
+    "tasks": [
+      "GitHub Branch Protection"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae444104e0244349720ea8f",
+    "name": "CC5.2.3 Technology Acquisition and Security Assessment",
+    "description": "The organization shall establish procedures to ensure that technology acquisitions, including software, hardware, and cloud services, meet defined security requirements prior to deployment. This includes conducting security assessments of new vendors and technologies, reviewing security certifications and compliance attestations, and ensuring contractual provisions address security obligations. Given the company's technology industry context, particular scrutiny shall be applied to third-party components and dependencies.\n\nImplementation: Technology acquisition requires security assessment before deployment.",
+    "tasks": [],
+    "policies": [
+      "Change Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae444102781d1aaa247945e",
+    "name": "CC5.2 The entity selects and develops general control activities over technology to support the achievement of objec",
+    "description": "CC5.2 (CC5 - Control Activities): The entity selects and develops general control activities over technology to support the achievement of objectives.\n\nImplement fundamental IT controls that support all your systems and applications. This includes managing IT infrastructure, controlling software changes, restricting administrative access, maintaining system configurations, and ensuring technology acquisitions meet security requirements. These foundational controls support everything else you do.\n\nImplementation: IaC via CloudFormation. GitHub branch protection enforces code review.",
+    "tasks": [
+      "GitHub Deploy Workflow",
+      "GitHub Branch Protection",
+      "AWS Cloudformation Stacks"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44411bff8c261b3067ba4",
+    "name": "CC5.3.1 Security Policy Documentation and Procedural Framework",
+    "description": "The organization shall maintain a formal framework that translates approved security policies into documented operational procedures. Each policy shall have corresponding step-by-step procedures that specify the actions required for implementation, the personnel responsible for execution, and the timelines for completion of critical tasks. Procedures shall be written in clear, actionable language appropriate for the intended audience and shall be readily accessible to all relevant personnel through the organization's document management system.\n\nImplementation: Step-by-step procedures: access provisioning, change requests, incident reporting.",
+    "tasks": [],
+    "policies": [
+      "Information Security Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44411604663f17a996ff5",
+    "name": "CC5.3.2 Control Activity Competency and Authorization",
+    "description": "The organization shall ensure that personnel assigned to execute control activities possess the requisite skills, knowledge, and formal authorization to perform their designated responsibilities. This includes maintaining documentation of role assignments, ensuring appropriate training has been completed, and verifying that personnel have been granted the necessary system access and decision-making authority. Given the organization's remote work environment, particular attention shall be given to ensuring personnel can effectively execute controls independent of physical location.\n\nImplementation: Role competencies in job descriptions. Training verifies. IAM grants access.",
+    "tasks": [],
+    "policies": [
+      "Access Control and Authentication Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441195370b81c50fa906",
+    "name": "CC5.3.3 Periodic Review of Control Procedures",
+    "description": "The organization shall establish a formal review cycle to assess the continued relevance and effectiveness of documented procedures. Reviews shall be conducted at least annually, or more frequently when significant changes occur to the business environment, technology infrastructure, or regulatory requirements. The review process shall evaluate whether procedures remain aligned with current policies, reflect actual operational practices, and adequately address evolving risks. Findings from reviews shall be documented and result in timely updates to affected procedures.\n\nImplementation: Annual policy review documented in Q4 2025 board meeting. Updates based on risk assessment findings. Next review scheduled Q4 2026.",
+    "tasks": [
+      "Board Management Meeting Minutes Q4 2025"
+    ],
+    "policies": [
+      "Risk Assessment Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae44410b0bc7b95c909cf27",
+    "name": "CC5.3 The entity deploys control activities through policies that establish what is expected and in procedures that ",
+    "description": "CC5.3 (CC5 - Control Activities): The entity deploys control activities through policies that establish what is expected and in procedures that put policies into action.\n\nTurn your security policies into practical procedures that people can actually follow. Document step-by-step processes, assign clear responsibilities, set timelines for critical tasks, ensure staff have the skills and authority to perform controls, and regularly review whether procedures still make sense as your business evolves.\n\nImplementation: Policies translated to procedures: access control, change management, incident response.",
+    "tasks": [],
+    "policies": [
+      "Access Control and Authentication Policy",
+      "Information Security Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44412e7521ed19a130878",
+    "name": "CC6.1.1 Information Asset Inventory and Classification",
+    "description": "The organization shall establish and maintain a comprehensive inventory of all information assets requiring protection, including infrastructure components, software applications, and data repositories. Each asset shall be classified according to its sensitivity and criticality to business operations. This inventory shall be reviewed and updated at least annually to ensure accuracy and completeness. Asset classification shall inform the application of appropriate security controls and access restrictions.\n\nImplementation: PropelAuth manages user access inventory. IAM credential report: 100% MFA compliance. Annual asset review in Q4 board meeting.",
+    "tasks": [
+      "PropelAuth Security Settings",
+      "PropelAuth Users"
+    ],
+    "policies": [
+      "Access Control and Authentication Policy",
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444122014470587747181",
+    "name": "CC6.1.2 Logical Access Control Implementation",
+    "description": "The organization shall implement logical access controls to restrict system and data access based on the principle of least privilege and role-based access requirements. Access control software and configurations shall enforce authentication requirements prior to granting access to protected resources. Multi-factor authentication shall be required for all remote access, administrative functions, and access to sensitive data. Access rules shall be documented and aligned with data classification levels and approved user roles.\n\nImplementation: PropelAuth + IAM password policy: 14+ chars, complexity, 90-day rotation.",
+    "tasks": [
+      "AWS IAM Password Policy",
+      "PropelAuth Security Settings"
+    ],
+    "policies": [
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44412138280f214d3769a",
+    "name": "CC6.1.3 Network Security and Segmentation",
+    "description": "The organization shall implement network security controls to protect information assets from unauthorized access and security threats. Given the remote work environment, all network communications shall be secured through appropriate encryption and access controls. Network architecture shall incorporate segmentation or zero-trust principles to limit the potential impact of security incidents. All access points, including APIs and remote connections, shall be identified, documented, and secured with appropriate controls.\n\nImplementation: VPC with private subnets. Security groups and NACLs filter traffic.",
+    "tasks": [
+      "AWS Security Groups",
+      "AWS VPC List",
+      "AWS VPC Subnets"
+    ],
+    "policies": [
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444120bc9df2c236ecea8",
+    "name": "CC6.1.4 Encryption and Key Management",
+    "description": "The organization shall implement encryption controls to protect sensitive data at rest, in transit, and during processing as appropriate to the risk level. Encryption methods shall be selected based on industry standards and the sensitivity of the data being protected. A formal key management program shall be established to govern the entire lifecycle of cryptographic keys, including generation, storage, distribution, use, rotation, and destruction. Key management procedures shall ensure keys are protected from unauthorized access and disclosure.\n\nImplementation: KMS: 8 keys with rotation. S3 100% encrypted. DocumentDB encrypted.",
+    "tasks": [
+      "AWS DocumentDB Cluster",
+      "AWS KMS Keys",
+      "AWS S3 Bucket Encryption"
+    ],
+    "policies": [
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444127ca4adbbf932a30f",
+    "name": "CC6.1.5 Credential and Authentication Management",
+    "description": "The organization shall establish formal procedures for managing credentials for both user accounts and system/service accounts. Password policies shall enforce complexity, length, and rotation requirements appropriate to the access level granted. Service account credentials shall be secured, documented, and subject to periodic review. Authentication mechanisms shall be configured to protect against common attack vectors including brute force attempts and credential stuffing.\n\nImplementation: IAM roles: least privilege. Users get only required permissions.",
+    "tasks": [
+      "AWS IAM Roles",
+      "AWS IAM Users"
+    ],
+    "policies": [
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444123a5b1e11ed329a3c",
+    "name": "CC6.1 The entity implements logical access security software, infrastructure, and architectures over protected infor",
+    "description": "CC6.1 (CC6 - Logical and Physical Access Controls): The entity implements logical access security software, infrastructure, and architectures over protected information assets to protect them from security threats.\n\nImplement comprehensive technical controls to protect your information assets from unauthorized access. Start with a complete inventory of what needs protection - infrastructure, software, and data. Evaluate new system architectures for security before implementation. Use access control software and configuration standards to restrict logical access appropriately. Implement strong authentication, requiring users and systems to prove their identity before accessing resources - use multi-factor authentication for sensitive access. Consider network segmentation or zero-trust architectures to limit the blast radius of any breach. Manage all access points including APIs and remote connections. Establish access rules based on data classification and user roles. Properly manage credentials for both people and system accounts. Encrypt sensitive data at rest, in transit, and during processing when appropriate. Protect encryption keys through their entire lifecycle - generation, storage, use, and destruction. Choose encryption methods appropriate to your risk level.\n\nImplementation: PropelAuth for app auth. IAM for AWS. MFA required. Strong password policy.",
+    "tasks": [
+      "AWS IAM Password Policy",
+      "AWS IAM Roles",
+      "AWS IAM Users",
+      "PropelAuth Security Settings",
+      "PropelAuth Users"
+    ],
+    "policies": [
+      "Access Control and Authentication Policy",
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444131b52fdb712548a61",
+    "name": "CC6.2.1 User Access Request and Authorization Process",
+    "description": "The organization shall maintain a formal, documented process for requesting and authorizing system access for all internal and external users. Prior to provisioning any system credentials, a written or electronic access request must be submitted specifying the user's identity, role, business justification, and required access levels. All access requests shall be reviewed and approved by an appropriate authority (e.g., department head, system owner, or designated manager) before credentials are issued. The approval process must verify that the requested access aligns with the user's job responsibilities and adheres to the principle of least privilege.\n\nImplementation: PropelAuth manages user registration. CEO approval required before access granted (documented in access policy). Least privilege enforced via role assignment.",
+    "tasks": [
+      "PropelAuth Security Settings",
+      "PropelAuth Users"
+    ],
+    "policies": [
+      "Access Control and Authentication Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441389ccaae5473063a5",
+    "name": "CC6.2.2 User Account Lifecycle Management and Periodic Review",
+    "description": "The organization shall implement controls to manage the complete lifecycle of user accounts, including registration, modification, and timely deactivation. A centralized inventory of all user accounts shall be maintained, documenting the user's identity, access privileges, and account status. Access reviews shall be conducted at least annually to verify that all accounts remain necessary and appropriate for users' current roles. Upon termination of employment or change in role, access shall be modified or revoked within one business day. The organization shall maintain documented procedures for offboarding that ensure prompt credential revocation across all systems.\n\nImplementation: PropelAuth centralizes user inventory. IAM enforces MFA (100% compliance). Annual access review documented in Q4 2025 board meeting. Offboarding procedure in access policy.",
+    "tasks": [
+      "AWS IAM Users",
+      "Board Management Meeting Minutes Q4 2025",
+      "PropelAuth Users"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44412ce9b9d62d723cff2",
+    "name": "CC6.2 Prior to issuing system credentials and granting system access, the entity registers and authorizes new intern",
+    "description": "CC6.2 (CC6 - Logical and Physical Access Controls): Prior to issuing system credentials and granting system access, the entity registers and authorizes new internal and external users whose access is administered by the entity.\n\nBefore giving anyone access to your systems, verify they're authorized and need that access for their job. Create a formal process for requesting, approving, and setting up new accounts. Regularly review all accounts to ensure they're still needed and immediately disable access when someone leaves or changes roles.\n\nImplementation: PropelAuth handles registration and auth. IAM enforces MFA. Strong passwords.",
+    "tasks": [
+      "AWS IAM Password Policy",
+      "PropelAuth Mfa Settings",
+      "PropelAuth Security Settings"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44413c16a649a1b3a9ff8",
+    "name": "CC6.3.1 Role-Based Access Control Framework",
+    "description": "Establish and maintain a documented role-based access control (RBAC) framework that defines access permissions for each role within the organization. Given the small team size, document the specific access rights required for each team member's responsibilities across all systems, applications, and data repositories. Maintain an access matrix that clearly maps roles to permitted resources and access levels. This framework shall serve as the authoritative reference for granting, modifying, and revoking access privileges.\n\nImplementation: Roles map to specific resources and access levels.",
+    "tasks": [
+      "AWS IAM Roles",
+      "PropelAuth Roles"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae444138dc9d0397558688e",
+    "name": "CC6.3.2 Access Authorization and Change Management",
+    "description": "Implement formal procedures for authorizing, modifying, and removing access to organizational systems and data. All access requests and changes must be documented and approved by an appropriate authority prior to implementation. For this organization's size, the founder or designated lead shall approve all access changes. Maintain audit trails of all access provisioning activities, including the requestor, approver, date, and specific access granted or revoked. Ensure timely removal of access upon role changes or employment termination.\n\nImplementation: Access changes require CEO approval. CloudTrail logs all IAM changes. PropelAuth logs user provisioning. Timely revocation: access removed within 1 business day of termination.",
+    "tasks": [
+      "AWS CloudTrail Trails",
+      "AWS IAM Users",
+      "PropelAuth Users"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44413c21460c844fb0af4",
+    "name": "CC6.3.3 Segregation of Duties Controls",
+    "description": "Identify and document incompatible functions that must be segregated to prevent fraud and errors. Given the organization's small size where complete segregation may not be feasible, implement compensating controls such as enhanced monitoring, detailed audit logging, and periodic independent review of sensitive transactions. At minimum, ensure that critical functions such as payment initiation and approval, code deployment and review, and administrative access changes involve oversight from more than one individual where possible.\n\nImplementation: Compensating controls: monitoring, logging, periodic review where segregation limited.",
+    "tasks": [
+      "AWS CloudWatch Log Groups",
+      "AWS Security Groups"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae444138c6e0e9ee9b86cc6",
+    "name": "CC6.3 The entity authorizes, modifies, or removes access to data, software, functions, and other protected informati",
+    "description": "CC6.3 (CC6 - Logical and Physical Access Controls): The entity authorizes, modifies, or removes access to data, software, functions, and other protected information assets based on roles and responsibilities.\n\nGrant people only the minimum access they need to do their jobs, and separate conflicting duties so no single person can commit fraud undetected. Document what access each role should have, require approval for access changes, regularly review whether access is still appropriate, and ensure incompatible functions (like requesting and approving payments) are separated.\n\nImplementation: PropelAuth roles define access. IAM roles enforce AWS permissions.",
+    "tasks": [
+      "AWS IAM Roles",
+      "PropelAuth Roles",
+      "PropelAuth Users"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44414d50638a1efd0ad27",
+    "name": "CC6.4.1 Cloud Infrastructure Physical Security Assurance",
+    "description": "As a fully remote organization utilizing cloud infrastructure, the entity shall maintain documented assurance that all cloud service providers and data center facilities housing company data implement appropriate physical security controls. This includes obtaining and reviewing SOC 2 reports or equivalent attestations from cloud providers, maintaining an inventory of all third-party facilities where company data resides, and ensuring contractual requirements for physical security are in place. The entity shall verify that providers implement access controls, environmental protections, and visitor management procedures commensurate with the sensitivity of data stored.\n\nImplementation: AWS: access controls, environmental protections, 24/7 security. SOC 2 report reviewed.",
+    "tasks": [],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae444141bd8ef149cee5530",
+    "name": "CC6.4.2 Remote Employee Equipment and Media Security",
+    "description": "The entity shall establish and enforce policies governing the physical security of company-owned equipment and any media containing sensitive information at remote work locations. Employees shall be required to implement reasonable physical safeguards for laptops, mobile devices, and any physical media containing company data. This includes secure storage when not in use, prohibition of leaving devices unattended in public spaces, and proper handling and destruction of any physical documents or media containing sensitive information. The policy shall address equipment return procedures upon termination and reporting requirements for lost or stolen devices.\n\nImplementation: Remote equipment: device encryption (FileVault), secure storage, 24hr lost device reporting.",
+    "tasks": [
+      "MacOS FileVault Status"
+    ],
+    "policies": [
+      "Information Security Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44413a63aa54f3393ec20",
+    "name": "CC6.4 The entity restricts physical access to facilities and protected information assets.",
+    "description": "CC6.4 (CC6 - Logical and Physical Access Controls): The entity restricts physical access to facilities and protected information assets.\n\nControl who can physically access your servers, network equipment, backup media, and paper records containing sensitive information. Use locks, badges, or keys to restrict access, maintain logs of who enters secure areas, escort visitors, and promptly revoke physical access when no longer needed. Even small offices need basic physical security for IT equipment.\n\nImplementation: Fully remote org. AWS SOC 2 certified data centers provide physical security.",
+    "tasks": [],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae44414e6fc7ff25eae26a7",
+    "name": "CC6.5.1 Data Sanitization and Media Destruction Procedures",
+    "description": "The organization shall establish and maintain formal procedures for the secure sanitization and destruction of data storage media prior to disposal, reuse, or transfer. Given the remote work environment, these procedures must address both company-owned and employee-owned devices that may contain company data. Procedures shall specify approved methods for data wiping (using industry-standard tools meeting NIST 800-88 guidelines) and physical destruction requirements for media that cannot be adequately sanitized. The procedures must also address the secure disposal of paper documents containing sensitive information through shredding or secure destruction services.\n\nImplementation: KMS for cloud data. Secure deletion for S3. NIST 800-88 guidelines.",
+    "tasks": [
+      "AWS KMS Keys"
+    ],
+    "policies": [
+      "Data Retention and Disposal Policy",
+      "Data Classification and Handling Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44415a0bf60b59284200f",
+    "name": "CC6.5.2 Asset Disposal Verification and Documentation",
+    "description": "The organization shall implement a verification process to confirm that all sensitive information has been removed from assets before discontinuing logical and physical protections. This includes maintaining an inventory of assets pending disposal, documenting the chain of custody during the disposal process, and retaining destruction records for audit purposes. For the remote workforce, this process must include procedures for employees to return or certify the sanitization of company data from devices used for work purposes, including laptops, mobile devices, and removable storage media.\n\nImplementation: KMS key deletion enables cryptographic erasure verification. CloudWatch logs track data access and deletion. S3 access logs provide disposal audit trail.",
+    "tasks": [
+      "AWS CloudWatch Log Groups",
+      "AWS KMS Keys"
+    ],
+    "policies": [
+      "Data Retention and Disposal Policy",
+      "Data Classification and Handling Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44414279c7fe9af3f51f9",
+    "name": "CC6.5 The entity discontinues logical and physical protections over assets only after the removal of all sensitive i",
+    "description": "CC6.5 (CC6 - Logical and Physical Access Controls): The entity discontinues logical and physical protections over assets only after the removal of all sensitive information from the assets.\n\nBefore disposing of computers, drives, phones, or paper documents, ensure data cannot be recovered by others. Wipe or physically destroy storage media, shred sensitive documents, and remove company data from employee devices before reuse or disposal. Keep records of destruction for sensitive data to prove proper disposal.\n\nImplementation: KMS cryptographic erasure. S3 lifecycle automates deletion. Retention policy defines triggers.",
+    "tasks": [
+      "AWS KMS Keys",
+      "AWS Lambda Functions"
+    ],
+    "policies": [
+      "Data Retention and Disposal Policy",
+      "Data Classification and Handling Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444153e2e17c0c9014263",
+    "name": "CC6.6.1 Network Perimeter Security Controls",
+    "description": "The organization shall implement and maintain network perimeter security controls to protect against external threats. Given the remote work environment, this includes cloud-based firewall solutions, secure DNS filtering, and network segmentation for any cloud infrastructure. All external-facing services must be protected by appropriate security controls, with unnecessary ports and services disabled. Security configurations shall be documented and reviewed periodically to ensure alignment with current threat landscape.\n\nImplementation: VPC + private subnets isolate infrastructure. Security groups control access.",
+    "tasks": [
+      "AWS Security Groups"
+    ],
+    "policies": [
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Third-Party Integration Security Guidelines"
+    ]
+  },
+  {
+    "id": "ctl_6ae44415e35fd7bc46ad34e1",
+    "name": "CC6.6.2 Secure Remote Access Management",
+    "description": "The organization shall establish secure remote access mechanisms for all personnel accessing company systems. Given the fully cloud-based architecture, the organization implements a zero-trust approach where all access requires authentication via PropelAuth with MFA, regardless of network location. Access is granted based on the principle of least privilege through IAM roles, and all access sessions are logged via CloudTrail and application audit logs. This approach provides equivalent or better security than traditional VPN for a cloud-native organization.\n\nImplementation: Zero-trust model: PropelAuth + MFA required for all access. No VPN needed - all services cloud-hosted. IAM enforces least privilege. CloudTrail + CloudWatch log all access.",
+    "tasks": [
+      "AWS CloudTrail Trails",
+      "AWS CloudWatch Log Groups",
+      "PropelAuth Mfa Settings",
+      "PropelAuth Security Settings"
+    ],
+    "policies": [
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Third-Party Integration Security Guidelines"
+    ]
+  },
+  {
+    "id": "ctl_6ae444158a8307d97013d4c1",
+    "name": "CC6.6.3 Threat Detection and Security Monitoring",
+    "description": "The organization shall deploy and maintain threat detection capabilities to identify and respond to external threats. This includes intrusion detection or prevention systems, security monitoring tools, and alerting mechanisms for suspicious activities. Security tools shall be configured to detect current threat patterns and updated regularly to address emerging threats. Alerts shall be reviewed promptly, and significant security events shall be escalated according to established procedures.\n\nImplementation: Security groups + CloudWatch alarms for threat detection and alerting.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS Security Groups",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Third-Party Integration Security Guidelines"
+    ]
+  },
+  {
+    "id": "ctl_6ae44415523b3777bcb2be35",
+    "name": "CC6.6 The entity implements logical access security measures to protect against threats from sources outside its sys",
+    "description": "CC6.6 (CC6 - Logical and Physical Access Controls): The entity implements logical access security measures to protect against threats from sources outside its system boundaries.\n\nProtect your network perimeter from external threats using firewalls, intrusion detection systems, and secure remote access methods like VPNs. Monitor and restrict what can connect to your network from the internet, require extra authentication for external access, and keep security tools updated to detect new threats.\n\nImplementation: Security groups restrict traffic. NACLs provide defense in depth. No public DB access.",
+    "tasks": [
+      "AWS Security Groups",
+      "AWS VPC Subnets"
+    ],
+    "policies": [
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Third-Party Integration Security Guidelines"
+    ]
+  },
+  {
+    "id": "ctl_6ae444169c5144933c8ec22c",
+    "name": "CC6.7.1 Data Transmission Encryption Standards",
+    "description": "The organization shall implement and enforce encryption standards for all sensitive data transmitted across networks. This includes mandatory TLS 1.2 or higher for web communications, encrypted email protocols, and secure API connections. All remote work communications must traverse encrypted channels, and VPN or zero-trust network access shall be required for accessing internal systems from external locations.\n\nImplementation: Lambda HTTPS-only. PropelAuth manages API keys.",
+    "tasks": [
+      "AWS IAM Roles",
+      "PropelAuth Api Keys"
+    ],
+    "policies": [
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44416735be4b1dc9a0a15",
+    "name": "CC6.7.2 Removable Media and Data Transfer Controls",
+    "description": "The organization shall establish formal controls governing external data transfers. Given the fully remote, cloud-first work environment where company data resides entirely in cloud services (AWS, PropelAuth), controls focus on securing cloud access rather than removable media. Approved secure methods shall be designated for sensitive document exchange, with appropriate access controls enforced via IAM and PropelAuth roles.\n\nImplementation: Cloud-first architecture: all data in AWS (DocumentDB, S3). No on-premise data requiring USB transfers. PropelAuth + IAM enforce access controls. TLS 1.2+ for all data in transit.",
+    "tasks": [
+      "AWS IAM Roles",
+      "AWS S3 Bucket Encryption",
+      "PropelAuth Security Settings"
+    ],
+    "policies": [
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae44416cbbf1eefa97512b4",
+    "name": "CC6.7.3 Mobile Device Data Protection",
+    "description": "The organization shall implement controls to protect company data accessed from remote devices. Given the small team size and remote work environment, this includes mandatory device encryption (FileVault for macOS), strong authentication via PropelAuth with MFA, and session management controls. For a company of this size, centralized mobile device management (MDM) is not required; instead, security is enforced through encryption, authentication, and access controls at the application layer.\n\nImplementation: FileVault encryption on all macOS devices. PropelAuth enforces MFA for application access. Session timeout configured. 24-hour lost device reporting requirement in security policy.",
+    "tasks": [
+      "MacOS FileVault Status",
+      "PropelAuth Security Settings"
+    ],
+    "policies": [
+      "Information Security Policy",
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444163c36035dcae10841",
+    "name": "CC6.7.4 Unauthorized Data Transfer Monitoring",
+    "description": "The organization shall implement monitoring mechanisms to detect and alert on unauthorized data transfers or anomalous data movement patterns. This includes monitoring of cloud application usage, large file transfers, and access to sensitive data repositories. Alerts shall be reviewed promptly, and suspected unauthorized transfers shall be investigated and documented.\n\nImplementation: DocumentDB TLS required. CloudWatch monitors data access patterns.",
+    "tasks": [
+      "AWS CloudWatch Log Groups",
+      "AWS DocumentDB Cluster",
+      "CloudTrail Events",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444154f189f7a7269acf7",
+    "name": "CC6.7 The entity restricts the transmission, movement, and removal of information to authorized internal and externa",
+    "description": "CC6.7 (CC6 - Logical and Physical Access Controls): The entity restricts the transmission, movement, and removal of information to authorized internal and external users and processes.\n\nControl and protect data when it moves outside your direct control. Use encryption for sensitive data in transit, restrict the use of removable media like USB drives, implement secure file sharing instead of email for sensitive documents, and protect mobile devices that access company data. Monitor for unauthorized data transfers.\n\nImplementation: TLS 1.2+ for all transit. Zero-trust via PropelAuth. HTTPS-only endpoints.",
+    "tasks": [
+      "AWS IAM Roles",
+      "PropelAuth Security Settings"
+    ],
+    "policies": [
+      "Access Control and Authentication Policy",
+      "API Security and Rate Limiting Standard",
+      "Cloud Infrastructure Security Policy",
+      "Encryption and Cryptographic Controls Standard"
+    ]
+  },
+  {
+    "id": "ctl_6ae444169de157669875e92e",
+    "name": "CC6.8.1 Endpoint Protection and Antivirus Management",
+    "description": "The organization shall maintain endpoint protection capabilities across company-managed devices. For a small remote team using macOS devices, this includes reliance on built-in macOS security features (XProtect, Gatekeeper, MRT) supplemented by cloud-based scanning of code and containers. Given the organization's size and remote work environment, endpoint protection focuses on secure device configuration, encryption, and cloud-native security tools rather than traditional enterprise endpoint detection and response (EDR) solutions.\n\nImplementation: macOS XProtect/Gatekeeper provide endpoint protection. FileVault encryption enabled. ECR scans containers. Dependabot scans code dependencies. Security Hub aggregates findings.",
+    "tasks": [
+      "GitHub Dependabot",
+      "AWS ECR Repositories",
+      "AWS Securityhub Findings",
+      "MacOS FileVault Status"
+    ],
+    "policies": [
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441628ce1fd6a855eb1b",
+    "name": "CC6.8.2 Software Installation Controls and Patch Management",
+    "description": "The organization shall establish controls governing software installation and maintain current patch levels across all systems. Administrative privileges for software installation shall be restricted to authorized personnel only. A documented process shall exist for evaluating, approving, and deploying software updates and security patches in a timely manner. For the remote workforce, this includes ensuring personal devices used for work purposes comply with minimum security requirements.\n\nImplementation: Dependabot auto-updates. GitHub Actions CI runs security scans.",
+    "tasks": [
+      "GitHub Dependabot",
+      "GitHub Secret Scanning"
+    ],
+    "policies": [
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44416c08ec578db327344",
+    "name": "CC6.8.3 Security Awareness and Malware Response Procedures",
+    "description": "The organization shall provide security awareness training to all personnel covering recognition of phishing attempts, social engineering tactics, and safe handling of files from external sources. A documented incident response procedure shall exist for malware detection events, including immediate containment steps, notification requirements, and remediation actions. Given the small team size, cross-training shall ensure multiple team members can execute response procedures.\n\nImplementation: Training covers phishing, malware. IR procedure includes containment steps.",
+    "tasks": [
+      "Ethics And Security Training Completion Certificate Mo Messidi"
+    ],
+    "policies": [
+      "Incident Response Procedure",
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae44416432ba4b18bb7e4fd",
+    "name": "CC6.8 The entity implements controls to prevent or detect and act upon the introduction of unauthorized or malicious",
+    "description": "CC6.8 (CC6 - Logical and Physical Access Controls): The entity implements controls to prevent or detect and act upon the introduction of unauthorized or malicious software.\n\nProtect against viruses, malware, and unauthorized software installations. Deploy and maintain antivirus software, restrict who can install programs, keep all software patched and updated, scan files from external sources, and train users to recognize phishing and other attacks. Have a process to respond quickly when malware is detected.\n\nImplementation: ECR scans containers. Dependabot scans dependencies (21 alerts). Security Hub aggregates. Code scanning via AWS not GitHub.",
+    "tasks": [
+      "GitHub Dependabot",
+      "AWS ECR Repositories",
+      "AWS Securityhub Findings"
+    ],
+    "policies": [
+      "Acceptable Use Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441730145201872696bf",
+    "name": "CC7.1.1 Security Configuration Baseline and Change Monitoring",
+    "description": "The organization shall establish and maintain documented security configuration baselines for all critical systems, infrastructure components, and applications. Automated monitoring mechanisms shall be implemented to detect unauthorized or unplanned configuration changes that may introduce security vulnerabilities. Given the remote work environment and small team size, cloud-native configuration management and monitoring tools shall be utilized to ensure continuous oversight without requiring dedicated on-premises infrastructure.\n\nImplementation: Security Hub aggregates findings from multiple services.",
+    "tasks": [
+      "AWS Securityhub Overview",
+      "CloudTrail Events"
+    ],
+    "policies": [
+      "Penetration Testing and Security Assessment Procedure",
+      "Secure Software Development Lifecycle (SDLC) Standard",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441725da43c6fe38e268",
+    "name": "CC7.1.2 Vulnerability Scanning and Assessment Program",
+    "description": "The organization shall implement a formal vulnerability scanning and assessment program to identify security weaknesses across all systems, applications, and infrastructure components. Regular automated vulnerability scans shall be conducted at defined intervals, with results documented, analyzed, and prioritized based on risk severity. The program shall include subscription to relevant threat intelligence feeds and security advisories pertinent to the organization's technology stack to ensure timely awareness of newly discovered vulnerabilities.\n\nImplementation: Dependabot + Security Hub: real-time vulnerability scanning.",
+    "tasks": [
+      "GitHub Dependabot",
+      "AWS Securityhub Findings"
+    ],
+    "policies": [
+      "Penetration Testing and Security Assessment Procedure",
+      "Secure Software Development Lifecycle (SDLC) Standard",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441796086c39d53206b1",
+    "name": "CC7.1 The entity uses detection and monitoring procedures to identify (1) changes to configurations that result in t",
+    "description": "CC7.1 (CC7 - System Operations): The entity uses detection and monitoring procedures to identify (1) changes to configurations that result in the introduction of new vulnerabilities, and (2) susceptibilities to newly discovered vulnerabilities.\n\nContinuously watch for new security weaknesses in your systems. Use standard security configurations, regularly scan for vulnerabilities, monitor for unauthorized system changes, and stay informed about new threats affecting your technology. When vulnerabilities are found, assess their risk and fix them based on severity.\n\nImplementation: Security Hub + GuardDuty + ECR scanning. Code scanning via AWS (not GitHub).",
+    "tasks": [
+      "GitHub Dependabot",
+      "AWS ECR Repositories",
+      "AWS Securityhub Findings",
+      "CloudTrail Events"
+    ],
+    "policies": [
+      "Penetration Testing and Security Assessment Procedure",
+      "Secure Software Development Lifecycle (SDLC) Standard",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae44417d73eaf5fa3e8e08f",
+    "name": "CC7.2.1 Security Monitoring Infrastructure Implementation",
+    "description": "The organization shall establish and maintain a centralized security monitoring infrastructure appropriate for a small, remote-first technology company. This includes deployment of cloud-native monitoring solutions capable of aggregating logs and security events from all critical systems, including cloud infrastructure, SaaS applications, endpoints, and identity providers. Given the remote work environment, particular emphasis shall be placed on monitoring authentication systems, VPN connections, and cloud service access patterns. The monitoring infrastructure shall be configured to provide real-time visibility into system health and security posture.\n\nImplementation: CloudTrail logs AWS API calls with integrity validation.",
+    "tasks": [
+      "AWS CloudWatch Log Groups",
+      "CloudTrail Events",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "System Monitoring and Logging Procedure",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae444178c399799ec6647f9",
+    "name": "CC7.2.2 Anomaly Detection and Alerting Configuration",
+    "description": "The organization shall configure automated detection rules and alerting mechanisms to identify anomalies indicative of security incidents, system failures, or operational issues. Detection rules shall address authentication anomalies (failed login attempts, impossible travel scenarios, unusual access times), unauthorized configuration changes, unexpected file modifications to critical systems, abnormal network traffic patterns, and system performance degradation. Alerts shall be prioritized by severity and routed to appropriate personnel through established communication channels suitable for a remote workforce, ensuring timely response regardless of team member location.\n\nImplementation: CloudWatch alarms on anomalous patterns.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "Lambda App Events",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "System Monitoring and Logging Procedure",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441724f921b9fa16f46d",
+    "name": "CC7.2.3 Monitoring Review and Response Procedures",
+    "description": "The organization shall establish formal procedures for the regular review of monitoring data and timely response to detected anomalies. Given the small team size, procedures shall define clear ownership for monitoring review responsibilities, establish minimum review frequencies appropriate for the organization's risk profile, and document escalation procedures for identified anomalies. The procedures shall include guidance for initial triage, investigation steps, and criteria for escalating to incident response processes. Regular review of monitoring effectiveness shall be conducted to ensure continued alignment with organizational objectives.\n\nImplementation: Logs retained 90 days. IR procedure defines triage and escalation.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS CloudWatch Log Groups",
+      "CloudTrail Events",
+      "Lambda App Events"
+    ],
+    "policies": [
+      "Incident Response Procedure",
+      "System Monitoring and Logging Procedure",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae44417f7be3e9224c69b09",
+    "name": "CC7.2 The entity monitors system components and the operation of controls to detect anomalies that are indicative of",
+    "description": "CC7.2 (CC7 - System Operations): The entity monitors system components and the operation of controls to detect anomalies that are indicative of malicious acts, natural disasters, and errors affecting the entity's ability to meet its objectives.\n\nSet up monitoring to detect unusual activities that might indicate an attack or system problem. This includes watching for strange login patterns, unexpected file changes, unusual network traffic, or system performance issues. Use automated tools where possible and ensure alerts reach the right people quickly.\n\nImplementation: CloudTrail: all API calls logged, validated, 90-day retention. Immutable audit trail.",
+    "tasks": [
+      "GitHub Actions Workflows",
+      "AWS CloudWatch Alarms",
+      "AWS CloudWatch Log Groups",
+      "CloudTrail Events",
+      "Lambda App Events",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "System Monitoring and Logging Procedure",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae44418d1d8e0ba09cda840",
+    "name": "CC7.3.1 Security Event Triage and Classification Procedure",
+    "description": "The organization shall maintain a documented procedure for triaging and classifying security events to determine whether they constitute security incidents requiring escalation. This procedure shall define clear criteria for distinguishing between routine events, anomalies, and confirmed security incidents. Given the remote work environment and small team size, the procedure shall include defined severity levels, classification criteria, and designated personnel responsible for initial triage decisions. The procedure shall be accessible to all team members and reviewed annually.\n\nImplementation: IR procedure: severity levels, classification criteria, triage responsibilities.",
+    "tasks": [
+      "AWS SNS Topics"
+    ],
+    "policies": [
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441885662a32be6e2dbd",
+    "name": "CC7.3.2 Security Event Investigation and Escalation Process",
+    "description": "The organization shall implement a formal process for investigating security events and escalating confirmed incidents. This process shall include defined investigation steps, impact assessment criteria, escalation thresholds, and communication protocols appropriate for a distributed remote team. The process shall specify timeframes for initial assessment, define escalation paths, and document how lessons learned from investigated events are captured and used to improve detection and prevention capabilities.\n\nImplementation: SNS topics for alerting. CloudWatch alarms with SNS actions.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "CloudTrail Events",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441859becd2a84f34348",
+    "name": "CC7.3 The entity evaluates security events to determine whether they are security incidents.",
+    "description": "CC7.3 (CC7 - System Operations): The entity evaluates security events to determine whether they are security incidents.\n\nWhen security alerts occur, quickly determine if they represent real threats that could harm your operations or compromise data. Have a process to investigate events, assess their potential impact, and escalate true incidents for immediate response. Learn from events to improve detection and prevention.\n\nImplementation: Security Hub aggregates security findings. SNS alerts on anomalies. Humadroid Incident Reporting: 0 open incidents, 100% SLA compliance. CloudTrail + VPC flow logs for evaluation.",
+    "tasks": [
+      "AWS CloudWatch Alarms",
+      "AWS Securityhub Findings",
+      "AWS SNS Topics",
+      "CloudTrail Events",
+      "Compliance Platform Incident Reporting",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "Incident Response Procedure",
+      "System Monitoring and Logging Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441800eb5893e354714a",
+    "name": "CC7.4.1 Incident Response Program Documentation",
+    "description": "Establish and maintain a formal incident response program that defines the organization's approach to handling security incidents. The program shall include clear definitions of what constitutes a security incident, severity classification criteria, escalation thresholds, and response timeframes appropriate to each severity level. Given the small team size, the program should be streamlined yet comprehensive, with clear decision trees that enable rapid response without bureaucratic delays. The documentation must be readily accessible to all team members and reviewed annually or following significant incidents.\n\nImplementation: IR procedure: severity classification, escalation thresholds, response timeframes.",
+    "tasks": [],
+    "policies": [
+      "Incident Response Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae44419af35a8f3d27a42f0",
+    "name": "CC7.4.2 Incident Response Roles and Responsibilities",
+    "description": "Define and assign incident response roles and responsibilities across the organization, accounting for the remote work environment and small team structure. Designate primary and backup incident commanders, establish clear communication chains, and document criteria for engaging external resources such as legal counsel, forensic specialists, or law enforcement. Ensure all team members understand their specific responsibilities during an incident and maintain current contact information for all internal and external parties who may need to be engaged during incident response.\n\nImplementation: CEO as incident commander. Org structure defines escalation. IR procedure documents roles and external engagement criteria.",
+    "tasks": [
+      "Organizational Structure"
+    ],
+    "policies": [
+      "Incident Response Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae444194d717a0d8c297c16",
+    "name": "CC7.4.3 Incident Containment, Mitigation, and Remediation Procedures",
+    "description": "Establish documented procedures for containing, mitigating, and remediating security incidents. Containment procedures shall address immediate actions to prevent incident spread, including network isolation protocols, account suspension processes, and system quarantine methods appropriate for a remote work environment. Mitigation procedures shall outline steps to reduce ongoing impact while permanent solutions are developed. Remediation procedures shall detail the process for eliminating root causes, closing vulnerabilities, removing unauthorized access, and safely restoring systems to normal operations with verification that threats have been fully eliminated.\n\nImplementation: Containment: IAM revocation, VPC isolation. Remediation documented.",
+    "tasks": [
+      "AWS SNS Topics",
+      "CloudTrail Events",
+      "VPC Flow Events"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae44419cdf3b0675daaa434",
+    "name": "CC7.4.4 Incident Documentation and Communication Protocols",
+    "description": "Implement standardized incident documentation and communication protocols to ensure thorough recording of all incident response activities and timely notification to relevant stakeholders. Documentation requirements shall include incident timeline, actions taken, personnel involved, evidence preserved, and lessons learned. Communication protocols shall define notification requirements and timeframes for internal management, affected customers, and regulatory bodies as applicable. Establish templates and channels appropriate for remote team coordination during active incidents.\n\nImplementation: IR templates for documentation. SNS for notifications. CloudWatch for evidence.",
+    "tasks": [
+      "AWS CloudWatch Log Groups",
+      "AWS SNS Topics",
+      "CloudTrail Events"
+    ],
+    "policies": [
+      "Incident Response Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae44419e470cdbe41bcfa87",
+    "name": "CC7.4.5 Post-Incident Review and Program Improvement",
+    "description": "Conduct post-incident reviews following all significant security incidents to evaluate response effectiveness and identify improvement opportunities. Reviews shall analyze incident handling performance against established procedures, identify gaps or inefficiencies, and generate actionable recommendations. Maintain records of lessons learned and track implementation of improvements to the incident response program. Periodically analyze incident patterns to identify systemic issues requiring attention beyond individual incident remediation.\n\nImplementation: Post-incident review process. Lessons learned tracked in board meetings.",
+    "tasks": [
+      "Board Management Meeting Minutes Q4 2025"
+    ],
+    "policies": [
+      "Incident Response Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae44418544f70a6288602c8",
+    "name": "CC7.4 The entity responds to identified security incidents by executing a defined incident response program.",
+    "description": "CC7.4 (CC7 - System Operations): The entity responds to identified security incidents by executing a defined incident response program.\n\nEstablish a comprehensive incident response program that activates when security incidents occur. Clearly assign roles and responsibilities - everyone should know their part when an incident strikes, including when to bring in external help. First, work to understand the nature and severity of the incident to determine the right response strategy and timeframe. Implement containment procedures to stop active threats from spreading or causing more damage. Deploy mitigation techniques to reduce ongoing impact while you work on permanent fixes. Execute remediation to close vulnerabilities and remove unauthorized access. Restore normal operations safely, ensuring threats are fully eliminated before bringing systems back online. Develop communication protocols for timely updates to affected parties, management, customers, and regulators as required. Document all actions taken during incident response. Periodically evaluate your response effectiveness and update procedures based on lessons learned. Review incident patterns to identify systemic issues needing attention. The goal is coordinated, effective response that minimizes damage and prevents recurrence.\n\nImplementation: IR procedure: roles, escalation, containment, remediation. Humadroid Incident Reporting: 0 open incidents, 0 SLA at risk, 100% SLA compliance. Security Hub for threat detection.",
+    "tasks": [
+      "AWS Securityhub Findings",
+      "AWS SNS Topics",
+      "CloudTrail Events",
+      "Compliance Platform Incident Reporting",
+      "VPC Flow Events"
+    ],
+    "policies": [
+      "Incident Response Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441a973abad615a67710",
+    "name": "CC7.5.1 Security Incident Recovery Procedures",
+    "description": "The organization shall establish and maintain documented procedures for recovering from identified security incidents. These procedures shall address system restoration priorities, data recovery from backups, verification of system integrity prior to returning to production, and implementation of additional controls to prevent incident recurrence. Given the remote work environment, procedures shall include specific guidance for recovering both cloud-based infrastructure and remote endpoint systems.\n\nImplementation: BCP documents recovery for security incidents.",
+    "tasks": [
+      "AWS CloudTrail Trails"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4441a7da9512200bbc298",
+    "name": "CC7.5.2 Recovery Procedure Testing and Validation",
+    "description": "The organization shall conduct periodic testing of incident recovery procedures to validate their effectiveness and ensure operational readiness. Testing shall occur at least annually and following significant changes to systems or infrastructure. Test results shall be documented, including any identified gaps or improvements, and procedures shall be updated accordingly. For a small remote team, tabletop exercises and targeted recovery drills are acceptable testing methods.\n\nImplementation: Q1 2025 BCP test (Feb 4, 2026) included incident recovery procedures. DocumentDB PITR enables rapid data recovery. Annual testing per BCP schedule.",
+    "tasks": [
+      "AWS DocumentDB Backups",
+      "Compliance Platform Bcp Test Results"
+    ],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441abfd8dc0f4bb9a6b5",
+    "name": "CC7.5 The entity identifies, develops, and implements activities to recover from identified security incidents.",
+    "description": "CC7.5 (CC7 - System Operations): The entity identifies, develops, and implements activities to recover from identified security incidents.\n\nPlan how to restore operations after a security incident. This includes rebuilding compromised systems, restoring data from backups, implementing additional controls to prevent recurrence, and verifying that systems are clean before returning to production. Test your recovery procedures regularly to ensure they work when needed.\n\nImplementation: CloudWatch, GuardDuty, Lambda for monitoring, detection, response.",
+    "tasks": [
+      "AWS CloudTrail Trails",
+      "AWS CloudWatch Log Groups",
+      "CloudTrail Events",
+      "Lambda App Events"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4441ae9817cd761cb302c",
+    "name": "CC8.1.1 Change Management Authorization and Documentation",
+    "description": "The organization shall maintain a formal change management process requiring documented authorization before any system changes commence. All changes must be logged with appropriate details including requestor, approver, risk assessment, and business justification. Given the small team size, a designated individual with appropriate authority must approve changes based on documented risk and impact assessment. Emergency change procedures shall be established for critical fixes while maintaining appropriate controls and retrospective documentation.\n\nImplementation: CloudFormation IaC. Version-controlled deployments.",
+    "tasks": [
+      "GitHub Deploy Workflow",
+      "AWS Cloudformation Stacks"
+    ],
+    "policies": [
+      "Secure Software Development Lifecycle (SDLC) Standard",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441a09f0b274855daf35",
+    "name": "CC8.1.2 Secure Development and Testing Practices",
+    "description": "The organization shall implement secure development practices ensuring security requirements are considered from the design phase. All changes must undergo appropriate testing before production deployment, including functional testing and security review proportionate to the change scope. Given the small team, testing responsibilities shall be clearly defined with documented results. Secure baseline configurations shall be established and maintained for all system components, with monitoring for unauthorized deviations.\n\nImplementation: Branch protection: PR approval before merge.",
+    "tasks": [
+      "GitHub Branch Protection"
+    ],
+    "policies": [
+      "Secure Software Development Lifecycle (SDLC) Standard",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441a9d3cde1e48ce6fa7",
+    "name": "CC8.1.3 Controlled Deployment and Segregation of Duties",
+    "description": "The organization shall implement controlled deployment procedures ensuring changes are moved to production in a systematic manner. Appropriate segregation of duties shall be maintained where feasible given team size—at minimum, requiring peer review or secondary approval before production deployment. Final stakeholder approval must be obtained before implementation, with documented acceptance of any residual risks. Patch management procedures shall ensure security updates are evaluated, tested, and deployed promptly based on criticality assessment.\n\nImplementation: Change policy defines approval workflows and documentation.",
+    "tasks": [
+      "GitHub Branch Protection"
+    ],
+    "policies": [
+      "Change Management Policy",
+      "Secure Software Development Lifecycle (SDLC) Standard",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441af8bf081b7dd3dfb2",
+    "name": "CC8.1 The entity authorizes, designs, develops or acquires, implements, operates, approves, and maintains system com",
+    "description": "CC8.1 (CC8 - Change Management): The entity authorizes, designs, develops or acquires, implements, operates, approves, and maintains system components that are consistent with defined system security and availability objectives.\n\nImplement a comprehensive change management process covering the entire system lifecycle. Require proper authorization before any changes begin - someone with appropriate authority must approve based on risk and impact. Design and develop changes securely, considering security requirements from the start. Document all changes thoroughly so others can understand and maintain them. Track changes through the entire process to prevent unauthorized modifications from slipping through. Configure software using secure baselines and monitor for deviations. Test all changes before production deployment - including unit testing, integration testing, security testing, and user acceptance testing. Obtain final approval before implementation, ensuring stakeholders understand and accept any risks. Deploy changes in a controlled manner with proper segregation of duties - developers shouldn't push their own code to production. Identify which objectives are affected by each change and verify the system still meets them. Include changes needed to remediate security incidents in your process. Maintain baseline configurations of all systems. Have emergency change procedures for critical fixes that still maintain appropriate controls. Manage patches systematically - evaluate, test, and deploy security updates promptly based on criticality.\n\nImplementation: GitHub branch protection: PR review required. CloudFormation: consistent deploys.",
+    "tasks": [
+      "GitHub Deploy Workflow",
+      "GitHub Workflow Run Details",
+      "GitHub Branch Protection"
+    ],
+    "policies": [
+      "Secure Software Development Lifecycle (SDLC) Standard",
+      "Vulnerability Management Procedure"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441b5d7edb83c83c648f",
+    "name": "CC9.1.1 Business Impact Analysis and Critical Asset Identification",
+    "description": "The organization shall conduct and maintain a formal business impact analysis to identify critical systems, applications, and data essential to business operations. This analysis must document recovery time objectives (RTO) and recovery point objectives (RPO) for each critical asset, prioritize systems based on business criticality, and identify dependencies between systems. Given the remote work environment, particular attention shall be given to cloud-based systems, collaboration tools, and remote access infrastructure that enable distributed operations.\n\nImplementation: BCP: critical systems identified, RTO/RPO defined. Humadroid: AWS Infrastructure (RTO 2hrs), Customer Data Pipeline (RTO 4hrs), MongoDB (RTO 4hrs).",
+    "tasks": [
+      "Compliance Platform Bcp Dashboard"
+    ],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441b0faedcf3e1f09efc",
+    "name": "CC9.1.2 Business Continuity and Disaster Recovery Planning",
+    "description": "The organization shall establish and maintain documented business continuity and disaster recovery plans that address potential disruptions including cybersecurity incidents, natural disasters, and service provider outages. Plans must include data backup and recovery procedures, alternate work arrangements suitable for the existing remote workforce, communication protocols for team coordination during incidents, and defined roles and responsibilities. Plans shall be reviewed annually and updated when significant business changes occur.\n\nImplementation: DocumentDB multi-AZ: geographic redundancy. Humadroid BCP: 8 active plans with 0 overdue exercises.",
+    "tasks": [
+      "AWS DocumentDB Cluster",
+      "Compliance Platform Bcp Dashboard"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4441bb2439edcc6b0a517",
+    "name": "CC9.1.3 Continuity Plan Testing and Validation",
+    "description": "The organization shall conduct periodic testing of business continuity and disaster recovery plans to validate their effectiveness and identify areas for improvement. Testing activities shall include backup restoration verification, recovery procedure walkthroughs, and communication protocol exercises. Test results must be documented, and identified deficiencies shall be remediated in a timely manner. Given the organization's size, tabletop exercises and targeted recovery tests are acceptable testing methods.\n\nImplementation: Q1 2025 BCP test completed Feb 4, 2026: Full Systems recovery from backups using IaC. Status: Completed. Success Rate: 100%. Result: System recovered successfully.",
+    "tasks": [
+      "AWS DocumentDB Backups",
+      "Compliance Platform Bcp Test Results"
+    ],
+    "policies": []
+  },
+  {
+    "id": "ctl_6ae4441b4a7ef06b11e9acd9",
+    "name": "CC9.1 The entity identifies, selects, and develops risk mitigation activities for risks arising from potential busin",
+    "description": "CC9.1 (CC9 - Risk Mitigation): The entity identifies, selects, and develops risk mitigation activities for risks arising from potential business disruptions.\n\nPlan for events that could disrupt your business operations - from ransomware attacks to natural disasters. Identify critical systems and data, develop backup and recovery procedures, establish alternate work arrangements, and consider insurance coverage. Test your continuity plans regularly and update them as your business changes.\n\nImplementation: BCP with RTO/RPO. Humadroid BCP dashboard: 8 processes, 7 critical, 8 active plans. DocumentDB: multi-AZ, automated backups.",
+    "tasks": [
+      "AWS DocumentDB Backups",
+      "AWS DocumentDB Cluster",
+      "Compliance Platform Bcp Dashboard"
+    ],
+    "policies": [
+      "Business Continuity Plan"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441c2bbe102517337636",
+    "name": "CC9.2.1 Vendor Risk Assessment and Due Diligence",
+    "description": "The organization shall establish and maintain a formal process for evaluating the security posture of vendors and business partners prior to engagement. This includes conducting security assessments proportionate to the risk level of the services provided, reviewing vendor security certifications (SOC 2, ISO 27001), evaluating their data handling practices, and documenting risk acceptance decisions. For a small remote team, this process should be streamlined yet thorough, focusing on vendors with access to sensitive data or critical systems.\n\nImplementation: AWS vendor assessment includes SOC 2 Type II compliance verification. Risk Tier: Critical. Assessment questionnaire completed.",
+    "tasks": [
+      "Compliance Platform Vendor Assessment"
+    ],
+    "policies": [
+      "Risk Assessment Procedure",
+      "Third-Party Integration Security Guidelines",
+      "Vendor Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441c436b9fcf4bace046",
+    "name": "CC9.2.2 Vendor Contractual Security Requirements",
+    "description": "The organization shall ensure that all vendor and business partner agreements include appropriate security requirements, data protection obligations, and compliance provisions. Contracts must address confidentiality obligations, data handling and return/destruction requirements, security incident notification procedures, right to audit provisions, and termination procedures. Given the organization's size, standard security addendum templates should be developed for efficient contract management.\n\nImplementation: DPA: confidentiality, breach notification, audit rights, termination procedures.",
+    "tasks": [],
+    "policies": [
+      "Privacy Notice and Data Processing Agreement Template",
+      "Third-Party Integration Security Guidelines",
+      "Vendor Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441cdae97a45b6bf46fc",
+    "name": "CC9.2.3 Ongoing Vendor Monitoring and Contingency Planning",
+    "description": "The organization shall implement procedures for ongoing monitoring of vendor compliance with security requirements and maintain contingency plans for critical vendor relationships. This includes periodic reassessment of vendor security posture, monitoring for vendor security incidents or breaches, and documenting alternative arrangements for critical services. For a small organization, annual reviews of critical vendors and documented backup options for essential services are appropriate.\n\nImplementation: Humadroid vendor dashboard shows recent assessments (AWS and PropelAuth - both 2 months ago). BCP addresses vendor contingency.",
+    "tasks": [
+      "Compliance Platform Vendor Dashboard"
+    ],
+    "policies": [
+      "Business Continuity Plan",
+      "Third-Party Integration Security Guidelines",
+      "Vendor Management Policy"
+    ]
+  },
+  {
+    "id": "ctl_6ae4441bb5cf1240ee0c9deb",
+    "name": "CC9.2 The entity assesses and manages risks associated with vendors and business partners.",
+    "description": "CC9.2 (CC9 - Risk Mitigation): The entity assesses and manages risks associated with vendors and business partners.\n\nUnderstand and manage the security risks from third parties who have access to your systems or data. Evaluate vendor security before engagement, include security requirements in contracts, monitor vendor compliance, and have contingency plans if a vendor fails. Pay special attention to vendors handling sensitive data or providing critical services.\n\nImplementation: Humadroid vendor dashboard tracks 2 vendors (AWS and PropelAuth) with risk tier assignments and assessment status.",
+    "tasks": [
+      "Compliance Platform Vendor Dashboard"
+    ],
+    "policies": [
+      "Risk Assessment Procedure",
+      "Privacy Notice and Data Processing Agreement Template",
+      "Third-Party Integration Security Guidelines",
+      "Vendor Management Policy"
+    ]
+  }
+]

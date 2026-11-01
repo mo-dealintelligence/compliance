@@ -14,340 +14,248 @@ source: "service-level-agreement-sla-management-policy-v1.0.pdf"
 
 ## 1. Purpose
 
-This Service Level Agreement (SLA) Management Policy establishes the framework for defining, monitoring, and maintaining service level commitments for Deal Intelligence LLC's platform. This policy ensures consistent delivery of services that meet customer expectations while maintaining compliance with SOC 2 Trust Services Criteria, specifically addressing A1.1 (Availability) and CC2.1 (Communication and Information).
+This policy defines how Deal Intelligence LLC sets, monitors, and maintains the service level commitments for its platform. It supports the SOC 2 Trust Services Criteria A1.1 (Availability) and CC2.1 (Communication and Information).
 
-This policy operationalizes the availability commitments defined in the Information Security Policy and supports the service continuity objectives established in the Business Continuity Plan, ensuring that Deal Intelligence maintains its committed 99.9% uptime SLA for the platform.
+It implements the availability commitments in the Information Security Policy, supports the service continuity objectives in the Business Continuity Plan, and holds Deal Intelligence to its committed 99.9 % uptime SLA.
 
 ## 2. Scope
 
 This policy applies to:
 
 - All customer-facing services delivered through the platform
-
-- AWS infrastructure components supporting service delivery (Lambda functions, DocumentDB, CloudFront CDN)
-
-- Third-party services integrated into the platform (PropelAuth authentication services)
-
-- Internal operational processes that impact service availability and performance
-
+- The AWS infrastructure that delivers them (Lambda functions, DocumentDB, CloudFront)
+- Third-party services integrated into the platform (PropelAuth authentication)
+- Internal operational processes that affect service availability and performance
 - All personnel responsible for service delivery, monitoring, and customer support
-
 - Contractual service level agreements with enterprise customers
 
-## 3. Service Level Definitions
+## 3. Roles and responsibilities
 
-### 3.1 Core Service Levels
+### 3.1 Chief Executive Officer (CEO)
 
-Deal Intelligence commits to the following service level targets:
+- Owns and enforces this policy and maintains the SLA documentation
+- Monitors the service in real time and responds to alerts
+- Coordinates incident response
+- Plans and executes maintenance windows
+- Implements performance optimizations
+- Records the monthly availability figure and performs the annual SLA review
+- Communicates with customers on SLAs, incidents, and maintenance, and collects customer feedback
+- Processes and approves service credit requests
+- Is the customer escalation point for SLA disputes
 
-|**Service Component**|**SLA Target**|**Measurement Period**|**Calculation Method**|
+### 3.2 Go-to-Market Contractor
+
+- Has no production access or monitoring responsibilities
+- Forwards customer SLA questions and feedback to the CEO
+
+## 4. Service level definitions
+
+### 4.1 Core service levels
+
+Deal Intelligence commits to the following targets:
+
+|**Service component**|**SLA target**|**Measurement period**|**Calculation method**|
 |---|---|---|---|
-|Platform Availability|99.9%|Monthly|(Total Minutes - Downtime Minutes) / Total Minutes × 100|
-|API Response Time|< 2 seconds|95th percentile|CloudWatch metrics aggregation|
-|Data Processing Accuracy|99.5%|Monthly|Validated records / Total processed records × 100|
-|Lead Delivery Time|< 24 hours|Per request|Time from request to delivery completion|
-|Authentication Service|Provided by PropelAuth under its own SLA|Monthly|PropelAuth published service status|
-|Data Refresh Frequency|Daily|Business days|Successful refresh jobs / Scheduled jobs × 100|
+|Platform availability|99.9 %|Monthly|(Total minutes − downtime minutes) / total minutes × 100|
+|API response time|< 2 seconds|95th percentile|CloudWatch metrics aggregation|
+|Data processing accuracy|99.5 %|Monthly|Validated records / total processed records × 100|
+|Lead delivery time|< 24 hours|Per request|Time from request to delivery completion|
+|Authentication service|Provided by PropelAuth under its own SLA|Monthly|PropelAuth published service status|
+|Data refresh frequency|Daily|Business days|Successful refresh jobs / scheduled jobs × 100|
 
-### 3.2 Service Availability Calculation
+### 4.2 Availability calculation
 
-Service availability excludes:
+Availability excludes:
 
-- Scheduled maintenance windows (communicated 72 hours in advance)
-
+- Scheduled maintenance windows (notified 72 hours in advance)
 - Force majeure events as defined in customer agreements
+- Customer-initiated actions that disrupt the service
+- Third-party service outages outside Deal Intelligence's control
 
-- Customer-initiated actions causing service disruption
+## 5. SLA monitoring and measurement
 
-- Third-party service outages beyond Deal Intelligence control
+### 5.1 Monitoring infrastructure
 
-## 4. SLA Monitoring and Measurement
+Service levels are monitored continuously through:
 
-### 4.1 Automated Monitoring Infrastructure
+- **CloudWatch metrics**: real-time monitoring of Lambda function performance, CloudFront and Lambda latency, and DocumentDB response times
+- **CloudWatch alarms**: alarms on API errors and latency (p95 > 2 seconds) with real-time SNS notification
+- **AWS Health Dashboard**: regional service status for the AWS dependencies
+- **PropelAuth service status**: authentication availability, provided by PropelAuth under its own SLA
 
-Service levels are continuously monitored through:
+### 5.2 Performance metrics
 
-- **CloudWatch Metrics** : Real-time monitoring of Lambda function performance, API Gateway latency, and DocumentDB response times
-
-- **CloudWatch Alarms** : Alarms on API errors and latency (p95 > 2 seconds) with real-time SNS notification
-
-- **AWS Health Dashboard** : Regional service status monitoring for AWS infrastructure dependencies
-
-- **PropelAuth Service Status** : Authentication service availability, which is provided by PropelAuth under its own SLA
-
-### 4.2 Performance Metrics Collection
-
-Key performance indicators tracked include:
-
-|**Metric**|**Collection Method**|**Retention Period**|**Alert Threshold**|
+|**Metric**|**Collection method**|**Retention period**|**Alert threshold**|
 |---|---|---|---|
-|API Latency|CloudWatch API Gateway metrics|90 days|p95 > 2 seconds|
-|Error Rate|Lambda function error tracking|90 days|> 1%|
-|Database Performance|DocumentDB CloudWatch metrics|90 days|> 500ms query time|
-|CDN Cache Hit Ratio|CloudFront distribution metrics|90 days|< 80%|
-|Container Health|ECS service metrics|30 days|Task failures > 2|
+|API latency|CloudWatch Lambda duration and CloudFront metrics|90 days|p95 > 2 seconds|
+|Error rate|Lambda function error tracking|90 days|> 1 %|
+|Database performance|DocumentDB CloudWatch metrics|90 days|> 500 ms query time|
+|CDN cache hit ratio|CloudFront distribution metrics|90 days|< 80 %|
+|Container health|ECS service metrics|30 days|Task failures > 2|
 
-## 5. Service Level Reporting
+## 6. Service level reporting
 
-### 5.1 Availability Record and Customer Communication
+### 6.1 Availability record and customer communication
 
 The monthly availability figure is computed from CloudWatch metrics and recorded in the compliance platform, together with:
 
 - Overall platform availability percentage
-
 - API performance metrics (response times, error rates)
-
 - Incident summary with root cause analysis
-
-- Service credit calculations (if applicable)
-
-- Planned maintenance schedule for upcoming month
+- Service credit calculations (where applicable)
+- Planned maintenance schedule for the coming month
 
 Customers are notified of planned maintenance by email.
 
-### 5.2 Internal Reporting
+### 6.2 Internal review
 
-Monthly internal SLA reviews conducted via the compliance platform include:
+The monthly internal SLA review in the compliance platform covers:
 
 - Service level achievement against targets
-
-- Trending analysis of performance metrics
-
+- Trend analysis of performance metrics
 - Capacity planning recommendations
+- Risk indicators per the Risk Assessment Procedure
 
-- Risk indicators per Risk Assessment Procedure
+## 7. Service credits
 
-## 6. Service Credit Framework
+### 7.1 Service credit calculation
 
-### 6.1 Service Credit Calculation
-
-When service levels fall below committed thresholds:
-
-|**Monthly Uptime Percentage**|**Service Credit**|
+|**Monthly uptime percentage**|**Service credit**|
 |---|---|
-|99.9% to 99.0%|5% of monthly fee|
-|99.0% to 95.0%|10% of monthly fee|
-|Below 95.0%|25% of monthly fee|
+|99.9 % to 99.0 %|5 % of monthly fee|
+|99.0 % to 95.0 %|10 % of monthly fee|
+|Below 95.0 %|25 % of monthly fee|
 
-### 6.2 Service Credit Process
+### 7.2 Service credit process
 
-1. Customer must submit credit request within 30 days of SLA breach
+1. The customer submits a credit request within 30 days of the SLA breach
+2. The CEO reviews and validates the claim within 5 business days
+3. Approved credits are applied to the next invoice or refunded on request
+4. Credit requests are tracked in the compliance platform for audit
 
-2. Chief Executive Officer reviews and validates claim within 5 business days
+## 8. Incident impact on SLAs
 
-3. Approved credits applied to next invoice or refunded upon request
-
-4. Credit requests tracked in the compliance platform for audit purposes
-
-## 7. Incident Impact on SLAs
-
-### 7.1 Incident Classification
+### 8.1 Incident classification
 
 Service incidents are classified per the Incident Response Procedure:
 
-|**Severity**|**Impact on SLA**|**Resolution Target**|
+|**Severity**|**Impact on SLA**|**Resolution target**|
 |---|---|---|
-|Critical|Service unavailable|4 hours|
-|High|Degraded performance|8 hours|
-|Medium|Limited functionality|24 hours|
-|Low|Minor issues|72 hours|
+|P1 (Critical)|Service unavailable|4 hours|
+|P2 (High)|Degraded performance|8 hours|
+|P3 (Medium)|Limited functionality|24 hours|
+|P4 (Low)|Minor issues|72 hours|
 
-Critical (P1) incidents are acknowledged by the CEO within 4 business hours, with Security Hub/SNS paging for critical findings. Response targets for other severities are defined in the Incident Response Procedure.
+P1 incidents are acknowledged by the CEO within 4 business hours, with Security Hub/SNS paging for critical findings. Response targets for other severities are in the Incident Response Procedure.
 
-### 7.2 Communication During Incidents
+### 8.2 Communication during incidents
 
-Customer communication requirements:
-
-- Initial notification by email following acknowledgment of a critical incident (see Section 7.1)
-
-- Status updates every 2 hours during active incidents
-
+- Initial notification by email after acknowledgment of a P1 incident (§8.1)
+- Status updates every 2 hours during an active incident
 - Root cause analysis within 48 hours of resolution
+- Post-incident report sent to affected customers by email
 
-- Post-incident report provided to affected customers by email
+## 9. Maintenance windows
 
-## 8. Maintenance Windows
+### 9.1 Scheduled maintenance
 
-### 8.1 Scheduled Maintenance
+- **Standard window**: Sunday 02:00–06:00 UTC
+- **Notification**: 72 hours' advance notice by email
+- **Emergency maintenance**: 24 hours' notice where possible
+- **Tracking**: recorded in the compliance platform
 
-- **Standard Window** : Sunday 02:00-06:00 UTC
+### 9.2 Low-impact deployments
 
-- **Notification Period** : 72 hours advance notice via email
-
-- **Emergency Maintenance** : 24 hours notice when possible
-
-- **Maintenance Tracking** : Recorded in the compliance platform
-
-### 8.2 Zero-Downtime Deployments
-
-Preferred deployment strategies to minimize service impact:
+To minimize service impact, deployments use:
 
 - Lambda versioned deployments with rollback via `serverless rollback`
-
 - Rolling updates for ECS container services
-
 - Database migrations during low-traffic periods
-
 - CloudFront cache warming before traffic shifts
 
-## 9. Third-Party Service Dependencies
+## 10. Third-party dependencies
 
-### 9.1 Sub-Processor SLAs
+### 10.1 Sub-processor SLAs
 
-Management of third-party service levels per Vendor Management Policy:
+Third-party service levels are managed per the Vendor Management Policy:
 
-|**Service Provider**|**Service**|**Their SLA**|**Our Mitigation**|
+|**Service provider**|**Service**|**Their SLA**|**Our mitigation**|
 |---|---|---|---|
-|AWS|Infrastructure|99.99%|Multi-AZ deployment|
+|AWS|Infrastructure|99.99 %|Multi-AZ deployment|
 |PropelAuth|Authentication|PropelAuth's own published SLA|Token caching, graceful degradation|
 
-### 9.2 Dependency Monitoring
+### 10.2 Dependency monitoring
 
-- AWS Health Dashboard and PropelAuth published service status monitored for dependency availability
-
-- Fallback mechanisms for authentication service outages
-
+- The AWS Health Dashboard and the PropelAuth published service status are monitored for dependency availability
+- Fallback mechanisms cover authentication service outages
 - Lambda versioned deployments with reserved concurrency and rollback via `serverless rollback`
+- Vendor performance is reviewed annually in the compliance platform, supported by the continuous monthly availability record
 
-- Vendor performance reviewed annually in the compliance platform, supported by the continuous monthly availability record
+## 11. Continuous improvement
 
-## 10. Continuous Improvement
+### 11.1 Annual SLA review
 
-### 10.1 SLA Review Process
+The annual SLA review, with the monthly availability record in the compliance platform as its continuous input, covers:
 
-Annual SLA reviews (with the monthly availability record in the compliance platform as the continuous input) include:
-
-- Analysis of SLA achievement trends
-
-- Customer feedback incorporation
-
+- SLA achievement trends
+- Customer feedback
 - Capacity planning based on growth projections
-
-- Technology improvements to enhance reliability
-
+- Technology improvements to reliability
 - Updates to monitoring and alerting thresholds
 
-### 10.2 Performance Optimization
+### 11.2 Performance optimization
 
-Ongoing initiatives to improve service levels:
+Ongoing work to improve service levels:
 
 - Lambda function performance tuning (reserved concurrency optimization)
-
-- Database query optimization and indexing improvements
-
+- Database query optimization and indexing
 - CDN configuration refinement for better cache hit ratios
+- API rate limiting adjustments per the API Security and Rate Limiting Standard
 
-- API rate limiting adjustments per API Security and Rate Limiting Standard
+## 12. Audit evidence
 
-## 11. Roles and Responsibilities
+SLA management evidence for the SOC 2 audit:
 
-### 11.1 Chief Executive Officer (CEO)
-
-- Overall SLA policy ownership and enforcement
-
-- Service credit approval authority
-
-- Customer escalation point for SLA disputes
-
-- Annual SLA review and reporting; monthly availability record
-
-- Real-time service monitoring and alerting
-
-- Incident response coordination
-
-- Performance optimization implementation
-
-- Maintenance window planning and execution
-
-- Customer SLA communication and reporting
-
-- Service credit request processing
-
-- Customer feedback collection
-
-- SLA documentation maintenance
-
-### 11.2 Go-to-Market Contractor
-
-- No production access or monitoring responsibilities
-
-- Forwards customer SLA questions and feedback to the CEO
-
-## 12. Compliance and Audit
-
-### 12.1 SOC 2 Evidence Collection
-
-SLA management evidence for SOC 2 audit includes:
-
-- Monthly availability figure computed from CloudWatch metrics and recorded in the compliance platform
-
-- Incident response logs from the compliance platform Incident Reporting system
-
+- The monthly availability figure computed from CloudWatch metrics and recorded in the compliance platform
+- Incident records in the incident reporting module of the compliance platform
 - Service credit calculations and approvals
-
 - Customer communication records
-
 - Maintenance window notifications
 
-### 12.2 Regulatory Compliance
+## 13. Exceptions, escalations, and review
 
-SLA management supports compliance with:
+### 13.1 Custom SLAs
 
-- **GDPR Article 32** : Ensuring ongoing availability of processing systems
+A request for a custom SLA requires:
 
-- **CCPA Section 1798.150** : Maintaining reasonable security procedures
+1. Business justification
+2. A risk assessment per the Risk Assessment Procedure
+3. A technical feasibility analysis
+4. CEO approval
+5. Documentation in the customer contract
 
-- **SOC 2 Availability Criteria** : Demonstrating system availability commitments
+### 13.2 Escalation path
 
-## 13. Exceptions and Escalations
+1. Initial report through the standard support channels
+2. Escalation to the CEO, who acknowledges critical issues within 4 business hours
+3. CEO review of repeated SLA breaches
+4. Management review of systemic issues, recorded in the quarterly management meeting minutes
 
-### 13.1 SLA Exceptions
+### 13.3 Review
 
-Requests for custom SLAs require:
+This policy is maintained in the compliance platform. The CEO reviews it annually against customer expectations, technical capabilities, and regulatory requirements.
 
-1. Business justification documentation
-
-2. Risk assessment per established procedures
-
-3. Technical feasibility analysis
-
-4. Chief Executive Officer approval
-
-5. Documentation in customer contract
-
-### 13.2 Escalation Path
-
-For SLA-related issues:
-
-1. Initial report through standard support channels
-
-2. Escalation to the Chief Executive Officer, who acknowledges critical issues within 4 business hours
-
-3. CEO review for repeated SLA breaches
-
-4. Management review for systemic issues, recorded in the quarterly management meeting minutes
-
-## 14. Related Documents
+## 14. Related documents
 
 - Information Security Policy
-
 - Business Continuity Plan
-
 - Incident Response Procedure
-
 - Change Management Policy
-
 - Vendor Management Policy
-
 - System Monitoring and Logging Procedure
-
 - Cloud Infrastructure Security Policy
-
 - API Security and Rate Limiting Standard
-
 - Risk Assessment Procedure
-
-_This policy is maintained in the compliance platform and subject to annual review to ensure alignment with customer expectations, technical capabilities, and regulatory requirements._
 
 ## 15. Revision history
 

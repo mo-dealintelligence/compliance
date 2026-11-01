@@ -14,444 +14,309 @@ source: "risk-assessment-procedure-v1.0.pdf"
 
 ## 1. Purpose
 
-This Risk Assessment Procedure establishes the systematic approach for identifying, analyzing, evaluating, and treating information security risks that could impact Deal Intelligence LLC's ability to meet its service commitments and system requirements. The procedure ensures comprehensive risk management aligned with SOC 2 Trust Services Criteria, specifically addressing CC3.1-CC3.4 (Risk Assessment) and CC9.1-CC9.2 (Risk Mitigation).
+This procedure sets out how Deal Intelligence LLC identifies, analyzes, evaluates, and treats the information security risks that could affect its ability to meet its service commitments and system requirements. It addresses SOC 2 Trust Services Criteria CC3.1 (COSO Principle 6, specifies suitable objectives), CC3.2 (COSO Principle 7, identifies and analyzes risk), CC3.3 (COSO Principle 8, assesses fraud risk), CC3.4 (COSO Principle 9, identifies and assesses changes), CC9.1 (identifies and assesses risk), and CC9.2 (implements risk mitigation activities). It also supports compliance with GDPR Article 32 (security of processing), GDPR Article 35 (data protection impact assessment), and CCPA Section 1798.150 (security breach requirements).
 
-This procedure operationalizes the risk management principles defined in the Information Security Policy and provides the framework for maintaining the risk register in the compliance platform while addressing identified risk areas including data breaches, unauthorized access, and service availability threats.
+The procedure implements the risk management principles of the Information Security Policy and governs the risk register in the compliance platform, covering the identified risk areas of data breaches, unauthorized access, and service availability threats.
 
 ## 2. Scope
 
 This procedure applies to:
 
 - All information assets supporting the platform
-
-- AWS cloud infrastructure components including Lambda functions, Fargate containers, DocumentDB, and associated services
-
+- AWS cloud infrastructure components, including Lambda functions, Fargate containers, DocumentDB, and associated services
 - Third-party services and sub-processors listed in the Vendor Management Policy
-
 - Business contact information and customer account data
-
 - All personnel with access to Deal Intelligence systems
-
 - Integration points with customer-controlled systems
 
-The procedure encompasses risks across the selected Trust Services Criteria: Security, Availability, and Confidentiality.
+The procedure covers risks across the selected Trust Services Criteria: Security, Availability, and Confidentiality.
 
 ## 3. Definitions
 
 **Risk**: The potential for an unwanted outcome resulting from internal or external factors, as determined by likelihood and impact.
 
-**Inherent Risk**: The risk level before considering existing controls or mitigation measures.
+**Inherent risk**: The risk level before existing controls or mitigation measures are considered.
 
-**Residual Risk**: The remaining risk after controls have been implemented and are operating effectively.
+**Residual risk**: The risk remaining after controls have been implemented and are operating effectively.
 
-**Risk Appetite**: The level of risk Deal Intelligence is willing to accept in pursuit of business objectives, defined as minimal for customer data protection and moderate for operational efficiency.
+**Risk appetite**: The level of risk Deal Intelligence is willing to accept in pursuit of its business objectives, defined as minimal for customer data protection and moderate for operational efficiency.
 
-**Risk Owner**: Individual responsible for managing a specific risk and ensuring treatment plans are implemented.
+**Risk owner**: The individual responsible for managing a specific risk and for implementing its treatment plan.
 
-**Control Effectiveness**: Measure of how well a control reduces the likelihood or impact of a risk, validated through the control evidence recorded in the compliance platform.
+**Control effectiveness**: A measure of how well a control reduces the likelihood or impact of a risk, validated through the control evidence recorded in the compliance platform.
 
-**Risk Register**: Centralized repository of identified risks maintained in the compliance platform.
+**Risk register**: The central repository of identified risks, maintained in the compliance platform.
 
-## 4. Roles and Responsibilities
+## 4. Roles and responsibilities
 
 ### 4.1 Chief Executive Officer (CEO)
 
-- Define organizational risk appetite and tolerance levels
+The Chief Executive Officer (CEO):
 
-- Review and approve high and critical risk treatment decisions
+- Defines the risk appetite and tolerance levels
+- Reviews and approves high and critical risk treatment decisions
+- Allocates resources for risk mitigation
+- Reviews the quarterly risk assessment reports
+- Conducts the annual risk assessment
+- Maintains the risk register in the compliance platform
+- Coordinates risk treatment implementation
+- Monitors control effectiveness through the control evidence recorded in the compliance platform
+- Records risk status in the quarterly management meeting minutes
+- Identifies risks within the AWS infrastructure components
+- Implements technical controls for risk mitigation
+- Monitors system-specific risk indicators
 
-- Allocate resources for risk mitigation activities
+### 4.2 All personnel
 
-- Review quarterly risk assessment reports
-
-- Conduct annual comprehensive risk assessments
-
-- Maintain the risk register in the compliance platform
-
-- Coordinate risk treatment implementation
-
-- Monitor control effectiveness through the control evidence recorded in the compliance platform
-
-- Record risk status in the quarterly management meeting minutes
-
-- Identify risks within AWS infrastructure components
-
-- Implement technical controls for risk mitigation
-
-- Monitor system-specific risk indicators
-
-### 4.2 All Personnel
+All personnel:
 
 - Report identified risks or control failures immediately
-
 - Comply with risk mitigation controls and procedures
-
 - Participate in risk awareness activities
 
-## 5. Risk Assessment Methodology
+## 5. Risk assessment methodology
 
-### 5.1 Risk Identification
+### 5.1 Risk identification
 
-Risk identification shall be conducted through:
+Risks are identified through three channels.
 
-#### 1. Annual Comprehensive Assessment
+#### 5.1.1 Annual assessment
 
-- Review of all systems and resources documented in CloudFormation stack di-backend-api-prod for security vulnerabilities
-
+- Review of all systems and resources documented in the CloudFormation stack di-backend-api-prod for security vulnerabilities
 - Evaluation of sub-processor risks per the Vendor Management Policy
+- Assessment of data processing activities per the Data Classification and Handling Standard
 
-- Assessment of data processing activities per Data Classification and Handling Standard
-
-#### 2. Continuous Risk Monitoring
+#### 5.1.2 Continuous risk monitoring
 
 - Security Hub findings analysis
-
 - CloudWatch alerts and metrics review
-
 - Container vulnerability scanning results from ECR
-
 - Incident trends from the Incident Reporting system in the compliance platform
 
-#### 3. Triggered Assessments
+#### 5.1.3 Triggered assessments
 
-- Major system changes per Change Management Policy
-
-- New vendor onboarding per Vendor Management Policy
-
-- Security incidents per Incident Response Procedure
-
+- Major system changes per the Change Management Policy
+- New vendor onboarding per the Vendor Management Policy
+- Security incidents per the Incident Response Procedure
 - Regulatory changes affecting GDPR or CCPA compliance
 
-### 5.2 Risk Analysis
+### 5.2 Risk analysis
 
-Each identified risk shall be analyzed using the following criteria:
+Each identified risk is analyzed on the following scales.
 
-#### Likelihood Scale (1-5):
+Likelihood scale (1–5):
 
-1. Rare - Less than once per year
+1. Rare – less than once per year
+2. Unlikely – once per year
+3. Possible – quarterly
+4. Likely – monthly
+5. Almost certain – weekly or more frequent
 
-2. Unlikely - Once per year
+Impact scale (1–5):
 
-3. Possible - Quarterly
+1. Negligible – no customer impact, < 1 hour recovery
+2. Minor – limited customer impact, < 4 hours recovery
+3. Moderate – multiple customers affected, < 24 hours recovery
+4. Major – significant customer impact, < 48 hours recovery
+5. Critical – service-wide impact, > 48 hours recovery, or data breach
 
-4. Likely - Monthly
+**Risk score**: Likelihood × Impact = Risk score (1–25)
 
-5. Almost Certain - Weekly or more frequent
+### 5.3 Risk evaluation
 
-#### Impact Scale (1-5):
+Risk scores are evaluated against the following thresholds:
 
-1. Negligible - No customer impact, <1 hour recovery
+- **Critical (20–25)**: Immediate action required; CEO approval needed
+- **High (15–19)**: Treatment plan required within 30 days
+- **Medium (10–14)**: Treatment plan required within 90 days
+- **Low (1–9)**: Accept or monitor; document the justification
 
-2. Minor - Limited customer impact, <4 hours recovery
+Current key risks and their mitigation status:
 
-3. Moderate - Multiple customer impact, <24 hours recovery
-
-4. Major - Significant customer impact, <48 hours recovery
-
-5. Critical - Service-wide impact, >48 hours recovery or data breach
-
-**Risk Score Calculation**: Likelihood × Impact = Risk Score (1-25)
-
-### 5.3 Risk Evaluation
-
-Risk scores shall be evaluated against the following thresholds:
-
-- **Critical (20-25)**: Immediate action required, CEO approval needed
-
-- **High (15-19)**: Treatment plan required within 30 days
-
-- **Medium (10-14)**: Treatment plan required within 90 days
-
-- **Low (1-9)**: Accept or monitor, document justification
-
-Current key risks identified and their mitigation status:
-
-|**Risk Category**|**Inherent Risk**|**Controls**|**Residual Risk**|
+| Risk category | Inherent risk | Controls | Residual risk |
 |---|---|---|---|
-|Data Breach|High (16)|Encryption (KMS), monitoring, PII sanitization|Low (6)|
-|Unauthorized Access|High (15)|MFA, RBAC, VPC isolation|Low (4)|
-|Service Availability|Medium (12)|Multi-AZ DocumentDB, 99.9% SLA, 90-day backups|Low (3)|
-|Vendor Failure|Medium (10)|DPAs, minimal sub-processors|Low (5)|
+| Data breach | High (16) | Encryption (KMS), monitoring, PII sanitization | Low (6) |
+| Unauthorized access | High (15) | MFA, RBAC, VPC isolation | Low (4) |
+| Service availability | Medium (12) | Multi-AZ DocumentDB, 99.9 % SLA, 90-day backups | Low (3) |
+| Vendor failure | Medium (10) | DPAs, minimal sub-processors | Low (5) |
 
-### 5.4 Risk Treatment
+### 5.4 Risk treatment
 
-Risk treatment options shall be selected based on cost-benefit analysis:
+Risk treatment options are selected on a cost-benefit basis:
 
 1. **Avoid**: Eliminate the risk by removing the threat source
-
 2. **Mitigate**: Implement controls to reduce likelihood or impact
-
-3. **Transfer**: Share risk through insurance or contractual agreements
-
+3. **Transfer**: Share the risk through insurance or contractual agreements
 4. **Accept**: Document acceptance for risks within appetite
 
-Treatment plans shall specify:
+Treatment plans specify:
 
-- Specific controls to be implemented
-
+- The controls to be implemented
 - Implementation timeline and milestones
-
 - Resource requirements
-
 - Success metrics
-
 - Responsible parties
 
-## 6. Risk Assessment Process
+## 6. Risk assessment process
 
-### 6.1 Annual Risk Assessment
+### 6.1 Annual risk assessment
 
-1. **Planning Phase** (Week 1)
-
-   - Define assessment scope and objectives
-
-   - Review previous assessment results
-
+1. **Planning** (week 1)
+   - Define the assessment scope and objectives
+   - Review the previous assessment results
    - Identify stakeholders and schedule sessions
-
-2. **Information Gathering** (Weeks 2-3)
-
-   - Inventory all systems via CloudFormation documentation
-
+2. **Information gathering** (weeks 2–3)
+   - Inventory all systems via the CloudFormation documentation
    - Review Security Hub findings and CloudWatch metrics
-
    - Analyze incident reports from the compliance platform
-
    - Evaluate vendor assessments
-
-3. **Risk Identification** (Week 4)
-
+3. **Risk identification** (week 4)
    - Conduct threat modeling for Lambda functions and containers
-
    - Review vulnerability scan results
-
-   - Assess compliance gaps against SOC 2 criteria
-
-   - Document findings in risk register
-
-4. **Risk Analysis and Evaluation** (Week 5)
-
-   - Score risks using likelihood and impact matrices
-
+   - Assess compliance gaps against the SOC 2 criteria
+   - Document findings in the risk register
+4. **Risk analysis and evaluation** (week 5)
+   - Score risks on the likelihood and impact scales
    - Calculate inherent and residual risk levels
-
    - Prioritize risks for treatment
-
-5. **Treatment Planning** (Week 6)
-
+5. **Treatment planning** (week 6)
    - Develop risk treatment plans
-
    - Assign risk owners and timelines
-
    - Estimate resource requirements
-
    - Obtain CEO approval for critical risks
-
-6. **Documentation and Reporting** (Week 7)
-
-   - Update risk register in the compliance platform
-
-   - Generate risk assessment report
-
+6. **Documentation and reporting** (week 7)
+   - Update the risk register in the compliance platform
+   - Generate the risk assessment report
    - Communicate results to stakeholders
-
    - Schedule follow-up reviews
 
-### 6.2 Continuous Risk Monitoring
-
-Ongoing risk monitoring activities include:
+### 6.2 Continuous risk monitoring
 
 - **Real time**: Critical Security Hub findings alerted via SNS
-
 - **Weekly**: CloudWatch metrics analysis
-
 - **Monthly**: Security Hub findings review (recorded); vulnerability scan review
-
 - **Quarterly**: Review of control evidence and tasks in the compliance platform
+- **Ad hoc**: Change-triggered assessments
 
-- **Ad-hoc**: Change-triggered assessments
+### 6.3 Risk register maintenance
 
-### 6.3 Risk Register Maintenance
-
-The risk register maintained in the compliance platform shall include:
+Each risk register entry in the compliance platform includes:
 
 - Risk identifier and description
-
 - Risk category and affected assets
-
 - Likelihood and impact scores
-
 - Inherent and residual risk levels
-
 - Control mappings
-
 - Treatment plans and status
-
 - Risk owner and review dates
-
 - Related incidents or findings
 
-## 7. Integration with Other Processes
+## 7. Integration with other processes
 
-### 7.1 Change Management
+### 7.1 Change management
 
-All changes identified in the Change Management Policy with risk scores of Medium or higher shall undergo formal risk assessment before implementation.
+Changes under the Change Management Policy with a risk score of Medium or higher undergo a risk assessment before implementation.
 
-### 7.2 Vendor Management
+### 7.2 Vendor management
 
-New vendors shall be assessed according to this procedure in conjunction with the Vendor Management Policy using the vendor assessment workflow in the compliance platform.
+New vendors are assessed under this procedure together with the Vendor Management Policy, using the vendor assessment workflow in the compliance platform.
 
-### 7.3 Incident Response
+### 7.3 Incident response
 
-Security incidents managed per the Incident Response Procedure shall trigger risk reassessment for affected areas.
+Security incidents managed under the Incident Response Procedure trigger a risk reassessment for the affected areas.
 
-### 7.4 Business Continuity
+### 7.4 Business continuity
 
-Risk assessment results shall inform the Business Continuity Plan priorities and recovery objectives maintained in the compliance platform.
+Risk assessment results inform the Business Continuity Plan priorities and the recovery objectives maintained in the compliance platform.
 
-### 7.5 Vulnerability Management
+### 7.5 Vulnerability management
 
-Vulnerabilities identified through the Vulnerability Management Procedure shall be incorporated into the risk register with appropriate scoring.
+Vulnerabilities identified through the Vulnerability Management Procedure are entered in the risk register with the appropriate scoring.
 
-## 8. Risk Metrics and Reporting
+## 8. Risk metrics and reporting
 
-### 8.1 Key Risk Indicators (KRIs)
+### 8.1 Key risk indicators (KRIs)
 
-The following KRIs shall be monitored and reported quarterly:
+The following KRIs are monitored and reported quarterly:
 
 - Number of critical and high risks
-
 - Percentage of risks with completed treatment plans
-
 - Average time to implement risk treatments
-
 - Control effectiveness rate (controls with current evidence in the compliance platform)
-
 - Number of risk-related incidents
-
 - Vendor risk assessment completion rate
 
-### 8.2 Reporting Requirements
+### 8.2 Reporting requirements
 
-**Management Report** (Quarterly, recorded in the management meeting minutes):
+Management report (quarterly, recorded in the management meeting minutes):
 
 - Risk heat map
-
 - Top 10 risks and treatment status
-
 - Risk trend analysis
-
 - Control effectiveness metrics
+- Compliance status against the SOC 2 criteria
 
-- Compliance status against SOC 2 criteria
-
-**Operational Reports** (Monthly):
+Operational reports (monthly):
 
 - New risks identified
-
 - Treatment plan progress
-
 - Control evidence results
-
 - Incident correlation analysis
 
-**Annual Risk Assessment Report**:
+Annual risk assessment report:
 
-- Comprehensive risk landscape
-
+- Full risk landscape
 - Year-over-year comparison
-
 - Control maturity assessment
-
 - Resource requirements for risk mitigation
-
 - Strategic risk recommendations
 
-## 9. Risk Acceptance Criteria
+## 9. Risk acceptance criteria
 
 Risk acceptance requires formal documentation and approval:
 
-- **Low Risks (1-9)**: CEO approval
+- **Low risks (1–9)**: CEO approval
+- **Medium risks (10–14)**: CEO approval with documented justification
+- **High and critical risks (15–25)**: Not acceptable without mitigation
 
-- **Medium Risks (10-14)**: CEO approval with documented justification
-
-- **High/Critical Risks (15-25)**: Not acceptable without mitigation
-
-Accepted risks shall be:
+Accepted risks are:
 
 - Documented in the risk register with justification
-
 - Reviewed quarterly for changes in risk profile
+- Re-evaluated annually or on significant changes
 
-- Re-evaluated annually or upon significant changes
+## 10. Related documents
 
-## 10. Compliance Requirements
-
-This procedure addresses the following SOC 2 Trust Services Criteria:
-
-- **CC3.1**: COSO Principle 6 - Specifies Suitable Objectives
-
-- **CC3.2**: COSO Principle 7 - Identifies and Analyzes Risk
-
-- **CC3.3**: COSO Principle 8 - Assesses Fraud Risk
-
-- **CC3.4**: COSO Principle 9 - Identifies and Assesses Changes
-
-- **CC9.1**: Identifies and Assesses Risk
-
-- **CC9.2**: Implements Risk Mitigation Activities
-
-The procedure also supports compliance with:
-
-- GDPR Article 32 (Security of Processing)
-
-- GDPR Article 35 (Data Protection Impact Assessment)
-
-- CCPA Section 1798.150 (Security Breach Requirements)
-
-## 11. Related Documents
-
-### Core Policies
+**Policies**
 
 - Information Security Policy
-
 - Change Management Policy
-
+- Cloud Infrastructure Security Policy
+- Data Retention and Disposal Policy
+- Service Level Agreement (SLA) Management Policy
 - Vendor Management Policy
 
-- Cloud Infrastructure Security Policy
-
-### Standards and Guidelines
-
-- Data Classification and Handling Standard
-
-- Encryption and Cryptographic Controls Standard
+**Standards**
 
 - API Security and Rate Limiting Standard
+- Data Classification and Handling Standard
+- Encryption and Cryptographic Controls Standard
 
-### Procedures
-
-- Incident Response Procedure
+**Procedures and plans**
 
 - Business Continuity Plan
-
+- Incident Response Procedure
+- Penetration Testing and Security Assessment Procedure
+- System Monitoring and Logging Procedure
 - Vulnerability Management Procedure
 
-- Penetration Testing and Security Assessment Procedure
-
-- System Monitoring and Logging Procedure
-
-### Supporting Documents
+**Other**
 
 - Security Awareness Training Program
 
-- Data Retention and Disposal Policy
+## 11. Revision history
 
-- Service Level Agreement (SLA) Management Policy
-
-## Revision history
-
-|**Version**|**Date**|**Author**|**Changes**|
+| Version | Date | Author | Summary of change |
 |---|---|---|---|
-|1.0|November 13, 2025|Mo Messidi|Initial procedure|
-|2.0|<to be set at publication>|Mo Messidi|Scope limited to Security, Availability and Confidentiality; roles consolidated to the CEO; the compliance platform stated as the control register and source of control effectiveness; Security Hub review monthly with real-time critical alerting|
+| 1.0 | November 13, 2025 | Mo Messidi | Initial procedure |
+| 2.0 | <to be set at publication> | Mo Messidi | Scope limited to Security, Availability, and Confidentiality; roles consolidated to the CEO; the compliance platform stated as the control register and source of control effectiveness; Security Hub review monthly with real-time critical alerting |

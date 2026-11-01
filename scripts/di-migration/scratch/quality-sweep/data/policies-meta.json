@@ -1,0 +1,242 @@
+[
+  {
+    "id": "pol_6ae4b07aae52026d8aa8d504",
+    "name": "Data Classification and Handling Standard",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: data-classification-and-handling-standard-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0792126ae8bbd6f91f2",
+    "name": "Vulnerability Management Procedure",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: vulnerability-management-procedure-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b07801b7be7ceae3a8ec",
+    "name": "Vendor Management Policy",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: vendor-management-policy-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b07766e6db3c5083d3a4",
+    "name": "Third-Party Integration Security Guidelines",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: third-party-integration-security-guidelines-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b076ff7e86d64fa2a57c",
+    "name": "System Monitoring and Logging Procedure",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: system-monitoring-and-logging-procedure-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b076672bc62bb20ef768",
+    "name": "Service Level Agreement (SLA) Management Policy",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: service-level-agreement-sla-management-policy-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0759b3eb6f5c90818af",
+    "name": "Security Awareness Training Program",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: security-awareness-training-program-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "hr",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0741fc138e373b15873",
+    "name": "Secure Software Development Lifecycle (SDLC) Standard",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: secure-software-development-lifecycle-sdlc-standard-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0736b59d86e5fd802bd",
+    "name": "Penetration Testing and Security Assessment Procedure",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: penetration-testing-and-security-assessment-procedure-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b0731bc70fde67761439",
+    "name": "Encryption and Cryptographic Controls Standard",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: encryption-and-cryptographic-controls-standard-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b072957f1afd8b70bdea",
+    "name": "Data Subject Rights Request Procedure",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: data-subject-rights-request-procedure-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b07083de4536842df831",
+    "name": "Cloud Infrastructure Security Policy",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: cloud-infrastructure-security-policy-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b070c7eacdf89b833940",
+    "name": "API Security and Rate Limiting Standard",
+    "description": "Policy v1.0 imported from the Deal Intelligence SOC 2 Type I program (source: api-security-and-rate-limiting-standard-v1.0.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4b06f354c8f288b5bef13",
+    "name": "Acceptable Use Policy",
+    "description": "Policy v1.1 imported from the Deal Intelligence SOC 2 Type I program (source: acceptable-use-policy-v1.1.pdf, effective November 13, 2025).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "hr",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436d9ac4cbab5ee6a7d6",
+    "name": "Risk Assessment Procedure",
+    "description": "Procedure imported from the Deal Intelligence SOC 2 Type I program (source: risk-assessment-procedure-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436c1e8dc2e3d8176b36",
+    "name": "Privacy Notice and Data Processing Agreement Template",
+    "description": "Policy imported from the Deal Intelligence SOC 2 Type I program (source: privacy-notice-and-data-processing-agreement-template-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436becd8f1329f5c4435",
+    "name": "Information Security Policy",
+    "description": "Policy imported from the Deal Intelligence SOC 2 Type I program (source: information-security-policy-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436bdb34e80d0fff1be9",
+    "name": "Incident Response Procedure",
+    "description": "Procedure imported from the Deal Intelligence SOC 2 Type I program (source: incident-response-procedure-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae4436aaf41169d5bc6babf",
+    "name": "Data Retention and Disposal Policy",
+    "description": "Policy imported from the Deal Intelligence SOC 2 Type I program (source: data-retention-and-disposal-policy-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": false,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae443693ca45e3e03dc6e03",
+    "name": "Data Classification Policy",
+    "description": "Policy imported from the Deal Intelligence SOC 2 Type I program (source: data-classification-policy-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "gov",
+    "isRequiredToSign": false,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae443682481c533869a5ba9",
+    "name": "Code of Conduct",
+    "description": "Policy imported from the Deal Intelligence SOC 2 Type I program (source: code-of-conduct-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "hr",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae443686f8d68455fdb1286",
+    "name": "Change Management Policy",
+    "description": "Policy imported from the Deal Intelligence SOC 2 Type I program (source: change-management-policy-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae44366d11a465e7feb8921",
+    "name": "Business Continuity Plan",
+    "description": "Procedure imported from the Deal Intelligence SOC 2 Type I program (source: business-continuity-plan-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "pol_6ae44365e620da64444d0e00",
+    "name": "Access Control and Authentication Policy",
+    "description": "Policy imported from the Deal Intelligence SOC 2 Type I program (source: access-control-and-authentication-policy-v1.0.pdf).",
+    "status": "published",
+    "frequency": "yearly",
+    "department": "it",
+    "isRequiredToSign": true,
+    "reviewDate": "2027-11-01T00:00:00.000Z"
+  }
+]

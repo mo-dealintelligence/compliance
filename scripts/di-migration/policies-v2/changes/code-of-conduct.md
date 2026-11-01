@@ -19,3 +19,13 @@
 - "Anonymous reporting channels when available" kept verbatim; confirm whether any anonymous channel exists or delete the bullet.
 - "Suspension with or without pay" and "Performance improvement plans" kept as v1 disciplinary steps; confirm they are meaningful for a contractor relationship or trim to warnings / termination of contract / legal action.
 - Revision history v1 date taken from the v1 `finalized_at` (November 30, 2025) because v1 `effective_date` was "N/A"; confirm.
+
+## Quality sweep (2026-10-31)
+
+- Structure: v1 headings were unnumbered; numbered as `## 1.`–`## 11.` with `### n.n` sub-headings (Purpose, Scope, Core principles, Professional conduct, Data protection and privacy, Technology and systems use, Reporting and non-retaliation, Compliance and enforcement, Related documents, Acknowledgment, Revision history).
+- Voice: "maintaining the highest standards of integrity in providing" → "the integrity with which Deal Intelligence provides"; "Ensure proper licensing" → "Use only properly licensed software"; "Ensure vendors comply" → "Confirm that vendors comply"; "Ensure appropriate consent" → "Confirm appropriate consent"; "our" → "the" where it named a document; "should be made through" → "are made through"; "must acknowledge understanding of this Code" → "acknowledge this Code".
+- Formatting: removed blank lines between bullets (≈60 lines); "Deal Intelligence LLC" on first mention; "Chief Executive Officer (CEO)" in Scope; "Report violations … through appropriate channels" → "through the channels in section 7".
+- Related documents: expanded from 4 to 13 — added every document the body already cites (Access Control and Authentication Policy, API Security and Rate Limiting Standard, Change Management Policy, Data Classification and Handling Standard, Data Retention and Disposal Policy, Data Subject Rights Request Procedure, Secure Software Development Lifecycle (SDLC) Standard, Security Awareness Training Program, Vendor Management Policy); all exist in the set.
+- Kept: disciplinary steps and anonymous-channel bullet (existing CONFIRM items), acknowledgment wording.
+
+No new CONFIRM items.

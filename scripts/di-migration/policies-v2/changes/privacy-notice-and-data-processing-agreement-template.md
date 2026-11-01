@@ -29,3 +29,19 @@
 - §4.1 DPA parties keep v1's "Deal Intelligence LLC ('Processor') and [Customer Name] ('Controller')". This is correct for customer-uploaded data; for compiled business-contact data Deal Intelligence is a controller (see DSR Procedure §1). Confirm whether a controller-to-controller clause (SCC Module 1 is already listed in §7.1) should be added to the DPA body.
 - §3.1.1 "[Company Address]" and §5.2 "[Name] / [Number]" left as template fields by design.
 - Frontmatter `finalized_at` dropped; confirm the migration script does not require that key.
+
+## Quality sweep (2026-10-31)
+
+Contractual register kept: "shall" retained inside the DPA clauses (§4.1, §4.2, §4.4, §4.6) and the privacy notice's first-person "we/our" voice kept. Only consistency, placeholders and formatting swept.
+
+- Q2 headings: the `####` layers removed — "3.1 Standard Privacy Notice / 3.1.1–3.1.8" flattened to `### 3.1`–`### 3.8`, "4.1 Standard DPA Structure / 4.1.1–4.1.9" to `### 4.1`–`### 4.9`; the DPA's internal cross-references updated (Section 3.1.2 → 3.2, Section 4.1.5 → 4.5); document-title lines ("DEAL INTELLIGENCE LLC PRIVACY NOTICE", "DATA PROCESSING AGREEMENT", "Cookie Policy", "GDPR Article 33 Breach Notification") made bold paragraphs instead of headings; 11 `####` run-in labels ("Business Contact Information:", "Technical Measures:", …) made bold paragraph labels; all headings and table headers to sentence case; §13 "Review and Updates" → §12 "Review" and placed before Related documents.
+- Q6/R6 export leftovers: the pandoc "\ " mid-line break artefacts in the address block, effective-date line and signature block replaced by proper line breaks; §5.2 contact-details run-on ("Chief Executive Officer: [Name] Email: … Phone: [Number]") split with separators; "**Label** :" spacing fixed (×9). Template placeholders ([Date], [Company Address], [Customer Name], [Name], [Number], [Incident ID], [Description of incident], …) kept as template fields.
+- Q1 filler (outside the contractual clauses): §1 rewritten without "establishes the standardized framework… ensures compliance… operationalizes… legally compliant language"; "comprehensive security measures" → "the following security measures"; "We ensure appropriate safeguards through" → "We provide safeguards through"; §3.6 "Data portability" → "Receive their data in a portable format" (parallel with the other rights); §8.2/§9/§10.1/§11.2 imperative lead-ins ("Maintain…", "Conduct PIAs for", "Track and report") made declarative with the CEO named where the owner was implicit; §12 "shall be reviewed… shall be managed" → "is reviewed… are managed".
+- Q2 names/numbers: "AWS KMS" → "KMS" ×2; Oxford commas (×5); "30-day advance notice" → "30 days' advance notice".
+- Q2 lists: removed blank lines between bullets and numbered items (all lists).
+- Related documents: added System Monitoring and Logging Procedure, Security Awareness Training Program, Penetration Testing and Security Assessment Procedure, Risk Assessment Procedure, and Change Management Policy — all cited in the body; all exist in the set.
+- No commitment, number, role, scope item or clause changed.
+
+### CONFIRM (new)
+
+- Frontmatter `author` and the Revision history Author column read "Mo Messidi" while every other v2 document uses "mo@dealintelligence.io". Left untouched (frontmatter is out of sweep scope) — confirm which form the set should use.

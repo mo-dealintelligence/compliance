@@ -1,0 +1,452 @@
+[
+  {
+    "id": "tsk_6ae4462cb56809fa463973b9",
+    "title": "MacOS FileVault Status",
+    "description": "FileVault for device encryption. macOS FileVault encryption status\n\nSupports: C1.1.3, CC6.4.2, CC6.7.3, CC6.8.1\nSource file: macos_filevault_status.png",
+    "status": "todo",
+    "createdAt": "2026-10-30T07:24:27.987Z",
+    "updatedAt": "2026-10-30T14:31:35.897Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444bc3f15dc23dccec164",
+    "title": "GitHub Actions Workflows",
+    "description": "GitHub Actions workflows\n\nSupports: CC7.2\nSource file: 01_github_actions_workflows.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:20.394Z",
+    "updatedAt": "2026-10-30T07:18:22.518Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444c3546fe1eb4c5b4baa",
+    "title": "GitHub Deploy Workflow",
+    "description": "Deploy workflow\n\nSupports: CC5.2, CC8.1, CC8.1.1\nSource file: 03_github_deploy_workflow.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:26.517Z",
+    "updatedAt": "2026-10-30T07:18:29.356Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444c60fda138fbd504ace",
+    "title": "GitHub Workflow Run Details",
+    "description": "CI/CD execution history.\n\nSupports: CC8.1\nSource file: 04_github_workflow_run_details.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:29.695Z",
+    "updatedAt": "2026-10-30T07:18:31.290Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444c8993db6438c273a18",
+    "title": "GitHub Dependabot",
+    "description": "Dependabot alerts (21 tracked) Dependabot alerts (21 vulnerabilities) Dependabot vulnerability alerts Dependabot automated updates Dependabot vulnerability scanning\n\nSupports: CC4.1.2, CC6.8, CC6.8.1, CC6.8.2, CC7.1, CC7.1.2\nSource file: 05_github_dependabot.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:31.614Z",
+    "updatedAt": "2026-10-30T07:18:36.584Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444cdfb7b143b2457bc72",
+    "title": "GitHub Secret Scanning",
+    "description": "Advanced security settings.\n\nSupports: CC6.8.2\nSource file: 07_github_secret_scanning.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:36.918Z",
+    "updatedAt": "2026-10-30T07:18:38.535Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444cfe501a351b7d1c460",
+    "title": "GitHub Branch Protection",
+    "description": "GitHub branch protection GitHub branch protection screenshot. Branch protection Branch protection showing PR approval requirement. Branch protection screenshot middleware.py: SecurityHeadersMiddleware, AuditLoggingMiddleware, RateLimitMiddleware. v1.py: Pydantic validation Branch protection: Require status checks to pass, require PR reviews.\n\nSupports: CC5.2, CC5.2.2, CC8.1, CC8.1.2, CC8.1.3, PI1.3, PI1.3.3\nSource file: 08_github_branch_protection.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:38.885Z",
+    "updatedAt": "2026-10-30T07:18:44.377Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444d5367ee4b55f9e7d75",
+    "title": "Annual Performance Evaluation Ceo",
+    "description": "Annual performance evaluation document. Annual performance evaluation with security criteria.\n\nSupports: CC1.4.2, CC1.5.2\nSource file: annual-performance-evaluation-ceo-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:44.711Z",
+    "updatedAt": "2026-10-30T07:18:46.996Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444d7533a601cced5f441",
+    "title": "AWS Cloudformation Stacks",
+    "description": "CloudFormation Console. CloudFormation Console showing IaC stacks.\n\nSupports: CC5.2, CC5.2.1, CC8.1.1\nSource file: aws_cloudformation_stacks.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:47.335Z",
+    "updatedAt": "2026-10-30T07:18:50.306Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444db10c758f7b4eb2bdc",
+    "title": "AWS CloudTrail Trails",
+    "description": "CloudTrail for KMS key usage logs CloudTrail for API audit trail CloudTrail for access change audit trail. CloudWatch log groups. CloudTrail Console CloudTrail Console showing trails. CloudTrail: API audit trail\n\nSupports: C1.2.2, CC3.3.2, CC6.3.2, CC6.6.2, CC7.5, CC7.5.1, PI1.5.3\nSource file: aws_cloudtrail_trails.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:50.688Z",
+    "updatedAt": "2026-10-30T07:18:56.961Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444e1c9143d62486189ee",
+    "title": "AWS CloudWatch Alarms",
+    "description": "CloudWatch Alarms Console showing capacity alerts CloudWatch Alarms Console with threshold alerts configured CloudWatch metrics dashboard CloudWatch Alarms for monitoring CloudWatch Alarms for security alerts CloudWatch Alarms Console with SNS actions\n\nSupports: A1.1, A1.1.1, A1.1.2, CC4.1, CC4.1.1, CC5.1, CC5.1.2, CC6.6.3, CC7.2, CC7.2.2, CC7.2.3, CC7.3, CC7.3.2\nSource file: aws_cloudwatch_alarms.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:18:57.290Z",
+    "updatedAt": "2026-10-30T07:19:06.760Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444ebf6be2a04e8f76b3e",
+    "title": "AWS CloudWatch Log Groups",
+    "description": "CloudWatch Log Groups Lambda execution logs showing resource monitoring. CloudWatch Log Groups for audit trail CloudWatch Log Groups Console CloudWatch Logs Console CloudWatch logs for audit trail. CloudWatch logs for deletion tracking PropelAuth security and MFA settings CloudWatch logs for monitoring CloudWatch Logs Console with retention CloudWatch logs for deletion audit trail. CloudWatch logs for disclosure audit trail. CloudWatch logs for disclosure tracking CloudWatch logs for audit retention CloudWatch logs for evidence trail. CloudWatch logs for evidence. CloudWatch receives [AUDIT] logs. CloudWatch Log Groups retain API audit trail.\n\nSupports: A1.1, A1.1.1, C1.2.2, CC4.1.1, CC4.2, CC4.2.2, CC6.3.3, CC6.5.2, CC6.6.2, CC6.7.4, CC7.2, CC7.2.1, CC7.2.3, CC7.4.4, CC7.5, P4.3.3, P6.2, P6.2.1, P6.2.2, P6.3.1, P6.3.2, PI1.2.2, PI1.4.2\nSource file: aws_cloudwatch_log_groups.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:07.093Z",
+    "updatedAt": "2026-10-30T07:19:23.725Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae444fcdaab2433054f2873",
+    "title": "AWS DocumentDB Backups",
+    "description": "Automated backups list DocumentDB Console showing backup retention and PITR configuration. DocumentDB backups enabling restoration DocumentDB backup snapshots DocumentDB backups with PITR Backups Console DocumentDB backups Console DocumentDB backups with retention DocumentDB backups for data maintenance. Backups Console: automated daily snapshots DocumentDB Backups Console: automated snapshots list\n\nSupports: A1.2, A1.2.2, A1.3, A1.3.1, CC7.5.2, CC9.1, CC9.1.3, P4.2.2, P7.1.3, PI1.5, PI1.5.2\nSource file: aws_documentdb_backups.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:24.064Z",
+    "updatedAt": "2026-10-30T07:19:32.583Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445052e299c11cb1ab1d4",
+    "title": "AWS DocumentDB Cluster",
+    "description": "DocumentDB cluster capacity settings. DocumentDB cluster with multi-AZ DocumentDB Console showing backup retention and PITR configuration. DocumentDB multi-AZ configuration DocumentDB encryption. DocumentDB Console with TLS configuration DocumentDB Console showing multi-AZ deployment DocumentDB Console: multi-AZ, encrypted, PITR DocumentDB: storage encryption enabled Cluster Console: PITR enabled, multi-AZ configuration. DocumentDB: ACID transactions\n\nSupports: A1.1.2, A1.2, A1.2.2, A1.2.3, CC2.1, CC2.1.1, CC6.1.4, CC6.7.4, CC9.1, CC9.1.2, PI1.5, PI1.5.1, PI1.5.2, PI1.5.3\nSource file: aws_documentdb_cluster.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:32.917Z",
+    "updatedAt": "2026-10-30T07:19:42.976Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4450f39b97e60a1e07181",
+    "title": "AWS ECR Repositories",
+    "description": "ECR scanning ECR container scanning\n\nSupports: CC6.8, CC6.8.1, CC7.1\nSource file: aws_ecr_repositories.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:19:43.392Z",
+    "updatedAt": "2026-10-30T07:21:02.083Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44560f3b3973fc64aff02",
+    "title": "AWS IAM Password Policy",
+    "description": "Access control policy. IAM Password Policy.\n\nSupports: CC6.1, CC6.1.2, CC6.2\nSource file: aws_iam_password_policy.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:04.389Z",
+    "updatedAt": "2026-10-30T07:21:07.169Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445641e1f09041e584cfe",
+    "title": "AWS IAM Roles",
+    "description": "IAM Roles Console PropelAuth security settings IAM Roles. IAM roles enforcing access\n\nSupports: CC5.1, CC5.1.1, CC6.1, CC6.1.5, CC6.3, CC6.3.1, CC6.7, CC6.7.1, CC6.7.2\nSource file: aws_iam_roles.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:07.503Z",
+    "updatedAt": "2026-10-30T07:21:15.106Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4456baba402296ae727d1",
+    "title": "AWS IAM Users",
+    "description": "IAM users with least privilege IAM users with access tracking IAM Console IAM Users Console. IAM users with MFA\n\nSupports: CC1.5, CC1.5.2, CC6.1, CC6.1.5, CC6.2.2, CC6.3.2\nSource file: aws_iam_users.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:15.429Z",
+    "updatedAt": "2026-10-30T07:21:20.333Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4457169bc4cd8e68111be",
+    "title": "AWS KMS Keys",
+    "description": "KMS Console showing encryption keys. KMS keys KMS Console showing encryption keys (cryptographic erasure capability) KMS Console showing key management. KMS Console showing encryption by classification. KMS Keys Console KMS Keys Console. KMS Console. KMS Console for cryptographic erasure. KMS keys for cryptographic erasure KMS: encryption keys with rotation. KMS Console: 8 encryption keys\n\nSupports: C1.1, C1.1.3, C1.2, C1.2.1, CC2.1.2, CC5.1, CC5.1.1, CC6.1.4, CC6.5, CC6.5.1, CC6.5.2, P4.3.2, P4.3.3, PI1.5, PI1.5.1\nSource file: aws_kms_keys.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:20.665Z",
+    "updatedAt": "2026-10-30T07:21:31.514Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4457c904a374dd0cbd73a",
+    "title": "AWS Lambda Functions",
+    "description": "Lambda inventory Lambda Console Lambda Console with accessReview\n\nSupports: CC2.1, CC2.1.1, CC4.1, CC6.5\nSource file: aws_lambda_functions.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:31.952Z",
+    "updatedAt": "2026-10-30T07:21:35.610Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445803dfc7ebc896f9e3d",
+    "title": "AWS S3 Bucket Encryption",
+    "description": "S3 encryption settings S3 encryption settings. S3: default encryption with SSE-S3.\n\nSupports: CC6.1.4, CC6.7.2, PI1.5.1\nSource file: aws_s3_bucket_encryption.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:35.940Z",
+    "updatedAt": "2026-10-30T07:21:38.724Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44583e20d884bafc136ad",
+    "title": "AWS S3 Buckets",
+    "description": "S3 buckets with lifecycle policies. S3 buckets. S3 Console S3 Console showing lifecycle policies S3 Console with lifecycle policies\n\nSupports: C1.2, CC2.1, CC2.1.1, P4.2.2, P7.1.3\nSource file: aws_s3_buckets.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:39.051Z",
+    "updatedAt": "2026-10-30T07:21:43.672Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445886efe315e02f31c38",
+    "title": "AWS Security Groups",
+    "description": "Security Groups Console. Security Groups Console showing access controls Security Groups Console showing inbound/outbound rules. Security Groups Console with threat detection rules\n\nSupports: CC6.1.3, CC6.3.3, CC6.6, CC6.6.1, CC6.6.3\nSource file: aws_security_groups.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:44.331Z",
+    "updatedAt": "2026-10-30T07:21:48.701Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4458d4ef150b3b92dd543",
+    "title": "AWS Securityhub Findings",
+    "description": "Security Hub Console showing identified risks Security Hub findings Security Hub findings showing threat detection Security Hub findings showing changes Security Hub vulnerability findings Security Hub findings Console. Security Hub findings.\n\nSupports: CC3.1, CC3.1.2, CC3.3.2, CC3.4, CC4.1.2, CC4.2, CC4.2.1, CC6.8, CC6.8.1, CC7.1, CC7.1.2, CC7.3, CC7.4, P6.3.1\nSource file: aws_securityhub_findings.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:49.131Z",
+    "updatedAt": "2026-10-30T07:21:59.374Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445981e718c509d1449c8",
+    "title": "AWS Securityhub Overview",
+    "description": "Security Hub Console overview Security Hub status Security Hub Console showing monitoring status. Security Hub Console showing detective controls\n\nSupports: CC3.2, CC3.3, CC3.4, CC3.4.1, CC4.1, CC5.1.2, CC7.1.1\nSource file: aws_securityhub_overview.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:21:59.779Z",
+    "updatedAt": "2026-10-30T07:22:05.403Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4459eff771225daa8346e",
+    "title": "AWS SNS Topics",
+    "description": "SNS Topics Console SNS Topics Console showing alert topics. SNS Console SNS Topics Console for incident notifications\n\nSupports: CC7.3, CC7.3.1, CC7.4, CC7.4.3, CC7.4.4\nSource file: aws_sns_topics.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:05.753Z",
+    "updatedAt": "2026-10-30T07:22:09.966Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445a29752946f965f0bfd",
+    "title": "AWS VPC List",
+    "description": "VPC Console - complete IT asset inventory.\n\nSupports: CC2.1.1, CC6.1.3\nSource file: aws_vpc_list.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:10.342Z",
+    "updatedAt": "2026-10-30T07:22:12.794Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445a59a2ba92fdb39222d",
+    "title": "AWS VPC Subnets",
+    "description": "Subnets Console VPC Subnets Console.\n\nSupports: CC6.1.3, CC6.6\nSource file: aws_vpc_subnets.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:13.167Z",
+    "updatedAt": "2026-10-30T07:22:15.302Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445a84c763c257071adae",
+    "title": "Board Management Meeting Minutes Q4 2025",
+    "description": "Board meeting minutes documenting compliance oversight review. Board meeting minutes. Board meeting minutes showing periodic oversight review. Board minutes documenting access reviews. Q4 2025 board minutes documenting annual access review. Board meeting minutes with policy review Q4 2025 board minutes with annual access review. Board minutes tracking lessons learned. Board minutes with vendor review.\n\nSupports: CC1.2, CC1.2.1, CC1.2.2, CC1.5, CC4.1.2, CC5.3.3, CC6.2.2, CC7.4.5, P6.4.3\nSource file: board-management-meeting-minutes-q4-2025-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:15.631Z",
+    "updatedAt": "2026-10-30T07:22:22.374Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445af53a46de0664b4c6e",
+    "title": "CloudTrail Events",
+    "description": "CloudTrail audit logs (100 events) CloudTrail and Lambda logs showing continuous monitoring. CloudTrail logs identifying configuration changes and deficiencies. CloudTrail logs retained for investigation and escalation. DocumentDB Console with TLS configuration CloudTrail logs for configuration change monitoring. CloudTrail logs showing configuration change monitoring. CloudTrail API audit logs (100 events) CloudTrail logs showing centralized security monitoring CloudTrail audit logs retained 90+ days CloudTrail API audit (100 events) CloudTrail and VPC flow logs for investigation evidence. CloudTrail audit trail (100 events) CloudTrail for IAM actions CloudTrail logs as incident documentation evidence. CloudTrail and Lambda logs showing system monitoring and recovery. CloudTrail and Lambda logs for disclosure logging. CloudTrail logs retained for disclosure record keeping.\n\nSupports: CC4.1, CC4.1.1, CC4.2, CC4.2.2, CC6.7.4, CC7.1, CC7.1.1, CC7.2, CC7.2.1, CC7.2.3, CC7.3, CC7.3.2, CC7.4, CC7.4.3, CC7.4.4, CC7.5, P6.2.1, P6.2.2\nSource file: cloudtrail_events_20260204_132225.json",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:22.736Z",
+    "updatedAt": "2026-10-30T07:22:35.257Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445bcc8330fa58429820e",
+    "title": "Ethics And Privacy Training Completion Certificate William Wickey",
+    "description": "Ethics violation log (zero violations). Training completion certificates dated Dec 9, 2025. Security and privacy training certificates. Job descriptions with competency requirements\n\nSupports: CC1.1, CC1.1.3, CC1.4, CC1.4.1\nSource file: ethics-and-privacy-training-completion-certificate-william-wickey-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:35.580Z",
+    "updatedAt": "2026-10-30T07:22:39.495Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445c0084d6211482e2eab",
+    "title": "Ethics And Security Training Completion Certificate Mo Messidi",
+    "description": "Training certificates CEO training certificate. Training completion certificates dated Dec 9, 2025. Security and privacy training certificates. Job descriptions with competency requirements Security training certificate\n\nSupports: CC1.1, CC1.1.2, CC1.1.3, CC1.4, CC1.4.1, CC6.8.3\nSource file: ethics-and-security-training-completion-certificate-mo-messidi-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:39.865Z",
+    "updatedAt": "2026-10-30T07:22:44.643Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445c5703cfdd8137b0037",
+    "title": "Ethics Violation Log 2025",
+    "description": "Code of Conduct Ethics violation log (zero violations)\n\nSupports: CC1.1, CC1.1.4\nSource file: ethics-violation-log-2025-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:44.975Z",
+    "updatedAt": "2026-10-30T07:22:47.266Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445c8696cd03c5b791864",
+    "title": "Compliance Platform Bcp Dashboard",
+    "description": "Humadroid BCP dashboard with RTO Humadroid BCP dashboard showing processes and plans. Humadroid BCP dashboard showing critical processes with RTO values. Humadroid BCP dashboard with active plans.\n\nSupports: A1.2.3, CC9.1, CC9.1.1, CC9.1.2\nSource file: humadroid_bcp_dashboard.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:47.593Z",
+    "updatedAt": "2026-10-30T07:22:51.412Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445ccf97916a02c3794a5",
+    "title": "Compliance Platform Bcp Test Results",
+    "description": "BCP test results. Humadroid BCP test results with 100% success. Humadroid BCP test showing execution details. Humadroid BCP test results showing documented outcomes. Humadroid BCP test results (100% success) Humadroid BCP test results showing completed exercise with 100% success rate.\n\nSupports: A1.2.3, A1.3, A1.3.1, A1.3.2, CC7.5.2, CC9.1.3\nSource file: humadroid_bcp_test_results.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:51.781Z",
+    "updatedAt": "2026-10-30T07:22:56.838Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445d12126864c631d7688",
+    "title": "Compliance Platform Incident Reporting",
+    "description": "Humadroid incident reporting dashboard showing 100% SLA compliance\n\nSupports: CC7.3, CC7.4\nSource file: humadroid_incident_reporting.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:57.159Z",
+    "updatedAt": "2026-10-30T07:22:59.493Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445d43966e9fd006e4248",
+    "title": "Compliance Platform Risk Detail",
+    "description": "Humadroid risk detail with likelihood/impact scoring. Humadroid risk detail showing scoring methodology. Humadroid risk detail showing fraud/people risk treatment.\n\nSupports: CC3.2, CC3.2.1, CC3.3.1\nSource file: humadroid_risk_detail.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:22:59.821Z",
+    "updatedAt": "2026-10-30T07:23:02.607Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445d71fe5e65faec9add5",
+    "title": "Compliance Platform Risk Register",
+    "description": "Humadroid risk register with risk categories and scores. Humadroid risk register showing risk categories. Humadroid risk register with categorized risks. Humadroid risk register with People Risk category. Humadroid risk register (Q4 snapshot).\n\nSupports: CC3.1, CC3.1.1, CC3.1.2, CC3.3, CC3.4\nSource file: humadroid_risk_register.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:02.934Z",
+    "updatedAt": "2026-10-30T07:23:37.257Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445fa39cd961b8d2308b3",
+    "title": "Compliance Platform Vendor Assessment",
+    "description": "Humadroid vendor assessment (AWS) confirming SOC 2 Type II compliance. Humadroid vendor assessment (AWS) showing SOC 2 compliance verification.\n\nSupports: CC3.2.2, CC9.2.1\nSource file: humadroid_vendor_assessment.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:37.740Z",
+    "updatedAt": "2026-10-30T07:23:40.158Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae445fd3a6b86d10d6bfdc8",
+    "title": "Compliance Platform Vendor Dashboard",
+    "description": "Humadroid vendor dashboard showing vendor inventory Humadroid vendor dashboard showing vendor inventory and assessment status. Humadroid vendor dashboard showing assessment status and dates.\n\nSupports: CC3.2.2, CC9.2, CC9.2.3\nSource file: humadroid_vendor_dashboard.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:40.534Z",
+    "updatedAt": "2026-10-30T07:23:43.478Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44600cbed9cfeb9721f8a",
+    "title": "Job Description Chief Executive Officer",
+    "description": "Job descriptions defining roles. Job descriptions defining responsibilities. Job descriptions with competency requirements\n\nSupports: CC1.3, CC1.3.2, CC1.4.1\nSource file: job-description-chief-executive-officer-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:23:43.807Z",
+    "updatedAt": "2026-10-30T07:24:16.935Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446218dc419db1d6198b8",
+    "title": "Job Description Go To Market Contractor",
+    "description": "Organizational structure Job descriptions defining responsibilities. Training completion certificates.\n\nSupports: CC1.3, CC1.3.2, CC1.4.1\nSource file: job-description-go-to-market-contractor-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:17.261Z",
+    "updatedAt": "2026-10-30T07:24:20.279Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446253b877d421053618d",
+    "title": "Lambda App Events",
+    "description": "Lambda app execution logs (61 content events) showing capacity monitoring. CloudWatch Alarms Console with threshold alerts configured Lambda app logs (61 content events). Lambda app logs showing application patterns Lambda app logs for operational review. CloudTrail Console Privacy notice with logging requirements\n\nSupports: A1.1, A1.1.1, CC4.1, CC4.1.1, CC7.2, CC7.2.2, CC7.2.3, CC7.5, P6.2.1\nSource file: lambda_app_events_20260204_132311.json",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:20.611Z",
+    "updatedAt": "2026-10-30T07:24:27.558Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446415194b9768e79f0ba",
+    "title": "Organizational Structure",
+    "description": "Organizational structure Organizational structure document. Organizational structure with incident response roles\n\nSupports: CC1.2.1, CC1.3, CC1.3.1, CC7.4.2\nSource file: organizational-structure-v1.0.pdf",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:49.264Z",
+    "updatedAt": "2026-10-30T07:24:52.719Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae446458e9e36c3d85a5f7b",
+    "title": "PropelAuth Api Keys",
+    "description": "PropelAuth API key management\n\nSupports: CC6.7.1\nSource file: propelauth_api_keys.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:53.105Z",
+    "updatedAt": "2026-10-30T07:24:54.870Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4464716aa37e19eb4a707",
+    "title": "PropelAuth Mfa Settings",
+    "description": "PropelAuth MFA configuration CloudTrail for access logging\n\nSupports: CC6.2, CC6.6.2\nSource file: propelauth_mfa_settings.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:55.198Z",
+    "updatedAt": "2026-10-30T07:24:57.431Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4464a125c05c764ecb3d3",
+    "title": "PropelAuth Roles",
+    "description": "PropelAuth roles PropelAuth roles showing separation\n\nSupports: CC6.3, CC6.3.1\nSource file: propelauth_roles.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:24:57.757Z",
+    "updatedAt": "2026-10-30T07:25:00.161Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4464d495555d34cf7333f",
+    "title": "PropelAuth Security Settings",
+    "description": "PropelAuth security settings with MFA PropelAuth password/authentication settings PropelAuth security and MFA settings PropelAuth MFA settings\n\nSupports: CC1.5, CC1.5.1, CC6.1, CC6.1.1, CC6.1.2, CC6.2, CC6.2.1, CC6.6.2, CC6.7, CC6.7.2, CC6.7.3\nSource file: propelauth_security_settings.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:25:00.546Z",
+    "updatedAt": "2026-10-30T07:25:09.153Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae44656e6b6662077c28607",
+    "title": "PropelAuth Users",
+    "description": "PropelAuth users list PropelAuth user inventory PropelAuth user list PropelAuth showing user profile management.\n\nSupports: CC1.5, CC1.5.2, CC6.1, CC6.1.1, CC6.2.1, CC6.2.2, CC6.3, CC6.3.2, P7.1.2\nSource file: propelauth_users.png",
+    "status": "done",
+    "createdAt": "2026-10-30T07:25:09.538Z",
+    "updatedAt": "2026-10-30T07:25:16.448Z",
+    "taskTemplateId": null
+  },
+  {
+    "id": "tsk_6ae4465d905686bbaed81b7d",
+    "title": "VPC Flow Events",
+    "description": "VPC flow logs (40 ACCEPT, 27 REJECT) showing threat detection and blocked traffic. VPC flow logs and CloudTrail for data transfer monitoring. VPC flow logs (40 ACCEPT, 27 REJECT). VPC flow logs for network monitoring. VPC flow logs showing network anomalies (27 REJECT events). VPC flow logs showing REJECT events for security evaluation. CloudWatch Alarms Console with SNS actions VPC flow logs showing blocked traffic. VPC flow logs for network isolation evidence.\n\nSupports: CC6.6.3, CC6.7.4, CC7.2, CC7.2.1, CC7.2.2, CC7.3, CC7.3.2, CC7.4, CC7.4.3\nSource file: vpc_flow_events_20260204_132240.json",
+    "status": "done",
+    "createdAt": "2026-10-30T07:25:16.811Z",
+    "updatedAt": "2026-10-30T07:25:23.563Z",
+    "taskTemplateId": null
+  }
+]

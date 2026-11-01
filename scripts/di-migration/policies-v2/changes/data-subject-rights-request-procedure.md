@@ -29,3 +29,15 @@
 - HubSpot is named as a location of contact records (from the R4 runbook row) but is not in the R7 sub-processor list; confirm whether HubSpot should be added to the Vendor Management sub-processor list.
 - §10.1 KPI targets (<20 days average, >95 % on-time, <5 % denial, <10 % extension; monthly/quarterly measurement) kept verbatim — confirm these are tracked in the compliance platform or drop the table.
 - Frontmatter `finalized_at` dropped; confirm the migration script does not require that key.
+
+## Quality sweep (2026-10-31)
+
+- Q3 structure: §8 Roles and responsibilities moved to §3 (sections 3–8 renumbered 4–9; internal references updated: 6.2 → 7.2, 4.2 → 5.2, 5 → 6; Section 9 unchanged); §14 "Review and Updates" → §13 "Review" and moved before Related documents (§14); Revision history → §15. No section deleted.
+- Q1 voice: §1 rewritten to plain declarative (removed "establishes the operational framework", "ensures that", "operationalizes… to ensure"); "shall be reviewed" → "is reviewed"; §7.x and §8.x fragment/imperative mixes made parallel ("Requests are forwarded…", "The customer is responsible…", "Give the specific reason…"); §7.1 "Clear communication about data source and limitations" → "The response states the data source and any limitations"; §9.2 "The CEO personally reviews" → "The CEO reviews in particular" (the CEO already processes every request under §9.1); §9.3 heading "Compliance Platform Integration" → "Compliance platform".
+- Q2 consistency: "Chief Executive Officer (CEO)" in the roles heading; "the" added before document titles (×9); Oxford commas; percentages spaced (">95 %", "<5 %", "<10 %"); en dashes in ranges ("Articles 15–22", "days 1–5"); "Opt-out of sale" → "Opt out of the sale".
+- Q2 headings/lists/tables: all headings and table headers to sentence case; "**Primary Channel** :" spacing fixed (×11); removed blank lines between bullets and numbered items (all lists); nested lists indented consistently.
+- No commitment, number, role, scope item or control changed; the existing §1 [CONFIRM: controller/processor framing] is kept.
+
+### CONFIRM (new)
+
+- None added.
