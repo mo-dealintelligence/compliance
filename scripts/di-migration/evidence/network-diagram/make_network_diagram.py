@@ -98,97 +98,126 @@ class Canvas:
         print(f"  {stem}")
 
 
+def legend(c, x, y):
+    c.p.append(f'<line x1="{x}" y1="{y-4}" x2="{x+30}" y2="{y-4}" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#a)"/>')
+    c.text(x + 38, y, "network connection — from the side that opens it, with protocol and port", 10.5, "start", fill="#333")
+    c.p.append(f'<line x1="{x}" y1="{y+14}" x2="{x+30}" y2="{y+14}" stroke="#1a1a1a" stroke-width="1.8" '
+               'stroke-dasharray="5 4" marker-end="url(#a)"/>')
+    c.text(x + 38, y + 18, "administrative access", 10.5, "start", fill="#333")
+
+
+def dashed(c, pts, label=None, lx=None, ly=None, anchor="middle"):
+    path = "M" + " L".join(f"{x},{y}" for x, y in pts)
+    c.p.append(f'<path d="{path}" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#a)"/>')
+    if label:
+        c.text(lx, ly, label, 10.5, anchor, fill="#222")
+
+
 def build_internal():
-    c = Canvas(1300, 1150)
+    c = Canvas(1540, 1200)
     c.header("Deal Intelligence — Network Flow Diagram",
-             f"Production, AWS account 164482277879, us-east-1 · {DATE}")
+             f"Production · AWS account 164482277879 · us-east-1 · v2.0 · {DATE} · owner: CEO")
 
-    c.boundary(50, 124, 1200, 118, "Internet")
-    ey, eh, ew = 158, 64, 212
-    c.node(72, ey, ew, eh, "Customers", "MCP · REST API · Clay", EXT, "Users")
-    c.node(308, ey, ew, eh, "PropelAuth", "identity provider", EXT, "Client")
-    c.node(544, ey, ew, eh, "Customer CRMs", "HubSpot · Salesforce", EXT, "Client")
-    c.node(780, ey, ew, eh, "Google Workspace", None, EXT, "Client")
-    c.node(1016, ey, ew, eh, "Data vendors", None, EXT, "Internetalt1")
+    c.boundary(50, 124, 1440, 118, "Internet")
+    ey, eh, ew, gap = 158, 64, 168, 12
+    xs = [72 + i * (ew + gap) for i in range(8)]
+    c.node(xs[0], ey, ew, eh, "Web app", "browser · Netlify-hosted", EXT, "Client")
+    c.node(xs[1], ey, ew, eh, "REST API clients", "Clay · integrations", EXT, "Client")
+    c.node(xs[2], ey, ew, eh, "MCP clients", None, EXT, "Users")
+    c.node(xs[3], ey, ew, eh, "Data vendors", None, EXT, "Internetalt1")
+    c.node(xs[4], ey, ew, eh, "Customer CRMs", "HubSpot · Salesforce", EXT, "Client")
+    c.node(xs[5], ey, ew, eh, "Slack", None, EXT, "Client")
+    c.node(xs[6], ey, ew, eh, "Google Workspace", None, EXT, "Client")
+    c.node(xs[7], ey, ew, eh, "Operator", "console · CLI · SSM", EXT, "Users")
 
-    A = 330
-    c.p.append(f'<rect x="50" y="{A}" width="1200" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
+    A = 336
+    c.p.append(f'<rect x="50" y="{A}" width="1440" height="770" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
                'stroke-width="1.7" stroke-dasharray="8 5"/>')
     c.text(66, A + 756, "AWS account 164482277879 — us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
-    c.node(100, A - 34, 560, 68, "CloudFront + WAF", "self-managed WAF · TLS 1.2+", BND, "AWSWAF")
-    c.node(900, A - 34, 300, 68, "NAT", "self-managed instance · t3.micro · public subnet", BND, "AmazonVPCNATGateway")
+    c.node(100, A - 34, 560, 68, "CloudFront + WAF", "api.dealintelligence.io · mcp.dealintelligence.io · self-managed WAF", BND, "AWSWAF")
+    c.node(1100, A - 34, 330, 68, "NAT", "self-managed instance · t3.micro · 10.0.100.0/24", BND, "AmazonVPCNATGateway")
 
-    c.boundary(80, 410, 1140, 650, "VPC 10.0.0.0/16", "#2f855a")
-    c.boundary(104, 440, 700, 520, "Private subnets — us-east-1a / 1b / 1f", "#555")
-    c.node(128, 480, 300, 64, "Lambda app", "FastAPI", INT, "AWSLambda")
-    c.node(448, 480, 330, 64, "Lambda mcp", "MCP server", INT, "AWSLambda")
-    c.node(128, 580, 300, 64, "Lambda orchestrator", None, INT, "AWSLambda")
-    c.node(448, 580, 330, 64, "Scheduled Lambdas", None, INT, "AWSLambda")
-    c.cyl(200, 780, 500, 80, "DocumentDB", "di-backend-production-cluster", "AmazonDocumentDB")
+    c.boundary(80, 416, 1380, 650, "VPC 10.0.0.0/16", "#2f855a")
+    c.boundary(104, 446, 760, 520, "Private subnets — 10.0.1.0/24 (us-east-1a) · 10.0.2.0/24 (us-east-1b)", "#555")
+    c.node(128, 486, 310, 64, "Lambda app", "FastAPI", INT, "AWSLambda")
+    c.node(508, 486, 330, 64, "Lambda mcp", "MCP server", INT, "AWSLambda")
+    c.node(128, 586, 310, 64, "Lambda orchestrator", None, INT, "AWSLambda")
+    c.node(508, 586, 330, 64, "Scheduled Lambdas", None, INT, "AWSLambda")
+    c.cyl(230, 786, 500, 80, "DocumentDB", "di-backend-production-cluster", "AmazonDocumentDB")
 
-    c.boundary(830, 440, 366, 520, "Public subnet", "#555")
-    c.node(856, 480, 316, 64, "Fargate tasks", "di-jobs-production-cluster", INT, "AWSFargate")
+    c.boundary(890, 446, 546, 520, "Public subnet — 10.0.100.0/24 (us-east-1a)", "#555")
+    c.node(916, 486, 494, 64, "Fargate tasks", "di-jobs-production-cluster", INT, "AWSFargate")
+    c.node(916, 700, 494, 64, "Bastion", "ECS task · started on demand", INT, "AmazonElasticContainerService")
 
-    sw = 206
+    sw = 258
     for i, (ic, t) in enumerate([("AWSSecretsManager", "Secrets Manager"), ("AWSKeyManagementService", "KMS"),
                                  ("AmazonSimpleStorageService", "S3"), ("AWSCloudTrail", "CloudTrail"),
                                  ("AmazonElasticContainerRegistry", "ECR")]):
-        c.node(104 + i * (sw + 16), 986, sw, 54, t, None, SUP, ic)
+        c.node(104 + i * (sw + 16), 992, sw, 54, t, None, SUP, ic)
 
-    # inbound
-    c.arrow([(178, ey + eh), (230, A - 34)], "HTTPS 443", 150, 290, "start")
-    c.arrow([(250, A + 34), (250, 480)], "HTTPS 443", 262, 430, "start")
-    c.arrow([(600, A + 34), (600, 480)], "HTTPS 443", 588, 440, "end")
-    # to the database
-    c.arrow([(278, 544), (380, 780)], "TCP 27017", 318, 672, "end")
-    c.arrow([(613, 544), (560, 780)], "TCP 27017", 598, 672, "start")
-    c.arrow([(230, 644), (300, 780)], "TCP 27017", 180, 740, "start")
-    c.arrow([(660, 644), (620, 780)], "TCP 27017", 650, 740, "start")
-    # orchestrator launches Fargate
-    c.arrow([(330, 644), (330, 700), (1014, 700), (1014, 544)], "ECS RunTask", 860, 692, "start")
+    # ingress
+    c.arrow([(xs[0] + 84, ey + eh), (200, A - 34)], "HTTPS 443", 120, 296, "start")
+    c.arrow([(xs[1] + 84, ey + eh), (330, A - 34)], "HTTPS 443", 340, 296, "start")
+    c.arrow([(xs[2] + 84, ey + eh), (460, A - 34)], "HTTPS 443", 480, 296, "start")
+    c.arrow([(250, A + 34), (250, 486)], "HTTPS 443", 262, 440, "start")
+    c.arrow([(640, A + 34), (640, 486)], "HTTPS 443", 652, 440, "start")
+    # database
+    c.arrow([(438, 518), (462, 518), (462, 786)], "TCP 27017", 455, 700, "end")
+    c.arrow([(508, 530), (484, 530), (484, 786)], "TCP 27017", 492, 700, "start")
+    c.arrow([(283, 650), (283, 786)], "TCP 27017", 295, 740, "start")
+    c.arrow([(673, 650), (673, 786)], "TCP 27017", 685, 710, "start")
+    # orchestrator -> Fargate
+    c.arrow([(360, 650), (360, 672), (1163, 672), (1163, 550)], "ECS RunTask", 1000, 664, "start")
     # Lambdas out through the NAT
-    c.arrow([(778, 612), (1190, 612), (1190, A + 34)], "HTTPS 443", 1070, 604, "start")
-    c.arrow([(970, A - 34), (414, ey + eh)], "HTTPS 443", 560, 300, "start")
-    c.arrow([(1030, A - 34), (660, ey + eh)], "HTTPS 443", 760, 290, "start")
-    c.arrow([(1090, A - 34), (900, ey + eh)], "HTTPS 443", 950, 280, "start")
-    # Fargate: calls the API through CloudFront; reaches vendors directly
-    c.arrow([(856, 500), (840, 500), (840, 420), (620, 420), (620, A + 34)], "HTTPS 443", 700, 403, "start")
-    c.arrow([(1172, 500), (1236, 500), (1236, 250), (1130, 222)], "HTTPS 443", 1242, 390, "start")
+    c.arrow([(838, 618), (1430, 618), (1430, A + 34)], "HTTPS 443", 1300, 610, "start")
+    c.arrow([(1180, A - 34), (xs[4] + 84, ey + eh)], "HTTPS 443", 1060, 296, "end")
+    c.arrow([(1230, A - 34), (xs[5] + 84, ey + eh)], "HTTPS 443", 1180, 268, "start")
+    c.arrow([(1300, A - 34), (xs[6] + 84, ey + eh)], "HTTPS 443", 1310, 296, "start")
+    # Fargate: API calls back in through CloudFront; data vendors directly (public IP, no NAT)
+    c.arrow([(916, 506), (876, 506), (876, 400), (620, 400), (620, A + 34)], "HTTPS 443", 700, 394, "start")
+    c.arrow([(1000, 486), (1000, 282), (xs[3] + 84, 282), (xs[3] + 84, ey + eh)], "HTTPS 443", 1010, 440, "start")
+    # administrative access
+    dashed(c, [(xs[7] + 84, ey + eh), (xs[7] + 84, 282), (1478, 282), (1478, 732), (1410, 732)], "SSM · HTTPS 443", 1470, 690, "end")
+    dashed(c, [(916, 748), (560, 748), (560, 786)], "TCP 27017", 800, 742, "middle")
+
+    legend(c, 70, 1140)
     c.save("di-backend-network-internal")
 
 
 def build_customer():
-    c = Canvas(1200, 780)
+    c = Canvas(1200, 820)
     c.header("Deal Intelligence — Network Flow Diagram",
-             f"How your systems connect to the Deal Intelligence platform · {DATE}")
+             f"How your systems connect to the Deal Intelligence platform · v2.0 · {DATE}")
 
     c.boundary(50, 124, 1100, 118, "Your systems")
     ey, eh = 158, 64
-    c.node(76, ey, 250, eh, "Your users", "MCP · REST API · Clay", EXT, "Users")
-    c.node(350, ey, 250, eh, "Your CRM", "HubSpot · Salesforce", EXT, "Client")
-    c.node(624, ey, 230, eh, "Your Slack", None, EXT, "Client")
-    c.node(878, ey, 250, eh, "PropelAuth", "sign-in", EXT, "Client")
+    c.node(76, ey, 200, eh, "Web app", "browser", EXT, "Client")
+    c.node(300, ey, 200, eh, "REST API clients", "Clay · integrations", EXT, "Client")
+    c.node(524, ey, 180, eh, "MCP clients", None, EXT, "Users")
+    c.node(728, ey, 190, eh, "Your CRM", "HubSpot · Salesforce", EXT, "Client")
+    c.node(942, ey, 180, eh, "Your Slack", None, EXT, "Client")
 
-    A = 330
+    A = 336
     c.p.append(f'<rect x="50" y="{A}" width="1100" height="400" rx="4" ry="4" fill="none" stroke="#2b6cb0" '
                'stroke-width="1.7" stroke-dasharray="8 5"/>')
     c.text(66, A + 386, "Deal Intelligence — AWS, us-east-1", 12.5, "start", "bold", "#2b6cb0")
 
-    c.node(100, A - 34, 300, 68, "CloudFront + WAF", "TLS 1.2+", BND, "AWSWAF")
-    c.node(800, A - 34, 300, 68, "NAT", "outbound only", BND, "AmazonVPCNATGateway")
+    c.node(100, A - 34, 460, 68, "CloudFront + WAF", "api.dealintelligence.io · mcp.dealintelligence.io", BND, "AWSWAF")
+    c.node(820, A - 34, 280, 68, "NAT", "outbound only", BND, "AmazonVPCNATGateway")
 
-    c.boundary(80, 420, 1040, 260, "Private network", "#2f855a")
-    c.node(150, 470, 300, 68, "API", "Lambda", INT, "AWSLambda")
-    c.cyl(620, 462, 400, 84, "Your data", "DocumentDB · encrypted · 35-day backups", "AmazonDocumentDB")
+    c.boundary(80, 426, 1040, 260, "Private network", "#2f855a")
+    c.node(150, 476, 300, 68, "API", "Lambda", INT, "AWSLambda")
+    c.cyl(620, 468, 400, 84, "Your data", "DocumentDB · encrypted · 35-day backups", "AmazonDocumentDB")
 
-    c.arrow([(200, ey + eh), (230, A - 34)], "HTTPS 443", 150, 290, "start")
-    c.arrow([(250, A + 34), (250, 470)], "HTTPS 443", 262, 440, "start")
-    c.arrow([(450, 504), (620, 504)], "TCP 27017", 535, 496, "middle")
-    c.arrow([(300, 538), (300, 600), (1080, 600), (1080, A + 34)], "HTTPS 443", 1090, 480, "start")
-    c.arrow([(880, A - 34), (520, ey + eh)], "HTTPS 443", 640, 300, "start")
-    c.arrow([(940, A - 34), (760, ey + eh)], "HTTPS 443", 870, 280, "start")
-    c.arrow([(1010, A - 34), (1000, ey + eh)], "HTTPS 443", 1020, 300, "start")
+    c.arrow([(176, ey + eh), (200, A - 34)], "HTTPS 443", 118, 296, "start")
+    c.arrow([(400, ey + eh), (330, A - 34)], "HTTPS 443", 380, 296, "start")
+    c.arrow([(614, ey + eh), (480, A - 34)], "HTTPS 443", 560, 296, "start")
+    c.arrow([(250, A + 34), (250, 476)], "HTTPS 443", 262, 446, "start")
+    c.arrow([(450, 510), (620, 510)], "TCP 27017", 535, 502, "middle")
+    c.arrow([(300, 544), (300, 606), (1080, 606), (1080, A + 34)], "HTTPS 443", 1090, 486, "start")
+    c.arrow([(900, A - 34), (823, ey + eh)], "HTTPS 443", 820, 296, "end")
+    c.arrow([(1000, A - 34), (1032, ey + eh)], "HTTPS 443", 1030, 296, "start")
     c.save("di-backend-network-customer")
 
 
