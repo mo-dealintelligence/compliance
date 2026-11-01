@@ -10,7 +10,7 @@ the convention used for security DFDs (Microsoft threat modelling, PCI DSS 1.2.4
 
 - External entities: square rectangles, outside the system boundary.
 - Processes: rounded rectangles with an ID (1.0 ...), named by what they do with the data.
-- Data stores: open-ended rectangles with an ID (D1, D2). These are logical stores:
+- Data stores: rectangles with an ID cell on the left (D1, D2). These are logical stores:
   D1 is the one DocumentDB cluster, D2 is Secrets Manager.
 - Data flows: arrows in the direction the data moves, labelled with the data and its
   classification ([C] Confidential, [R] Restricted, per the Data Classification and

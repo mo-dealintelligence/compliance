@@ -8,7 +8,7 @@ Deal Intelligence data flow diagrams (Level 1), Gane-Sarson notation.
 Conventions (Gane-Sarson / Microsoft threat-modelling DFD):
   external entity  square-cornered rectangle, outside the system boundary
   process          rounded rectangle with an ID band (1.0, 2.0 ...), named by function
-  data store       open-ended rectangle with an ID cell (D1, D2), a LOGICAL store
+  data store       rectangle with an ID cell on the left (D1, D2), a LOGICAL store
   data flow        arrow in the direction the data moves, labelled with the data and
                    its classification: [C] Confidential, [R] Restricted
   trust boundary   dashed rectangle
@@ -70,8 +70,7 @@ def process(c, x, y, w, h, pid, title, sub=None, ic=None):
 
 def store(c, x, y, w, h, sid, title, sub=None, ic=None):
     f, s = STORE
-    c.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{f}" stroke="none"/>')
-    c.p.append(f'<path d="M{x+w},{y} L{x},{y} L{x},{y+h} L{x+w},{y+h}" fill="none" stroke="{s}" stroke-width="1.8"/>')
+    c.p.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{f}" stroke="{s}" stroke-width="1.8"/>')
     c.p.append(f'<line x1="{x+46}" y1="{y}" x2="{x+46}" y2="{y+h}" stroke="{s}" stroke-width="1.4"/>')
     c.text(x + 23, y + h / 2 + 4.5, sid, 12, "middle", "bold", "#2f5d2a")
     tx = x + 96 if ic else x + 60
@@ -98,7 +97,8 @@ def key(c, x, y):
     c.text(x + 86, y, "external entity", 10.5, "start", fill="#333")
     c.p.append(f'<rect x="{x+190}" y="{y-14}" width="46" height="20" rx="7" fill="{INT[0]}" stroke="{INT[1]}" stroke-width="1.4"/>')
     c.text(x + 242, y, "process", 10.5, "start", fill="#333")
-    c.p.append(f'<path d="M{x+346},{y-14} L{x+300},{y-14} L{x+300},{y+6} L{x+346},{y+6}" fill="{STORE[0]}" stroke="{STORE[1]}" stroke-width="1.4"/>')
+    c.p.append(f'<rect x="{x+300}" y="{y-14}" width="46" height="20" fill="{STORE[0]}" stroke="{STORE[1]}" stroke-width="1.4"/>')
+    c.p.append(f'<line x1="{x+312}" y1="{y-14}" x2="{x+312}" y2="{y+6}" stroke="{STORE[1]}" stroke-width="1.2"/>')
     c.text(x + 352, y, "data store", 10.5, "start", fill="#333")
     c.p.append(f'<line x1="{x+432}" y1="{y-4}" x2="{x+466}" y2="{y-4}" stroke="#1a1a1a" stroke-width="1.1" marker-end="url(#a)"/>')
     c.text(x + 474, y, "data flow", 10.5, "start", fill="#333")
