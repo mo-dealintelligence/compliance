@@ -29,7 +29,7 @@ This plan applies to:
 - **Third-party dependencies**: Critical vendors identified in the Vendor Management Policy
 - **Geographic scope**: The primary region (us-east-1); private subnets and Lambda functions in us-east-1a and us-east-1b; DocumentDB storage replicated across three availability zones
 
-The platform is deployed in a single AWS region (us-east-1) by design. Resilience within the region is provided by the availability-zone design described in section 5 (DocumentDB storage replicated across three availability zones, automatic re-creation of the DocumentDB instance after any failure, including an availability-zone failure, and Lambda running across availability zones); recovery from a complete regional outage relies on AWS service restoration and the CloudFormation redeployment strategy in section 7.2.
+The platform is deployed in a single AWS region (us-east-1) by design. Resilience within the region is provided by the availability-zone design described in section 5 (Lambda functions in two availability zones, DocumentDB storage replicated across three, automatic re-provisioning of the DocumentDB instance); recovery from a complete regional outage relies on AWS service restoration and the CloudFormation redeployment strategy in section 7.2.
 
 The plan covers scenarios from minor service degradation to a complete regional outage.
 
@@ -75,7 +75,7 @@ As **vendor liaison**, the CEO:
 | Database services | DocumentDB cluster operations | 4 hours | 2 hours | 1 hour |
 | CDN services | CloudFront content delivery | 8 hours | 4 hours | — |
 
-The RTO and RPO values above are met with DocumentDB's automatic re-creation of its single serverless instance after any failure, including an availability-zone failure (typically within 10 minutes), and point-in-time recovery from 35 days of automated backups (section 5.2). Cluster storage is replicated across three availability zones, so neither failure loses committed data. Authentication availability is provided by PropelAuth under its own SLA.
+The RTO and RPO values above are met with DocumentDB's automatic re-provisioning of its single serverless instance (cluster storage is replicated across three availability zones, so an instance or zone failure loses no committed data), point-in-time recovery, and 35-day automated backups described in section 5.2. Authentication availability is provided by PropelAuth under its own SLA.
 
 ### 4.2 Resource dependencies
 
@@ -102,14 +102,14 @@ Critical data assets:
 ### 5.1 Infrastructure resilience
 
 - Lambda functions and private subnets in us-east-1a and us-east-1b
-- DocumentDB cluster storage replicated six ways across three availability zones; the single serverless instance re-created automatically by the service after any failure, including an availability-zone failure
+- DocumentDB cluster storage replicated six ways across three availability zones; the single serverless instance re-provisioned automatically by the service on instance or availability-zone failure
 - Lambda versioned deployments with rollback via `serverless rollback`
 - CloudFront edge caching to reduce origin load
 - Reserved concurrency settings to prevent resource exhaustion
 
 ### 5.2 Data protection
 
-- Continuous automated backups with 35-day point-in-time recovery
+- Daily automated backups with 35-day retention
 - DocumentDB storage replication across three availability zones (performed by the service)
 - Point-in-time recovery on DocumentDB
 - Backups encrypted with KMS
@@ -130,7 +130,7 @@ Critical data assets:
 This plan is activated when:
 
 - The primary AWS region (us-east-1) experiences a significant outage
-- The DocumentDB instance has not been re-created automatically within the RTO (section 7.2)
+- An availability-zone outage stops the DocumentDB instance and the service has not re-provisioned it within the RTO
 - A critical vendor service (PropelAuth) experiences an extended outage
 - Data corruption or loss affects production systems
 - A security incident affects service availability (coordinated with the Incident Response Procedure)
@@ -211,8 +211,8 @@ This plan is activated when:
 
 Backup architecture:
 
-- Continuous automated backups, with the daily backup window 03:00–04:00 UTC
-- 35-day backup retention covering all production data (the DocumentDB maximum)
+- Daily automated backups at 02:00 UTC
+- 35-day retention for all production data
 - Point-in-time recovery enabled on the DocumentDB cluster
 - Backups encrypted with customer-managed KMS keys
 
@@ -227,10 +227,9 @@ Recovery procedures:
 
 Primary strategy, automatic recovery within the region:
 
-- If the DocumentDB instance or its availability zone fails, the service re-creates the instance automatically (typically within 10 minutes); cluster storage, replicated across three availability zones, is unaffected
-- Fallback if automatic re-creation has not completed within the RTO: the CEO adds a `db.serverless` instance in us-east-1b to the same cluster (`aws docdb create-db-instance`); it takes over the same cluster endpoint, so no configuration change is needed
-- Point-in-time recovery (section 7.1) is used for data corruption or deletion, not for availability-zone failures
-- Lambda runs across availability zones automatically (VPC subnets in us-east-1a and us-east-1b)
+- DocumentDB re-provisions its single serverless instance automatically; cluster storage, replicated across three availability zones, is unaffected
+- If the instance is not available again within the RTO, restore the cluster with point-in-time recovery (section 7.1)
+- Lambda functions distributed across availability zones
 - CloudWatch alarms on API errors and latency detect the failure
 
 Secondary strategy, CloudFormation redeployment:
@@ -388,4 +387,4 @@ The recovery procedures for the platform are those documented in sections 6 and 
 | Version | Date | Author | Summary of change |
 |---|---|---|---|
 | 1.0 | November 13, 2025 | Mo Messidi | Initial plan |
-| 2.0 | <to be set at publication> | Mo Messidi | Single-region (us-east-1) design stated; resilience and recovery strategy restated around DocumentDB storage replication, automatic instance re-creation including after an availability-zone failure, 35-day point-in-time recovery, and Lambda versioned rollback; customer notification by email; roles consolidated to the CEO; contact placeholders fixed |
+| 2.0 | <to be set at publication> | Mo Messidi | Single-region (us-east-1) design stated; resilience and recovery strategy restated around DocumentDB storage replication with automatic instance recovery, point-in-time recovery, 35-day backups, and Lambda versioned rollback; customer notification by email; roles consolidated to the CEO; contact placeholders fixed |

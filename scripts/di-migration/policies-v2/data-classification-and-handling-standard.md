@@ -129,7 +129,7 @@ Deal Intelligence uses a four-tier classification system aligned with its busine
 - **DocumentDB storage**: All Confidential and Restricted data stored with KMS encryption
 - **Secrets storage**: Restricted credentials and keys stored in Secrets Manager
 - **Container images**: ECR repositories with vulnerability scanning enabled
-- **Backup storage**: Continuous automated backups with 35-day point-in-time recovery
+- **Backup storage**: Daily automated backups with 35-day retention
 - **Log storage**: CloudWatch logs with 90-day retention
 
 ### 5.3 Data transmission

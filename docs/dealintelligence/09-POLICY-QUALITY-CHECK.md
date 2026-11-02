@@ -153,7 +153,7 @@ except the prepared (unpushed) branch noted in the first row.
 
 | Item | What has to be true | Effort / cost | Status |
 |---|---|---|---|
-| ~~Backups 90 days~~ — **withdrawn 2026-11-01 (D27)**: 35 days is the DocumentDB maximum and is kept | ~~DocumentDB `BackupRetentionPeriod` 35 → 90~~ | one line in serverless.yml; small storage cost | prepared on branch `compliance/env-alignment` (di‑backend‑api, not pushed) |
+| ~~Backups 90 days~~ — **withdrawn 2026-11-01 (D27)**: 35 days kept | ~~DocumentDB `BackupRetentionPeriod` 35 → 90~~ | one line in serverless.yml; small storage cost | prepared on branch `compliance/env-alignment` (di‑backend‑api, not pushed) |
 | ~~Multi‑AZ DocumentDB~~ | ~~second `db.serverless` instance in us‑east‑1b~~ | — | **withdrawn 2026-11-01 (D26)**: single instance kept, moved to H2; the instance was removed from `compliance/env-alignment` (commit 404aeb5) |
 | PR review + branch protection + CI gate | protect `main` (PR required, 4 status checks), CI with no `\|\| true`; fix `app/requirements.txt` install | 1 afternoon + fixing whatever tests go red | CI rewrite prepared on the same branch; protection needs your GitHub admin |
 | Staging environment | `--stage staging` stack; parameterise 11 hardcoded `*-production-*` names; **no prod data** (scrubbed snapshot or synthetic seed per SDLC §5.3) | ~$30–40/mo (NAT + idle DocumentDB); 1–2 days | not started — needs decisions: data source, same account vs separate account |

@@ -75,7 +75,7 @@ Infrastructure management:
 - Configure and maintain the VPC: private subnets, security groups, and network access controls.
 - Manage container orchestration via ECS with ECR scan-on-push enabled.
 - Maintain the CloudFront configuration.
-- Maintain the production deployment in us-east-1, including recovery of the DocumentDB instance into another availability zone when needed.
+- Maintain the Multi-AZ deployment (us-east-1a, us-east-1b).
 - Maintain infrastructure as code via CloudFormation through the Serverless Framework (stack: di-backend-api-prod).
 
 ### 3.3 Security and compliance (25 %)
@@ -128,7 +128,7 @@ Change management:
 Business continuity:
 - Maintain and test the Business Continuity Plan, with records in the compliance platform.
 - Maintain recovery capability against the RTO/RPO objectives.
-- Oversee automated backups with 35-day point-in-time recovery.
+- Oversee daily automated backups with 35-day retention.
 - Conduct the quarterly backup restoration test.
 - Maintain the 99.9 % uptime SLA per the Service Level Agreement (SLA) Management Policy.
 - Manage capacity planning. [CONFIRM: v1 cited a "Capacity Management Policy and Procedures" that is not in the document set]
