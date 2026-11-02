@@ -41,7 +41,10 @@ HARD = {
                    r"\bConsent Management Procedure", r"\bInfrastructure and Recovery Policy", r"\bmaintained separately",
                    r"\bEC2 instances?\b", r"\bSSH\b", r"\b(daily|every day) (security |alert )?review", r"\bquarterly tabletop",
                    r"\b48[- ]hour (CAB|review)", r"\b15[- ]minute", r"\b24/7\b", r"\bdistinct AWS accounts?",
-                   r"\bPropelAuth MFA", r"\b99\.95\s?%"],
+                   r"\bPropelAuth MFA", r"\b99\.95\s?%",
+                   # D26 (2026-11-01): no Multi-AZ DocumentDB
+                   r"\bMulti-AZ\b", r"\bsecond (DocumentDB )?instance\b", r"\bstandby instance", r"\bfailover of DocumentDB",
+                   r"\bfail ?over to the (second instance|alternate availability zone)"],
     "R6 placeholders": [r"dealintelligence\.ai\b", r"\[Maintained Separately\]", r"\[YES\]", r"\[NO\]", r"Document Assignments",
                         r"\(Chief Executive Officer\)", r"di-backendapi", r"AIpowered", r"\[Original Date\]", r"\[Current Date\]"],
 }

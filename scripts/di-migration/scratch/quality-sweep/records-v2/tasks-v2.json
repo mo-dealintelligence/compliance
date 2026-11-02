@@ -119,7 +119,7 @@
   {
     "id": "tsk_6ae445052e299c11cb1ab1d4",
     "title": "DocumentDB cluster configuration screenshot",
-    "description": "Screenshot of the DocumentDB cluster details showing Multi-AZ instances, KMS storage encryption, TLS enforcement, and backup retention. Cadence: quarterly (evidence sweep).\n\nSupports: A1.1.2, A1.2, A1.2.2, A1.2.3, CC2.1, CC2.1.1, CC6.1.4, CC6.7.4, CC9.1, CC9.1.2\nSource file: aws_documentdb_cluster.png",
+    "description": "Screenshot of the DocumentDB cluster details showing the cluster instance and its Availability Zone, KMS storage encryption, TLS enforcement, and backup retention. Cadence: quarterly (evidence sweep).\n\nSupports: A1.1.2, A1.2, A1.2.2, A1.2.3, CC2.1, CC2.1.1, CC6.1.4, CC6.7.4, CC9.1, CC9.1.2\nSource file: aws_documentdb_cluster.png",
     "status": "done",
     "createdAt": "2026-10-30T07:19:32.917Z",
     "updatedAt": "2026-10-30T07:19:42.976Z",
@@ -209,7 +209,7 @@
   {
     "id": "tsk_6ae4458d4ef150b3b92dd543",
     "title": "Configuration-check record (monthly)",
-    "description": "Dated pass/fail record posted by the scheduled configuration-check Lambda, which runs monthly against a fixed checklist: CloudTrail enabled and log-file validation on; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention and Multi-AZ. Each failed item is reviewed by the CEO and tracked to remediation. Cadence: monthly (automated evidence run).\n\nSupports: CC3.1, CC3.1.2, CC3.3.2, CC3.4, CC4.1.2, CC4.2, CC4.2.1, CC6.8, CC6.8.1, CC7.1, CC7.1.2, CC7.3, CC7.4\nSource file: aws_securityhub_findings.png",
+    "description": "Dated pass/fail record posted by the scheduled configuration-check Lambda, which runs monthly against a fixed checklist: CloudTrail enabled and log-file validation on; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention. Each failed item is reviewed by the CEO and tracked to remediation. Cadence: monthly (automated evidence run).\n\nSupports: CC3.1, CC3.1.2, CC3.3.2, CC3.4, CC4.1.2, CC4.2, CC4.2.1, CC6.8, CC6.8.1, CC7.1, CC7.1.2, CC7.3, CC7.4\nSource file: aws_securityhub_findings.png",
     "status": "done",
     "createdAt": "2026-10-30T07:21:49.131Z",
     "updatedAt": "2026-10-30T07:21:59.374Z",

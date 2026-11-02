@@ -40,7 +40,7 @@ It covers the infrastructure-specific implementation of the Trust Services Crite
 - **Security group**: a virtual firewall controlling inbound and outbound traffic at the resource level
 - **Network Access Control List (NACL)**: an optional layer of subnet-level traffic control
 - **KMS**: AWS Key Management Service, used for encryption key management and cryptographic operations
-- **Multi-AZ deployment**: distribution of resources across multiple availability zones for high availability
+- **Availability zone (AZ)**: an isolated location within an AWS region; the production VPC has private subnets in us-east-1a and us-east-1b
 
 ## 4. Roles and responsibilities
 
@@ -90,7 +90,7 @@ All cloud infrastructure is deployed in a single VPC in us-east-1 with:
 
 The infrastructure is deployed across the us-east-1a and us-east-1b availability zones to support the 99.9 % uptime SLA in the Service Level Agreement (SLA) Management Policy:
 
-- DocumentDB clusters are Multi-AZ (a second instance in another availability zone) with automatic failover
+- DocumentDB cluster storage replicated six ways across three availability zones; the cluster runs a single serverless instance, which DocumentDB re-provisions automatically if the instance or its availability zone fails (no committed data is lost; recovery within the RTO in the Business Continuity Plan)
 - Lambda functions run across multiple availability zones
 - Lambda deployments are versioned, with reserved concurrency and rollback via `serverless rollback`
 - CloudFront distributes content globally
@@ -196,7 +196,7 @@ Infrastructure logging follows the System Monitoring and Logging Procedure:
 
 Security monitoring runs through:
 
-- A scheduled configuration-check Lambda that runs monthly against a fixed checklist (CloudTrail enabled and log-file validation on; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention and Multi-AZ) and posts a dated pass/fail record to the compliance platform
+- A scheduled configuration-check Lambda that runs monthly against a fixed checklist (CloudTrail enabled and log-file validation on; no public S3 buckets; no security groups open to 0.0.0.0/0 on administrative ports; root account MFA; IAM password policy; KMS key rotation; ECR scan-on-push; DocumentDB backup retention) and posts a dated pass/fail record to the compliance platform
 - CloudTrail for AWS API activity; security-relevant CloudTrail events (root sign-in, IAM policy or user changes, CloudTrail stop/delete, KMS key disable, security-group changes) trigger an EventBridge rule → the breach-detection Lambda → SNS alert to the CEO in real time
 - Scheduled Lambda checks (access review, retention enforcement)
 - CloudWatch alarms for security events
@@ -228,7 +228,7 @@ Backups follow the Business Continuity Plan:
 
 - Recovery time objectives (RTO) and recovery point objectives (RPO) are set in the Business Continuity Plan
 - Quarterly backup restoration test (automated, recorded in the compliance platform)
-- Automatic failover for Multi-AZ resources
+- Automatic re-provisioning of the DocumentDB instance by the service; point-in-time recovery from automated backups
 - Rollback procedures for infrastructure changes
 - Disaster recovery procedures in the Business Continuity Plan
 

@@ -215,3 +215,6 @@ Produced per RULEBOOK.md from the v1 markdown in data/markdown/ and data/nov2025
 - §15 "Regular briefings on emerging vulnerability trends" kept from v1 — borderline under R4 (newsletters removed); delete if no evidence exists.
 - R3 staging: separate account vs same account (not written into the policy).
 
+## 2026-11-01 — D26: no Multi-AZ DocumentDB
+
+Applied by `scratch/no-multi-az-2026-11-01/apply.py`. Edited: business-continuity-plan, cloud-infrastructure-security-policy, incident-response-procedure, information-security-policy, risk-assessment-procedure, service-level-agreement-sla-management-policy, system-monitoring-and-logging-procedure, penetration-testing-and-security-assessment-procedure, vulnerability-management-procedure, system-description-v2; RULEBOOK (R3 bullet removed, R4 row added), check.py (new R4 patterns); controls-v2.json (5 control notes), risks-v2.json (2 treatments), tasks-v2.json (2 evidence descriptions), management-meeting-minutes-2026-10-31 (correction note, row kept); docs/05, docs/09 (§H1 row withdrawn, §H2 row added). The earlier open items on BCP "AZ failover testing" are moot: there is no failover to test; the quarterly restore test covers recovery.

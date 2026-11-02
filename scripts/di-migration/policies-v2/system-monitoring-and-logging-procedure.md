@@ -126,7 +126,7 @@ A scheduled configuration-check Lambda runs monthly against a fixed checklist:
 - IAM password policy
 - KMS key rotation
 - ECR scan-on-push
-- DocumentDB backup retention and Multi-AZ
+- DocumentDB backup retention
 
 The Lambda posts a dated pass/fail record to the compliance platform; the CEO reviews the record monthly and remediates failed checks.
 
@@ -287,7 +287,7 @@ Monitoring supports the Business Continuity Plan by:
 
 - Monitoring backup job completion
 - Tracking the recovery point objective (RPO)
-- Validating failover health
+- Detecting DocumentDB unavailability through the API error and latency alarms
 - Supporting disaster recovery tests
 
 ### 12.3 Retention

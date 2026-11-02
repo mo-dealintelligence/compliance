@@ -98,7 +98,7 @@ Excluded from scope:
 
 **Automated scanning**
 
-- Monthly configuration-check Lambda run against a fixed checklist (CloudTrail enabled and log-file validation, no public S3 buckets, no security groups open to 0.0.0.0/0 on administrative ports, root account MFA, IAM password policy, KMS key rotation, ECR scan-on-push, DocumentDB backup retention and Multi-AZ), posting a dated pass/fail record to the compliance platform
+- Monthly configuration-check Lambda run against a fixed checklist (CloudTrail enabled and log-file validation, no public S3 buckets, no security groups open to 0.0.0.0/0 on administrative ports, root account MFA, IAM password policy, KMS key rotation, ECR scan-on-push, DocumentDB backup retention), posting a dated pass/fail record to the compliance platform
 - Container image scanning in ECR with each deployment (scan-on-push)
 - Dependency vulnerability checks via GitHub Dependabot and code scanning, and Trivy in GitHub Actions
 - Infrastructure configuration checks via CloudFormation drift reporting and the monthly configuration-check Lambda

@@ -195,7 +195,7 @@ Short-term containment (P3 and P4):
    - Follow the rollback procedures in the Change Management Policy
    - Restore from backups if data integrity is compromised
    - Validate system functionality through health checks
-   - Confirm DocumentDB replication status
+   - Confirm the DocumentDB instance status is available
    - Verify the CloudFront distribution configuration
 2. **Monitoring enhancement**
    - Increase monitoring sensitivity for affected components
@@ -370,7 +370,7 @@ Annual tabletop exercise (recorded in the compliance platform):
 This procedure coordinates with the Business Continuity Plan for incidents requiring:
 
 - Disaster recovery activation
-- Failover to the alternate availability zone
+- Recovery of the DocumentDB instance or point-in-time restore
 - Extended service disruption management
 - Crisis communication protocols
 - Backup restoration procedures

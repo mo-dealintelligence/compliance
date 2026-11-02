@@ -67,3 +67,7 @@ Output: `policies-v2/service-level-agreement-sla-management-policy.md`
 
 - D13b: §6.1 states that the monthly availability record is the scheduled compliance-platform task "Availability record (monthly)" (owner CEO, monthly frequency, covered by the Monday reminder email)
 - D12: Security Hub removed — §8.1 P1 paging "Security Hub/SNS paging for critical findings" → SNS paging to the CEO on security-relevant CloudTrail events and CloudWatch alarms
+
+## Decision applied (2026-11-01)
+
+- D26: no Multi-AZ DocumentDB (Mo, 2026-11-01; a standby instance is not worth the cost). Multi-AZ / second-instance / automatic-failover wording replaced by: DocumentDB cluster storage replicated six ways across three availability zones by the service; a single serverless instance re-provisioned automatically on instance or AZ failure; point-in-time recovery and automated backups. "DocumentDB backup retention and Multi-AZ" in the configuration-check checklist → "DocumentDB backup retention".

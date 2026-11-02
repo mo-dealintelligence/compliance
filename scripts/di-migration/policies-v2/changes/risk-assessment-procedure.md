@@ -46,3 +46,7 @@ No new CONFIRM items.
 
 - D12: Security Hub removed — §5.1.2 "Security Hub findings analysis" → monthly configuration-check record analysis and real-time CloudTrail event alerts; §6.1 step 2 "Review Security Hub findings" → review of the monthly configuration-check records, CloudTrail event alerts and CloudWatch metrics; §6.2 real-time row → security-relevant CloudTrail events via EventBridge → breach-detection Lambda → SNS to the CEO, monthly row → configuration-check Lambda pass/fail record reviewed and recorded in the compliance platform; revision-history v2.0 entry reworded
 - D11b: not applicable here — §5.3 "Transfer: share the risk through insurance or contractual agreements" is a generic risk-treatment option, not an insurance claim or vendor requirement; left as is
+
+## Decision applied (2026-11-01)
+
+- D26: no Multi-AZ DocumentDB (Mo, 2026-11-01; a standby instance is not worth the cost). Multi-AZ / second-instance / automatic-failover wording replaced by: DocumentDB cluster storage replicated six ways across three availability zones by the service; a single serverless instance re-provisioned automatically on instance or AZ failure; point-in-time recovery and automated backups. "DocumentDB backup retention and Multi-AZ" in the configuration-check checklist → "DocumentDB backup retention".

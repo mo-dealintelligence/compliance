@@ -52,3 +52,7 @@ No new CONFIRM items.
 - D12: Security Hub removed. §5.3 Monitoring and early warning: "Security Hub findings for threat detection" and "breach-detection Lambda function that routes Security Hub findings to SNS" replaced by the CloudTrail-EventBridge → breach-detection Lambda → SNS real-time alert and the monthly configuration-check Lambda record (checklist includes DocumentDB backup retention and Multi-AZ, which is the BCP-relevant part).
 - D13b: the BCP states the 99.9 % SLA but does not define its measurement or record; measurement and the monthly "Availability record (monthly)" task live in the SLA Management Policy. Nothing to apply here.
 - D11b, D14: no insurance or controller/processor text in this document; nothing to apply.
+
+## Decision applied (2026-11-01)
+
+- D26: no Multi-AZ DocumentDB (Mo, 2026-11-01; a standby instance is not worth the cost). Multi-AZ / second-instance / automatic-failover wording replaced by: DocumentDB cluster storage replicated six ways across three availability zones by the service; a single serverless instance re-provisioned automatically on instance or AZ failure; point-in-time recovery and automated backups. "DocumentDB backup retention and Multi-AZ" in the configuration-check checklist → "DocumentDB backup retention".

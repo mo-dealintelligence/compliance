@@ -70,8 +70,6 @@ audited documents; the goal is a correct v2, not a rewrite.
 Keep these claims as written (tighten numbers to the target value):
 - DocumentDB automated backups retained **90 days**, point-in-time recovery
   enabled, daily snapshots.
-- DocumentDB **Multi-AZ** (a second instance in another AZ, automatic
-  failover).
 - **Pull-request workflow** on a protected `main`: PR required, CI status
   checks required (lint, tests, Bandit, Trivy, TruffleHog), no direct
   pushes; deploy only from a green CI run.
@@ -100,7 +98,8 @@ Keep these claims as written (tighten numbers to the target value):
 | Transit Gateway, PrivateLink, VPC peering, cross-region replication, multi-region KMS keys | single VPC, single region; KMS regional customer-managed key with annual rotation |
 | Image signing, certificate pinning, mutual TLS | ECR scan-on-push; ACM-managed certificates; TLS 1.2+ |
 | CloudWatch Synthetics canaries, status page, customer-portal SLA reports | CloudWatch alarms; monthly availability figure computed from CloudWatch metrics and recorded in the compliance platform; email notice for maintenance |
-| Blue-green / canary deployments, load balancers, auto-scaling groups, circuit breakers, read replicas | Lambda versioned deployments with rollback via `serverless rollback`; reserved concurrency; Multi-AZ DocumentDB (R3) |
+| Blue-green / canary deployments, load balancers, auto-scaling groups, circuit breakers, read replicas | Lambda versioned deployments with rollback via `serverless rollback`; reserved concurrency; DocumentDB storage replicated across three AZs with automatic instance recovery |
+| Multi-AZ DocumentDB, a second / standby DocumentDB instance, automatic failover to a replica or another AZ (D26, 2026-11-01) | DocumentDB cluster storage replicated six ways across three availability zones by the service; a single `db.serverless` instance that DocumentDB re-provisions automatically on instance or AZ failure (no committed data lost; recovery within the BCP RTO); point-in-time recovery and automated backups; quarterly restore test |
 | Phishing simulations, LMS quizzes / 80 % pass marks, newsletters, security champions, surveys, "training within 5 days / access suspended at +7" | security-awareness training in the compliance platform at onboarding and annually; completion certificate as evidence; contractor acknowledgment |
 | Quarterly tabletop + annual full simulation; three-person IRT; 24/7 15-minute response; cyber-insurance; encrypted messaging apps; named playbooks | annual tabletop exercise recorded in the compliance platform; CEO as incident commander; response targets: P1 acknowledged within 4 business hours, Security Hub/SNS paging for critical findings; the BCP full test record |
 | Classification metadata fields in the database, resource/classification tags, email subject markings, file-naming conventions | handling rules by tier; data lives in known DocumentDB collections and S3 buckets; CloudFormation tags on resources only |

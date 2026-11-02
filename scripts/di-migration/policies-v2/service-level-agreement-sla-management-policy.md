@@ -172,7 +172,7 @@ Third-party service levels are managed per the Vendor Management Policy:
 
 |**Service provider**|**Service**|**Their SLA**|**Our mitigation**|
 |---|---|---|---|
-|AWS|Infrastructure|99.99 %|Multi-AZ deployment|
+|AWS|Infrastructure|Per-service AWS SLAs|Lambda in two availability zones; DocumentDB storage replicated across three with automatic instance recovery; point-in-time recovery|
 |PropelAuth|Authentication|PropelAuth's own published SLA|Token caching, graceful degradation|
 
 ### 10.2 Dependency monitoring

@@ -154,7 +154,7 @@ except the prepared (unpushed) branch noted in the first row.
 | Item | What has to be true | Effort / cost | Status |
 |---|---|---|---|
 | Backups 90 days | DocumentDB `BackupRetentionPeriod` 35 → 90 | one line in serverless.yml; small storage cost | prepared on branch `compliance/env-alignment` (di‑backend‑api, not pushed) |
-| Multi‑AZ DocumentDB | second `db.serverless` instance in us‑east‑1b (auto‑promoted replica) | ~$15–20/mo idle, more under load; no downtime | prepared on the same branch |
+| ~~Multi‑AZ DocumentDB~~ | ~~second `db.serverless` instance in us‑east‑1b~~ | — | **withdrawn 2026-11-01 (D26)**: single instance kept, moved to H2; the instance was removed from `compliance/env-alignment` (commit 404aeb5) |
 | PR review + branch protection + CI gate | protect `main` (PR required, 4 status checks), CI with no `\|\| true`; fix `app/requirements.txt` install | 1 afternoon + fixing whatever tests go red | CI rewrite prepared on the same branch; protection needs your GitHub admin |
 | Staging environment | `--stage staging` stack; parameterise 11 hardcoded `*-production-*` names; **no prod data** (scrubbed snapshot or synthetic seed per SDLC §5.3) | ~$30–40/mo (NAT + idle DocumentDB); 1–2 days | not started — needs decisions: data source, same account vs separate account |
 | Separate non‑prod AWS account | only if you choose it for staging (policies say "distinct AWS accounts") | new member account in the org, free; adds SSO/role setup | decision pending |
@@ -168,6 +168,7 @@ except the prepared (unpushed) branch noted in the first row.
 
 | Claim to remove or reword | Where | Replace with |
 |---|---|---|
+| Multi‑AZ DocumentDB / second instance / automatic failover (D26, 2026-11-01) | BCP, Cloud Infra, InfoSec, IR, Risk, SLA, Monitoring, system description, controls, risks, tasks | cluster storage replicated six ways across three AZs by the service; single `db.serverless` instance re-provisioned automatically on failure; PITR + automated backups; BCP RTO unchanged |
 | WAF on CloudFront, GuardDuty, AWS Config drift detection + auto‑remediation, Inspector, EC2/EBS/CloudWatch Agent, Route 53 multi‑region, Transit Gateway, PrivateLink, image signing, certificate pinning, cross‑region replication | Cloud Infra, Encryption, Monitoring, IR, Vuln Mgmt | the controls that exist: Security Hub, CloudTrail, VPC isolation, ECR scanning, KMS, ACM |
 | CloudWatch Synthetics canaries every 5 min, status page, customer‑portal SLA reports, blue‑green/canary deploys, circuit breakers, load balancers | SLA, BCP, Monitoring | CloudWatch alarms + monthly availability figure from CloudWatch; email notice |
 | Phishing simulations, LMS quizzes (80 %), newsletters, security champions, surveys, "training within 5 days / access suspended at +7" | Security Awareness Training Program | one page: Comp training module on onboarding + annually; contractor acknowledgment; certificate as evidence |
