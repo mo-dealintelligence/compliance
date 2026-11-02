@@ -137,7 +137,7 @@ Current key risks and their mitigation status:
 |---|---|---|---|
 | Data breach | High (16) | Encryption (KMS), monitoring, PII sanitization | Low (6) |
 | Unauthorized access | High (15) | MFA, RBAC, VPC isolation | Low (4) |
-| Service availability | Medium (12) | DocumentDB storage replicated across three availability zones with automatic instance recovery, 99.9 % SLA, 90-day backups | Low (3) |
+| Service availability | Medium (12) | DocumentDB storage replicated across three availability zones with automatic re-creation of the instance after an instance failure, 99.9 % SLA, 35-day point-in-time recovery | Low (3) |
 | Vendor failure | Medium (10) | DPAs, minimal sub-processors | Low (5) |
 
 ### 5.4 Risk treatment

@@ -90,7 +90,7 @@ All cloud infrastructure is deployed in a single VPC in us-east-1 with:
 
 The infrastructure is deployed across the us-east-1a and us-east-1b availability zones to support the 99.9 % uptime SLA in the Service Level Agreement (SLA) Management Policy:
 
-- DocumentDB cluster storage replicated six ways across three availability zones; the cluster runs a single serverless instance, which DocumentDB re-provisions automatically if the instance or its availability zone fails (no committed data is lost; recovery within the RTO in the Business Continuity Plan)
+- DocumentDB cluster storage replicated six ways across three availability zones; the cluster runs a single serverless instance, which DocumentDB re-creates automatically after an instance failure; after an availability-zone outage the instance is recovered manually into another availability zone (no committed data is lost in either case; recovery within the RTO in the Business Continuity Plan)
 - Lambda functions run across multiple availability zones
 - Lambda deployments are versioned, with reserved concurrency and rollback via `serverless rollback`
 - CloudFront distributes content globally
@@ -218,7 +218,7 @@ Infrastructure performance metrics include:
 
 Backups follow the Business Continuity Plan:
 
-- Daily automated DocumentDB backups with 90-day retention
+- Continuous automated DocumentDB backups with 35-day point-in-time recovery
 - Point-in-time recovery for databases
 - Infrastructure configuration versioning in CloudFormation
 - Container image versioning in ECR
@@ -228,7 +228,7 @@ Backups follow the Business Continuity Plan:
 
 - Recovery time objectives (RTO) and recovery point objectives (RPO) are set in the Business Continuity Plan
 - Quarterly backup restoration test (automated, recorded in the compliance platform)
-- Automatic re-provisioning of the DocumentDB instance by the service; point-in-time recovery from automated backups
+- Automatic re-creation of the DocumentDB instance after an instance failure; manual recovery into another availability zone after a zone outage; point-in-time recovery from automated backups for data corruption or deletion
 - Rollback procedures for infrastructure changes
 - Disaster recovery procedures in the Business Continuity Plan
 

@@ -46,7 +46,6 @@ Because the CEO is the only role with production access, segregation of duties b
 - Infrastructure: AWS infrastructure management, deployment automation, and system reliability.
   - AWS resources defined in the CloudFormation stack di-backend-api-prod (deployed via the Serverless Framework).
   - Lambda functions, Fargate containers, and DocumentDB operations.
-  - Multi-AZ deployment (us-east-1a, us-east-1b).
 
 ### 4.3 Compliance and security functions
 

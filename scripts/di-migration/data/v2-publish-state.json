@@ -1,28 +1,8 @@
 {
   "policyVersions": {
-    "business-continuity-plan": {
-      "policyId": "pol_6ae44366d11a465e7feb8921",
-      "versionId": "pv_6ae6d09e38910ec964c0aa1b",
-      "submitted": true
-    },
     "code-of-conduct": {
       "policyId": "pol_6ae443682481c533869a5ba9",
       "versionId": "pv_6ae6d0a0a3d5fb4acf86788d",
-      "submitted": true
-    },
-    "data-retention-and-disposal-policy": {
-      "policyId": "pol_6ae4436aaf41169d5bc6babf",
-      "versionId": "pv_6ae6d0a144dbc85d0c8c2f0a",
-      "submitted": true
-    },
-    "incident-response-procedure": {
-      "policyId": "pol_6ae4436bdb34e80d0fff1be9",
-      "versionId": "pv_6ae6d0a2b757319fb5905252",
-      "submitted": true
-    },
-    "risk-assessment-procedure": {
-      "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
-      "versionId": "pv_6ae6d0a53742a470b639cb33",
       "submitted": true
     },
     "api-security-and-rate-limiting-standard": {
@@ -30,24 +10,9 @@
       "versionId": "pv_6ae6d0a88399a166c805ff93",
       "submitted": true
     },
-    "penetration-testing-and-security-assessment-procedure": {
-      "policyId": "pol_6ae4b0736b59d86e5fd802bd",
-      "versionId": "pv_6ae6d0ac75c55566b3f4deb0",
-      "submitted": true
-    },
     "security-awareness-training-program": {
       "policyId": "pol_6ae4b0759b3eb6f5c90818af",
       "versionId": "pv_6ae6d0ae3c5f2bf638e88312",
-      "submitted": true
-    },
-    "service-level-agreement-sla-management-policy": {
-      "policyId": "pol_6ae4b076672bc62bb20ef768",
-      "versionId": "pv_6ae6d0af6861e09415e69f54",
-      "submitted": true
-    },
-    "system-monitoring-and-logging-procedure": {
-      "policyId": "pol_6ae4b076ff7e86d64fa2a57c",
-      "versionId": "pv_6ae6d0b02f12cb2d59653102",
       "submitted": true
     },
     "vendor-management-policy": {
@@ -55,19 +20,9 @@
       "versionId": "pv_6ae6d0b172950601039cd8e1",
       "submitted": true
     },
-    "data-classification-and-handling-standard": {
-      "policyId": "pol_6ae4b07aae52026d8aa8d504",
-      "versionId": "pv_6ae6d0b4c03736862b72cbe7",
-      "submitted": true
-    },
     "privacy-notice-and-data-processing-agreement-template": {
       "policyId": "pol_6ae4436c1e8dc2e3d8176b36",
       "versionId": "pv_6ae6db238db30ab15eadcc1f",
-      "submitted": true
-    },
-    "data-subject-rights-request-procedure": {
-      "policyId": "pol_6ae4b072957f1afd8b70bdea",
-      "versionId": "pv_6ae6db255733e9a6c2fff04d",
       "submitted": true
     },
     "access-control-and-authentication-policy": {
@@ -80,19 +35,9 @@
       "versionId": "pv_6ae6dd2b0cfc7f65599d42bd",
       "submitted": true
     },
-    "information-security-policy": {
-      "policyId": "pol_6ae4436becd8f1329f5c4435",
-      "versionId": "pv_6ae6dd2c4ebef52aae924507",
-      "submitted": true
-    },
     "acceptable-use-policy": {
       "policyId": "pol_6ae4b06f354c8f288b5bef13",
       "versionId": "pv_6ae6dd2d3d39670bb4e9b193",
-      "submitted": true
-    },
-    "cloud-infrastructure-security-policy": {
-      "policyId": "pol_6ae4b07083de4536842df831",
-      "versionId": "pv_6ae6dd2f658f7042a7112c89",
       "submitted": true
     },
     "encryption-and-cryptographic-controls-standard": {
@@ -105,9 +50,64 @@
       "versionId": "pv_6ae6dd319c420b09826e9462",
       "submitted": true
     },
+    "business-continuity-plan": {
+      "policyId": "pol_6ae44366d11a465e7feb8921",
+      "versionId": "pv_6ae7f631d181026ed8fbb4b9",
+      "submitted": true
+    },
+    "data-retention-and-disposal-policy": {
+      "policyId": "pol_6ae4436aaf41169d5bc6babf",
+      "versionId": "pv_6ae7f63290ff42226a189ae4",
+      "submitted": true
+    },
+    "incident-response-procedure": {
+      "policyId": "pol_6ae4436bdb34e80d0fff1be9",
+      "versionId": "pv_6ae7f634ac4ed247794f1e4f",
+      "submitted": true
+    },
+    "information-security-policy": {
+      "policyId": "pol_6ae4436becd8f1329f5c4435",
+      "versionId": "pv_6ae7f635f8e32245ed75c979",
+      "submitted": true
+    },
+    "risk-assessment-procedure": {
+      "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
+      "versionId": "pv_6ae7f636b2ebd64cf4ab09fe",
+      "submitted": true
+    },
+    "cloud-infrastructure-security-policy": {
+      "policyId": "pol_6ae4b07083de4536842df831",
+      "versionId": "pv_6ae7f637c63a8cb5bf9a9bdb",
+      "submitted": true
+    },
+    "data-subject-rights-request-procedure": {
+      "policyId": "pol_6ae4b072957f1afd8b70bdea",
+      "versionId": "pv_6ae7f638cebf3e949b65e340",
+      "submitted": true
+    },
+    "penetration-testing-and-security-assessment-procedure": {
+      "policyId": "pol_6ae4b0736b59d86e5fd802bd",
+      "versionId": "pv_6ae7f6395304781e269fbf2d",
+      "submitted": true
+    },
+    "service-level-agreement-sla-management-policy": {
+      "policyId": "pol_6ae4b076672bc62bb20ef768",
+      "versionId": "pv_6ae7f63ba2b6d443e9822980",
+      "submitted": true
+    },
+    "system-monitoring-and-logging-procedure": {
+      "policyId": "pol_6ae4b076ff7e86d64fa2a57c",
+      "versionId": "pv_6ae7f63c0f41aef4c588b571",
+      "submitted": true
+    },
     "vulnerability-management-procedure": {
       "policyId": "pol_6ae4b0792126ae8bbd6f91f2",
-      "versionId": "pv_6ae6dd323fb2ff25508e31f8",
+      "versionId": "pv_6ae7f63d195cfb68e0e6bff0",
+      "submitted": true
+    },
+    "data-classification-and-handling-standard": {
+      "policyId": "pol_6ae4b07aae52026d8aa8d504",
+      "versionId": "pv_6ae7f63e9ca27a348e5fa35c",
       "submitted": true
     }
   },
@@ -116,9 +116,6 @@
     "ctl_6ae4440177bf54763b355667",
     "ctl_6ae444007aea85a4a9c9f51e",
     "ctl_6ae4440131354a162910bc3f",
-    "ctl_6ae444028c9669720760e272",
-    "ctl_6ae44402777ba3510f143781",
-    "ctl_6ae4440187e4e864370b9462",
     "ctl_6ae4440353d454778363e44a",
     "ctl_6ae444033c230c62420e6a2a",
     "ctl_6ae444022240b444b312e391",
@@ -217,7 +214,6 @@
     "ctl_6ae4441628ce1fd6a855eb1b",
     "ctl_6ae44416c08ec578db327344",
     "ctl_6ae44416432ba4b18bb7e4fd",
-    "ctl_6ae4441730145201872696bf",
     "ctl_6ae4441725da43c6fe38e268",
     "ctl_6ae4441796086c39d53206b1",
     "ctl_6ae44417d73eaf5fa3e8e08f",
@@ -241,13 +237,17 @@
     "ctl_6ae4441a9d3cde1e48ce6fa7",
     "ctl_6ae4441af8bf081b7dd3dfb2",
     "ctl_6ae4441b5d7edb83c83c648f",
-    "ctl_6ae4441b0faedcf3e1f09efc",
     "ctl_6ae4441bb2439edcc6b0a517",
-    "ctl_6ae4441b4a7ef06b11e9acd9",
     "ctl_6ae4441c2bbe102517337636",
     "ctl_6ae4441c436b9fcf4bace046",
     "ctl_6ae4441cdae97a45b6bf46fc",
-    "ctl_6ae4441bb5cf1240ee0c9deb"
+    "ctl_6ae4441bb5cf1240ee0c9deb",
+    "ctl_6ae444028c9669720760e272",
+    "ctl_6ae44402777ba3510f143781",
+    "ctl_6ae4440187e4e864370b9462",
+    "ctl_6ae4441730145201872696bf",
+    "ctl_6ae4441b0faedcf3e1f09efc",
+    "ctl_6ae4441b4a7ef06b11e9acd9"
   ],
   "tasks": [
     "tsk_6ae4462cb56809fa463973b9",
@@ -262,8 +262,6 @@
     "tsk_6ae444db10c758f7b4eb2bdc",
     "tsk_6ae444e1c9143d62486189ee",
     "tsk_6ae444ebf6be2a04e8f76b3e",
-    "tsk_6ae444fcdaab2433054f2873",
-    "tsk_6ae445052e299c11cb1ab1d4",
     "tsk_6ae4450f39b97e60a1e07181",
     "tsk_6ae44560f3b3973fc64aff02",
     "tsk_6ae445641e1f09041e584cfe",
@@ -273,7 +271,6 @@
     "tsk_6ae445803dfc7ebc896f9e3d",
     "tsk_6ae44583e20d884bafc136ad",
     "tsk_6ae445886efe315e02f31c38",
-    "tsk_6ae4458d4ef150b3b92dd543",
     "tsk_6ae445981e718c509d1449c8",
     "tsk_6ae4459eff771225daa8346e",
     "tsk_6ae445a29752946f965f0bfd",
@@ -299,19 +296,22 @@
     "tsk_6ae4464a125c05c764ecb3d3",
     "tsk_6ae4464d495555d34cf7333f",
     "tsk_6ae44656e6b6662077c28607",
-    "tsk_6ae4465d905686bbaed81b7d"
+    "tsk_6ae4465d905686bbaed81b7d",
+    "tsk_6ae444fcdaab2433054f2873",
+    "tsk_6ae445052e299c11cb1ab1d4",
+    "tsk_6ae4458d4ef150b3b92dd543"
   ],
   "newTasks": {
     "Availability record (monthly)": "tsk_6ae6d0def985ad20b182979b"
   },
   "risks": [
-    "rsk_6ae4b0ed4b75bcffbc40d4db",
     "rsk_6ae44677d90983dded2e3924",
-    "rsk_6ae44677ee4c16e89f414239",
     "rsk_6ae4467687c58cec1d7cbb79",
     "rsk_6ae4467603cb938df8e33de2",
     "rsk_6ae4467643b88095c5b12882",
-    "rsk_6ae44676d35dcb7389034b5d"
+    "rsk_6ae44676d35dcb7389034b5d",
+    "rsk_6ae4b0ed4b75bcffbc40d4db",
+    "rsk_6ae44677ee4c16e89f414239"
   ],
   "vendors": [
     "vnd_6ae446759b7c398bc3d487b2",
@@ -328,14 +328,14 @@
     "ctx_6ae4467a997bc87734a00db9",
     "ctx_6ae44679adfe6e7474a57d5d",
     "ctx_6ae4467999fa2ef21b09779b",
-    "ctx_6ae44679e2621a71c0853187",
     "ctx_6ae44678c2b732d987f6d0fa",
     "ctx_6ae4467805be439197021862",
     "ctx_6ae43d221a8d934f7b43facf",
     "ctx_6ae43d220c17609277b54689",
     "ctx_6ae43d22aa10e685567e25ae",
     "ctx_6ae43d2271b191a10f8a9db3",
-    "ctx_6ae43948bc1c823b62e62234"
+    "ctx_6ae43948bc1c823b62e62234",
+    "ctx_6ae44679e2621a71c0853187"
   ],
   "contextDeleted": [
     "ctx_6ae4467aa2b2f5daf5418873"
@@ -363,8 +363,8 @@
     "pol_6ae443693ca45e3e03dc6e03",
     "pol_6ae443682481c533869a5ba9",
     "pol_6ae443686f8d68455fdb1286",
-    "pol_6ae44366d11a465e7feb8921",
-    "pol_6ae44365e620da64444d0e00"
+    "pol_6ae44365e620da64444d0e00",
+    "pol_6ae44366d11a465e7feb8921"
   ],
   "archived": [],
   "superseded": [
@@ -420,5 +420,94 @@
     }
   ],
   "minutesSuperseded": "evs_6ae6d106abe18ac7d3dea789",
-  "minutes": "evs_6ae6db263e7eecfb109636e1"
+  "minutes": "evs_6ae6db263e7eecfb109636e1",
+  "withdrawn": [
+    {
+      "slug": "business-continuity-plan",
+      "policyId": "pol_6ae44366d11a465e7feb8921",
+      "versionId": "pv_6ae6d09e38910ec964c0aa1b",
+      "submitted": true,
+      "at": "2026-11-02T02:31:51.037Z"
+    },
+    {
+      "slug": "cloud-infrastructure-security-policy",
+      "policyId": "pol_6ae4b07083de4536842df831",
+      "versionId": "pv_6ae6dd2f658f7042a7112c89",
+      "submitted": true,
+      "at": "2026-11-02T02:31:51.852Z"
+    },
+    {
+      "slug": "data-classification-and-handling-standard",
+      "policyId": "pol_6ae4b07aae52026d8aa8d504",
+      "versionId": "pv_6ae6d0b4c03736862b72cbe7",
+      "submitted": true,
+      "at": "2026-11-02T02:31:52.640Z"
+    },
+    {
+      "slug": "data-retention-and-disposal-policy",
+      "policyId": "pol_6ae4436aaf41169d5bc6babf",
+      "versionId": "pv_6ae6d0a144dbc85d0c8c2f0a",
+      "submitted": true,
+      "at": "2026-11-02T02:31:53.463Z"
+    },
+    {
+      "slug": "data-subject-rights-request-procedure",
+      "policyId": "pol_6ae4b072957f1afd8b70bdea",
+      "versionId": "pv_6ae6db255733e9a6c2fff04d",
+      "submitted": true,
+      "at": "2026-11-02T02:31:54.231Z"
+    },
+    {
+      "slug": "incident-response-procedure",
+      "policyId": "pol_6ae4436bdb34e80d0fff1be9",
+      "versionId": "pv_6ae6d0a2b757319fb5905252",
+      "submitted": true,
+      "at": "2026-11-02T02:31:55.032Z"
+    },
+    {
+      "slug": "information-security-policy",
+      "policyId": "pol_6ae4436becd8f1329f5c4435",
+      "versionId": "pv_6ae6dd2c4ebef52aae924507",
+      "submitted": true,
+      "at": "2026-11-02T02:31:56.143Z"
+    },
+    {
+      "slug": "penetration-testing-and-security-assessment-procedure",
+      "policyId": "pol_6ae4b0736b59d86e5fd802bd",
+      "versionId": "pv_6ae6d0ac75c55566b3f4deb0",
+      "submitted": true,
+      "at": "2026-11-02T02:31:56.939Z"
+    },
+    {
+      "slug": "risk-assessment-procedure",
+      "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
+      "versionId": "pv_6ae6d0a53742a470b639cb33",
+      "submitted": true,
+      "at": "2026-11-02T02:31:57.708Z"
+    },
+    {
+      "slug": "service-level-agreement-sla-management-policy",
+      "policyId": "pol_6ae4b076672bc62bb20ef768",
+      "versionId": "pv_6ae6d0af6861e09415e69f54",
+      "submitted": true,
+      "at": "2026-11-02T02:31:58.462Z"
+    },
+    {
+      "slug": "system-monitoring-and-logging-procedure",
+      "policyId": "pol_6ae4b076ff7e86d64fa2a57c",
+      "versionId": "pv_6ae6d0b02f12cb2d59653102",
+      "submitted": true,
+      "at": "2026-11-02T02:31:59.228Z"
+    },
+    {
+      "slug": "vulnerability-management-procedure",
+      "policyId": "pol_6ae4b0792126ae8bbd6f91f2",
+      "versionId": "pv_6ae6dd323fb2ff25508e31f8",
+      "submitted": true,
+      "at": "2026-11-02T02:31:59.981Z"
+    }
+  ],
+  "decisions": {
+    "2026-11-01": "evs_6ae7f66546e8ec604dca1c6c"
+  }
 }

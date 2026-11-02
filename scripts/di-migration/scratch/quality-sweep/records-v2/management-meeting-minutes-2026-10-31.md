@@ -95,8 +95,6 @@ Policy claims that run ahead of the deployed environment, to be closed before th
 | Configuration-check Lambda and security-event rule | Not deployed | Scheduled configuration-check Lambda (monthly) posting a pass/fail record to the compliance platform; EventBridge rule on security-relevant CloudTrail events to the breach-detection Lambda and SNS (D12) | CEO | Q4 2026 |
 | Security Hub | Enabled | Disabled after the configuration-check Lambda and the security-event rule are deployed (D12) | CEO | Q4 2026 |
 
-Corrected 2026-11-01: the Multi-AZ row above is withdrawn — the single DocumentDB serverless instance is kept and the policies describe storage replication across three availability zones with automatic instance recovery instead (D26). The same correction applies to "DocumentDB backup retention and Multi-AZ" in the configuration-check checklist below (now: DocumentDB backup retention).
-
 Decision: KMS key-separation design is kept in the standard and the AWS change is recorded as a to-do (D2). Other rows: targets as stated in the v2 policies; target quarter Q4 2026.
 
 ### 4.5 Security Hub decision

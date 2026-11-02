@@ -75,7 +75,7 @@ Retention periods are based on legal requirements, regulatory obligations, busin
 |**Audit logs (CloudTrail)**|7 years|SOC 2 requirement, security investigations|SOC 2 CC7.2, CC7.3|
 |**Application logs (CloudWatch)**|90 days|Operational monitoring, compliance|SOC 2 CC7.2|
 |**Configuration-check records (monthly, compliance platform)**|7 years|Incident investigation, compliance|SOC 2 CC7.4, CC7.5|
-|**Database backups (DocumentDB)**|90 days|Disaster recovery, business continuity|SOC 2 A1.2|
+|**Database backups (DocumentDB)**|35 days|Disaster recovery, business continuity|SOC 2 A1.2|
 |**Container images (ECR)**|90 days after deprecation|Rollback capability, audit trail|SOC 2 CC8.1|
 |**Authentication records**|2 years|Access review, security monitoring|SOC 2 CC6.1, CC6.2|
 |**API transaction logs**|90 days (CloudWatch); the CloudTrail audit trail is retained 7 years|Performance monitoring, compliance|SOC 2 CC7.2|
@@ -173,7 +173,7 @@ Disposal renders information unrecoverable and meets the following standards by 
 
 **Process**:
 
-1. DocumentDB automated backups expire per the 90-day retention setting
+1. DocumentDB automated backups expire per the 35-day retention setting
 2. Manual snapshots are tagged with expiration dates
 3. A Lambda function identifies and deletes expired manual snapshots
 
@@ -277,7 +277,7 @@ Data subjects may request deletion of their personal data. On receiving a valid 
 2. **Identifies** all systems containing the subject's data
 3. **Confirms** that no overriding legal retention requirement applies
 4. **Deletes** the data from all systems within 30 days (GDPR) or 45 days (CCPA)
-5. **Notes** that backups purge the data through normal rotation (90 days)
+5. **Notes** that backups purge the data through normal rotation (35 days)
 6. **Confirms** the deletion in writing to the data subject
 7. **Records** the request and actions taken in the compliance platform
 
@@ -430,7 +430,7 @@ An exception to this policy requires:
 |---|---|---|
 |CloudWatch Logs|90 days|Log group retention policy|
 |CloudTrail|7 years|S3 lifecycle policy (Glacier after 1 year) with Object Lock|
-|DocumentDB backups|90 days|Automated backup retention|
+|DocumentDB backups|35 days|Automated backup retention|
 |ECR images|90 days (deprecated)|Lifecycle policy|
 |S3 objects|Per data type|Lifecycle rules|
 

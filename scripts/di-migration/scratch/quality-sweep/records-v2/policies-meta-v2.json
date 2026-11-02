@@ -222,7 +222,7 @@
   {
     "id": "pol_6ae44366d11a465e7feb8921",
     "name": "Business Continuity Plan",
-    "description": "Recovery of the platform after a disruption: Multi-AZ DocumentDB, 90-day backups with point-in-time recovery, CloudFormation redeployment, RTO/RPO targets, quarterly backup-restore test; single region (us-east-1) by design. Owner: CEO; reviewed annually.",
+    "description": "Recovery of the platform after a disruption: DocumentDB storage replicated across three availability zones with instance re-creation and manual zone recovery, 35-day point-in-time recovery, CloudFormation redeployment, RTO/RPO targets, quarterly backup-restore test; single region (us-east-1) by design. Owner: CEO; reviewed annually.",
     "status": "published",
     "frequency": "yearly",
     "department": "it",

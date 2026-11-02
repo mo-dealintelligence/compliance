@@ -43,13 +43,16 @@ HARD = {
                    r"\b48[- ]hour (CAB|review)", r"\b15[- ]minute", r"\b24/7\b", r"\bdistinct AWS accounts?",
                    r"\bPropelAuth MFA", r"\b99\.95\s?%",
                    # D26 (2026-11-01): no Multi-AZ DocumentDB
+                   # D27 (2026-11-01): backups 35 days; no automatic recovery claimed for AZ outages
+                   r"\b90[- ]day (automated )?backups?\b", r"\bbackups? retained 90\b", r"\bre-provision",
+                   r"\bautomatic instance recovery\b",
                    r"\bMulti-AZ\b", r"\bsecond (DocumentDB )?instance\b", r"\bstandby instance", r"\bfailover of DocumentDB",
                    r"\bfail ?over to the (second instance|alternate availability zone)"],
     "R6 placeholders": [r"dealintelligence\.ai\b", r"\[Maintained Separately\]", r"\[YES\]", r"\[NO\]", r"Document Assignments",
                         r"\(Chief Executive Officer\)", r"di-backendapi", r"AIpowered", r"\[Original Date\]", r"\[Current Date\]"],
 }
 SOFT = {
-    "R5 numbers": [r"\b35[- ]day", r"\b7[- ]day backup", r"\b30[- ]minute RPO", r"\b10 business days", r"\b24[- ]hour(s)? (notification|notice)",
+    "R5 numbers": [r"\b7[- ]day backup", r"\b30[- ]minute RPO", r"\b10 business days", r"\b24[- ]hour(s)? (notification|notice)",
                    r"\b2[- ]year", r"\b5 seconds", r"\b5s p95", r"\b7 years after (account )?closure", r"\btraining within \d+ days",
                    r"\bsuspend", r"\bsemi-annual rotation audit", r"\bquarterly (vendor|SLA|performance) review"],
     "R0 confirm": [r"\[CONFIRM"],

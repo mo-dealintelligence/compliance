@@ -159,7 +159,7 @@ Requests must include:
    - Locate and delete the records from DocumentDB collections by email address and company domain
    - Delete the PropelAuth user record where one exists
    - Delete the HubSpot CRM record where one exists
-   - Backup copies expire under the 90-day backup retention cycle and are not restored
+   - Backup copies expire under the 35-day backup retention cycle and are not restored
    - Clear CloudWatch logs where permissible
 3. **Confirmation (days 16–30)**
    - Verify deletion across all systems
@@ -239,7 +239,7 @@ For data within customer accounts, where Deal Intelligence acts as processor:
 
 The following constraints may affect request fulfillment:
 
-- Backup data follows a 90-day rotation cycle
+- Backup data follows a 35-day rotation cycle
 - CloudTrail audit logs are retained for 7 years (immutable)
 - Aggregated or anonymized data is excluded from individual requests
 

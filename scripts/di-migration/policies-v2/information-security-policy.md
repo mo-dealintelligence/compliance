@@ -97,7 +97,7 @@ Risk assessments follow the Risk Assessment Procedure and are documented in the 
 
 - Data breach risks, mitigated through encryption and continuous monitoring
 - Unauthorized access risks, addressed through MFA and role-based access controls
-- Service availability risks, managed through the availability-zone design (DocumentDB storage replicated across three availability zones with automatic instance recovery; Lambda functions in two availability zones), point-in-time recovery, and the 99.9 % uptime SLA
+- Service availability risks, managed through DocumentDB storage replicated across three availability zones with automatic re-creation of the instance after an instance failure and manual recovery into another zone, 35-day point-in-time recovery, and the 99.9 % uptime SLA
 
 ### 5.2 Access control and authentication
 
@@ -160,8 +160,8 @@ Third-party integrations comply with the Integration security section of the API
 
 Business continuity capabilities are maintained as specified in the Business Continuity Plan:
 
-- Lambda functions and private subnets in us-east-1a and us-east-1b; DocumentDB storage replicated across three availability zones with automatic instance recovery
-- Daily automated backups with 90-day retention
+- Lambda functions and private subnets in us-east-1a and us-east-1b; DocumentDB storage replicated across three availability zones with automatic re-creation of the instance after an instance failure
+- Continuous automated backups with 35-day point-in-time recovery
 - Quarterly backup restoration testing
 - Documented RTO and RPO objectives
 - Business continuity planning managed in the Business Continuity Plans module of the compliance platform

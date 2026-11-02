@@ -19,7 +19,7 @@
  * Idempotent through data/v2-publish-state.json. Dry-run by default.
  *
  *   COMP_API_URL=... COMP_API_KEY=... bun import/publish-v2.ts [--apply] \
- *     [--only policies,controls,tasks,risks,vendors,people,context,policy-meta,minutes] \
+ *     [--only policies,controls,tasks,risks,vendors,people,context,policy-meta,minutes,decisions] \
  *     [--archive-merged]
  */
 import { execFileSync } from 'node:child_process';
@@ -32,7 +32,7 @@ const api = new CompApi(process.env.COMP_API_URL!, process.env.COMP_API_KEY!);
 const args = process.argv.slice(2);
 const apply = args.includes('--apply');
 const onlyIdx = args.indexOf('--only');
-const only = new Set(onlyIdx >= 0 ? args[onlyIdx + 1].split(',') : ['policies', 'controls', 'tasks', 'risks', 'vendors', 'people', 'context', 'policy-meta', 'minutes']);
+const only = new Set(onlyIdx >= 0 ? args[onlyIdx + 1].split(',') : ['policies', 'controls', 'tasks', 'risks', 'vendors', 'people', 'context', 'policy-meta', 'minutes', 'decisions']);
 const archiveMerged = args.includes('--archive-merged');
 
 const ROOT = new URL('../', import.meta.url);
@@ -51,6 +51,7 @@ type State = {
   contextDeleted: string[];
   policyMeta: string[];
   minutes?: string;
+  decisions?: Record<string, string>;
   archived: string[];
 };
 const state: State = existsSync(statePath)
@@ -189,6 +190,27 @@ async function minutes() {
   state.minutes = res.id; save();
 }
 
+// ---------- dated decision records (amend minutes without editing them) ----------
+async function decisions() {
+  state.decisions ??= {};
+  for (const date of ['2026-11-01']) {
+    if (state.decisions[date]) { log(`decision record ${date}: already submitted (${state.decisions[date]})`); continue; }
+    const md = readFileSync(p(`scratch/quality-sweep/records-v2/decision-record-${date}.md`), 'utf8');
+    const body = md.replace(/^---[\s\S]*?---\n/, '');
+    log(`decision record ${date}: submit board-meeting record (${body.split(/\s+/).length} words)`);
+    if (!apply) continue;
+    const res = await api.post<{ id: string }>('/evidence-forms/board-meeting/submissions', {
+      submissionDate: new Date().toISOString(),
+      date,
+      attendees: 'Chief Executive Officer (Mo Messidi)',
+      meetingMinutes: body,
+      meetingMinutesApprovedBy: 'Chief Executive Officer (Mo Messidi) — decision record, approval pending review',
+      approvedDate: date,
+    });
+    state.decisions[date] = res.id; save();
+  }
+}
+
 for (const [k, fn] of [
   ['policies', policies], ['controls', controls], ['tasks', tasks],
   ['risks', () => patchDiff('risks', 'scratch/quality-sweep/data/risks.json', 'scratch/quality-sweep/records-v2/risks-v2.json', '/risks', ['title', 'description', 'treatmentStrategyDescription'])],
@@ -197,6 +219,7 @@ for (const [k, fn] of [
   ['context', context],
   ['policy-meta', () => patchDiff('policyMeta', 'scratch/quality-sweep/data/policies-meta.json', 'scratch/quality-sweep/records-v2/policies-meta-v2.json', '/policies', ['description', 'frequency', 'department'])],
   ['minutes', minutes],
+  ['decisions', decisions],
 ] as const) {
   if (!only.has(k)) continue;
   log(`\n== ${k}`);
