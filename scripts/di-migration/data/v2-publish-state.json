@@ -50,11 +50,6 @@
       "versionId": "pv_6ae6dd319c420b09826e9462",
       "submitted": true
     },
-    "business-continuity-plan": {
-      "policyId": "pol_6ae44366d11a465e7feb8921",
-      "versionId": "pv_6ae7f631d181026ed8fbb4b9",
-      "submitted": true
-    },
     "data-retention-and-disposal-policy": {
       "policyId": "pol_6ae4436aaf41169d5bc6babf",
       "versionId": "pv_6ae7f63290ff42226a189ae4",
@@ -65,21 +60,6 @@
       "versionId": "pv_6ae7f634ac4ed247794f1e4f",
       "submitted": true
     },
-    "information-security-policy": {
-      "policyId": "pol_6ae4436becd8f1329f5c4435",
-      "versionId": "pv_6ae7f635f8e32245ed75c979",
-      "submitted": true
-    },
-    "risk-assessment-procedure": {
-      "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
-      "versionId": "pv_6ae7f636b2ebd64cf4ab09fe",
-      "submitted": true
-    },
-    "cloud-infrastructure-security-policy": {
-      "policyId": "pol_6ae4b07083de4536842df831",
-      "versionId": "pv_6ae7f637c63a8cb5bf9a9bdb",
-      "submitted": true
-    },
     "data-subject-rights-request-procedure": {
       "policyId": "pol_6ae4b072957f1afd8b70bdea",
       "versionId": "pv_6ae7f638cebf3e949b65e340",
@@ -88,11 +68,6 @@
     "penetration-testing-and-security-assessment-procedure": {
       "policyId": "pol_6ae4b0736b59d86e5fd802bd",
       "versionId": "pv_6ae7f6395304781e269fbf2d",
-      "submitted": true
-    },
-    "service-level-agreement-sla-management-policy": {
-      "policyId": "pol_6ae4b076672bc62bb20ef768",
-      "versionId": "pv_6ae7f63ba2b6d443e9822980",
       "submitted": true
     },
     "system-monitoring-and-logging-procedure": {
@@ -108,6 +83,31 @@
     "data-classification-and-handling-standard": {
       "policyId": "pol_6ae4b07aae52026d8aa8d504",
       "versionId": "pv_6ae7f63e9ca27a348e5fa35c",
+      "submitted": true
+    },
+    "business-continuity-plan": {
+      "policyId": "pol_6ae44366d11a465e7feb8921",
+      "versionId": "pv_6ae7f78b9ef28021d785111c",
+      "submitted": true
+    },
+    "information-security-policy": {
+      "policyId": "pol_6ae4436becd8f1329f5c4435",
+      "versionId": "pv_6ae7f78d47b03b260514a662",
+      "submitted": true
+    },
+    "risk-assessment-procedure": {
+      "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
+      "versionId": "pv_6ae7f78e0a733ccc2d9f54e5",
+      "submitted": true
+    },
+    "cloud-infrastructure-security-policy": {
+      "policyId": "pol_6ae4b07083de4536842df831",
+      "versionId": "pv_6ae7f78f07da14bdd767a174",
+      "submitted": true
+    },
+    "service-level-agreement-sla-management-policy": {
+      "policyId": "pol_6ae4b076672bc62bb20ef768",
+      "versionId": "pv_6ae7f7904fb43fb63bcf2755",
       "submitted": true
     }
   },
@@ -243,11 +243,11 @@
     "ctl_6ae4441cdae97a45b6bf46fc",
     "ctl_6ae4441bb5cf1240ee0c9deb",
     "ctl_6ae444028c9669720760e272",
-    "ctl_6ae44402777ba3510f143781",
     "ctl_6ae4440187e4e864370b9462",
     "ctl_6ae4441730145201872696bf",
-    "ctl_6ae4441b0faedcf3e1f09efc",
-    "ctl_6ae4441b4a7ef06b11e9acd9"
+    "ctl_6ae4441b4a7ef06b11e9acd9",
+    "ctl_6ae44402777ba3510f143781",
+    "ctl_6ae4441b0faedcf3e1f09efc"
   ],
   "tasks": [
     "tsk_6ae4462cb56809fa463973b9",
@@ -505,9 +505,47 @@
       "versionId": "pv_6ae6dd323fb2ff25508e31f8",
       "submitted": true,
       "at": "2026-11-02T02:31:59.981Z"
+    },
+    {
+      "slug": "business-continuity-plan",
+      "policyId": "pol_6ae44366d11a465e7feb8921",
+      "versionId": "pv_6ae7f631d181026ed8fbb4b9",
+      "submitted": true,
+      "at": "2026-11-02T02:37:56.198Z"
+    },
+    {
+      "slug": "cloud-infrastructure-security-policy",
+      "policyId": "pol_6ae4b07083de4536842df831",
+      "versionId": "pv_6ae7f637c63a8cb5bf9a9bdb",
+      "submitted": true,
+      "at": "2026-11-02T02:37:57.095Z"
+    },
+    {
+      "slug": "information-security-policy",
+      "policyId": "pol_6ae4436becd8f1329f5c4435",
+      "versionId": "pv_6ae7f635f8e32245ed75c979",
+      "submitted": true,
+      "at": "2026-11-02T02:37:58.007Z"
+    },
+    {
+      "slug": "risk-assessment-procedure",
+      "policyId": "pol_6ae4436d9ac4cbab5ee6a7d6",
+      "versionId": "pv_6ae7f636b2ebd64cf4ab09fe",
+      "submitted": true,
+      "at": "2026-11-02T02:37:58.823Z"
+    },
+    {
+      "slug": "service-level-agreement-sla-management-policy",
+      "policyId": "pol_6ae4b076672bc62bb20ef768",
+      "versionId": "pv_6ae7f63ba2b6d443e9822980",
+      "submitted": true,
+      "at": "2026-11-02T02:37:59.650Z"
     }
   ],
   "decisions": {
-    "2026-11-01": "evs_6ae7f66546e8ec604dca1c6c"
-  }
+    "2026-11-01": "evs_6ae7f793790f63300d0763c7"
+  },
+  "decisionsSuperseded": [
+    "evs_6ae7f66546e8ec604dca1c6c"
+  ]
 }

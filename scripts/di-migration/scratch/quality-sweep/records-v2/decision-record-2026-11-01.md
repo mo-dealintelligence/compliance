@@ -15,8 +15,8 @@ Decisions taken by the CEO on November 1, 2026. They amend the targets recorded 
 **Basis.** DocumentDB cluster storage is replicated six ways across three availability zones, so an instance or zone failure loses no committed data. A standby instance only shortens recovery of the compute.
 
 **Effect on recovery.**
-- Instance failure: DocumentDB re-creates the instance automatically in the same availability zone, typically within 10 minutes.
-- Outage of us-east-1a: re-creation in that zone may not succeed. The CEO adds a `db.serverless` instance in us-east-1b to the same cluster; it takes over the cluster endpoint. Business Continuity Plan section 7.2.
+- Instance or availability-zone failure: DocumentDB re-creates the instance automatically, typically within 10 minutes; no committed data is lost.
+- Fallback if re-creation has not completed within the RTO: the CEO adds a `db.serverless` instance in us-east-1b to the same cluster; it takes over the cluster endpoint. Business Continuity Plan section 7.2.
 - Data corruption or deletion: point-in-time restore.
 
 **Withdrawn.** The October 31 target "DocumentDB Multi-AZ with automatic failover".
