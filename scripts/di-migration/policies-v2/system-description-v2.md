@@ -99,7 +99,7 @@ To meet these commitments the organization has defined the following system requ
 | Logging and monitoring | CloudWatch logs and alarms (90-day retention); CloudTrail (7-year retention) with security-relevant events alerted in real time via EventBridge, the breach-detection Lambda and SNS; monthly configuration-check Lambda with a dated pass/fail record in Comp AI; API request logging in middleware |
 | Vulnerability management | ECR scan-on-push on all repositories; GitHub Dependabot and code scanning; Trivy in CI; annual third-party penetration test |
 | Resilience and recovery | Multi-availability zone deployment with automated failover; daily automated backups supporting point-in-time recovery; Lambda reserved concurrency and versioned deployments with rollback; quarterly recovery testing |
-| Third parties | Vendor Management Policy: executed data processing agreements and annual review of the SOC 2 reports of PropelAuth and AWS |
+| Third parties | Vendor Management Policy: executed data processing agreements, security assessment, and annual review of PropelAuth and AWS |
 | Risk | Risk assessment at least annually, with findings tracked in Comp AI |
 | Governance | The policies, standards, procedures, and plans listed in Section 3.4; Comp AI as the control register (controls, evidence, tasks) |
 
@@ -376,7 +376,7 @@ The control framework is maintained in Comp AI, which is the control register (c
 - Change impact assessments are performed as part of the annual risk assessment and whenever a significant change is introduced, covering technology, regulatory, and threat changes.
 - Fraud risk is addressed through CloudWatch monitoring and real-time alerting on security-relevant CloudTrail events.
 - Business disruption scenarios are identified, mitigated, and tested under the Business Continuity Plan.
-- The SOC 2 reports of all sub-processors are reviewed annually (CC9.2); PropelAuth and AWS are authorized to handle customer data under data processing agreements. Customer-controlled integrations (Slack, CRM) leave data-sharing decisions with the customer.
+- Vendor risk is assessed annually for all sub-processors (CC9.2); PropelAuth and AWS are authorized to handle customer data under data processing agreements. Customer-controlled integrations (Slack, CRM) leave data-sharing decisions with the customer.
 
 ### 7.3 Information and communication
 

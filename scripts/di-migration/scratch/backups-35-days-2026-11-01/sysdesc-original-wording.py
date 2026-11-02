@@ -101,3 +101,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+# Follow-up 2026-11-01 (Mo): item 17 reverted to the previous v2 wording
+# ("executed data processing agreements, security assessment, and annual review of PropelAuth and AWS";
+#  "Vendor risk is assessed annually for all sub-processors (CC9.2)").
