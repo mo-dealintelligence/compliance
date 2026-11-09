@@ -17,8 +17,12 @@ export async function GET(_request: Request, { params }: { params: Promise<{ run
   let run;
   try {
     run = await runs.retrieve(runId);
-  } catch {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  } catch (err) {
+    // Only a missing run is a 404; database errors must not look like "gone".
+    if (err instanceof Error && /not found/i.test(err.message)) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+    return NextResponse.json({ error: 'Unavailable' }, { status: 503 });
   }
 
   const orgTags = run.tags.filter((t) => t.startsWith('org_') || t.startsWith('org:'));

@@ -69,6 +69,14 @@ export function useRealtimeRun<TTask = unknown>(runId?: string, options: Options
         const res = await fetch(`${base}/api/trigger/runs/${encodeURIComponent(runId)}`, {
           credentials: 'include',
         });
+        if (res.status === 404 || res.status === 401) {
+          // Run expired (7-day TTL) or not visible: stop polling instead of retrying forever.
+          if (!cancelled) {
+            setError(new Error(`run ${runId}: HTTP ${res.status}`));
+            setIsLoading(false);
+          }
+          return;
+        }
         if (!res.ok) throw new Error(`run ${runId}: HTTP ${res.status}`);
         const data = (await res.json()) as RealtimeRun<TTask>;
         if (cancelled) return;

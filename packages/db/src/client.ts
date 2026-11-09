@@ -17,7 +17,17 @@ function createPrismaClient(): PrismaClient {
   const rawUrl = process.env.DATABASE_URL!;
   const ssl = resolveSslConfig(rawUrl);
   const url = ssl !== undefined ? stripSslMode(rawUrl) : rawUrl;
-  const adapter = new PrismaPg({ connectionString: url, ssl });
+  // Small per-process pool: on Lambda every warm instance holds its own pool, and the
+  // serverless Aurora cluster (max 2 ACU) refuses connections past its limit
+  // (TooManyConnections). DB_POOL_MAX overrides; idle connections close quickly.
+  const max = Number(process.env.DB_POOL_MAX ?? 2);
+  const adapter = new PrismaPg({
+    connectionString: url,
+    ssl,
+    max: Number.isFinite(max) && max > 0 ? max : 2,
+    idleTimeoutMillis: 5_000,
+    connectionTimeoutMillis: 60_000,
+  });
   return new PrismaClient({
     adapter,
     transactionOptions: { timeout: 60000 },
