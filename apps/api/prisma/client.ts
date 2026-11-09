@@ -61,7 +61,8 @@ function createPrismaClient(): PrismaClient {
   }
   // Strip sslmode from the connection string to avoid conflicts with the explicit ssl option
   const url = ssl !== undefined ? stripSslMode(rawUrl) : rawUrl;
-  const adapter = new PrismaPg({ connectionString: url, ssl });
+  // Small per-process pool: each warm Lambda holds its own (see packages/db/src/client.ts).
+  const adapter = new PrismaPg({ connectionString: url, ssl, max: Number(process.env.DB_POOL_MAX ?? 2) || 2, idleTimeoutMillis: 5_000, connectionTimeoutMillis: 60_000 });
   return new PrismaClient({
     adapter,
     transactionOptions: {
