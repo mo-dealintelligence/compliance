@@ -47,3 +47,15 @@ Cron tasks: after changing `schedules.task` definitions, regenerate
 - Lambda function URLs cap request bodies at 6 MB; larger uploads use presigned S3 URLs.
 - Web Lambdas: 120 s; workers: 15 min. CloudFront exists only for hostnames + TLS.
 - The NAT instance is the single egress path for private subnets (t4g.micro, ~$6/mo).
+
+## Database password rotation (off since 2026-11-09)
+
+The Aurora master password is an RDS-managed secret (`ManageMasterUserPassword: true`). RDS
+enables 7-day rotation on it by default, but the functions get `DATABASE_URL` baked into their
+environment at deploy time (`env.js`), so every rotation broke the app (AuthenticationFailed,
+pages timing out) until `secrets.sh refresh-db-url` + a functions deploy. Rotation was
+cancelled on 2026-11-09 (`aws secretsmanager cancel-rotate-secret` on the `rds!cluster-…`
+secret). If it is ever re-enabled, the apps must read the password from that secret at runtime
+first. Comp is outside the SOC 2 system boundary, so no policy depends on this rotation.
+
+Recovery if the password changes anyway: `bash secrets.sh refresh-db-url && bash deploy.sh functions`.
