@@ -22,7 +22,10 @@ function getPool(): Pool {
     if (!connectionString) {
       throw new Error('[kv] DATABASE_URL is required for the Postgres KV store');
     }
-    pool = new Pool({ connectionString, max: 2, idleTimeoutMillis: 10_000 });
+    pool = new Pool({ connectionString, max: 2, idleTimeoutMillis: 5_000 });
+    // The server closes idle sessions (idle_session_timeout) held by frozen Lambda
+    // instances; without a listener that 'error' would crash the process.
+    pool.on('error', (err) => console.warn('[kv] idle pool client error:', err.message));
   }
   return pool;
 }

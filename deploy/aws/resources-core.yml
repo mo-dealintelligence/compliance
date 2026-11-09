@@ -140,7 +140,9 @@ Resources:
     Properties:
       Description: comp aurora-postgresql16 force ssl
       Family: aurora-postgresql16
-      Parameters: { rds.force_ssl: '1' }
+      # idle_session_timeout: frozen Lambda instances keep pool connections open; the
+      # server closes sessions idle for 60 s so they cannot exhaust max_connections.
+      Parameters: { rds.force_ssl: '1', idle_session_timeout: '60000' }
   DbCluster:
     Type: AWS::RDS::DBCluster
     DeletionPolicy: Snapshot
